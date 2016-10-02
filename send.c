@@ -1165,6 +1165,27 @@ static void fix_end_of_file (const char *data)
   safe_fclose (&fp);
 }
 
+int mutt_compose_to_sender (HEADER *hdr)
+{
+  HEADER *msg = mutt_new_header();
+
+  msg->env = mutt_new_envelope();
+  if (!hdr)
+  {
+    int i;
+    for (i = 0; i < Context->vcount; i++)
+    {
+      hdr = Context->hdrs[Context->v2r[(i)]];
+      if (hdr->tagged)
+        rfc822_append (&msg->env->to, hdr->env->from, 0);
+    }
+  }
+  else
+    msg->env->to = rfc822_cpy_adr (hdr->env->from, 0);
+
+  return ci_send_message (0, msg, NULL, NULL, NULL);
+}
+
 int mutt_resend_message (FILE *fp, CONTEXT *ctx, HEADER *cur)
 {
   HEADER *msg = mutt_new_header ();
@@ -1218,37 +1239,26 @@ static int has_recips (ADDRESS *a)
 int
 mutt_search_attach_keyword (char *filename)
 {
-  /* Search for the keyword in AttachKeyword within a file */
-  int klen = mutt_strlen (AttachKeyword) + 1;
-  if (klen == 1)
+  /* Search for the regex in AttachKeyword within a file */
+  if (!AttachKeyword.rx)
     return 0;
 
   FILE *attf = safe_fopen (filename, "r");
   if (!attf)
     return 0;
 
-  char *lowerKeyword = safe_malloc (klen);
   char *inputline = safe_malloc (LONG_STRING);
-  int i;
-  for (i = 0; i < klen; i++)
-    lowerKeyword[i] = tolower (AttachKeyword[i]);
-
   int found = 0;
   while (!feof (attf))
   {
     fgets (inputline, LONG_STRING, attf);
-    int ilen = strlen (inputline);
-    for (i = 0; i < ilen; i++)
-      inputline[i] = tolower (inputline[i]);
-
-    if (strstr (inputline, lowerKeyword))
+    if (regexec (AttachKeyword.rx, inputline, 0, NULL, 0) == 0)
     {
       found = 1;
       break;
     }
   }
   FREE (&inputline);
-  FREE (&lowerKeyword);
   safe_fclose (&attf);
   return found;
 }
@@ -1892,13 +1902,7 @@ main_loop:
     /* if the abort is automatic, print an error message */
     if (quadoption (OPT_ATTACH) == MUTT_YES)
     {
-      char errorstr[STRING];
-      if (snprintf (errorstr, STRING,
-        _("Message contains magic keyword \"%s\", but no attachments. Not sending."), AttachKeyword) == -1)
-      {
-        errorstr[STRING - 1] = 0; // terminate if need be. our string shouldn't be this long.
-      }
-      mutt_error (errorstr);
+      mutt_error _("Message contains text matching \"attach_keyword\". Not sending.");
     }
     goto main_loop;
   }

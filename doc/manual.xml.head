@@ -8789,7 +8789,7 @@ per message.)
 Header caching can be enabled via the configure script and the
 <emphasis>--enable-hcache</emphasis> option. It's not turned on by
 default because external database libraries are required: one of
-tokyocabinet, qdbm, gdbm or bdb must be present.
+tokyocabinet, kyotocabinet, qdbm, gdbm, lmdb or bdb must be present.
 </para>
 
 <para>
@@ -9043,6 +9043,101 @@ color   attach_headers     brightmagenta   default        &quot;invalid node wit
     <title>Credits</title>
     <itemizedlist>
       <listitem><para>Guillaume Brogi <email>gui-gui@netcourrier.com</email></para></listitem>
+    </itemizedlist>
+  </sect2>
+</sect1>
+
+<sect1 id="compose-to-sender">
+  <title>compose-to-sender Feature</title>
+  <subtitle>Send new mail to the sender of the current mail</subtitle>
+
+  <sect2 id="compose-to-sender-support">
+    <title>Support</title>
+
+    <para>
+      To check if Mutt supports <quote>compose-to-sender</quote>, look for
+      <quote>patch-compose-to-sender</quote> in the mutt version.
+      See: <xref linkend="mutt-patches"/>.
+    </para>
+
+    <itemizedlist>
+      <title>Dependencies:</title>
+      <listitem><para>mutt-1.7.0</para></listitem>
+    </itemizedlist>
+
+    <para>This feature is part of the <ulink url="http://www.neomutt.org/">NeoMutt Project</ulink>.</para>
+  </sect2>
+
+  <sect2 id="compose-to-sender-intro">
+    <title>Introduction</title>
+
+    <para>
+      The compose-to-sender patch adds a new command to start composing a new
+      email to the sender of the current message.  This is not a reply, but a
+      new, separate, message.
+    </para>
+
+    <para>
+      It works on tagged messages too, sending one email to all of the senders
+      of the tagged messages.
+    </para>
+  </sect2>
+
+  <sect2 id="compose-to-sender-functions">
+    <title>Functions</title>
+
+    <para>
+      compose-to-sender adds the following function to Mutt.
+      By default, it is not bound to a key.
+    </para>
+
+    <table id="table-compose-to-sender-functions">
+      <title>compose-to-sender Functions</title>
+      <tgroup cols="3">
+        <thead>
+          <row>
+            <entry>Menus</entry>
+            <entry>Function</entry>
+            <entry>Description</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>index,pager</entry>
+            <entry><literal>&lt;compose-to-sender&gt;</literal></entry>
+            <entry>compose a new email to the sender of the current email</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </sect2>
+
+  <sect2 id="compose-to-sender-muttrc">
+    <title>Muttrc</title>
+<screen>
+<emphasis role="comment"># Example NeoMutt config file for the compose-to-sender feature.
+
+# --------------------------------------------------------------------------
+# FUNCTIONS - shown with an example mapping
+# --------------------------------------------------------------------------
+
+# Compose a new email (not a reply) to the sender</emphasis>
+bind index,pager @ compose-to-sender
+
+<emphasis role="comment"># vim: syntax=muttrc</emphasis>
+</screen>
+  </sect2>
+
+  <sect2 id="compose-to-sender-known-bugs">
+    <title>Known Bugs</title>
+    <para>None</para>
+  </sect2>
+
+  <sect2 id="compose-to-sender-credits">
+    <title>Credits</title>
+    <itemizedlist>
+    <listitem><para>Brian Medley</para></listitem>
+    <listitem><para>Guillaume Brogi <email>gui-gui@netcourrier.com</email></para></listitem>
     </itemizedlist>
   </sect2>
 </sect1>
@@ -10045,14 +10140,14 @@ set pgp_encrypt_self = &quot;no&quot;
         </thead>
         <tbody>
           <row>
-            <entry><literal>attach-keyword</literal></entry>
-            <entry>string</entry>
-            <entry><literal>attached</literal></entry>
+            <entry><literal>attach_keyword</literal></entry>
+            <entry>regular expression</entry>
+            <entry><literal>\\&lt;attach(|ed|ments?)\\&gt;</literal></entry>
           </row>
           <row>
             <entry><literal>abort_noattach</literal></entry>
             <entry>quadoption</entry>
-            <entry><literal>ask-yes</literal></entry>
+            <entry><literal>no</literal></entry>
           </row>
         </tbody>
       </tgroup>
@@ -10065,18 +10160,33 @@ set pgp_encrypt_self = &quot;no&quot;
 <emphasis role="comment"># Example NeoMutt config file for the forgotten-attachment feature.
 
 # The 'forgotten-attachment' feature provides a new setting for Mutt that
-# alerts the user if the message body contains a certain keyword but there are
+# alerts the user if the message body contains a certain regular expression but there are
 # no attachments added. This is meant to ensure that the user does not forget
 # to attach a file after promising to do so in the mail.
 
-# Search for the following keyword in the body of the email</emphasis>
-set attach_keyword = &quot;attached&quot;
+# Ask if the user wishes to abort sending if $attach_keyword is found in the
+# body, but no attachments have been added
+# It can be set to:
+#    "yes"     : always abort
+#    "ask-yes" : ask whether to abort
+#    "no"      : send the mail</emphasis>
+set abort_noattach = no
 
-<emphasis role="comment"># Ask if the user wishes to abort sending if $attach_keyword is found in the
-# body, but no attachments have been added</emphasis>
-set abort_noattach = ask-yes
+<emphasis role="comment"># Search for the following regular expression in the body of the email
 
-<emphasis role="comment"># vim: syntax=muttrc</emphasis>
+# English: attach, attached, attachment, attachments</emphasis>
+set attach_keyword = &quot;\\&lt;attach(|ed|ments?)\\&gt;&quot;
+
+<emphasis role="comment"># Nederlands:
+# set attach_keyword = &quot;\\&lt;(bijvoegen|bijgevoegd|bijlage|bijlagen)\\&gt;&quot;
+
+# Deutsch:
+# set attach_keyword = &quot;\\&lt;(anhängen|angehängt|anhang|anhänge|hängt an)\\&gt;&quot;
+
+# Français:
+# set attach_keyword = &quot;\\&lt;(attaché|attachés|attache|attachons|joint|jointe|joints|jointes|joins|joignons)\\&gt;&quot;
+
+# vim: syntax=muttrc</emphasis>
 </screen>
   </sect2>
 
@@ -10100,6 +10210,7 @@ set abort_noattach = ask-yes
     <itemizedlist>
     <listitem><para>Darshit Shah <email>darnir@gmail.com</email></para></listitem>
     <listitem><para>Richard Russon <email>rich@flatcap.org</email></para></listitem>
+    <listitem><para>Johannes Wei&szlig;l <email>jargon@molb.org</email></para></listitem>
     </itemizedlist>
   </sect2>
 </sect1>
@@ -10773,6 +10884,66 @@ bind index,pager y edit-label
   </sect2>
 </sect1>
 
+<sect1 id="kyoto-cabinet">
+  <title>Kyoto Cabinet Feature</title>
+  <subtitle>Kyoto Cabinet backend for the header cache</subtitle>
+
+  <sect2 id="kyoto-cabinet-support">
+    <title>Support</title>
+
+    <para>
+      To check if Mutt supports Kyoto Cabinet, look for
+
+      <itemizedlist>
+        <listitem><para><quote>patch-kyoto</quote> in the mutt version. See: <xref linkend="mutt-patches"/>.</para></listitem>
+        <listitem><para><quote>+USE_HCACHE</quote> in the compile options</para></listitem>
+        <listitem><para><quote>hcache backend: kyotocabinet</quote> in the mutt version</para></listitem>
+      </itemizedlist>
+    </para>
+
+    <itemizedlist>
+      <title>Dependencies:</title>
+      <listitem><para>mutt-1.7.0</para></listitem>
+      <listitem><para><ulink url="http://fallabs.com/kyotocabinet/">Kyoto Cabinet libraries</ulink></para></listitem>
+    </itemizedlist>
+
+    <para>This feature is part of the <ulink url="http://www.neomutt.org/">NeoMutt Project</ulink>.</para>
+  </sect2>
+
+  <sect2 id="kyoto-cabinet-intro">
+    <title>Introduction</title>
+
+    <para>
+      This feature adds support for using Kyoto Cabinet, the successor to Tokyo
+      Cabinet, as a storage backend for Mutt's header cache (hcache). It is
+      enabled at configure time with the
+      <emphasis>--with-kyotocabinet=&lt;path&gt;</emphasis> switch.
+    </para>
+  </sect2>
+
+  <sect2 id="kyoto-cabinet-see-also">
+    <title>See Also</title>
+
+    <itemizedlist>
+      <listitem><para><ulink url="http://www.neomutt.org/">NeoMutt Project</ulink></para></listitem>
+      <listitem><para><link linkend="caching">Local Caching</link></para></listitem>
+      <listitem><para><ulink url="http://fallabs.com/kyotocabinet/">Kyoto Cabinet</ulink></para></listitem>
+    </itemizedlist>
+  </sect2>
+
+  <sect2 id="kyoto-cabinet-known-bugs">
+    <title>Known Bugs</title>
+    <para>None</para>
+  </sect2>
+
+  <sect2 id="kyoto-cabinet-credits">
+    <title>Credits</title>
+    <itemizedlist>
+    <listitem><para>Clemens Lang <email>neverpanic@gmail.com</email></para></listitem>
+    </itemizedlist>
+  </sect2>
+</sect1>
+
 <sect1 id="limit-current-thread">
   <title>Limit-Current-Thread Feature</title>
   <subtitle>Focus on one Email Thread</subtitle>
@@ -10929,6 +11100,7 @@ bind index &lt;esc&gt;L limit-current-thread
     <itemizedlist>
     <listitem><para>Pietro Cerutti <email>gahr@gahr.ch</email></para></listitem>
     <listitem><para>Jan-Piet Mens <email>jp@mens.de</email></para></listitem>
+    <listitem><para>Clemens Lang <email>neverpanic@gmail.com</email></para></listitem>
     </itemizedlist>
   </sect2>
 </sect1>
@@ -11078,7 +11250,7 @@ if (%S &gt; 0) {
 
 <screen>
 %&lt;x? %&lt;y? XY &amp; X &gt; &amp; %&lt;y? Y &amp; NONE &gt; &gt;  Conditions
-                      %&lt;y? Y &amp; NONE &gt;    x=0
+                     %&lt;y? Y &amp; NONE &gt;    x=0
                           Y             x=0,y&gt;0
                               NONE      x=0,y=0
 </screen>

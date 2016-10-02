@@ -1958,7 +1958,11 @@ mutt_pager (const char *banner, const char *fname, int flags, pager_t *extra)
 	mutt_draw_statusline (pager_status_window->cols, bn, sizeof (bn));
       }
       NORMAL_COLOR;
-      if (option(OPTTSENABLED) && TSSupported)
+
+      /*
+       * update terminal status line
+       */
+      if (option(OPTTSENABLED) && TSSupported && index)
       {
 	menu_status_line (buffer, sizeof (buffer), index, NONULL (TSStatusFormat));
 	mutt_ts_status(buffer);
@@ -1967,12 +1971,11 @@ mutt_pager (const char *banner, const char *fname, int flags, pager_t *extra)
       }
     }
 
-    if ((redraw & REDRAW_INDEX) && index)
+    /* redraw the pager_index indicator, because the
+     * flags for this message might have changed. */
+    if ((redraw & REDRAW_INDEX) && index && (index_window->rows > 0))
     {
-      /* redraw the pager_index indicator, because the
-       * flags for this message might have changed. */
-      if (index_window->rows > 0)
-        menu_redraw_current (index);
+      menu_redraw_current (index);
 
       /* print out the index status bar */
       menu_status_line (buffer, sizeof (buffer), index, NONULL(Status));
@@ -2511,6 +2514,11 @@ search_next:
 	  mutt_resend_message (NULL, extra->ctx, extra->hdr);
         redraw = REDRAW_FULL;
         break;
+
+      case OP_COMPOSE_TO_SENDER:
+	mutt_compose_to_sender (extra->hdr);
+	redraw = REDRAW_FULL;
+	break;
 
       case OP_CHECK_TRADITIONAL:
         CHECK_MODE (IsHeader (extra));
@@ -3068,12 +3076,16 @@ search_next:
   {
     if (Context)
       Context->msgnotreadyet = -1;
-    if (rc == -1)
-      OldHdr = NULL;
-    else
+    switch (rc)
     {
-      TopLine = topline;
-      OldHdr = extra->hdr;
+      case -1:
+      case OP_DISPLAY_HEADERS:
+        mutt_clear_pager_position ();
+        break;
+      default:
+        TopLine = topline;
+        OldHdr = extra->hdr;
+        break;
     }
   }
     

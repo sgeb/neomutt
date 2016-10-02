@@ -90,8 +90,8 @@ struct option_t MuttVars[] = {
   { "abort_noattach", DT_QUAD, R_NONE, OPT_ATTACH, MUTT_NO },
   /*
   ** .pp
-  ** If set to \fIyes\fP, when composing messages containing the word
-  ** specified by $attach_keyword (default is "attach") and no attachments
+  ** If set to \fIyes\fP, when composing messages containing the regular expression
+  ** specified by $attach_keyword (default is "\\<attach(|ed|ments?)\\>") and no attachments
   ** are given, composition will be aborted. If set to \fIno\fP, composing
   ** messages as such will never be aborted.
   */
@@ -270,12 +270,12 @@ struct option_t MuttVars[] = {
   ** .pp
   ** For an explanation of ``soft-fill'', see the $$index_format documentation.
   */
-  { "attach_keyword",  DT_STR,  R_NONE, UL &AttachKeyword, UL "attach" },
+  { "attach_keyword",  DT_RX,  R_NONE, UL &AttachKeyword, UL "\\<attach(|ed|ments?)\\>" },
   /*
   ** .pp
   ** If $abort_noattach is not set to no, then the body of the message
-  ** will be scanned for this keyword, and if found, you will be prompted
-  ** if there are no attachments. This is case insensitive.
+  ** will be scanned for this regular expression, and if found, you will
+  ** be prompted if there are no attachments.
   */
   { "attach_sep",	DT_STR,	 R_NONE, UL &AttachSep, UL "\n" },
   /*
@@ -1064,16 +1064,17 @@ struct option_t MuttVars[] = {
   ** Header caching can greatly improve speed when opening POP, IMAP
   ** MH or Maildir folders, see ``$caching'' for details.
   */
-#if defined(HAVE_QDBM) || defined(HAVE_TC)
+#if defined(HAVE_QDBM) || defined(HAVE_TC) || defined(HAVE_KC)
   { "header_cache_compress", DT_BOOL, R_NONE, OPTHCACHECOMPRESS, 1 },
   /*
   ** .pp
-  ** When mutt is compiled with qdbm or tokyocabinet as header cache backend,
-  ** this option determines whether the database will be compressed.
-  ** Compression results in database files roughly being one fifth
-  ** of the usual diskspace, but the decompression can result in a
-  ** slower opening of cached folder(s) which in general is still
-  ** much faster than opening non header cached folders.
+  ** When mutt is compiled with qdbm, tokyocabinet or kyotocabinet
+  ** as header cache backend, this option determines whether the
+  ** database will be compressed. Compression results in database
+  ** files roughly being one fifth of the usual diskspace, but the
+  ** decompression can result in a slower opening of cached folder(s)
+  ** which in general is still much faster than opening non header
+  ** cached folders.
   */
 #endif /* HAVE_QDBM */
 #if defined(HAVE_GDBM) || defined(HAVE_DB4)

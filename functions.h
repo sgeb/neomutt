@@ -151,6 +151,7 @@ const struct binding_t OpMain[] = { /* map: index */
   { "read-thread",		OP_MAIN_READ_THREAD,		"\022" },
   { "read-subthread",		OP_MAIN_READ_SUBTHREAD,		"\033r" },
   { "resend-message",		OP_RESEND,			"\033e" },
+  { "compose-to-sender",	OP_COMPOSE_TO_SENDER,		NULL },
   { "save-message",		OP_SAVE,			"s" },
   { "tag-pattern",		OP_MAIN_TAG_PATTERN,		"T" },
   { "tag-subthread",		OP_TAG_SUBTHREAD,		NULL },
@@ -275,6 +276,7 @@ const struct binding_t OpPager[] = { /* map: pager */
   { "read-thread",	OP_MAIN_READ_THREAD,		"\022" },
   { "read-subthread",	OP_MAIN_READ_SUBTHREAD,		"\033r" },
   { "resend-message",	OP_RESEND,			"\033e" },
+  { "compose-to-sender",OP_COMPOSE_TO_SENDER,		NULL },
   { "save-message",	OP_SAVE,			"s" },
   { "skip-quoted",	OP_PAGER_SKIP_QUOTED,		"S" },
   { "decode-save",	OP_DECODE_SAVE,			"\033s" },
@@ -484,6 +486,7 @@ const struct binding_t OpBrowser[] = { /* map: browser */
 #ifdef USE_IMAP
   { "toggle-subscribed", OP_BROWSER_TOGGLE_LSUB, "T" },
 #endif
+  { "goto-folder",	OP_BROWSER_GOTO_FOLDER,	"=" },
   { NULL,		0,			NULL }
 };
 

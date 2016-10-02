@@ -28,6 +28,8 @@
 #include <villa.h>
 #elif HAVE_TC
 #include <tcbdb.h>
+#elif HAVE_KC
+#include <kclangc.h>
 #elif HAVE_GDBM
 #include <gdbm.h>
 #elif HAVE_DB4
@@ -66,6 +68,13 @@ struct header_cache
   char *folder;
   unsigned int crc;
 };
+#elif HAVE_KC
+struct header_cache
+{
+  KCDB *db;
+  char *folder;
+  unsigned int crc;
+};
 #elif HAVE_GDBM
 struct header_cache
 {
@@ -87,6 +96,12 @@ struct header_cache
 static void mutt_hcache_dbt_init(DBT * dbt, void *data, size_t len);
 static void mutt_hcache_dbt_empty_init(DBT * dbt);
 #elif HAVE_LMDB
+enum mdb_txn_mode
+{
+  txn_uninitialized = 0,
+  txn_read = 1 << 0,
+  txn_write = 1 << 1
+};
 struct header_cache
 {
   MDB_env *env;
@@ -94,7 +109,47 @@ struct header_cache
   MDB_dbi db;
   char *folder;
   unsigned int crc;
+  enum mdb_txn_mode txn_mode;
 };
+
+static int mdb_get_r_txn(header_cache_t *h)
+{
+  int rc;
+
+  if (h->txn && (h->txn_mode & (txn_read | txn_write)) > 0)
+    return MDB_SUCCESS;
+
+  if (h->txn)
+    rc = mdb_txn_renew(h->txn);
+  else
+    rc = mdb_txn_begin(h->env, NULL, MDB_RDONLY, &h->txn);
+
+  if (rc == MDB_SUCCESS)
+    h->txn_mode = txn_read;
+
+  return rc;
+}
+
+static int mdb_get_w_txn(header_cache_t *h)
+{
+  int rc;
+
+  if (h->txn && (h->txn_mode == txn_write))
+    return MDB_SUCCESS;
+
+  if (h->txn)
+  {
+    if (h->txn_mode == txn_read)
+      mdb_txn_reset(h->txn);
+    h->txn = NULL;
+  }
+
+  rc = mdb_txn_begin(h->env, NULL, 0, &h->txn);
+  if (rc == MDB_SUCCESS)
+    h->txn_mode = txn_write;
+
+  return rc;
+}
 #endif
 
 typedef union
@@ -750,6 +805,9 @@ mutt_hcache_fetch_raw (header_cache_t *h, const char *filename,
 #elif HAVE_TC
   void *data;
   int sp;
+#elif HAVE_KC
+  void *data;
+  size_t sp;
 #elif HAVE_GDBM
   datum key;
   datum data;
@@ -787,7 +845,7 @@ mutt_hcache_fetch_raw (header_cache_t *h, const char *filename,
   key.mv_size = ksize;
   data.mv_data = NULL;
   data.mv_size = 0;
-  rc = mdb_txn_renew(h->txn);
+  rc = mdb_get_r_txn(h);
   if (rc != MDB_SUCCESS)
   {
     h->txn = NULL;
@@ -797,20 +855,17 @@ mutt_hcache_fetch_raw (header_cache_t *h, const char *filename,
   rc = mdb_get(h->txn, h->db, &key, &data);
   if (rc == MDB_NOTFOUND)
   {
-    mdb_txn_reset(h->txn);
     return NULL;
   }
   if (rc != MDB_SUCCESS)
   {
     fprintf(stderr, "mdb_get: %s\n", mdb_strerror(rc));
-    mdb_txn_reset(h->txn);
     return NULL;
   }
   /* Caller frees the data we return, so I MUST make a copy of it */
 
   char *d = safe_malloc(data.mv_size);
   memcpy(d, data.mv_data, data.mv_size);
-  mdb_txn_reset(h->txn);
 
   return d;
 
@@ -826,6 +881,10 @@ mutt_hcache_fetch_raw (header_cache_t *h, const char *filename,
   return data;
 #elif HAVE_TC
   data = tcbdbget(h->db, path, ksize, &sp);
+
+  return data;
+#elif HAVE_KC
+  data = kcdbget(h->db, path, ksize, &sp);
 
   return data;
 #elif HAVE_GDBM
@@ -882,7 +941,6 @@ mutt_hcache_store_raw (header_cache_t* h, const char* filename, void* data,
 #elif HAVE_LMDB
   MDB_val key;
   MDB_val databuf;
-  MDB_txn *txn;
   size_t folderlen;
   int rc;
 #endif
@@ -913,20 +971,21 @@ mutt_hcache_store_raw (header_cache_t* h, const char* filename, void* data,
   key.mv_size = ksize;
   databuf.mv_data = data;
   databuf.mv_size = dlen;
-  rc = mdb_txn_begin(h->env, NULL, 0, &txn);
+  rc = mdb_get_w_txn(h);
   if (rc != MDB_SUCCESS)
   {
     fprintf(stderr, "txn_begin: %s\n", mdb_strerror(rc));
     return rc;
   }
-  rc = mdb_put(txn, h->db, &key, &databuf, 0);
+  rc = mdb_put(h->txn, h->db, &key, &databuf, 0);
   if (rc != MDB_SUCCESS)
   {
     fprintf(stderr, "mdb_put: %s\n", mdb_strerror(rc));
-    mdb_txn_abort(txn);
+    mdb_txn_abort(h->txn);
+    h->txn_mode = txn_uninitialized;
+    h->txn = NULL;
     return rc;
   }
-  rc = mdb_txn_commit(txn);
   return rc;
 #else
   strncpy(path, h->folder, sizeof (path));
@@ -938,6 +997,8 @@ mutt_hcache_store_raw (header_cache_t* h, const char* filename, void* data,
   return vlput(h->db, path, ksize, data, dlen, VL_DOVER);
 #elif HAVE_TC
   return tcbdbput(h->db, path, ksize, data, dlen);
+#elif HAVE_KC
+  return kcdbset(h->db, path, ksize, data, dlen);
 #elif HAVE_GDBM
   key.dptr = path;
   key.dsize = ksize;
@@ -1071,6 +1132,74 @@ mutt_hcache_delete(header_cache_t *h, const char *filename,
   ksize = strlen(h->folder) + keylen(path + strlen(h->folder));
 
   return tcbdbout(h->db, path, ksize);
+}
+
+#elif HAVE_KC
+static int
+hcache_open_kc (struct header_cache *h, const char *path)
+{
+  char kcdbpath[_POSIX_PATH_MAX];
+  int printfresult;
+
+  printfresult = snprintf(kcdbpath, sizeof(kcdbpath),
+                          "%s#type=kct#opts=%s#rcomp=lex",
+                          path, option(OPTHCACHECOMPRESS) ? "lc" : "l");
+  if ((printfresult < 0) || (printfresult >= sizeof(kcdbpath)))
+  {
+    return -1;
+  }
+
+  h->db = kcdbnew();
+  if (!h->db)
+      return -1;
+
+  if (kcdbopen(h->db, kcdbpath, KCOWRITER | KCOCREATE))
+    return 0;
+  else
+  {
+#ifdef DEBUG
+    int ecode = kcdbecode (h->db);
+    dprint (2, (debugfile, "kcdbopen failed for %s: %s (ecode %d)\n", kcdbpath, kcdbemsg (h->db), ecode));
+#endif
+    kcdbdel(h->db);
+    return -1;
+  }
+}
+
+void
+mutt_hcache_close(header_cache_t *h)
+{
+  if (!h)
+    return;
+
+  if (!kcdbclose(h->db))
+  {
+#ifdef DEBUG
+    int ecode = kcdbecode (h->db);
+    dprint (2, (debugfile, "kcdbclose failed for %s: %s (ecode %d)\n", h->folder, kcdbemsg (h->db), ecode));
+#endif
+  }
+  kcdbdel(h->db);
+  FREE(&h->folder);
+  FREE(&h);
+}
+
+int
+mutt_hcache_delete(header_cache_t *h, const char *filename,
+		   size_t(*keylen) (const char *fn))
+{
+  char path[_POSIX_PATH_MAX];
+  int ksize;
+
+  if (!h)
+    return -1;
+
+  strncpy(path, h->folder, sizeof (path));
+  safe_strcat(path, sizeof (path), filename);
+
+  ksize = strlen(h->folder) + keylen(path + strlen(h->folder));
+
+  return kcdbremove(h->db, path, ksize);
 }
 
 #elif HAVE_GDBM
@@ -1256,7 +1385,7 @@ hcache_open_lmdb (struct header_cache* h, const char* path)
     goto fail_env;
   }
 
-  rc = mdb_txn_begin(h->env, NULL, MDB_RDONLY, &h->txn);
+  rc = mdb_get_r_txn(h);
   if (rc != MDB_SUCCESS)
   {
       fprintf(stderr, "hcache_open_lmdb: mdb_txn_begin: %s", mdb_strerror(rc));
@@ -1271,10 +1400,12 @@ hcache_open_lmdb (struct header_cache* h, const char* path)
   }
 
   mdb_txn_reset(h->txn);
+  h->txn_mode = txn_uninitialized;
   return 0;
 
 fail_dbi:
   mdb_txn_abort(h->txn);
+  h->txn_mode = txn_uninitialized;
   h->txn = NULL;
 
 fail_env:
@@ -1288,6 +1419,13 @@ mutt_hcache_close(header_cache_t *h)
   if (!h)
     return;
 
+  if (h->txn && h->txn_mode == txn_write)
+  {
+    mdb_txn_commit(h->txn);
+    h->txn_mode = txn_uninitialized;
+    h->txn = NULL;
+  }
+
   mdb_env_close(h->env);
   FREE (&h->folder);
   FREE (&h);
@@ -1298,7 +1436,6 @@ mutt_hcache_delete(header_cache_t *h, const char *filename,
                    size_t(*keylen) (const char *fn))
 {
   MDB_val key;
-  MDB_txn *txn;
   int rc;
 
   if (!h)
@@ -1309,24 +1446,25 @@ mutt_hcache_delete(header_cache_t *h, const char *filename,
 
   key.mv_data = (char *)filename;
   key.mv_size = strlen(filename);
-  rc = mdb_txn_begin(h->env, NULL, 0, &txn);
+  rc = mdb_get_w_txn(h);
   if (rc != MDB_SUCCESS)
   {
     fprintf(stderr, "txn_begin: %s\n", mdb_strerror(rc));
     return rc;
   }
-  rc = mdb_del(txn, h->db, &key, NULL);
+  rc = mdb_del(h->txn, h->db, &key, NULL);
   if (rc != MDB_SUCCESS)
   {
     if (rc != MDB_NOTFOUND)
     {
       fprintf(stderr, "mdb_del: %s\n", mdb_strerror(rc));
+      mdb_txn_abort(h->txn);
+      h->txn_mode = txn_uninitialized;
+      h->txn = NULL;
     }
-    mdb_txn_abort(txn);
     return rc;
   }
 
-  mdb_txn_commit(txn);
   return rc;
 }
 #endif
@@ -1341,7 +1479,9 @@ mutt_hcache_open(const char *path, const char *folder, hcache_namer_t namer)
 #if HAVE_QDBM
   hcache_open = hcache_open_qdbm;
 #elif HAVE_TC
-  hcache_open= hcache_open_tc;
+  hcache_open = hcache_open_tc;
+#elif HAVE_KC
+  hcache_open = hcache_open_kc;
 #elif HAVE_GDBM
   hcache_open = hcache_open_gdbm;
 #elif HAVE_DB4
@@ -1443,5 +1583,15 @@ const char *mutt_hcache_backend (void)
 const char *mutt_hcache_backend (void)
 {
   return "tokyocabinet " _TC_VERSION;
+}
+#elif HAVE_KC
+const char *mutt_hcache_backend (void)
+{
+  /* SHORT_STRING(128) should be more than enough for KCVERSION */
+  static char version_cache[SHORT_STRING] = "";
+  if (!version_cache[0])
+    snprintf(version_cache, sizeof(version_cache), "kyotocabinet %s", KCVERSION);
+
+  return version_cache;
 }
 #endif

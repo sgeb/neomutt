@@ -6,7 +6,7 @@ dnl !!! TO DUMP THEIR RESULTS WHEN MUTT -V IS CALLED            !!!
 CFLAGS=$CFLAGS
 LDFLAGS=$LDFLAGS
 
-AC_INIT([NeoMutt], [20160916], [neomutt-devel@neomutt.org], [mutt], [http://www.neomutt.org])
+AC_INIT([NeoMutt], [20161002], [neomutt-devel@neomutt.org], [mutt], [http://www.neomutt.org])
 AC_CONFIG_SRCDIR(mutt.h)
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([config.h])
@@ -31,6 +31,10 @@ AC_PROG_CC
 AC_PROG_CC_C99
 if test "$ac_cv_prog_cc_c99" = "no"; then
   AC_ERROR([Compiler does not support C99. Aborting.])
+fi
+
+if test "$CC" = "gcc"; then
+  CFLAGS="$CFLAGS -fno-delete-null-pointer-checks"
 fi
 
 AC_SEARCH_LIBS([strerror],[cposix])
@@ -903,6 +907,7 @@ db_requested=auto
 hcache_db_used=no
 AC_ARG_ENABLE(hcache, AS_HELP_STRING([--enable-hcache],[Enable header caching]))
 AC_ARG_WITH(tokyocabinet, AS_HELP_STRING([--without-tokyocabinet],[Don't use tokyocabinet even if it is available]))
+AC_ARG_WITH(kyotocabinet, AS_HELP_STRING([--without-kyotocabinet],[Don't use kyotocabinet even if it is available]))
 AC_ARG_WITH(qdbm, AS_HELP_STRING([--without-qdbm],[Don't use qdbm even if it is available]))
 AC_ARG_WITH(gdbm, AS_HELP_STRING([--without-gdbm],[Don't use gdbm even if it is available]))
 AC_ARG_WITH(bdb, AS_HELP_STRING([--with-bdb@<:@=DIR@:>@],[Use BerkeleyDB4 if gdbm is not available]))
@@ -923,6 +928,15 @@ then
     if test -n "$with_tokyocabinet" && test "$with_tokyocabinet" != "no"
     then
       db_requested=TokyoCabinet
+    fi
+    if test -n "$with_kyotocabinet" && test "$with_kyotocabinet" != "no"
+    then
+      if test "$db_requested" != "auto"
+      then
+        AC_MSG_ERROR([more than one header cache engine requested.])
+      else
+        db_requested=KyotoCabinet
+      fi
     fi
     if test -n "$with_qdbm" && test "$with_qdbm" != "no"
     then
@@ -981,6 +995,29 @@ then
       if test "$db_requested" != auto && test "$db_found" != "$db_requested"
       then
         AC_MSG_ERROR([Tokyo Cabinet could not be used. Check config.log for details.])
+      fi
+    fi
+
+    dnl -- Kyoto Cabinet --
+    if test "$with_kyotocabinet" != "no" \
+        && test "$db_requested" = auto -o "$db_requested" = KyotoCabinet
+    then
+      if test -n "$with_kyotocabinet" && test "$with_kyotocabinet" != "yes"
+      then
+        CPPFLAGS="$CPPFLAGS -I$with_kyotocabinet/include"
+        LDFLAGS="$LDFLAGS -L$with_kyotocabinet/lib"
+      fi
+
+      AC_CHECK_HEADER(kclangc.h,
+      AC_CHECK_LIB(kyotocabinet, kcdbopen,
+        [MUTTLIBS="$MUTTLIBS -lkyotocabinet"
+         AC_DEFINE(HAVE_KC, 1, [Kyoto Cabinet Support])
+         db_found=KyotoCabinet],
+        [CPPFLAGS="$OLDCPPFLAGS"
+         LDFLAGS="$OLDLDFLAGS"]))
+      if test "$db_requested" != auto && test "$db_found" != "$db_requested"
+      then
+        AC_MSG_ERROR([Kyoto Cabinet could not be used. Check config.log for details.])
       fi
     fi
 
@@ -1134,7 +1171,7 @@ then
 
     if test $db_found = no
     then
-        AC_MSG_ERROR([You need Tokyo Cabinet, QDBM, GDBM, Berkeley DB4 or LMDB for hcache])
+        AC_MSG_ERROR([You need Tokyo Cabinet, Kyoto Cabinet, QDBM, GDBM, Berkeley DB4 or LMDB for hcache])
     fi
 fi
 hcache_db_used=$db_found
