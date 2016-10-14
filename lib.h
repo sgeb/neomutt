@@ -77,7 +77,7 @@
 # define FREE(x) safe_free(x)
 # define NONULL(x) x?x:""
 # define ISSPACE(c) isspace((unsigned char)c)
-# define strfcpy(A,B,C) strncpy(A,B,C), *(A+(C)-1)=0
+# define strfcpy(DST,SRC,LEN) do { if ((LEN) > 0) { *(DST+(LEN)-1)=0; strncpy(DST,SRC,(LEN)-1); } } while (0)
 
 # undef MAX
 # undef MIN
@@ -221,6 +221,8 @@ void mutt_str_adjust (char **p);
 void mutt_unlink (const char *);
 void safe_free (void *);
 void safe_realloc (void *, size_t);
+int  mutt_is_inbox (const char *path);
+int  mutt_same_path (const char *a, const char *b);
 
 const char *mutt_strsysexit(int e);
 #endif

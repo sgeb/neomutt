@@ -204,7 +204,7 @@ void mutt_ts_icon(char *str)
 
 void index_make_entry (char *s, size_t l, MUTTMENU *menu, int num)
 {
-  if (!Context || !menu)
+  if (!Context || !menu || (num < 0))
     return;
 
   format_flag flag = MUTT_FORMAT_MAKEPRINT | MUTT_FORMAT_ARROWCURSOR | MUTT_FORMAT_INDEX;
@@ -269,7 +269,7 @@ void index_make_entry (char *s, size_t l, MUTTMENU *menu, int num)
 
 int index_color (int index_no)
 {
-  if (!Context)
+  if (!Context || (index_no < 0))
     return 0;
 
   HEADER *h = Context->hdrs[Context->v2r[index_no]];
