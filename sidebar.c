@@ -521,12 +521,19 @@ static int draw_divider (int num_rows, int num_cols)
 {
   /* Calculate the width of the delimiter in screen cells */
   int delim_len = mutt_strwidth (SidebarDividerChar);
+  int altchar = 0;
 
   if (delim_len < 1)
     return delim_len;
 
   if (delim_len > num_cols)
     return 0;
+
+  int i;
+  if (option (OPTASCIICHARS))
+    for (i = 0; i < delim_len && altchar == 0; i++)
+      if (SidebarDividerChar[i] & ~0x7F) /* isascii() */
+        altchar = delim_len = 1; /* $sdc is ascii */
 
   SETCOLOR(MT_COLOR_DIVIDER);
 
@@ -537,11 +544,14 @@ static int draw_divider (int num_rows, int num_cols)
     col = SidebarWidth - delim_len;
   }
 
-  int i;
   for (i = 0; i < num_rows; i++)
   {
     mutt_window_move (MuttSidebarWindow, i, col);
-    addstr (NONULL(SidebarDividerChar));
+
+    if (altchar)
+      addch ('|');
+    else
+      addstr (NONULL(SidebarDividerChar));
   }
 
   return delim_len;
