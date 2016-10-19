@@ -468,6 +468,17 @@ static int buffy_mbox_check (BUFFY* mailbox, struct stat *sb, int check_stats)
   return rc;
 }
 
+/**
+ * mutt_parse_virtual_mailboxes - QWQ
+ * @path: YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NOTMUCH
 int mutt_parse_virtual_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, BUFFER *err)
 {
@@ -516,6 +527,14 @@ int mutt_parse_virtual_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, B
 }
 #endif
 
+/**
+ * buffy_check - QWQ
+ * @tmp:         YYY
+ * @contex_sb:   YYY
+ * @check_stats: YYY
+ *
+ * DESCRIPTION
+ */
 static void buffy_check (BUFFY *tmp, struct stat *contex_sb, int check_stats)
 {
     struct stat sb;
@@ -800,6 +819,13 @@ void mutt_buffy (char *s, size_t slen)
   *s = '\0';
 }
 
+/**
+ * mutt_buffy_vfolder - QWQ
+ * @s:    YYY
+ * @slen: YYY
+ *
+ * DESCRIPTION
+ */
 #ifdef USE_NOTMUCH
 void mutt_buffy_vfolder (char *s, size_t slen)
 {

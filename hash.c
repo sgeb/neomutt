@@ -72,6 +72,16 @@ HASH *hash_create (int nelem, int lower)
   return table;
 }
 
+/**
+ * hash_resize - QWQ
+ * @ptr:   YYY
+ * @nelem: YYY
+ * @lower: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HASH*
+ */
 HASH *hash_resize (HASH *ptr, int nelem, int lower)
 {
   HASH *table;
@@ -153,6 +163,14 @@ void *hash_find_hash (const HASH * table, int hash, const char *key)
   return NULL;
 }
 
+/**
+ * hash_set_data - QWQ
+ * @table: YYY
+ * @key:   YYY
+ * @data:  YYY
+ *
+ * DESCRIPTION
+ */
 void hash_set_data (HASH *table, const char *key, void *data)
 {
   if (!table)
@@ -218,6 +236,15 @@ void hash_destroy (HASH **ptr, void (*destroy) (void *))
   FREE (ptr);		/* __FREE_CHECKED__ */
 }
 
+/**
+ * hash_walk - QWQ
+ * @table: YYY
+ * @state: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct hash_elem*
+ */
 struct hash_elem *hash_walk(const HASH *table, struct hash_walk_state *state)
 {
   if (state->last && state->last->next)

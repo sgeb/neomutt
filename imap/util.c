@@ -72,7 +72,12 @@ int imap_expand_path (char* path, size_t len)
   return rc;
 }
 
-/* Public function
+/**
+ * imap_get_parent - QWQ
+ * @output: YYY
+ * @mbox:   YYY
+ * @olen:   YYY
+ * @delim:  YYY
  *
  * Provided an imap mbox name and a delimiter, returns the mbox parent
  * name.
@@ -116,7 +121,12 @@ void imap_get_parent (char *output, const char *mbox, size_t olen, char delim)
   }
 }
 
-/* Public function
+/**
+ * imap_get_parent_path - QWQ
+ * @output: YYY
+ * @path:   YYY
+ * @olen:   YYY
+ *
  * Provided an imap path, returns in output the parent directory if
  * existent. Else returns the same path.
  */
@@ -149,7 +159,10 @@ void imap_get_parent_path (char *output, const char *path, size_t olen)
   imap_qualify_path (output, olen, &mx, mbox);
 }
 
-/* Public function
+/**
+ * imap_clean_path - QWQ
+ * @path: YYY
+ * @plen: YYY
  *
  * Cleans an IMAP path using imap_fix_path. Does it in place.
  */

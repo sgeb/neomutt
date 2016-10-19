@@ -2786,8 +2786,14 @@ int mutt_var_value_complete (char *buffer, size_t len, int pos)
 
 #if USE_NOTMUCH
 
-/* Fetch a list of all notmuch tags and insert them into the completion
+/**
+ * complete_all_nm_tags - QWQ
+ * @pt: YYY
+ *
+ * Fetch a list of all notmuch tags and insert them into the completion
  * machinery.
+ *
+ * Returns: int
  */
 static int complete_all_nm_tags (const char *pt)
 {
@@ -2839,8 +2845,16 @@ done:
   return 0;
 }
 
-/* Return the last instance of needle in the haystack, or NULL.
+/**
+ * rstrnstr - QWQ
+ * @haystack:        YYY
+ * @haystack_length: YYY
+ * @needle:          YYY
+ *
+ * Return the last instance of needle in the haystack, or NULL.
  * Like strstr(), only backwards, and for a limited haystack length.
+ *
+ * Returns: const char*
  */
 static const char* rstrnstr(const char* haystack,
                             size_t haystack_length,
@@ -2864,7 +2878,17 @@ static const char* rstrnstr(const char* haystack,
   return NULL;
 }
 
-/* Complete the nearest "tag:"-prefixed string previous to pos. */
+/**
+ * mutt_nm_query_complete - QWQ
+ * @buffer:  YYY
+ * @len:     YYY
+ * @pos:     YYY
+ * @numtabs: YYY
+ *
+ * Complete the nearest "tag:"-prefixed string previous to pos.
+ *
+ * Returns: int
+ */
 int mutt_nm_query_complete (char *buffer, size_t len, int pos, int numtabs)
 {
   char *pt = buffer;
@@ -2908,7 +2932,17 @@ int mutt_nm_query_complete (char *buffer, size_t len, int pos, int numtabs)
   return 1;
 }
 
-/* Complete the nearest "+" or "-" -prefixed string previous to pos. */
+/**
+ * mutt_nm_tag_complete - QWQ
+ * @buffer:  YYY
+ * @len:     YYY
+ * @pos:     YYY
+ * @numtabs: YYY
+ *
+ * Complete the nearest "+" or "-" -prefixed string previous to pos.
+ *
+ * Returns: int
+ */
 int mutt_nm_tag_complete (char *buffer, size_t len, int pos, int numtabs)
 {
   if (!buffer)
@@ -3593,6 +3627,17 @@ static int parse_group_context (group_context_t **ctx, BUFFER *buf, BUFFER *s, u
   return -1;
 }
 
+/**
+ * parse_tag_transforms - QWQ
+ * @b:    YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NOTMUCH
 int parse_tag_transforms (BUFFER *b, BUFFER *s, unsigned long data, BUFFER *err)
 {
@@ -3625,6 +3670,17 @@ int parse_tag_transforms (BUFFER *b, BUFFER *s, unsigned long data, BUFFER *err)
   return 0;
 }
 
+/**
+ * parse_tag_formats - QWQ
+ * @b:    YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int parse_tag_formats (BUFFER *b, BUFFER *s, unsigned long data, BUFFER *err)
 {
   char *tmp;
@@ -3705,6 +3761,17 @@ static const char* myvar_get (const char* var)
   return NULL;
 }
 
+/**
+ * mutt_label_complete - QWQ
+ * @buffer:  YYY
+ * @len:     YYY
+ * @pos:     YYY
+ * @numtabs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_label_complete (char *buffer, size_t len, int pos, int numtabs)
 {
   char *pt = buffer;

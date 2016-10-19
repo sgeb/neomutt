@@ -47,7 +47,15 @@
 #include <dirent.h>
 #include <errno.h>
 
-/* Find NNTP_DATA for given newsgroup or add it */
+/**
+ * nntp_data_find - QWQ
+ * @nserv: YYY
+ * @group: YYY
+ *
+ * Find NNTP_DATA for given newsgroup or add it
+ *
+ * Returns: NNTP_DATA*
+ */
 static NNTP_DATA *nntp_data_find (NNTP_SERVER *nserv, const char *group)
 {
   NNTP_DATA *nntp_data = hash_find (nserv->groups_hash, group);
@@ -78,7 +86,12 @@ static NNTP_DATA *nntp_data_find (NNTP_SERVER *nserv, const char *group)
   return nntp_data;
 }
 
-/* Remove all temporarily cache files */
+/**
+ * nntp_acache_free - QWQ
+ * @nntp_data: YYY
+ *
+ * Remove all temporarily cache files
+ */
 void nntp_acache_free (NNTP_DATA *nntp_data)
 {
   int i;
@@ -93,7 +106,12 @@ void nntp_acache_free (NNTP_DATA *nntp_data)
   }
 }
 
-/* Free NNTP_DATA, used to destroy hash elements */
+/**
+ * nntp_data_free - QWQ
+ * @data: YYY
+ *
+ * Free NNTP_DATA, used to destroy hash elements
+ */
 void nntp_data_free (void *data)
 {
   NNTP_DATA *nntp_data = data;
@@ -107,7 +125,12 @@ void nntp_data_free (void *data)
   FREE (&data);
 }
 
-/* Unlock and close .newsrc file */
+/**
+ * nntp_newsrc_close - QWQ
+ * @nserv: YYY
+ *
+ * Unlock and close .newsrc file
+ */
 void nntp_newsrc_close (NNTP_SERVER *nserv)
 {
   if (!nserv->newsrc_fp)
@@ -118,10 +141,18 @@ void nntp_newsrc_close (NNTP_SERVER *nserv)
   safe_fclose (&nserv->newsrc_fp);
 }
 
-/* Parse .newsrc file:
+/**
+ * nntp_newsrc_parse - QWQ
+ * @nserv: YYY
+ *
+ * Parse .newsrc file:
+ *
  *  0 - not changed
  *  1 - parsed
- * -1 - error */
+ * -1 - error
+ *
+ * Returns: int
+ */
 int nntp_newsrc_parse (NNTP_SERVER *nserv)
 {
   unsigned int i;
@@ -337,7 +368,15 @@ void nntp_newsrc_gen_entries (CONTEXT *ctx)
   }
 }
 
-/* Update file with new contents */
+/**
+ * update_file - QWQ
+ * @filename: YYY
+ * @buf:      YYY
+ *
+ * Update file with new contents
+ *
+ * Returns: int
+ */
 static int update_file (char *filename, char *buf)
 {
   FILE *fp;
@@ -384,7 +423,14 @@ static int update_file (char *filename, char *buf)
   return rc;
 }
 
-/* Update .newsrc file */
+/**
+ * nntp_newsrc_update - QWQ
+ * @nserv: YYY
+ *
+ * Update .newsrc file
+ *
+ * Returns: int
+ */
 int nntp_newsrc_update (NNTP_SERVER *nserv)
 {
   char *buf;
@@ -461,7 +507,15 @@ int nntp_newsrc_update (NNTP_SERVER *nserv)
   return rc;
 }
 
-/* Make fully qualified cache file name */
+/**
+ * cache_expand - QWQ
+ * @dst:    YYY
+ * @dstlen: YYY
+ * @acct:   YYY
+ * @src:    YYY
+ *
+ * Make fully qualified cache file name
+ */
 static void cache_expand (char *dst, size_t dstlen, ACCOUNT *acct, char *src)
 {
   char *c;
@@ -488,7 +542,14 @@ static void cache_expand (char *dst, size_t dstlen, ACCOUNT *acct, char *src)
   mutt_expand_path (dst, dstlen);
 }
 
-/* Make fully qualified url from newsgroup name */
+/**
+ * nntp_expand_path - QWQ
+ * @line: YYY
+ * @len:  YYY
+ * @acct: YYY
+ *
+ * Make fully qualified url from newsgroup name
+ */
 void nntp_expand_path (char *line, size_t len, ACCOUNT *acct)
 {
   ciss_url_t url;
@@ -499,7 +560,15 @@ void nntp_expand_path (char *line, size_t len, ACCOUNT *acct)
   FREE (&url.path);
 }
 
-/* Parse newsgroup */
+/**
+ * nntp_add_group - QWQ
+ * @line: YYY
+ * @data: YYY
+ *
+ * Parse newsgroup
+ *
+ * Returns: int
+ */
 int nntp_add_group (char *line, void *data)
 {
   NNTP_SERVER *nserv = data;
@@ -532,7 +601,14 @@ int nntp_add_group (char *line, void *data)
   return 0;
 }
 
-/* Load list of all newsgroups from cache */
+/**
+ * active_get_cache - QWQ
+ * @nserv: YYY
+ *
+ * Load list of all newsgroups from cache
+ *
+ * Returns: int
+ */
 static int active_get_cache (NNTP_SERVER *nserv)
 {
   char buf[HUGE_STRING];
@@ -563,7 +639,14 @@ static int active_get_cache (NNTP_SERVER *nserv)
   return 0;
 }
 
-/* Save list of all newsgroups to cache */
+/**
+ * nntp_active_save_cache - QWQ
+ * @nserv: YYY
+ *
+ * Save list of all newsgroups to cache
+ *
+ * Returns: int
+ */
 int nntp_active_save_cache (NNTP_SERVER *nserv)
 {
   char file[_POSIX_PATH_MAX];
@@ -608,13 +691,29 @@ int nntp_active_save_cache (NNTP_SERVER *nserv)
 }
 
 #ifdef USE_HCACHE
-/* Used by mutt_hcache_open() to compose hcache file name */
+/**
+ * nntp_hcache_namer - QWQ
+ * @path:    YYY
+ * @dest:    YYY
+ * @destlen: YYY
+ *
+ * Used by mutt_hcache_open() to compose hcache file name
+ *
+ * Returns: int
+ */
 static int nntp_hcache_namer (const char *path, char *dest, size_t destlen)
 {
   return snprintf (dest, destlen, "%s.hcache", path);
 }
 
-/* Open newsgroup hcache */
+/**
+ * nntp_hcache_open - QWQ
+ * @nntp_data: YYY
+ *
+ * Open newsgroup hcache
+ *
+ * Returns: header_cache_t*
+ */
 header_cache_t *nntp_hcache_open (NNTP_DATA *nntp_data)
 {
   ciss_url_t url;
@@ -632,7 +731,13 @@ header_cache_t *nntp_hcache_open (NNTP_DATA *nntp_data)
   return mutt_hcache_open (NewsCacheDir, file, nntp_hcache_namer);
 }
 
-/* Remove stale cached headers */
+/**
+ * nntp_hcache_update - QWQ
+ * @nntp_data: YYY
+ * @hc:        YYY
+ *
+ * Remove stale cached headers
+ */
 void nntp_hcache_update (NNTP_DATA *nntp_data, header_cache_t *hc)
 {
   char buf[16];
@@ -683,7 +788,16 @@ void nntp_hcache_update (NNTP_DATA *nntp_data, header_cache_t *hc)
 }
 #endif
 
-/* Remove bcache file */
+/**
+ * nntp_bcache_delete - QWQ
+ * @id:     YYY
+ * @bcache: YYY
+ * @data:   YYY
+ *
+ * Remove bcache file
+ *
+ * Returns: int
+ */
 static int nntp_bcache_delete (const char *id, body_cache_t *bcache, void *data)
 {
   NNTP_DATA *nntp_data = data;
@@ -700,13 +814,23 @@ static int nntp_bcache_delete (const char *id, body_cache_t *bcache, void *data)
   return 0;
 }
 
-/* Remove stale cached messages */
+/**
+ * nntp_bcache_update - QWQ
+ * @nntp_data: YYY
+ *
+ * Remove stale cached messages
+ */
 void nntp_bcache_update (NNTP_DATA *nntp_data)
 {
   mutt_bcache_list (nntp_data->bcache, nntp_bcache_delete, nntp_data);
 }
 
-/* Remove hcache and bcache of newsgroup */
+/**
+ * nntp_delete_group_cache - QWQ
+ * @nntp_data: YYY
+ *
+ * Remove hcache and bcache of newsgroup
+ */
 void nntp_delete_group_cache (NNTP_DATA *nntp_data)
 {
   char file[_POSIX_PATH_MAX];
@@ -733,7 +857,12 @@ void nntp_delete_group_cache (NNTP_DATA *nntp_data)
   }
 }
 
-/* Remove hcache and bcache of all unexistent and unsubscribed newsgroups */
+/**
+ * nntp_clear_cache - QWQ
+ * @nserv: YYY
+ *
+ * Remove hcache and bcache of all unexistent and unsubscribed newsgroups
+ */
 void nntp_clear_cache (NNTP_SERVER *nserv)
 {
   char file[_POSIX_PATH_MAX];
@@ -802,12 +931,29 @@ void nntp_clear_cache (NNTP_SERVER *nserv)
   return;
 }
 
-/* %a = account url
+/**
+ * nntp_format_str - QWQ
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @fmt:        YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * %a = account url
  * %p = port
  * %P = port if specified
  * %s = news server name
  * %S = url schema
- * %u = username */
+ * %u = username
+ *
+ * Returns: const char*
+ */
 const char *
 nntp_format_str (char *dest, size_t destlen, size_t col, int cols, char op, const char *src,
 		const char *fmt, const char *ifstring, const char *elsestring,
@@ -864,10 +1010,18 @@ nntp_format_str (char *dest, size_t destlen, size_t col, int cols, char op, cons
   return (src);
 }
 
-/* Automatically loads a newsrc into memory, if necessary.
+/**
+ * nntp_select_server - QWQ
+ * @server:     YYY
+ * @leave_lock: YYY
+ *
+ * Automatically loads a newsrc into memory, if necessary.
  * Checks the size/mtime of a newsrc file, if it doesn't match, load
  * again.  Hmm, if a system has broken mtimes, this might mean the file
- * is reloaded every time, which we'd have to fix. */
+ * is reloaded every time, which we'd have to fix.
+ *
+ * Returns: NNTP_SERVER*
+ */
 NNTP_SERVER *nntp_select_server (char *server, int leave_lock)
 {
   char file[_POSIX_PATH_MAX];
@@ -1078,10 +1232,18 @@ NNTP_SERVER *nntp_select_server (char *server, int leave_lock)
   return nserv;
 }
 
-/* Full status flags are not supported by nntp, but we can fake some of them:
+/**
+ * nntp_article_status - QWQ
+ * @ctx:   YYY
+ * @hdr:   YYY
+ * @group: YYY
+ * @anum:  YYY
+ *
+ * Full status flags are not supported by nntp, but we can fake some of them:
  * Read = a read message number is in the .newsrc
  * New = not read and not cached
- * Old = not read but cached */
+ * Old = not read but cached
+ */
 void nntp_article_status (CONTEXT *ctx, HEADER *hdr, char *group, anum_t anum)
 {
   NNTP_DATA *nntp_data = ctx->data;
@@ -1114,7 +1276,12 @@ void nntp_article_status (CONTEXT *ctx, HEADER *hdr, char *group, anum_t anum)
     hdr->old = 1;
 }
 
-/* calculate number of unread articles using .newsrc data */
+/**
+ * nntp_group_unread_stat - QWQ
+ * @nntp_data: YYY
+ *
+ * calculate number of unread articles using .newsrc data
+ */
 void nntp_group_unread_stat (NNTP_DATA *nntp_data)
 {
   unsigned int i;
@@ -1139,7 +1306,15 @@ void nntp_group_unread_stat (NNTP_DATA *nntp_data)
   }
 }
 
-/* Subscribe newsgroup */
+/**
+ * mutt_newsgroup_subscribe - QWQ
+ * @nserv: YYY
+ * @group: YYY
+ *
+ * Subscribe newsgroup
+ *
+ * Returns: NNTP_DATA*
+ */
 NNTP_DATA *mutt_newsgroup_subscribe (NNTP_SERVER *nserv, char *group)
 {
   NNTP_DATA *nntp_data;
@@ -1159,7 +1334,15 @@ NNTP_DATA *mutt_newsgroup_subscribe (NNTP_SERVER *nserv, char *group)
   return nntp_data;
 }
 
-/* Unsubscribe newsgroup */
+/**
+ * mutt_newsgroup_unsubscribe - QWQ
+ * @nserv: YYY
+ * @group: YYY
+ *
+ * Unsubscribe newsgroup
+ *
+ * Returns: NNTP_DATA*
+ */
 NNTP_DATA *mutt_newsgroup_unsubscribe (NNTP_SERVER *nserv, char *group)
 {
   NNTP_DATA *nntp_data;
@@ -1180,7 +1363,15 @@ NNTP_DATA *mutt_newsgroup_unsubscribe (NNTP_SERVER *nserv, char *group)
   return nntp_data;
 }
 
-/* Catchup newsgroup */
+/**
+ * mutt_newsgroup_catchup - QWQ
+ * @nserv: YYY
+ * @group: YYY
+ *
+ * Catchup newsgroup
+ *
+ * Returns: NNTP_DATA*
+ */
 NNTP_DATA *mutt_newsgroup_catchup (NNTP_SERVER *nserv, char *group)
 {
   NNTP_DATA *nntp_data;
@@ -1210,7 +1401,15 @@ NNTP_DATA *mutt_newsgroup_catchup (NNTP_SERVER *nserv, char *group)
   return nntp_data;
 }
 
-/* Uncatchup newsgroup */
+/**
+ * mutt_newsgroup_uncatchup - QWQ
+ * @nserv: YYY
+ * @group: YYY
+ *
+ * Uncatchup newsgroup
+ *
+ * Returns: NNTP_DATA*
+ */
 NNTP_DATA *mutt_newsgroup_uncatchup (NNTP_SERVER *nserv, char *group)
 {
   NNTP_DATA *nntp_data;
@@ -1242,7 +1441,13 @@ NNTP_DATA *mutt_newsgroup_uncatchup (NNTP_SERVER *nserv, char *group)
   return nntp_data;
 }
 
-/* Get first newsgroup with new messages */
+/**
+ * nntp_buffy - QWQ
+ * @buf: YYY
+ * @len: YYY
+ *
+ * Get first newsgroup with new messages
+ */
 void nntp_buffy (char *buf, size_t len)
 {
   unsigned int i;

@@ -108,11 +108,17 @@ static int first_mailing_list (char *buf, size_t buflen, ADDRESS *a)
 }
 
 /**
- * add_index_color - XXX
+ * add_index_color - QWQ
+ * @buf:    YYY
+ * @buflen: YYY
+ * @flags:  YYY
+ * @color:  YYY
  *
  * Takes the color to embed, the buffer to manipulate and the buffer length as
  * arguments.
  * Returns the number of chars written.
+ *
+ * Returns: size_t
  */
 static size_t
 add_index_color (char *buf, size_t buflen, format_flag flags, char color)

@@ -364,6 +364,8 @@ static void update_entries_visibility (void)
 
 /**
  * unsort_entries - Restore Entries array order to match Buffy list order
+ *
+ * DESCRIPTION
  */
 static void unsort_entries (void)
 {
@@ -777,6 +779,8 @@ void mutt_sb_draw (void)
 /**
  * select_next - Selects the next unhidden mailbox
  *
+ * DESCRIPTION
+ *
  * Returns:
  *      1: Success
  *      0: Failure
@@ -1069,6 +1073,8 @@ void mutt_sb_set_open_buffy (void)
 
 /**
  * mutt_sb_notify_mailbox - The state of a BUFFY is about to change
+ * @b:       YYY
+ * @created: YYY
  *
  * We receive a notification:
  *	After a new BUFFY has been created
@@ -1139,6 +1145,8 @@ void mutt_sb_notify_mailbox (BUFFY *b, int created)
 
 /**
  * mutt_sb_toggle_virtual - Switch between regular and virtual folders
+ *
+ * DESCRIPTION
  */
 void
 mutt_sb_toggle_virtual (void)

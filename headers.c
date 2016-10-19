@@ -279,6 +279,12 @@ static void label_delete (const char *label)
   }
 }
 
+/**
+ * mutt_label_ref_dec - QWQ
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_label_ref_dec(ENVELOPE *env)
 {
   uintptr_t count;
@@ -310,6 +316,12 @@ void mutt_label_ref_dec(ENVELOPE *env)
   }
 }
 
+/**
+ * mutt_label_ref_inc - QWQ
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_label_ref_inc(ENVELOPE *env)
 {
   uintptr_t count;
@@ -342,8 +354,14 @@ void mutt_label_ref_inc(ENVELOPE *env)
   }
 }
 
-/*
+/**
+ * label_message - QWQ
+ * @hdr: YYY
+ * @new: YYY
+ *
  * set labels on a message
+ *
+ * Returns: int
  */
 static int label_message(HEADER *hdr, char *new)
 {
@@ -388,6 +406,14 @@ static int label_message(HEADER *hdr, char *new)
   return hdr->changed = hdr->label_changed = 1;
 }
 
+/**
+ * mutt_label_message - QWQ
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_label_message(HEADER *hdr)
 {
   char buf[LONG_STRING], *new;
@@ -439,7 +465,12 @@ int mutt_label_message(HEADER *hdr)
   return changed;
 }
 
-/* scan a context (mailbox) and hash all labels we find */
+/**
+ * mutt_scan_labels - QWQ
+ * @ctx: YYY
+ *
+ * scan a context (mailbox) and hash all labels we find
+ */
 void mutt_scan_labels(CONTEXT *ctx)
 {
   int i;
@@ -453,6 +484,17 @@ void mutt_scan_labels(CONTEXT *ctx)
 }
 
 
+/**
+ * mutt_labels - QWQ
+ * @dst: YYY
+ * @sz:  YYY
+ * @env: YYY
+ * @sep: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_labels(char *dst, int sz, ENVELOPE *env, char *sep)
 {
   static char sbuf[HUGE_STRING];

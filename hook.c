@@ -555,6 +555,11 @@ void mutt_account_hook (const char* url)
 }
 #endif
 
+/**
+ * mutt_timeout_hook - QWQ
+ *
+ * DESCRIPTION
+ */
 void mutt_timeout_hook (void)
 {
   HOOK *hook;

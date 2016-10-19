@@ -226,6 +226,15 @@ static int compare_spam (const void *a, const void *b)
   return (SORTCODE(result));
 }
 
+/**
+ * compare_label - QWQ
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int compare_label (const void *a, const void *b)
 {
   HEADER **ppa = (HEADER **) a;

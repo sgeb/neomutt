@@ -509,6 +509,7 @@ static void resort_index (MUTTMENU *menu)
  * mutt_draw_statusline - Draw a highlighted status bar
  * @cols:  Maximum number of screen columns
  * @buf:   Message to be displayed
+ * @buflen: YYY
  *
  * Users configure the highlighting of the status bar, e.g.
  *     color status red default "[0-9][0-9]:[0-9][0-9]"
@@ -639,6 +640,20 @@ dsl_finish:
   FREE(&syntax);
 }
 
+/**
+ * main_change_folder - QWQ
+ * @menu:       YYY
+ * @op:         YYY
+ * @buf:        YYY
+ * @bufsz:      YYY
+ * @oldcount:   YYY
+ * @index_hint: YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int main_change_folder(MUTTMENU *menu, int op, char *buf, size_t bufsz,
 			  int *oldcount, int *index_hint, int flags)
 {

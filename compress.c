@@ -315,6 +315,7 @@ cb_format_str (char *dest, size_t destlen, size_t col, int cols, char op, const 
 /**
  * expand_command_str - Expand placeholders in command string
  * @ctx:    Mailbox for paths
+ * @cmd:    YYY
  * @buf:    Buffer to store the command
  * @buflen: Size of the buffer
  *
@@ -700,7 +701,14 @@ check_mailbox (CONTEXT *ctx, int *index_hint)
 
 
 /**
+ * open_message - QWQ
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
  * open_message - Delegated to mbox handler
+ *
+ * Returns: int
  */
 static int
 open_message (CONTEXT *ctx,  MESSAGE *msg, int msgno)
@@ -721,7 +729,13 @@ open_message (CONTEXT *ctx,  MESSAGE *msg, int msgno)
 }
 
 /**
+ * close_message - QWQ
+ * @ctx: YYY
+ * @msg: YYY
+ *
  * close_message - Delegated to mbox handler
+ *
+ * Returns: int
  */
 static int
 close_message (CONTEXT *ctx, MESSAGE *msg)
@@ -742,7 +756,13 @@ close_message (CONTEXT *ctx, MESSAGE *msg)
 }
 
 /**
+ * commit_message - QWQ
+ * @ctx: YYY
+ * @msg: YYY
+ *
  * commit_message - Delegated to mbox handler
+ *
+ * Returns: int
  */
 static int
 commit_message (CONTEXT *ctx, MESSAGE *msg)
@@ -763,7 +783,14 @@ commit_message (CONTEXT *ctx, MESSAGE *msg)
 }
 
 /**
+ * open_new_message - QWQ
+ * @msg: YYY
+ * @ctx: YYY
+ * @hdr: YYY
+ *
  * open_new_message - Delegated to mbox handler
+ *
+ * Returns: int
  */
 static int
 open_new_message (MESSAGE *msg, CONTEXT *ctx, HEADER *hdr)
@@ -786,7 +813,8 @@ open_new_message (MESSAGE *msg, CONTEXT *ctx, HEADER *hdr)
 
 /**
  * comp_can_append - Can we append to this path?
- * @path: pathname of file to be tested
+ * @ctx: YYY
+ * @path: XXX pathname of file to be tested
  *
  * To append to a file we can either use an 'append-hook' or a combination of
  * 'open-hook' and 'close-hook'.

@@ -112,6 +112,14 @@ struct header_cache
   enum mdb_txn_mode txn_mode;
 };
 
+/**
+ * mdb_get_r_txn - QWQ
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mdb_get_r_txn(header_cache_t *h)
 {
   int rc;
@@ -130,6 +138,14 @@ static int mdb_get_r_txn(header_cache_t *h)
   return rc;
 }
 
+/**
+ * mdb_get_w_txn - QWQ
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mdb_get_w_txn(header_cache_t *h)
 {
   int rc;
@@ -1136,6 +1152,15 @@ mutt_hcache_delete(header_cache_t *h, const char *filename,
 
 #elif HAVE_KC
 static int
+/**
+ * hcache_open_kc - QWQ
+ * @h:    YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 hcache_open_kc (struct header_cache *h, const char *path)
 {
   char kcdbpath[_POSIX_PATH_MAX];
@@ -1362,6 +1387,15 @@ mutt_hcache_delete(header_cache_t *h, const char *filename,
 }
 #elif HAVE_LMDB
 
+/**
+ * hcache_open_lmdb - QWQ
+ * @h:    YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 hcache_open_lmdb (struct header_cache* h, const char* path)
 {

@@ -111,6 +111,15 @@ static int browser_compare_subject (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare_desc - QWQ
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_desc (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -141,6 +150,15 @@ static int browser_compare_size (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare_count - QWQ
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_count (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -157,6 +175,15 @@ static int browser_compare_count (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare_count_new - QWQ
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_count_new (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -173,9 +200,16 @@ static int browser_compare_count_new (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
-/* Wild compare function that calls the others. It's useful
+/**
+ * browser_compare - QWQ
+ * @a: YYY
+ * @b: YYY
+ *
+ * Wild compare function that calls the others. It's useful
  * because it provides a way to tell "../" is always on the
  * top of the list, independently of the sort method.
+ *
+ * Returns: int
  */
 static int browser_compare (const void *a, const void *b)
 {
@@ -450,6 +484,24 @@ folder_format_str (char *dest, size_t destlen, size_t col, int cols, char op, co
   return (src);
 }
 
+/**
+ * newsgroup_format_str - QWQ
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @fmt:        YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 #ifdef USE_NNTP
 static const char *
 newsgroup_format_str (char *dest, size_t destlen, size_t col, int cols, char op, const char *src,
@@ -717,6 +769,15 @@ static int examine_directory (MUTTMENU *menu, struct browser_state *state,
   return 0;
 }
 
+/**
+ * examine_vfolders - QWQ
+ * @menu:  YYY
+ * @state: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NOTMUCH
 static int examine_vfolders (MUTTMENU *menu, struct browser_state *state)
 {
@@ -850,6 +911,16 @@ static int select_file_search (MUTTMENU *menu, regex_t *re, int n)
   return (regexec (re, ((struct folder_file *) menu->data)[n].name, 0, NULL, 0));
 }
 
+/**
+ * select_vfolder_search - QWQ
+ * @menu: YYY
+ * @re:   YYY
+ * @n:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NOTMUCH
 static int select_vfolder_search (MUTTMENU *menu, regex_t *re, int n)
 {
@@ -874,6 +945,15 @@ static void folder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
       (unsigned long) &folder, MUTT_FORMAT_ARROWCURSOR);
 }
 
+/**
+ * vfolder_entry - QWQ
+ * @s:    YYY
+ * @slen: YYY
+ * @menu: YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 #ifdef USE_NOTMUCH
 static void vfolder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
 {
@@ -887,7 +967,10 @@ static void vfolder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
 }
 #endif
 
-/* Public function
+/**
+ * mutt_browser_highlight_default - QWQ
+ * @state: YYY
+ * @menu:  YYY
  *
  * This function takes a menu and a state and defines the current
  * entry that should be highlighted.
@@ -1011,7 +1094,9 @@ static int file_tag (MUTTMENU *menu, int n, int m)
   return ff->tagged - ot;
 }
 
-/* Public function
+/**
+ * mutt_browser_select_dir - QWQ
+ * @f: YYY
  *
  * This function helps the browser to know which directory has
  * been selected. It should be called anywhere a confirm hit is done

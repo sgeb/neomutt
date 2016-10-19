@@ -61,6 +61,14 @@
 #include "mutt_sasl.h"
 #endif
 
+/**
+ * nntp_connect_error - QWQ
+ * @nserv: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int nntp_connect_error (NNTP_SERVER *nserv)
 {
   nserv->status = NNTP_NONE;
@@ -69,10 +77,17 @@ static int nntp_connect_error (NNTP_SERVER *nserv)
   return -1;
 }
 
-/* Get capabilities:
+/**
+ * nntp_capabilities - QWQ
+ * @nserv: YYY
+ *
+ * Get capabilities:
  * -1 - error, connection is closed
  *  0 - mode is reader, capabilities setted up
- *  1 - need to switch to reader mode */
+ *  1 - need to switch to reader mode
+ *
+ * Returns: int
+ */
 static int nntp_capabilities (NNTP_SERVER *nserv)
 {
   CONNECTION *conn = nserv->conn;
@@ -178,7 +193,14 @@ char *OverviewFmt =
 	"Lines:\0"
 	"\0";
 
-/* Detect supported commands */
+/**
+ * nntp_attempt_features - QWQ
+ * @nserv: YYY
+ *
+ * Detect supported commands
+ *
+ * Returns: int
+ */
 static int nntp_attempt_features (NNTP_SERVER *nserv)
 {
   CONNECTION *conn = nserv->conn;
@@ -304,7 +326,14 @@ static int nntp_attempt_features (NNTP_SERVER *nserv)
   return 0;
 }
 
-/* Get login, password and authenticate */
+/**
+ * nntp_auth - QWQ
+ * @nserv: YYY
+ *
+ * Get login, password and authenticate
+ *
+ * Returns: int
+ */
 static int nntp_auth (NNTP_SERVER *nserv)
 {
   CONNECTION *conn = nserv->conn;
@@ -600,7 +629,14 @@ static int nntp_auth (NNTP_SERVER *nserv)
   return -1;
 }
 
-/* Connect to server, authenticate and get capabilities */
+/**
+ * nntp_open_connection - QWQ
+ * @nserv: YYY
+ *
+ * Connect to server, authenticate and get capabilities
+ *
+ * Returns: int
+ */
 int nntp_open_connection (NNTP_SERVER *nserv)
 {
   CONNECTION *conn = nserv->conn;
@@ -750,7 +786,16 @@ int nntp_open_connection (NNTP_SERVER *nserv)
   return 0;
 }
 
-/* Send data from buffer and receive answer to same buffer */
+/**
+ * nntp_query - QWQ
+ * @nntp_data: YYY
+ * @line:      YYY
+ * @linelen:   YYY
+ *
+ * Send data from buffer and receive answer to same buffer
+ *
+ * Returns: int
+ */
 static int nntp_query (NNTP_DATA *nntp_data, char *line, size_t linelen)
 {
   NNTP_SERVER *nserv = nntp_data->nserv;
@@ -810,12 +855,27 @@ static int nntp_query (NNTP_DATA *nntp_data, char *line, size_t linelen)
   return 0;
 }
 
-/* This function calls funct(*line, *data) for each received line,
+/**
+ * nntp_fetch_lines - QWQ
+ * @nntp_data: YYY
+ * @query:     YYY
+ * @qlen:      YYY
+ * @msg:       YYY
+ * @int:       YYY
+ * @funct:     YYY
+ * @:          YYY
+ * @:          YYY
+ * @data:      YYY
+ *
+ * This function calls funct(*line, *data) for each received line,
  * funct(NULL, *data) if rewind(*data) needs, exits when fail or done:
  *  0 - success
  *  1 - bad response (answer in query buffer)
  * -1 - conection lost
- * -2 - error in funct(*line, *data) */
+ * -2 - error in funct(*line, *data)
+ *
+ * Returns: int
+ */
 static int nntp_fetch_lines (NNTP_DATA *nntp_data, char *query, size_t qlen,
 			char *msg, int (*funct) (char *, void *), void *data)
 {
@@ -890,7 +950,15 @@ static int nntp_fetch_lines (NNTP_DATA *nntp_data, char *query, size_t qlen,
   return rc;
 }
 
-/* Parse newsgroup description */
+/**
+ * fetch_description - QWQ
+ * @line: YYY
+ * @data: YYY
+ *
+ * Parse newsgroup description
+ *
+ * Returns: int
+ */
 static int fetch_description (char *line, void *data)
 {
   NNTP_SERVER *nserv = data;
@@ -918,8 +986,17 @@ static int fetch_description (char *line, void *data)
   return 0;
 }
 
-/* Fetch newsgroups descriptions.
- * Returns the same code as nntp_fetch_lines() */
+/**
+ * get_description - QWQ
+ * @nntp_data: YYY
+ * @wildmat:   YYY
+ * @msg:       YYY
+ *
+ * Fetch newsgroups descriptions.
+ * Returns the same code as nntp_fetch_lines()
+ *
+ * Returns: int
+ */
 static int get_description (NNTP_DATA *nntp_data, char *wildmat, char *msg)
 {
   NNTP_SERVER *nserv;
@@ -949,7 +1026,13 @@ static int get_description (NNTP_DATA *nntp_data, char *wildmat, char *msg)
   return rc;
 }
 
-/* Update read flag and set article number if empty */
+/**
+ * nntp_parse_xref - QWQ
+ * @ctx: YYY
+ * @hdr: YYY
+ *
+ * Update read flag and set article number if empty
+ */
 static void nntp_parse_xref (CONTEXT *ctx, HEADER *hdr)
 {
   NNTP_DATA *nntp_data = ctx->data;
@@ -985,7 +1068,15 @@ static void nntp_parse_xref (CONTEXT *ctx, HEADER *hdr)
   FREE (&buf);
 }
 
-/* Write line to temporarily file */
+/**
+ * fetch_tempfile - QWQ
+ * @line: YYY
+ * @data: YYY
+ *
+ * Write line to temporarily file
+ *
+ * Returns: int
+ */
 static int fetch_tempfile (char *line, void *data)
 {
   FILE *fp = data;
@@ -1010,7 +1101,15 @@ typedef struct
 #endif
 } FETCH_CTX;
 
-/* Parse article number */
+/**
+ * fetch_numbers - QWQ
+ * @line: YYY
+ * @data: YYY
+ *
+ * Parse article number
+ *
+ * Returns: int
+ */
 static int fetch_numbers (char *line, void *data)
 {
   FETCH_CTX *fc = data;
@@ -1181,7 +1280,18 @@ static int parse_overview_line (char *line, void *data)
   return 0;
 }
 
-/* Fetch headers */
+/**
+ * nntp_fetch_headers - QWQ
+ * @ctx:     YYY
+ * @hc:      YYY
+ * @first:   YYY
+ * @last:    YYY
+ * @restore: YYY
+ *
+ * Fetch headers
+ *
+ * Returns: int
+ */
 static int nntp_fetch_headers (CONTEXT *ctx, void *hc,
 			       anum_t first, anum_t last, int restore)
 {
@@ -1423,7 +1533,14 @@ static int nntp_fetch_headers (CONTEXT *ctx, void *hc,
   return 0;
 }
 
-/* Open newsgroup */
+/**
+ * nntp_open_mailbox - QWQ
+ * @ctx: YYY
+ *
+ * Open newsgroup
+ *
+ * Returns: int
+ */
 int nntp_open_mailbox (CONTEXT *ctx)
 {
   NNTP_SERVER *nserv;
@@ -1526,8 +1643,6 @@ int nntp_open_mailbox (CONTEXT *ctx)
 
   time (&nserv->check_time);
   ctx->data = nntp_data;
-  // QWQ
-  // ctx->mx_close = nntp_fastclose_mailbox;
   if (!nntp_data->bcache && (nntp_data->newsrc_ent ||
       nntp_data->subscribed || option (OPTSAVEUNSUB)))
     nntp_data->bcache = mutt_bcache_open (&nserv->conn->account,
@@ -1563,7 +1678,16 @@ int nntp_open_mailbox (CONTEXT *ctx)
   return 0;
 }
 
-/* Fetch message */
+/**
+ * nntp_fetch_message - QWQ
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
+ * Fetch message
+ *
+ * Returns: int
+ */
 int nntp_fetch_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
 {
   NNTP_DATA *nntp_data = ctx->data;
@@ -1686,13 +1810,28 @@ int nntp_fetch_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
   return 0;
 }
 
-/* Close message */
+/**
+ * nntp_close_message - QWQ
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * Close message
+ *
+ * Returns: int
+ */
 static int nntp_close_message (CONTEXT *ctx, MESSAGE *msg)
 {
   return safe_fclose (&msg->fp);
 }
 
-/* Post article */
+/**
+ * nntp_post - QWQ
+ * @msg: YYY
+ *
+ * Post article
+ *
+ * Returns: int
+ */
 int nntp_post (const char *msg) {
   NNTP_DATA *nntp_data, nntp_tmp;
   FILE *fp;
@@ -1759,7 +1898,14 @@ int nntp_post (const char *msg) {
   return 0;
 }
 
-/* Save changes to .newsrc and cache */
+/**
+ * nntp_sync_mailbox - QWQ
+ * @ctx: YYY
+ *
+ * Save changes to .newsrc and cache
+ *
+ * Returns: int
+ */
 int nntp_sync_mailbox (CONTEXT *ctx)
 {
   NNTP_DATA *nntp_data = ctx->data;
@@ -1818,7 +1964,14 @@ int nntp_sync_mailbox (CONTEXT *ctx)
   return 0;
 }
 
-/* Free up memory associated with the newsgroup context */
+/**
+ * nntp_fastclose_mailbox - QWQ
+ * @ctx: YYY
+ *
+ * Free up memory associated with the newsgroup context
+ *
+ * Returns: int
+ */
 int nntp_fastclose_mailbox (CONTEXT *ctx)
 {
   NNTP_DATA *nntp_data = ctx->data, *nntp_tmp;
@@ -1836,7 +1989,15 @@ int nntp_fastclose_mailbox (CONTEXT *ctx)
   return 0;
 }
 
-/* Get date and time from server */
+/**
+ * nntp_date - QWQ
+ * @nserv: YYY
+ * @now:   YYY
+ *
+ * Get date and time from server
+ *
+ * Returns: int
+ */
 int nntp_date (NNTP_SERVER *nserv, time_t *now)
 {
   if (nserv->hasDATE)
@@ -1868,7 +2029,14 @@ int nntp_date (NNTP_SERVER *nserv, time_t *now)
   return 0;
 }
 
-/* Fetch list of all newsgroups from server */
+/**
+ * nntp_active_fetch - QWQ
+ * @nserv: YYY
+ *
+ * Fetch list of all newsgroups from server
+ *
+ * Returns: int
+ */
 int nntp_active_fetch (NNTP_SERVER *nserv)
 {
   NNTP_DATA nntp_data;
@@ -1918,10 +2086,18 @@ int nntp_active_fetch (NNTP_SERVER *nserv)
   return 0;
 }
 
-/* Check newsgroup for new articles:
+/**
+ * nntp_group_poll - QWQ
+ * @nntp_data:   YYY
+ * @update_stat: YYY
+ *
+ * Check newsgroup for new articles:
  *  1 - new articles found
  *  0 - no change
- * -1 - lost connection */
+ * -1 - lost connection
+ *
+ * Returns: int
+ */
 static int nntp_group_poll (NNTP_DATA *nntp_data, int update_stat)
 {
   char buf[LONG_STRING] = "";
@@ -1960,11 +2136,19 @@ static int nntp_group_poll (NNTP_DATA *nntp_data, int update_stat)
   return 1;
 }
 
-/* Check current newsgroup for new articles:
+/**
+ * nntp_check_mailbox - QWQ
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * Check current newsgroup for new articles:
  *  MUTT_REOPENED	- articles have been renumbered or removed from server
  *  MUTT_NEW_MAIL	- new articles found
  *  0		- no change
- * -1		- lost connection */
+ * -1		- lost connection
+ *
+ * Returns: int
+ */
 int nntp_check_mailbox (CONTEXT *ctx, int *index_hint)
 {
   NNTP_DATA *nntp_data = ctx->data;
@@ -2182,10 +2366,17 @@ int nntp_check_mailbox (CONTEXT *ctx, int *index_hint)
   return ret;
 }
 
-/* Check for new groups and new articles in subscribed groups:
+/**
+ * nntp_check_new_groups - QWQ
+ * @nserv: YYY
+ *
+ * Check for new groups and new articles in subscribed groups:
  *  1 - new groups found
  *  0 - no new groups
- * -1 - error */
+ * -1 - error
+ *
+ * Returns: int
+ */
 int nntp_check_new_groups (NNTP_SERVER *nserv)
 {
   NNTP_DATA nntp_data;
@@ -2285,10 +2476,18 @@ int nntp_check_new_groups (NNTP_SERVER *nserv)
   return rc;
 }
 
-/* Fetch article by Message-ID:
+/**
+ * nntp_check_msgid - QWQ
+ * @ctx:   YYY
+ * @msgid: YYY
+ *
+ * Fetch article by Message-ID:
  *  0 - success
  *  1 - no such article
- * -1 - error */
+ * -1 - error
+ *
+ * Returns: int
+ */
 int nntp_check_msgid (CONTEXT *ctx, const char *msgid)
 {
   NNTP_DATA *nntp_data = ctx->data;
@@ -2364,7 +2563,15 @@ typedef struct
   anum_t *child;
 } CHILD_CTX;
 
-/* Parse XPAT line */
+/**
+ * fetch_children - QWQ
+ * @line: YYY
+ * @data: YYY
+ *
+ * Parse XPAT line
+ *
+ * Returns: int
+ */
 static int fetch_children (char *line, void *data)
 {
   CHILD_CTX *cc = data;
@@ -2385,7 +2592,15 @@ static int fetch_children (char *line, void *data)
   return 0;
 }
 
-/* Fetch children of article with the Message-ID */
+/**
+ * nntp_check_children - QWQ
+ * @ctx:   YYY
+ * @msgid: YYY
+ *
+ * Fetch children of article with the Message-ID
+ *
+ * Returns: int
+ */
 int nntp_check_children (CONTEXT *ctx, const char *msgid)
 {
   NNTP_DATA *nntp_data = ctx->data;
