@@ -51,6 +51,14 @@ static short PostCount = 0;
 static CONTEXT *PostContext = NULL;
 static short UpdateNumPostponed = 0;
 
+/**
+ * mutt_num_postponed - XXX
+ * @force: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Return the number of postponed messages.
  * if force is 0, use a cached value if it is costly to get a fresh
  * count (IMAP) - else check.
@@ -150,11 +158,25 @@ int mutt_num_postponed (int force)
   return (PostCount);
 }
 
+/**
+ * mutt_update_num_postponed - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_update_num_postponed (void)
 {
   UpdateNumPostponed = 1;
 }
 
+/**
+ * post_entry - XXX
+ * @s:     YYY
+ * @slen:  YYY
+ * @menu:  YYY
+ * @entry: YYY
+ *
+ * DESCRIPTION
+ */
 static void post_entry (char *s, size_t slen, MUTTMENU *menu, int entry)
 {
   CONTEXT *ctx = (CONTEXT *) menu->data;
@@ -163,6 +185,13 @@ static void post_entry (char *s, size_t slen, MUTTMENU *menu, int entry)
 		     MUTT_FORMAT_ARROWCURSOR);
 }
 
+/**
+ * select_msg - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: HEADER*
+ */
 static HEADER *select_msg (void)
 {
   MUTTMENU *menu;
@@ -224,6 +253,18 @@ static HEADER *select_msg (void)
   return (r > -1 ? PostContext->hdrs[r] : NULL);
 }
 
+/**
+ * mutt_get_postponed - XXX
+ * @ctx:    YYY
+ * @hdr:    YYY
+ * @cur:    YYY
+ * @fcc:    YYY
+ * @fcclen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* args:
  *      ctx	Context info, used when recalling a message to which
  *              we reply.
@@ -426,6 +467,16 @@ int mutt_get_postponed (CONTEXT *ctx, HEADER *hdr, HEADER **cur, char *fcc, size
 
 
 
+/**
+ * mutt_parse_crypt_hdr - XXX
+ * @p:                YYY
+ * @set_empty_signas: YYY
+ * @crypt_app:        YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_crypt_hdr (const char *p, int set_empty_signas, int crypt_app)
 {
   char smime_cryptalg[LONG_STRING] = "\0";
@@ -546,6 +597,18 @@ int mutt_parse_crypt_hdr (const char *p, int set_empty_signas, int crypt_app)
 }
 
 
+/**
+ * mutt_prepare_template - XXX
+ * @fp:     YYY
+ * @ctx:    YYY
+ * @newhdr: YYY
+ * @hdr:    YYY
+ * @resend: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* args:
  *     fp      If not NULL, file containing the template
  *     ctx     If fp is NULL, the context containing the header with the template

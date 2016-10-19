@@ -51,6 +51,14 @@ static const struct mapping_t UrlMap[] =
   { NULL,	U_UNKNOWN }
 };
 
+/**
+ * url_pct_decode - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int url_pct_decode (char *s)
 {
   char *d;
@@ -79,6 +87,14 @@ int url_pct_decode (char *s)
   return 0;
 }
 
+/**
+ * url_check_scheme - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: url_scheme_t
+ */
 url_scheme_t url_check_scheme (const char *s)
 {
   char sbuf[STRING];
@@ -100,6 +116,16 @@ url_scheme_t url_check_scheme (const char *s)
     return (url_scheme_t) i;
 }
 
+/**
+ * url_parse_file - XXX
+ * @d:   YYY
+ * @src: YYY
+ * @dl:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int url_parse_file (char *d, const char *src, size_t dl)
 {
   if (ascii_strncasecmp (src, "file:", 5))
@@ -112,6 +138,15 @@ int url_parse_file (char *d, const char *src, size_t dl)
   return url_pct_decode (d);
 }
 
+/**
+ * ciss_parse_userhost - XXX
+ * @ciss: YYY
+ * @src:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* ciss_parse_userhost: fill in components of ciss with info from src. Note
  *   these are pointers into src, which is altered with '\0's. Port of 0
  *   means no port given. */
@@ -169,6 +204,15 @@ static int ciss_parse_userhost (ciss_url_t *ciss, char *src)
     (!ciss->path || url_pct_decode (ciss->path) >= 0) ? 0 : -1;
 }
 
+/**
+ * url_parse_ciss - XXX
+ * @ciss: YYY
+ * @src:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* url_parse_ciss: Fill in ciss_url_t. char* elements are pointers into src,
  *   which is modified by this call (duplicate it first if you need to). */
 int url_parse_ciss (ciss_url_t *ciss, char *src)
@@ -183,6 +227,14 @@ int url_parse_ciss (ciss_url_t *ciss, char *src)
   return ciss_parse_userhost (ciss, tmp);
 }
 
+/**
+ * url_pct_encode - XXX
+ * @dst: YYY
+ * @l:   YYY
+ * @src: YYY
+ *
+ * DESCRIPTION
+ */
 static void url_pct_encode (char *dst, size_t l, const char *src)
 {
   static const char *alph = "0123456789ABCDEF";
@@ -204,6 +256,17 @@ static void url_pct_encode (char *dst, size_t l, const char *src)
   *dst = 0;
 }
 
+/**
+ * url_ciss_tostring - XXX
+ * @ciss:  YYY
+ * @dest:  YYY
+ * @len:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* url_ciss_tostring: output the URL string for a given CISS object. */
 int url_ciss_tostring (ciss_url_t* ciss, char* dest, size_t len, int flags)
 {
@@ -249,6 +312,16 @@ int url_ciss_tostring (ciss_url_t* ciss, char* dest, size_t len, int flags)
   return 0;
 }
 
+/**
+ * url_parse_mailto - XXX
+ * @e:    YYY
+ * @body: YYY
+ * @src:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int url_parse_mailto (ENVELOPE *e, char **body, const char *src)
 {
   char *t, *p;

@@ -8,6 +8,15 @@
 
 #include "mutt.h"
 
+/**
+ * strnlen - XXX
+ * @s:      YYY
+ * @maxlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 size_t strnlen(const char *s, size_t maxlen)
 {
         int i;

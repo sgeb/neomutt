@@ -35,6 +35,14 @@
 #include "lib.h"
 #include "pgplib.h"
 
+/**
+ * pgp_pkalgbytype - XXX
+ * @type: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *pgp_pkalgbytype (unsigned char type)
 {
   switch (type)
@@ -81,6 +89,14 @@ static const char *hashalgbytype (unsigned char type)
 
 #endif
 
+/**
+ * pgp_canencrypt - XXX
+ * @type: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 short pgp_canencrypt (unsigned char type)
 {
   switch (type)
@@ -95,6 +111,14 @@ short pgp_canencrypt (unsigned char type)
   }
 }
 
+/**
+ * pgp_cansign - XXX
+ * @type: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 short pgp_cansign (unsigned char type)
 {
   switch (type)
@@ -116,11 +140,25 @@ short pgp_cansign (unsigned char type)
  * 3 = both
  */
 
+/**
+ * pgp_get_abilities - XXX
+ * @type: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 short pgp_get_abilities (unsigned char type)
 {
   return (pgp_canencrypt (type) << 1) | pgp_cansign (type);
 }
 
+/**
+ * pgp_free_sig - XXX
+ * @sigp: YYY
+ *
+ * DESCRIPTION
+ */
 void pgp_free_sig (pgp_sig_t **sigp)
 {
   pgp_sig_t *sp, *q;
@@ -137,6 +175,12 @@ void pgp_free_sig (pgp_sig_t **sigp)
   *sigp = NULL;
 }
 
+/**
+ * pgp_free_uid - XXX
+ * @upp: YYY
+ *
+ * DESCRIPTION
+ */
 void pgp_free_uid (pgp_uid_t ** upp)
 {
   pgp_uid_t *up, *q;
@@ -154,6 +198,15 @@ void pgp_free_uid (pgp_uid_t ** upp)
   *upp = NULL;
 }
 
+/**
+ * pgp_copy_uids - XXX
+ * @up:     YYY
+ * @parent: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_uid_t*
+ */
 pgp_uid_t *pgp_copy_uids (pgp_uid_t *up, pgp_key_t parent)
 {
   pgp_uid_t *l = NULL;
@@ -172,6 +225,12 @@ pgp_uid_t *pgp_copy_uids (pgp_uid_t *up, pgp_key_t parent)
   return l;
 }
 
+/**
+ * _pgp_free_key - XXX
+ * @kpp: YYY
+ *
+ * DESCRIPTION
+ */
 static void _pgp_free_key (pgp_key_t *kpp)
 {
   pgp_key_t kp;
@@ -188,6 +247,15 @@ static void _pgp_free_key (pgp_key_t *kpp)
   FREE (kpp);		/* __FREE_CHECKED__ */
 }
 
+/**
+ * pgp_remove_key - XXX
+ * @klist: YYY
+ * @key:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 pgp_key_t pgp_remove_key (pgp_key_t *klist, pgp_key_t key)
 {
   pgp_key_t *last;
@@ -216,6 +284,12 @@ pgp_key_t pgp_remove_key (pgp_key_t *klist, pgp_key_t key)
   return q;
 }
 
+/**
+ * pgp_free_key - XXX
+ * @kpp: YYY
+ *
+ * DESCRIPTION
+ */
 void pgp_free_key (pgp_key_t *kpp)
 {
   pgp_key_t p, q, r;

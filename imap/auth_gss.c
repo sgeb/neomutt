@@ -38,6 +38,13 @@
 
 #define GSS_BUFSIZE 8192
 
+/**
+ * print_gss_error - XXX
+ * @err_maj: YYY
+ * @err_min: YYY
+ *
+ * DESCRIPTION
+ */
 #define GSS_AUTH_P_NONE      1
 #define GSS_AUTH_P_INTEGRITY 2
 #define GSS_AUTH_P_PRIVACY   4
@@ -78,6 +85,15 @@ static void print_gss_error(OM_uint32 err_maj, OM_uint32 err_min)
 	dprint (2, (debugfile, "((%s:%d )(%s:%d))", buf_maj, err_maj, buf_min, err_min));
 }
 
+/**
+ * imap_auth_gss - XXX
+ * @idata:  YYY
+ * @method: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: imap_auth_res_t
+ */
 /* imap_auth_gss: AUTH=GSSAPI support. */
 imap_auth_res_t imap_auth_gss (IMAP_DATA* idata, const char* method)
 {

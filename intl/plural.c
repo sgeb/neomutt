@@ -93,6 +93,16 @@ static void yyerror PARAMS ((const char *str));
 
 /* Allocation of expressions.  */
 
+/**
+ * new_exp - XXX
+ * @nargs: YYY
+ * @op:    YYY
+ * @args:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct expression*
+ */
 static struct expression *
 new_exp (nargs, op, args)
      int nargs;
@@ -143,6 +153,16 @@ new_exp_1 (op, right)
   return new_exp (1, op, args);
 }
 
+/**
+ * new_exp_2 - XXX
+ * @op:    YYY
+ * @left:  YYY
+ * @right: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct expression*
+ */
 static struct expression *
 new_exp_2 (op, left, right)
      enum operator op;

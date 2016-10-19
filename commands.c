@@ -60,6 +60,14 @@ static const char *ExtPagerProgress = "all";
 /* The folder the user last saved to.  Used by ci_save_message() */
 static char LastSaveFolder[_POSIX_PATH_MAX] = "";
 
+/**
+ * mutt_display_message - XXX
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_display_message (HEADER *cur)
 {
   char tempfile[_POSIX_PATH_MAX], buf[LONG_STRING];
@@ -249,6 +257,13 @@ int mutt_display_message (HEADER *cur)
   return rc;
 }
 
+/**
+ * ci_bounce_message - XXX
+ * @h:      YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ */
 void ci_bounce_message (HEADER *h, int *redraw)
 {
   char prompt[SHORT_STRING];
@@ -347,6 +362,15 @@ void ci_bounce_message (HEADER *h, int *redraw)
     mutt_message (h ? _("Message bounced.") : _("Messages bounced."));
 }
 
+/**
+ * pipe_set_flags - XXX
+ * @decode:  YYY
+ * @print:   YYY
+ * @cmflags: YYY
+ * @chflags: YYY
+ *
+ * DESCRIPTION
+ */
 static void pipe_set_flags (int decode, int print, int *cmflags, int *chflags)
 {
   if (decode)
@@ -366,6 +390,15 @@ static void pipe_set_flags (int decode, int print, int *cmflags, int *chflags)
   
 }
 
+/**
+ * pipe_msg - XXX
+ * @h:      YYY
+ * @fp:     YYY
+ * @decode: YYY
+ * @print:  YYY
+ *
+ * DESCRIPTION
+ */
 static void pipe_msg (HEADER *h, FILE *fp, int decode, int print)
 {
   int cmflags = 0;
@@ -389,6 +422,19 @@ static void pipe_msg (HEADER *h, FILE *fp, int decode, int print)
 
 /* the following code is shared between printing and piping */
 
+/**
+ * _mutt_pipe_message - XXX
+ * @h:      YYY
+ * @cmd:    YYY
+ * @decode: YYY
+ * @print:  YYY
+ * @split:  YYY
+ * @sep:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _mutt_pipe_message (HEADER *h, char *cmd,
 			       int decode,
 			       int print,
@@ -496,6 +542,12 @@ static int _mutt_pipe_message (HEADER *h, char *cmd,
   return rc;
 }
 
+/**
+ * mutt_pipe_message - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_pipe_message (HEADER *h)
 {
   char buffer[LONG_STRING];
@@ -513,6 +565,12 @@ void mutt_pipe_message (HEADER *h)
 		      PipeSep);
 }
 
+/**
+ * mutt_print_message - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_print_message (HEADER *h)
 {
 
@@ -539,6 +597,14 @@ void mutt_print_message (HEADER *h)
 }
 
 
+/**
+ * mutt_select_sort - XXX
+ * @reverse: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_select_sort (int reverse)
 {
   int method = Sort; /* save the current method in case of abort */
@@ -601,6 +667,11 @@ int mutt_select_sort (int reverse)
   return (Sort != method ? 0 : -1); /* no need to resort if it's the same */
 }
 
+/**
+ * mutt_shell_escape - XXX
+ *
+ * DESCRIPTION
+ */
 /* invoke a command in a subshell */
 void mutt_shell_escape (void)
 {
@@ -622,6 +693,11 @@ void mutt_shell_escape (void)
   }
 }
 
+/**
+ * mutt_enter_command - XXX
+ *
+ * DESCRIPTION
+ */
 /* enter a mutt command */
 void mutt_enter_command (void)
 {
@@ -652,6 +728,12 @@ void mutt_enter_command (void)
   FREE (&err.data);
 }
 
+/**
+ * mutt_display_address - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_display_address (ENVELOPE *env)
 {
   char *pfx = NULL;
@@ -674,6 +756,16 @@ void mutt_display_address (ENVELOPE *env)
   mutt_message ("%s: %s", pfx, buf);
 }
 
+/**
+ * set_copy_flags - XXX
+ * @hdr:     YYY
+ * @decode:  YYY
+ * @decrypt: YYY
+ * @cmflags: YYY
+ * @chflags: YYY
+ *
+ * DESCRIPTION
+ */
 static void set_copy_flags (HEADER *hdr, int decode, int decrypt, int *cmflags, int *chflags)
 {
   *cmflags = 0;
@@ -716,6 +808,18 @@ static void set_copy_flags (HEADER *hdr, int decode, int decrypt, int *cmflags, 
   }
 }
 
+/**
+ * _mutt_save_message - XXX
+ * @h:       YYY
+ * @ctx:     YYY
+ * @delete:  YYY
+ * @decode:  YYY
+ * @decrypt: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int _mutt_save_message (HEADER *h, CONTEXT *ctx, int delete, int decode, int decrypt)
 {
   int cmflags, chflags;
@@ -740,6 +844,18 @@ int _mutt_save_message (HEADER *h, CONTEXT *ctx, int delete, int decode, int dec
   return 0;
 }
 
+/**
+ * mutt_save_message - XXX
+ * @h:       YYY
+ * @delete:  YYY
+ * @decode:  YYY
+ * @decrypt: YYY
+ * @redraw:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns 0 if the copy/save was successful, or -1 on error/abort */
 int mutt_save_message (HEADER *h, int delete, 
 		       int decode, int decrypt, int *redraw)
@@ -934,11 +1050,24 @@ int mutt_save_message (HEADER *h, int delete,
 }
 
 
+/**
+ * mutt_version - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_version (void)
 {
   mutt_message ("NeoMutt %s (%s)", PACKAGE_VERSION, OldMuttVer);
 }
 
+/**
+ * mutt_edit_content_type - XXX
+ * @h:  YYY
+ * @b:  YYY
+ * @fp: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_edit_content_type (HEADER *h, BODY *b, FILE *fp)
 {
   char buf[LONG_STRING];
@@ -1033,6 +1162,15 @@ void mutt_edit_content_type (HEADER *h, BODY *b, FILE *fp)
 }
 
 
+/**
+ * _mutt_check_traditional_pgp - XXX
+ * @h:      YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _mutt_check_traditional_pgp (HEADER *h, int *redraw)
 {
   MESSAGE *msg;
@@ -1055,6 +1193,15 @@ static int _mutt_check_traditional_pgp (HEADER *h, int *redraw)
   return rv;
 }
 
+/**
+ * mutt_check_traditional_pgp - XXX
+ * @h:      YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_check_traditional_pgp (HEADER *h, int *redraw)
 {
   int i;

@@ -329,6 +329,11 @@ static struct compile_options comp_opts[] =
 };
 
 /**
+ * print_compile_options - XXX
+ *
+ * DESCRIPTION
+ */
+/**
  * print_compile_options - Print a list of enabled/disabled features
  *
  * The configure script lets uses enable/disable features.
@@ -361,6 +366,14 @@ print_compile_options (void)
 }
 
 /**
+ * rstrip_in_place - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
+/**
  * rstrip_in_place - Strip a trailing carriage return
  * @s:  String to be modified
  *
@@ -385,6 +398,11 @@ rstrip_in_place (char *s)
   return s;
 }
 
+/**
+ * print_version - XXX
+ *
+ * DESCRIPTION
+ */
 /**
  * print_version - Print system and compile info
  *
@@ -476,6 +494,11 @@ print_version (void)
 }
 
 /**
+ * print_copyright - XXX
+ *
+ * DESCRIPTION
+ */
+/**
  * print_copyright - Print copyright message
  *
  * Print the authors' copyright messages, the GPL license and some contact
@@ -491,6 +514,14 @@ print_copyright (void)
   puts (_(ReachingUs));
 }
 
+/**
+ * feature_enabled - XXX
+ * @name: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * feature_enabled - Test is a compile-time feature is enabled
  * @name:  Compile-time symbol of the feature

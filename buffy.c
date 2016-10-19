@@ -60,6 +60,14 @@ static BUFFY* buffy_get (const char *path);
 /* Find the last message in the file. 
  * upon success return 0. If no message found - return -1 */
 
+/**
+ * fseek_last_message - XXX
+ * @f: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int fseek_last_message (FILE * f)
 {
   LOFF_T pos;
@@ -105,6 +113,14 @@ static int fseek_last_message (FILE * f)
   return (-1);
 }
 
+/**
+ * test_last_status_new - XXX
+ * @f: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Return 1 if the last message is new */
 static int test_last_status_new (FILE * f)
 {
@@ -126,6 +142,14 @@ static int test_last_status_new (FILE * f)
   return result;
 }
 
+/**
+ * test_new_folder - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int test_new_folder (const char *path)
 {
   FILE *f;
@@ -146,6 +170,13 @@ static int test_new_folder (const char *path)
   return rc;
 }
 
+/**
+ * mutt_buffy_cleanup - XXX
+ * @buf: YYY
+ * @st:  YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_buffy_cleanup (const char *buf, struct stat *st)
 {
   struct utimbuf ut;
@@ -171,6 +202,14 @@ void mutt_buffy_cleanup (const char *buf, struct stat *st)
   }
 }
 
+/**
+ * mutt_find_mailbox - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BUFFY*
+ */
 BUFFY *mutt_find_mailbox (const char *path)
 {
   BUFFY *tmp = NULL;
@@ -189,6 +228,12 @@ BUFFY *mutt_find_mailbox (const char *path)
   return tmp;
 }
 
+/**
+ * mutt_update_mailbox - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_update_mailbox (BUFFY * b)
 {
   struct stat sb;
@@ -203,6 +248,14 @@ void mutt_update_mailbox (BUFFY * b)
   return;
 }
 
+/**
+ * buffy_new - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BUFFY*
+ */
 static BUFFY *buffy_new (const char *path)
 {
   BUFFY* buffy;
@@ -219,6 +272,12 @@ static BUFFY *buffy_new (const char *path)
   return buffy;
 }
 
+/**
+ * buffy_free - XXX
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ */
 static void buffy_free (BUFFY **mailbox)
 {
   if (mailbox && *mailbox)
@@ -226,6 +285,17 @@ static void buffy_free (BUFFY **mailbox)
   FREE (mailbox); /* __FREE_CHECKED__ */
 }
 
+/**
+ * mutt_parse_mailboxes - XXX
+ * @path: YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, BUFFER *err)
 {
   BUFFY **tmp,*tmp1;
@@ -310,6 +380,17 @@ int mutt_parse_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, BUFFER *e
   return 0;
 }
 
+/**
+ * buffy_maildir_check_dir - XXX
+ * @mailbox:     YYY
+ * @dir_name:    YYY
+ * @check_new:   YYY
+ * @check_stats: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Checks the specified maildir subdir (cur or new) for new mail or mail counts.
  * check_new:   if true, check for new mail.
  * check_stats: if true, count total, new, and flagged mesages.
@@ -391,6 +472,15 @@ static int buffy_maildir_check_dir (BUFFY* mailbox, const char *dir_name, int ch
   return rc;
 }
 
+/**
+ * buffy_maildir_check - XXX
+ * @mailbox:     YYY
+ * @check_stats: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Checks new mail for a maildir mailbox.
  * check_stats: if true, also count total, new, and flagged mesages.
  * Returns 1 if the mailbox has new mail.
@@ -416,6 +506,16 @@ static int buffy_maildir_check (BUFFY* mailbox, int check_stats)
   return rc;
 }
 
+/**
+ * buffy_mbox_check - XXX
+ * @mailbox:     YYY
+ * @sb:          YYY
+ * @check_stats: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Checks new mail for an mbox mailbox
  * check_stats: if true, also count total, new, and flagged mesages.
  * Returns 1 if the mailbox has new mail.
@@ -468,6 +568,17 @@ static int buffy_mbox_check (BUFFY* mailbox, struct stat *sb, int check_stats)
   return rc;
 }
 
+/**
+ * mutt_parse_virtual_mailboxes - XXX
+ * @path: YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NOTMUCH
 int mutt_parse_virtual_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, BUFFER *err)
 {
@@ -516,6 +627,14 @@ int mutt_parse_virtual_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, B
 }
 #endif
 
+/**
+ * buffy_check - XXX
+ * @tmp:         YYY
+ * @contex_sb:   YYY
+ * @check_stats: YYY
+ *
+ * DESCRIPTION
+ */
 static void buffy_check (BUFFY *tmp, struct stat *contex_sb, int check_stats)
 {
     struct stat sb;
@@ -621,6 +740,14 @@ static void buffy_check (BUFFY *tmp, struct stat *contex_sb, int check_stats)
       BuffyNotify++;
 }
 
+/**
+ * mutt_buffy_check - XXX
+ * @force: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Check all Incoming for new mail and total/new/flagged messages
  * force: if true, ignore BuffyTimeout and check for new mail anyway
  */
@@ -689,6 +816,13 @@ int mutt_buffy_check (int force)
   return (BuffyCount);
 }
 
+/**
+ * mutt_buffy_list - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_buffy_list (void)
 {
   BUFFY *tmp;
@@ -743,6 +877,12 @@ int mutt_buffy_list (void)
   return (0);
 }
 
+/**
+ * mutt_buffy_setnotified - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_buffy_setnotified (const char *path)
 {
   BUFFY *buffy;
@@ -755,6 +895,13 @@ void mutt_buffy_setnotified (const char *path)
   time(&buffy->last_visited);
 }
 
+/**
+ * mutt_buffy_notify - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_buffy_notify (void)
 {
   if (mutt_buffy_check (0) && BuffyNotify)
@@ -764,6 +911,13 @@ int mutt_buffy_notify (void)
   return (0);
 }
 
+/**
+ * mutt_buffy - XXX
+ * @s:    YYY
+ * @slen: YYY
+ *
+ * DESCRIPTION
+ */
 /* 
  * mutt_buffy() -- incoming folders completion routine
  *
@@ -800,6 +954,13 @@ void mutt_buffy (char *s, size_t slen)
   *s = '\0';
 }
 
+/**
+ * mutt_buffy_vfolder - XXX
+ * @s:    YYY
+ * @slen: YYY
+ *
+ * DESCRIPTION
+ */
 #ifdef USE_NOTMUCH
 void mutt_buffy_vfolder (char *s, size_t slen)
 {
@@ -829,6 +990,14 @@ void mutt_buffy_vfolder (char *s, size_t slen)
 }
 #endif
 
+/**
+ * buffy_get - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BUFFY*
+ */
 /* fetch buffy object for given path, if present */
 static BUFFY* buffy_get (const char *path)
 {

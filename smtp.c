@@ -78,6 +78,16 @@ static int Esmtp = 0;
 static char* AuthMechs = NULL;
 static unsigned char Capabilities[(CAPMAX + 7)/ 8];
 
+/**
+ * smtp_code - XXX
+ * @buf: YYY
+ * @len: YYY
+ * @n:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int smtp_code (char *buf, size_t len, int *n)
 {
   char code[4];
@@ -93,6 +103,14 @@ static int smtp_code (char *buf, size_t len, int *n)
   return 0;
 }
 
+/**
+ * smtp_get_resp - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Reads a command response from the SMTP server.
  * Returns:
  * 0	on success (2xx code) or continue (354 code)
@@ -138,6 +156,15 @@ smtp_get_resp (CONNECTION * conn)
     return -1;
 }
 
+/**
+ * smtp_rcpt_to - XXX
+ * @conn: YYY
+ * @a:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 smtp_rcpt_to (CONNECTION * conn, const ADDRESS * a)
 {
@@ -167,6 +194,15 @@ smtp_rcpt_to (CONNECTION * conn, const ADDRESS * a)
   return 0;
 }
 
+/**
+ * smtp_data - XXX
+ * @conn:    YYY
+ * @msgfile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 smtp_data (CONNECTION * conn, const char *msgfile)
 {
@@ -240,6 +276,14 @@ smtp_data (CONNECTION * conn, const char *msgfile)
 }
 
 
+/**
+ * address_uses_unicode - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Returns 1 if a contains at least one 8-bit character, 0 if none do.
  */
 static int address_uses_unicode(const char *a)
@@ -258,6 +302,14 @@ static int address_uses_unicode(const char *a)
 }
 
 
+/**
+ * addresses_use_unicode - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Returns 1 if any address in a contains at least one 8-bit
  * character, 0 if none do.
  */
@@ -273,6 +325,19 @@ static int addresses_use_unicode(const ADDRESS* a)
 }
 
 
+/**
+ * mutt_smtp_send - XXX
+ * @from:     YYY
+ * @to:       YYY
+ * @cc:       YYY
+ * @bcc:      YYY
+ * @msgfile:  YYY
+ * @eightbit: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_smtp_send (const ADDRESS* from, const ADDRESS* to, const ADDRESS* cc,
                 const ADDRESS* bcc, const char *msgfile, int eightbit)
@@ -362,6 +427,14 @@ mutt_smtp_send (const ADDRESS* from, const ADDRESS* to, const ADDRESS* cc,
   return ret;
 }
 
+/**
+ * smtp_fill_account - XXX
+ * @account: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int smtp_fill_account (ACCOUNT* account)
 {
   static unsigned short SmtpPort = 0;
@@ -411,6 +484,14 @@ static int smtp_fill_account (ACCOUNT* account)
   return 0;
 }
 
+/**
+ * smtp_helo - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int smtp_helo (CONNECTION* conn)
 {
   char buf[LONG_STRING];
@@ -442,6 +523,14 @@ static int smtp_helo (CONNECTION* conn)
   return smtp_get_resp (conn);
 }
 
+/**
+ * smtp_open - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int smtp_open (CONNECTION* conn)
 {
   int rc;
@@ -507,6 +596,14 @@ static int smtp_open (CONNECTION* conn)
   return 0;
 }
 
+/**
+ * smtp_auth - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_SASL
 static int smtp_auth (CONNECTION* conn)
 {
@@ -561,6 +658,15 @@ static int smtp_auth (CONNECTION* conn)
   return r == SMTP_AUTH_SUCCESS ? 0 : -1;
 }
 
+/**
+ * smtp_auth_sasl - XXX
+ * @conn:     YYY
+ * @mechlist: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int smtp_auth_sasl (CONNECTION* conn, const char* mechlist)
 {
   sasl_conn_t* saslconn;

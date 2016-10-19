@@ -37,6 +37,12 @@ static int OldSize = 0;
 
 #define GET_HISTORY(CLASS)	((CLASS >= HC_LAST) ? NULL : &History[CLASS])
 
+/**
+ * init_history - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 static void init_history (struct history *h)
 {
   int i;
@@ -58,6 +64,11 @@ static void init_history (struct history *h)
   h->last = 0;
 }
 
+/**
+ * mutt_read_histfile - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_read_histfile (void)
 {
   FILE *f;
@@ -94,6 +105,11 @@ void mutt_read_histfile (void)
   FREE (&linebuf);
 }
 
+/**
+ * shrink_histfile - XXX
+ *
+ * DESCRIPTION
+ */
 static void shrink_histfile (void)
 {
   char tmpfname[_POSIX_PATH_MAX];
@@ -165,6 +181,13 @@ cleanup:
   }
 }
 
+/**
+ * save_history - XXX
+ * @hclass: YYY
+ * @s:      YYY
+ *
+ * DESCRIPTION
+ */
 static void save_history (history_class_t hclass, const char *s)
 {
   static int n = 0;
@@ -206,6 +229,11 @@ static void save_history (history_class_t hclass, const char *s)
   }
 }
 
+/**
+ * mutt_init_history - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_init_history(void)
 {
   history_class_t hclass;
@@ -216,6 +244,14 @@ void mutt_init_history(void)
   for(hclass = HC_FIRST; hclass < HC_LAST; hclass++)
     init_history(&History[hclass]);
 
+/**
+ * mutt_history_add - XXX
+ * @hclass: YYY
+ * @s:      YYY
+ * @save:   YYY
+ *
+ * DESCRIPTION
+ */
   OldSize = HistSize;
 }
   
@@ -248,6 +284,14 @@ void mutt_history_add (history_class_t hclass, const char *s, int save)
   h->cur = h->last; /* reset to the last entry */
 }
 
+/**
+ * mutt_history_next - XXX
+ * @hclass: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_history_next (history_class_t hclass)
 {
   int next;
@@ -266,6 +310,14 @@ char *mutt_history_next (history_class_t hclass)
   return (h->hist[h->cur] ? h->hist[h->cur] : "");
 }
 
+/**
+ * mutt_history_prev - XXX
+ * @hclass: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_history_prev (history_class_t hclass)
 {
   int prev;
@@ -286,6 +338,12 @@ char *mutt_history_prev (history_class_t hclass)
   return (h->hist[h->cur] ? h->hist[h->cur] : "");
 }
 
+/**
+ * mutt_reset_history_state - XXX
+ * @hclass: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_reset_history_state (history_class_t hclass)
 {
   struct history *h = GET_HISTORY(hclass);
@@ -296,6 +354,14 @@ void mutt_reset_history_state (history_class_t hclass)
   h->cur = h->last;
 }
 
+/**
+ * mutt_history_at_scratch - XXX
+ * @hclass: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_history_at_scratch (history_class_t hclass)
 {
   struct history *h = GET_HISTORY(hclass);
@@ -306,6 +372,13 @@ int mutt_history_at_scratch (history_class_t hclass)
   return h->cur == h->last;
 }
 
+/**
+ * mutt_history_save_scratch - XXX
+ * @hclass: YYY
+ * @s:      YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_history_save_scratch (history_class_t hclass, const char *s)
 {
   struct history *h = GET_HISTORY(hclass);

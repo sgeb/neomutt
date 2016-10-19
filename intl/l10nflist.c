@@ -161,6 +161,27 @@ pop (x)
 }
 
 
+/**
+ * _nl_make_l10nflist - XXX
+ * @l10nfile_list:      YYY
+ * @dirlist:            YYY
+ * @dirlist_len:        YYY
+ * @mask:               YYY
+ * @language:           YYY
+ * @territory:          YYY
+ * @codeset:            YYY
+ * @normalized_codeset: YYY
+ * @modifier:           YYY
+ * @special:            YYY
+ * @sponsor:            YYY
+ * @revision:           YYY
+ * @filename:           YYY
+ * @do_allocate:        YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct loaded_l10nfile*
+ */
 struct loaded_l10nfile *
 _nl_make_l10nflist (l10nfile_list, dirlist, dirlist_len, mask, language,
 		    territory, codeset, normalized_codeset, modifier, special,
@@ -340,6 +361,15 @@ _nl_make_l10nflist (l10nfile_list, dirlist, dirlist_len, mask, language,
   return retval;
 }
 
+/**
+ * _nl_normalize_codeset - XXX
+ * @codeset:  YYY
+ * @name_len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Normalize codeset name.  There is no standard for the codeset
    names.  Normalization allows the user to use any of the common
    names.  The return value is dynamically allocated and has to be

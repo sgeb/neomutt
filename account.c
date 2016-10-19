@@ -26,6 +26,15 @@
 #include "account.h"
 #include "url.h"
 
+/**
+ * mutt_account_match - XXX
+ * @a1: YYY
+ * @a2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_account_match: compare account info (host/port/user) */
 int mutt_account_match (const ACCOUNT* a1, const ACCOUNT* a2)
 {
@@ -70,6 +79,15 @@ int mutt_account_match (const ACCOUNT* a1, const ACCOUNT* a2)
   return 1;
 }
 
+/**
+ * mutt_account_fromurl - XXX
+ * @account: YYY
+ * @url:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_account_fromurl: fill account with information from url. */
 int mutt_account_fromurl (ACCOUNT* account, ciss_url_t* url)
 {
@@ -98,6 +116,13 @@ int mutt_account_fromurl (ACCOUNT* account, ciss_url_t* url)
   return 0;
 }
 
+/**
+ * mutt_account_tourl - XXX
+ * @account: YYY
+ * @url:     YYY
+ *
+ * DESCRIPTION
+ */
 /* mutt_account_tourl: fill URL with info from account. The URL information
  *   is a set of pointers into account - don't free or edit account until
  *   you've finished with url (make a copy of account if you need it for
@@ -158,6 +183,14 @@ void mutt_account_tourl (ACCOUNT* account, ciss_url_t* url)
     url->pass = account->pass;
 }
 
+/**
+ * mutt_account_getuser - XXX
+ * @account: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_account_getuser: retrieve username into ACCOUNT, if necessary */
 int mutt_account_getuser (ACCOUNT* account)
 {
@@ -194,6 +227,14 @@ int mutt_account_getuser (ACCOUNT* account)
   return 0;
 }
 
+/**
+ * mutt_account_getlogin - XXX
+ * @account: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_account_getlogin (ACCOUNT* account)
 {
   /* already set */
@@ -221,6 +262,14 @@ int mutt_account_getlogin (ACCOUNT* account)
   return 0;
 }
 
+/**
+ * mutt_account_getpass - XXX
+ * @account: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_account_getpass: fetch password into ACCOUNT, if necessary */
 int mutt_account_getpass (ACCOUNT* account)
 {
@@ -261,6 +310,12 @@ int mutt_account_getpass (ACCOUNT* account)
   return 0;
 }
 
+/**
+ * mutt_account_unsetpass - XXX
+ * @account: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_account_unsetpass (ACCOUNT* account)
 {
   account->flags &= ~MUTT_ACCT_PASS;

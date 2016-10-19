@@ -42,6 +42,17 @@
 static struct loaded_l10nfile *_nl_loaded_domains;
 
 
+/**
+ * _nl_find_domain - XXX
+ * @dirname:       YYY
+ * @locale:        YYY
+ * @domainname:    YYY
+ * @domainbinding: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct loaded_l10nfile*
+ */
 /* Return a data structure describing the message catalog described by
    the DOMAINNAME and CATEGORY parameters with respect to the currently
    established bindings.  */

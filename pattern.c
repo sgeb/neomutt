@@ -129,6 +129,14 @@ static char LastSearchExpn[LONG_STRING] = { 0 }; /* expanded version of
 #define MUTT_PDR_ERRORDONE	(MUTT_PDR_ERROR | MUTT_PDR_DONE)
 
 
+/**
+ * mutt_which_case - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* if no uppercase letters are given, do a case-insensitive search */
 int mutt_which_case (const char *s)
 {
@@ -151,6 +159,16 @@ int mutt_which_case (const char *s)
   return REG_ICASE; /* case-insensitive */
 }
 
+/**
+ * msg_search - XXX
+ * @ctx:   YYY
+ * @pat:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 msg_search (CONTEXT *ctx, pattern_t* pat, int msgno)
 {
@@ -302,6 +320,16 @@ msg_search (CONTEXT *ctx, pattern_t* pat, int msgno)
   return match;
 }
 
+/**
+ * eat_regexp - XXX
+ * @pat: YYY
+ * @s:   YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int eat_regexp (pattern_t *pat, BUFFER *s, BUFFER *err)
 {
   BUFFER buf;
@@ -358,6 +386,16 @@ static int eat_regexp (pattern_t *pat, BUFFER *s, BUFFER *err)
   return 0;
 }
 
+/**
+ * eat_range - XXX
+ * @pat: YYY
+ * @s:   YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int eat_range (pattern_t *pat, BUFFER *s, BUFFER *err)
 {
   char *tmp;
@@ -443,6 +481,16 @@ int eat_range (pattern_t *pat, BUFFER *s, BUFFER *err)
   return 0;
 }
 
+/**
+ * getDate - XXX
+ * @s:   YYY
+ * @t:   YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *getDate (const char *s, struct tm *t, BUFFER *err)
 {
   char *p;
@@ -483,6 +531,16 @@ static const char *getDate (const char *s, struct tm *t, BUFFER *err)
   return p;
 }
 
+/**
+ * get_offset - XXX
+ * @tm:   YYY
+ * @s:    YYY
+ * @sign: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Ny	years
    Nm	months
    Nw	weeks
@@ -515,6 +573,13 @@ static const char *get_offset (struct tm *tm, const char *s, int sign)
   return (ps + 1);
 }
 
+/**
+ * adjust_date_range - XXX
+ * @min: YYY
+ * @max: YYY
+ *
+ * DESCRIPTION
+ */
 static void adjust_date_range (struct tm *min, struct tm *max)
 {
   if (min->tm_year > max->tm_year
@@ -542,6 +607,19 @@ static void adjust_date_range (struct tm *min, struct tm *max)
   }
 }
 
+/**
+ * parse_date_range - XXX
+ * @pc:      YYY
+ * @min:     YYY
+ * @max:     YYY
+ * @haveMin: YYY
+ * @baseMin: YYY
+ * @err:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char * parse_date_range (const char* pc, struct tm *min,
     struct tm *max, int haveMin, struct tm *baseMin, BUFFER *err)
 {
@@ -623,6 +701,16 @@ static const char * parse_date_range (const char* pc, struct tm *min,
   return ((flag & MUTT_PDR_ERROR) ? NULL : pc);
 }
 
+/**
+ * eat_date - XXX
+ * @pat: YYY
+ * @s:   YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int eat_date (pattern_t *pat, BUFFER *s, BUFFER *err)
 {
   BUFFER buffer;
@@ -761,6 +849,15 @@ static int eat_date (pattern_t *pat, BUFFER *s, BUFFER *err)
   return 0;
 }
 
+/**
+ * patmatch - XXX
+ * @pat: YYY
+ * @buf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int patmatch (const pattern_t* pat, const char* buf)
 {
   if (pat->stringmatch)
@@ -772,6 +869,14 @@ static int patmatch (const pattern_t* pat, const char* buf)
     return regexec (pat->p.rx, buf, 0, NULL, 0);
 }
 
+/**
+ * lookup_tag - XXX
+ * @tag: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const struct pattern_flags*
+ */
 static const struct pattern_flags *lookup_tag (char tag)
 {
   int i;
@@ -782,6 +887,14 @@ static const struct pattern_flags *lookup_tag (char tag)
   return NULL;
 }
 
+/**
+ * find_matching_paren - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static /* const */ char *find_matching_paren (/* const */ char *s)
 {
   int level = 1;
@@ -800,6 +913,12 @@ static /* const */ char *find_matching_paren (/* const */ char *s)
   return s;
 }
 
+/**
+ * mutt_pattern_free - XXX
+ * @pat: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_pattern_free (pattern_t **pat)
 {
   pattern_t *tmp;
@@ -825,6 +944,16 @@ void mutt_pattern_free (pattern_t **pat)
   }
 }
 
+/**
+ * mutt_pattern_comp - XXX
+ * @s:     YYY
+ * @flags: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pattern_t*
+ */
 pattern_t *mutt_pattern_comp (/* const */ char *s, int flags, BUFFER *err)
 {
   pattern_t *curlist = NULL;
@@ -1033,6 +1162,17 @@ pattern_t *mutt_pattern_comp (/* const */ char *s, int flags, BUFFER *err)
   return (curlist);
 }
 
+/**
+ * perform_and - XXX
+ * @pat:   YYY
+ * @flags: YYY
+ * @ctx:   YYY
+ * @hdr:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 perform_and (pattern_t *pat, pattern_exec_flag flags, CONTEXT *ctx, HEADER *hdr)
 {
@@ -1042,6 +1182,17 @@ perform_and (pattern_t *pat, pattern_exec_flag flags, CONTEXT *ctx, HEADER *hdr)
   return 1;
 }
 
+/**
+ * perform_or - XXX
+ * @pat:   YYY
+ * @flags: YYY
+ * @ctx:   YYY
+ * @hdr:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 perform_or (struct pattern_t *pat, pattern_exec_flag flags, CONTEXT *ctx, HEADER *hdr)
 {
@@ -1051,6 +1202,17 @@ perform_or (struct pattern_t *pat, pattern_exec_flag flags, CONTEXT *ctx, HEADER
   return 0;
 }
 
+/**
+ * match_adrlist - XXX
+ * @pat:            YYY
+ * @match_personal: YYY
+ * @n:              YYY
+ * @...:            YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int match_adrlist (pattern_t *pat, int match_personal, int n, ...)
 {
   va_list ap;
@@ -1073,6 +1235,15 @@ static int match_adrlist (pattern_t *pat, int match_personal, int n, ...)
   return pat->alladdr; /* No matches, or all matches if alladdr */
 }
 
+/**
+ * match_reference - XXX
+ * @pat:  YYY
+ * @refs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int match_reference (pattern_t *pat, LIST *refs)
 {
   for (; refs; refs = refs->next)
@@ -1081,6 +1252,16 @@ static int match_reference (pattern_t *pat, LIST *refs)
   return 0;
 }
 
+/**
+ * mutt_is_list_recipient - XXX
+ * @alladdr: YYY
+ * @a1:      YYY
+ * @a2:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Matches subscribed mailing lists
  */
@@ -1095,6 +1276,16 @@ int mutt_is_list_recipient (int alladdr, ADDRESS *a1, ADDRESS *a2)
   return alladdr;
 }
 
+/**
+ * mutt_is_list_cc - XXX
+ * @alladdr: YYY
+ * @a1:      YYY
+ * @a2:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Matches known mailing lists
  * The function name may seem a little bit misleading: It checks all
@@ -1111,6 +1302,16 @@ int mutt_is_list_cc (int alladdr, ADDRESS *a1, ADDRESS *a2)
   return alladdr;
 }
 
+/**
+ * match_user - XXX
+ * @alladdr: YYY
+ * @a1:      YYY
+ * @a2:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int match_user (int alladdr, ADDRESS *a1, ADDRESS *a2)
 {
   for (; a1 ; a1 = a1->next)
@@ -1122,6 +1323,21 @@ static int match_user (int alladdr, ADDRESS *a1, ADDRESS *a2)
   return alladdr;
 }
 
+/**
+ * match_threadcomplete - XXX
+ * @pat:   YYY
+ * @flags: YYY
+ * @ctx:   YYY
+ * @t:     YYY
+ * @left:  YYY
+ * @up:    YYY
+ * @right: YYY
+ * @down:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int match_threadcomplete(struct pattern_t *pat, pattern_exec_flag flags, CONTEXT *ctx, THREAD *t,int left,int up,int right,int down)
 {
   int a;
@@ -1145,6 +1361,17 @@ static int match_threadcomplete(struct pattern_t *pat, pattern_exec_flag flags, 
   return 0;
 }
 
+/**
+ * mutt_pattern_exec - XXX
+ * @pat:   YYY
+ * @flags: YYY
+ * @ctx:   YYY
+ * @h:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* flags
    	MUTT_MATCH_FULL_ADDRESS	match both personal and machine address */
 int
@@ -1305,6 +1532,22 @@ mutt_pattern_exec (struct pattern_t *pat, pattern_exec_flag flags, CONTEXT *ctx,
   return (-1);
 }
 
+/**
+ * quote_simple - XXX
+ * @tmp: YYY
+ * @len: YYY
+ * @p:   YYY
+ *
+ * DESCRIPTION
+ */
+/**
+ * mutt_check_simple - XXX
+ * @s:      YYY
+ * @len:    YYY
+ * @simple: YYY
+ *
+ * DESCRIPTION
+ */
 static void quote_simple(char *tmp, size_t len, const char *p)
 {
   int i = 0;
@@ -1373,6 +1616,14 @@ void mutt_check_simple (char *s, size_t len, const char *simple)
 }
 
 /**
+ * top_of_thread - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: THREAD*
+ */
+/**
  * top_of_thread - Find the first email in the current thread
  * @h: Header of current email
  *
@@ -1396,6 +1647,14 @@ top_of_thread (HEADER *h)
   return t;
 }
 
+/**
+ * mutt_limit_current_thread - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * mutt_limit_current_thread - Limit the email view to the current thread
  * @h: Header of current email
@@ -1442,6 +1701,15 @@ mutt_limit_current_thread (HEADER *h)
   return 1;
 }
 
+/**
+ * mutt_pattern_func - XXX
+ * @op:     YYY
+ * @prompt: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_pattern_func (int op, char *prompt)
 {
   pattern_t *pat;
@@ -1562,6 +1830,15 @@ int mutt_pattern_func (int op, char *prompt)
   return 0;
 }
 
+/**
+ * mutt_search_command - XXX
+ * @cur: YYY
+ * @op:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_search_command (int cur, int op)
 {
   int i, j;

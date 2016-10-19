@@ -158,6 +158,14 @@ typedef union
   unsigned int uidvalidity;
 } validate;
 
+/**
+ * lazy_malloc - XXX
+ * @siz: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: void*
+ */
 static void *
 lazy_malloc(size_t siz)
 {
@@ -167,6 +175,13 @@ lazy_malloc(size_t siz)
   return safe_malloc(siz);
 }
 
+/**
+ * lazy_realloc - XXX
+ * @ptr: YYY
+ * @siz: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 lazy_realloc(void *ptr, size_t siz)
 {
@@ -178,6 +193,16 @@ lazy_realloc(void *ptr, size_t siz)
   safe_realloc(ptr, siz);
 }
 
+/**
+ * dump_int - XXX
+ * @i:   YYY
+ * @d:   YYY
+ * @off: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_int(unsigned int i, unsigned char *d, int *off)
 {
@@ -188,6 +213,14 @@ dump_int(unsigned int i, unsigned char *d, int *off)
   return d;
 }
 
+/**
+ * restore_int - XXX
+ * @i:   YYY
+ * @d:   YYY
+ * @off: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 restore_int(unsigned int *i, const unsigned char *d, int *off)
 {
@@ -205,6 +238,18 @@ static inline int is_ascii (const char *p, size_t len) {
   return 1;
 }
 
+/**
+ * dump_char_size - XXX
+ * @c:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @size:    YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_char_size(char *c, unsigned char *d, int *off, ssize_t size, int convert)
 {
@@ -236,12 +281,32 @@ dump_char_size(char *c, unsigned char *d, int *off, ssize_t size, int convert)
   return d;
 }
 
+/**
+ * dump_char - XXX
+ * @c:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_char(char *c, unsigned char *d, int *off, int convert)
 {
   return dump_char_size (c, d, off, mutt_strlen (c) + 1, convert);
 }
 
+/**
+ * restore_char - XXX
+ * @c:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 restore_char(char **c, const unsigned char *d, int *off, int convert)
 {
@@ -267,6 +332,17 @@ restore_char(char **c, const unsigned char *d, int *off, int convert)
   *off += size;
 }
 
+/**
+ * dump_address - XXX
+ * @a:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_address(ADDRESS * a, unsigned char *d, int *off, int convert)
 {
@@ -292,6 +368,15 @@ dump_address(ADDRESS * a, unsigned char *d, int *off, int convert)
   return d;
 }
 
+/**
+ * restore_address - XXX
+ * @a:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 restore_address(ADDRESS ** a, const unsigned char *d, int *off, int convert)
 {
@@ -315,6 +400,17 @@ restore_address(ADDRESS ** a, const unsigned char *d, int *off, int convert)
   *a = NULL;
 }
 
+/**
+ * dump_list - XXX
+ * @l:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_list(LIST * l, unsigned char *d, int *off, int convert)
 {
@@ -335,6 +431,15 @@ dump_list(LIST * l, unsigned char *d, int *off, int convert)
   return d;
 }
 
+/**
+ * restore_list - XXX
+ * @l:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 restore_list(LIST ** l, const unsigned char *d, int *off, int convert)
 {
@@ -353,6 +458,17 @@ restore_list(LIST ** l, const unsigned char *d, int *off, int convert)
   *l = NULL;
 }
 
+/**
+ * dump_buffer - XXX
+ * @b:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_buffer(BUFFER * b, unsigned char *d, int *off, int convert)
 {
@@ -372,6 +488,15 @@ dump_buffer(BUFFER * b, unsigned char *d, int *off, int convert)
   return d;
 }
 
+/**
+ * restore_buffer - XXX
+ * @b:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 restore_buffer(BUFFER ** b, const unsigned char *d, int *off, int convert)
 {
@@ -394,6 +519,17 @@ restore_buffer(BUFFER ** b, const unsigned char *d, int *off, int convert)
   (*b)->destroy = used;
 }
 
+/**
+ * dump_parameter - XXX
+ * @p:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_parameter(PARAMETER * p, unsigned char *d, int *off, int convert)
 {
@@ -415,6 +551,15 @@ dump_parameter(PARAMETER * p, unsigned char *d, int *off, int convert)
   return d;
 }
 
+/**
+ * restore_parameter - XXX
+ * @p:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 restore_parameter(PARAMETER ** p, const unsigned char *d, int *off, int convert)
 {
@@ -434,6 +579,17 @@ restore_parameter(PARAMETER ** p, const unsigned char *d, int *off, int convert)
   *p = NULL;
 }
 
+/**
+ * dump_body - XXX
+ * @c:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_body(BODY * c, unsigned char *d, int *off, int convert)
 {
@@ -466,6 +622,15 @@ dump_body(BODY * c, unsigned char *d, int *off, int convert)
   return d;
 }
 
+/**
+ * restore_body - XXX
+ * @c:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 restore_body(BODY * c, const unsigned char *d, int *off, int convert)
 {
@@ -483,6 +648,17 @@ restore_body(BODY * c, const unsigned char *d, int *off, int convert)
   restore_char(&c->d_filename, d, off, convert);
 }
 
+/**
+ * dump_envelope - XXX
+ * @e:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 static unsigned char *
 dump_envelope(ENVELOPE * e, unsigned char *d, int *off, int convert)
 {
@@ -523,6 +699,15 @@ dump_envelope(ENVELOPE * e, unsigned char *d, int *off, int convert)
   return d;
 }
 
+/**
+ * restore_envelope - XXX
+ * @e:       YYY
+ * @d:       YYY
+ * @off:     YYY
+ * @convert: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 restore_envelope(ENVELOPE * e, const unsigned char *d, int *off, int convert)
 {
@@ -564,6 +749,15 @@ restore_envelope(ENVELOPE * e, const unsigned char *d, int *off, int convert)
 #endif
 }
 
+/**
+ * crc_matches - XXX
+ * @d:   YYY
+ * @crc: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 crc_matches(const char *d, unsigned int crc)
 {
@@ -578,6 +772,16 @@ crc_matches(const char *d, unsigned int crc)
   return (crc == mycrc);
 }
 
+/**
+ * mutt_hcache_per_folder - XXX
+ * @path:   YYY
+ * @folder: YYY
+ * @namer:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Append md5sumed folder to path if path is a directory. */
 static const char *
 mutt_hcache_per_folder(const char *path, const char *folder,
@@ -678,6 +882,18 @@ mutt_hcache_per_folder(const char *path, const char *folder,
   return hcpath;
 }
 
+/**
+ * mutt_hcache_dump - XXX
+ * @h:           YYY
+ * @header:      YYY
+ * @off:         YYY
+ * @uidvalidity: YYY
+ * @flags:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: void*
+ */
 /* This function transforms a header into a char so that it is useable by
  * db_store.
  */
@@ -740,6 +956,15 @@ mutt_hcache_dump(header_cache_t *h, HEADER * header, int *off,
   return d;
 }
 
+/**
+ * mutt_hcache_restore - XXX
+ * @d:  YYY
+ * @oh: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HEADER*
+ */
 HEADER *
 mutt_hcache_restore(const unsigned char *d, HEADER ** oh)
 {
@@ -775,6 +1000,18 @@ mutt_hcache_restore(const unsigned char *d, HEADER ** oh)
   return h;
 }
 
+/**
+ * mutt_hcache_fetch - XXX
+ * @h:        YYY
+ * @filename: YYY
+ * @size_t:   YYY
+ * @keylen:   YYY
+ * @fn:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: void*
+ */
 void *
 mutt_hcache_fetch(header_cache_t *h, const char *filename,
 		  size_t(*keylen) (const char *fn))
@@ -792,6 +1029,18 @@ mutt_hcache_fetch(header_cache_t *h, const char *filename,
   return data;
 }
 
+/**
+ * mutt_hcache_fetch_raw - XXX
+ * @h:        YYY
+ * @filename: YYY
+ * @size_t:   YYY
+ * @keylen:   YYY
+ * @fn:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: void*
+ */
 void *
 mutt_hcache_fetch_raw (header_cache_t *h, const char *filename,
                        size_t(*keylen) (const char *fn))
@@ -897,6 +1146,21 @@ mutt_hcache_fetch_raw (header_cache_t *h, const char *filename,
 #endif
 }
 
+/**
+ * mutt_hcache_store - XXX
+ * @h:           YYY
+ * @filename:    YYY
+ * @header:      YYY
+ * @uidvalidity: YYY
+ * @size_t:      YYY
+ * @keylen:      YYY
+ * @fn:          YYY
+ * @flags:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * flags
  *
@@ -924,6 +1188,20 @@ mutt_hcache_store(header_cache_t *h, const char *filename, HEADER * header,
   return ret;
 }
 
+/**
+ * mutt_hcache_store_raw - XXX
+ * @h:        YYY
+ * @filename: YYY
+ * @data:     YYY
+ * @dlen:     YYY
+ * @size_t:   YYY
+ * @keylen:   YYY
+ * @fn:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_hcache_store_raw (header_cache_t* h, const char* filename, void* data,
                        size_t dlen, size_t(*keylen) (const char* fn))
@@ -1010,6 +1288,14 @@ mutt_hcache_store_raw (header_cache_t* h, const char* filename, void* data,
 #endif
 }
 
+/**
+ * get_foldername - XXX
+ * @folder: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char* get_foldername(const char *folder)
 {
   char *p = NULL;
@@ -1047,6 +1333,12 @@ hcache_open_qdbm (struct header_cache* h, const char* path)
     return -1;
 }
 
+/**
+ * mutt_hcache_close - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 void
 mutt_hcache_close(header_cache_t *h)
 {
@@ -1058,6 +1350,18 @@ mutt_hcache_close(header_cache_t *h)
   FREE(&h);
 }
 
+/**
+ * mutt_hcache_delete - XXX
+ * @h:        YYY
+ * @filename: YYY
+ * @size_t:   YYY
+ * @keylen:   YYY
+ * @fn:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_hcache_delete(header_cache_t *h, const char *filename,
 		   size_t(*keylen) (const char *fn))
@@ -1076,6 +1380,15 @@ mutt_hcache_delete(header_cache_t *h, const char *filename,
   return vlout(h->db, path, ksize);
 }
 
+/**
+ * hcache_open_tc - XXX
+ * @h:    YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #elif HAVE_TC
 static int
 hcache_open_tc (struct header_cache* h, const char* path)
@@ -1469,6 +1782,16 @@ mutt_hcache_delete(header_cache_t *h, const char *filename,
 }
 #endif
 
+/**
+ * mutt_hcache_open - XXX
+ * @path:   YYY
+ * @folder: YYY
+ * @namer:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: header_cache_t*
+ */
 header_cache_t *
 mutt_hcache_open(const char *path, const char *folder, hcache_namer_t namer)
 {
@@ -1559,6 +1882,13 @@ mutt_hcache_open(const char *path, const char *folder, hcache_namer_t namer)
   }
 }
 
+/**
+ * mutt_hcache_backend - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 #if HAVE_DB4
 const char *mutt_hcache_backend (void)
 {

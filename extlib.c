@@ -36,6 +36,12 @@
 
 void (*mutt_error) (const char *, ...) = mutt_nocurses_error;
 
+/**
+ * mutt_exit - XXX
+ * @code: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_exit (int code)
 {
   exit (code);

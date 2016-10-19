@@ -36,6 +36,14 @@ enum
   MUTT_REDRAW_LINE		/* redraw entire line */
 };
 
+/**
+ * my_wcwidth - XXX
+ * @wc: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int my_wcwidth (wchar_t wc)
 {
   int n = wcwidth (wc);
@@ -51,6 +59,15 @@ static int my_wcwidth (wchar_t wc)
 /* combining mark / non-spacing character */
 #define COMB_CHAR(wc) (IsWPrint (wc) && !wcwidth (wc))
 
+/**
+ * my_wcswidth - XXX
+ * @s: YYY
+ * @n: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int my_wcswidth (const wchar_t *s, size_t n)
 {
   int w = 0;
@@ -59,6 +76,14 @@ static int my_wcswidth (const wchar_t *s, size_t n)
   return w;
 }
 
+/**
+ * my_addwch - XXX
+ * @wc: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int my_addwch (wchar_t wc)
 {
   int n = wcwidth (wc);
@@ -71,6 +96,16 @@ static int my_addwch (wchar_t wc)
   return printw ("\\u%08x", (int)wc);
 }
 
+/**
+ * width_ceiling - XXX
+ * @s:  YYY
+ * @n:  YYY
+ * @w1: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 static size_t width_ceiling (const wchar_t *s, size_t n, int w1)
 {
   const wchar_t *s0 = s;
@@ -81,6 +116,15 @@ static size_t width_ceiling (const wchar_t *s, size_t n, int w1)
   return s - s0;  
 }
 
+/**
+ * my_wcstombs - XXX
+ * @dest: YYY
+ * @dlen: YYY
+ * @src:  YYY
+ * @slen: YYY
+ *
+ * DESCRIPTION
+ */
 static void my_wcstombs (char *dest, size_t dlen, const wchar_t *src, size_t slen)
 {
   mbstate_t st;
@@ -120,6 +164,17 @@ static void my_wcstombs (char *dest, size_t dlen, const wchar_t *src, size_t sle
   }
 }
 
+/**
+ * my_mbstowcs - XXX
+ * @pwbuf:    YYY
+ * @pwbuflen: YYY
+ * @i:        YYY
+ * @buf:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 static size_t my_mbstowcs (wchar_t **pwbuf, size_t *pwbuflen, size_t i, char *buf)
 {
   wchar_t wc;
@@ -162,6 +217,14 @@ static size_t my_mbstowcs (wchar_t **pwbuf, size_t *pwbuflen, size_t i, char *bu
  * Replace part of the wchar_t buffer, from FROM to CURPOS, by BUF.
  */
 
+/**
+ * replace_part - XXX
+ * @state: YYY
+ * @from:  YYY
+ * @buf:   YYY
+ *
+ * DESCRIPTION
+ */
 static void replace_part (ENTER_STATE *state, size_t from, char *buf)
 {
   /* Save the suffix */
@@ -210,6 +273,17 @@ static inline int is_shell_char(wchar_t ch)
  * 	-1 if abort.
  */
 
+/**
+ * mutt_enter_string - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @col:    YYY
+ * @flags:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int  mutt_enter_string(char *buf, size_t buflen, int col, int flags)
 {
   int rv;
@@ -219,6 +293,21 @@ int  mutt_enter_string(char *buf, size_t buflen, int col, int flags)
   return rv;
 }
 
+/**
+ * _mutt_enter_string - XXX
+ * @buf:      YYY
+ * @buflen:   YYY
+ * @col:      YYY
+ * @flags:    YYY
+ * @multiple: YYY
+ * @files:    YYY
+ * @numfiles: YYY
+ * @state:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int _mutt_enter_string (char *buf, size_t buflen, int col,
 			int flags, int multiple, char ***files, int *numfiles,
 			ENTER_STATE *state)
@@ -814,6 +903,12 @@ self_insert:
   return rv;
 }
 
+/**
+ * mutt_free_enter_state - XXX
+ * @esp: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_free_enter_state (ENTER_STATE **esp)
 {
   if (!esp) return;

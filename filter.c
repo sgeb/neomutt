@@ -27,6 +27,20 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 
+/**
+ * mutt_create_filter_fd - XXX
+ * @cmd:   YYY
+ * @in:    YYY
+ * @out:   YYY
+ * @err:   YYY
+ * @fdin:  YYY
+ * @fdout: YYY
+ * @fderr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 /* Invokes a command on a pipe and optionally connects its stdin and stdout
  * to the specified handles.
  */
@@ -174,11 +188,30 @@ mutt_create_filter_fd (const char *cmd, FILE **in, FILE **out, FILE **err,
   return (thepid);
 }
 
+/**
+ * mutt_create_filter - XXX
+ * @s:   YYY
+ * @in:  YYY
+ * @out: YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t mutt_create_filter (const char *s, FILE **in, FILE **out, FILE **err)
 {
   return (mutt_create_filter_fd (s, in, out, err, -1, -1, -1));
 }
 
+/**
+ * mutt_wait_filter - XXX
+ * @pid: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_wait_filter (pid_t pid)
 {
   int rc;

@@ -42,6 +42,19 @@
 static int address_header_decode (char **str);
 static int copy_delete_attach (BODY *b, FILE *fpin, FILE *fpout, char *date);
 
+/**
+ * mutt_copy_hdr - XXX
+ * @in:        YYY
+ * @out:       YYY
+ * @off_start: YYY
+ * @off_end:   YYY
+ * @flags:     YYY
+ * @prefix:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Ok, the only reason for not merging this with mutt_copy_header()
  * below is to avoid creating a HEADER structure in message_handler().
  * Also, this one will wrap headers much more aggressively than the other one.
@@ -354,6 +367,18 @@ mutt_copy_hdr (FILE *in, FILE *out, LOFF_T off_start, LOFF_T off_end, int flags,
    	string to use if CH_PREFIX is set
  */
 
+/**
+ * mutt_copy_header - XXX
+ * @in:     YYY
+ * @h:      YYY
+ * @out:    YYY
+ * @flags:  YYY
+ * @prefix: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_copy_header (FILE *in, HEADER *h, FILE *out, int flags, const char *prefix)
 {
@@ -505,6 +530,17 @@ mutt_copy_header (FILE *in, HEADER *h, FILE *out, int flags, const char *prefix)
   return 0;
 }
 
+/**
+ * count_delete_lines - XXX
+ * @fp:      YYY
+ * @b:       YYY
+ * @length:  YYY
+ * @datelen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Count the number of lines and bytes to be deleted in this body*/
 static int count_delete_lines (FILE *fp, BODY *b, LOFF_T *length, size_t datelen)
 {
@@ -555,6 +591,19 @@ static int count_delete_lines (FILE *fp, BODY *b, LOFF_T *length, size_t datelen
  * chflags	flags to mutt_copy_header()
  */
 
+/**
+ * _mutt_copy_message - XXX
+ * @fpout:   YYY
+ * @fpin:    YYY
+ * @hdr:     YYY
+ * @body:    YYY
+ * @flags:   YYY
+ * @chflags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 _mutt_copy_message (FILE *fpout, FILE *fpin, HEADER *hdr, BODY *body,
 		    int flags, int chflags)
@@ -756,6 +805,18 @@ _mutt_copy_message (FILE *fpout, FILE *fpin, HEADER *hdr, BODY *body,
   return rc;
 }
 
+/**
+ * mutt_copy_message - XXX
+ * @fpout:   YYY
+ * @src:     YYY
+ * @hdr:     YYY
+ * @flags:   YYY
+ * @chflags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* should be made to return -1 on fatal errors, and 1 on non-fatal errors
  * like partial decode, where it is worth displaying as much as possible */
 int
@@ -788,6 +849,20 @@ mutt_copy_message (FILE *fpout, CONTEXT *src, HEADER *hdr, int flags,
  * chflags	mutt_copy_header() flags
  */
 
+/**
+ * _mutt_append_message - XXX
+ * @dest:    YYY
+ * @fpin:    YYY
+ * @src:     YYY
+ * @hdr:     YYY
+ * @body:    YYY
+ * @flags:   YYY
+ * @chflags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 _mutt_append_message (CONTEXT *dest, FILE *fpin, CONTEXT *src, HEADER *hdr,
 		      BODY *body, int flags, int chflags)
@@ -818,6 +893,18 @@ _mutt_append_message (CONTEXT *dest, FILE *fpin, CONTEXT *src, HEADER *hdr,
   return r;
 }
 
+/**
+ * mutt_append_message - XXX
+ * @dest:    YYY
+ * @src:     YYY
+ * @hdr:     YYY
+ * @cmflags: YYY
+ * @chflags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_append_message (CONTEXT *dest, CONTEXT *src, HEADER *hdr, int cmflags,
 		     int chflags)
@@ -832,6 +919,17 @@ mutt_append_message (CONTEXT *dest, CONTEXT *src, HEADER *hdr, int cmflags,
   return r;
 }
 
+/**
+ * copy_delete_attach - XXX
+ * @b:     YYY
+ * @fpin:  YYY
+ * @fpout: YYY
+ * @date:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * This function copies a message body, while deleting _in_the_copy_
  * any attachments which are marked for deletion.
@@ -891,6 +989,13 @@ static int copy_delete_attach (BODY *b, FILE *fpin, FILE *fpout, char *date)
  * XXX - fix that. 
  */
 
+/**
+ * format_address_header - XXX
+ * @h: YYY
+ * @a: YYY
+ *
+ * DESCRIPTION
+ */
 static void format_address_header (char **h, ADDRESS *a)
 {
   char buf[HUGE_STRING];
@@ -950,6 +1055,14 @@ static void format_address_header (char **h, ADDRESS *a)
   strcat (p + plen, "\n");		/* __STRCAT_CHECKED__ */
 }
 
+/**
+ * address_header_decode - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int address_header_decode (char **h)
 {
   char *s = *h;

@@ -56,6 +56,11 @@ extern struct crypt_module_specs crypt_mod_pgp_gpgme;
 extern struct crypt_module_specs crypt_mod_smime_gpgme;
 #endif
 
+/**
+ * crypt_init - XXX
+ *
+ * DESCRIPTION
+ */
 void crypt_init (void)
 {
 #ifdef CRYPT_BACKEND_CLASSIC_PGP
@@ -103,6 +108,12 @@ void crypt_init (void)
 }
 
 
+/**
+ * crypt_invoke_message - XXX
+ * @type: YYY
+ *
+ * DESCRIPTION
+ */
 /* Show a message that a backend will be invoked. */
 void crypt_invoke_message (int type)
 {
@@ -121,6 +132,11 @@ void crypt_invoke_message (int type)
 */
 
 
+/**
+ * crypt_pgp_void_passphrase - XXX
+ *
+ * DESCRIPTION
+ */
 /* Reset a PGP passphrase */
 void crypt_pgp_void_passphrase (void)
 {
@@ -128,6 +144,13 @@ void crypt_pgp_void_passphrase (void)
     (CRYPT_MOD_CALL (PGP, void_passphrase)) ();
 }
 
+/**
+ * crypt_pgp_valid_passphrase - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int crypt_pgp_valid_passphrase (void)
 {
   if (CRYPT_MOD_CALL_CHECK (PGP, valid_passphrase))
@@ -137,6 +160,17 @@ int crypt_pgp_valid_passphrase (void)
 }
 
 
+/**
+ * crypt_pgp_decrypt_mime - XXX
+ * @a: YYY
+ * @b: YYY
+ * @c: YYY
+ * @d: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Decrypt a PGP/MIME message. */
 int crypt_pgp_decrypt_mime (FILE *a, FILE **b, BODY *c, BODY **d)
 {
@@ -146,6 +180,15 @@ int crypt_pgp_decrypt_mime (FILE *a, FILE **b, BODY *c, BODY **d)
   return -1;
 }
 
+/**
+ * crypt_pgp_application_pgp_handler - XXX
+ * @m: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* MIME handler for the application/pgp content-type. */
 int crypt_pgp_application_pgp_handler (BODY *m, STATE *s)
 {
@@ -155,6 +198,15 @@ int crypt_pgp_application_pgp_handler (BODY *m, STATE *s)
   return -1;
 }
 
+/**
+ * crypt_pgp_encrypted_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* MIME handler for an PGP/MIME encrypted message. */
 int crypt_pgp_encrypted_handler (BODY *a, STATE *s)
 {
@@ -164,6 +216,12 @@ int crypt_pgp_encrypted_handler (BODY *a, STATE *s)
   return -1;
 }
 
+/**
+ * crypt_pgp_invoke_getkeys - XXX
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ */
 /* fixme: needs documentation. */
 void crypt_pgp_invoke_getkeys (ADDRESS *addr)
 {
@@ -171,6 +229,16 @@ void crypt_pgp_invoke_getkeys (ADDRESS *addr)
     (CRYPT_MOD_CALL (PGP, pgp_invoke_getkeys)) (addr);
 }
 
+/**
+ * crypt_pgp_check_traditional - XXX
+ * @fp:          YYY
+ * @b:           YYY
+ * @tagged_only: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Check for a traditional PGP message in body B. */
 int crypt_pgp_check_traditional (FILE *fp, BODY *b, int tagged_only)
 {
@@ -180,6 +248,16 @@ int crypt_pgp_check_traditional (FILE *fp, BODY *b, int tagged_only)
   return 0;
 }
 
+/**
+ * crypt_pgp_traditional_encryptsign - XXX
+ * @a:       YYY
+ * @flags:   YYY
+ * @keylist: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 /* fixme: needs documentation. */
 BODY *crypt_pgp_traditional_encryptsign (BODY *a, int flags, char *keylist)
 {
@@ -189,6 +267,14 @@ BODY *crypt_pgp_traditional_encryptsign (BODY *a, int flags, char *keylist)
   return NULL;
 }
 
+/**
+ * crypt_pgp_make_key_attachment - XXX
+ * @tempf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 /* Generate a PGP public key attachment. */
 BODY *crypt_pgp_make_key_attachment (char *tempf)
 {
@@ -198,6 +284,15 @@ BODY *crypt_pgp_make_key_attachment (char *tempf)
   return NULL;
 }
 
+/**
+ * crypt_pgp_findkeys - XXX
+ * @adrlist:     YYY
+ * @oppenc_mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* This routine attempts to find the keyids of the recipients of a
    message.  It returns NULL if any of the keys can not be found.
    If oppenc_mode is true, only keys that can be determined without
@@ -210,6 +305,14 @@ char *crypt_pgp_findkeys (ADDRESS *adrlist, int oppenc_mode)
   return NULL;
 }
 
+/**
+ * crypt_pgp_sign_message - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 /* Create a new body with a PGP signed message from A. */
 BODY *crypt_pgp_sign_message (BODY *a)
 {
@@ -219,6 +322,16 @@ BODY *crypt_pgp_sign_message (BODY *a)
   return NULL;
 }
 
+/**
+ * crypt_pgp_encrypt_message - XXX
+ * @a:       YYY
+ * @keylist: YYY
+ * @sign:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 /* Warning: A is no longer freed in this routine, you need to free it
    later.  This is necessary for $fcc_attach. */
 BODY *crypt_pgp_encrypt_message (BODY *a, char *keylist, int sign)
@@ -229,6 +342,12 @@ BODY *crypt_pgp_encrypt_message (BODY *a, char *keylist, int sign)
   return NULL;
 }
 
+/**
+ * crypt_pgp_invoke_import - XXX
+ * @fname: YYY
+ *
+ * DESCRIPTION
+ */
 /* Invoke the PGP command to import a key. */
 void crypt_pgp_invoke_import (const char *fname)
 {
@@ -236,6 +355,16 @@ void crypt_pgp_invoke_import (const char *fname)
     (CRYPT_MOD_CALL (PGP, pgp_invoke_import)) (fname);
 }
 
+/**
+ * crypt_pgp_verify_one - XXX
+ * @sigbdy: YYY
+ * @s:      YYY
+ * @tempf:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* fixme: needs documentation */
 int crypt_pgp_verify_one (BODY *sigbdy, STATE *s, const char *tempf)
 {
@@ -246,6 +375,15 @@ int crypt_pgp_verify_one (BODY *sigbdy, STATE *s, const char *tempf)
 }
 
 
+/**
+ * crypt_pgp_send_menu - XXX
+ * @msg:    YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int crypt_pgp_send_menu (HEADER *msg, int *redraw)
 {
   if (CRYPT_MOD_CALL_CHECK (PGP, send_menu))
@@ -255,6 +393,14 @@ int crypt_pgp_send_menu (HEADER *msg, int *redraw)
 }
 
 
+/**
+ * crypt_pgp_extract_keys_from_attachment_list - XXX
+ * @fp:  YYY
+ * @tag: YYY
+ * @top: YYY
+ *
+ * DESCRIPTION
+ */
 /* fixme: needs documentation */
 void crypt_pgp_extract_keys_from_attachment_list (FILE *fp, int tag, BODY *top)
 {
@@ -262,6 +408,12 @@ void crypt_pgp_extract_keys_from_attachment_list (FILE *fp, int tag, BODY *top)
     (CRYPT_MOD_CALL (PGP, pgp_extract_keys_from_attachment_list)) (fp, tag, top);
 }
 
+/**
+ * crypt_pgp_set_sender - XXX
+ * @sender: YYY
+ *
+ * DESCRIPTION
+ */
 void crypt_pgp_set_sender (const char *sender)
 {
   if (CRYPT_MOD_CALL_CHECK (PGP, set_sender))
@@ -278,6 +430,11 @@ void crypt_pgp_set_sender (const char *sender)
 */
 
 
+/**
+ * crypt_smime_void_passphrase - XXX
+ *
+ * DESCRIPTION
+ */
 /* Reset an SMIME passphrase */
 void crypt_smime_void_passphrase (void)
 {
@@ -285,6 +442,13 @@ void crypt_smime_void_passphrase (void)
     (CRYPT_MOD_CALL (SMIME, void_passphrase)) ();
 }
 
+/**
+ * crypt_smime_valid_passphrase - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int crypt_smime_valid_passphrase (void)
 {
   if (CRYPT_MOD_CALL_CHECK (SMIME, valid_passphrase))
@@ -293,6 +457,17 @@ int crypt_smime_valid_passphrase (void)
   return 0;
 }
 
+/**
+ * crypt_smime_decrypt_mime - XXX
+ * @a: YYY
+ * @b: YYY
+ * @c: YYY
+ * @d: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Decrypt am S/MIME message. */
 int crypt_smime_decrypt_mime (FILE *a, FILE **b, BODY *c, BODY **d)
 {
@@ -302,6 +477,15 @@ int crypt_smime_decrypt_mime (FILE *a, FILE **b, BODY *c, BODY **d)
   return -1;
 }
 
+/**
+ * crypt_smime_application_smime_handler - XXX
+ * @m: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* MIME handler for the application/smime content-type. */
 int crypt_smime_application_smime_handler (BODY *m, STATE *s)
 {
@@ -311,6 +495,13 @@ int crypt_smime_application_smime_handler (BODY *m, STATE *s)
   return -1;
 }
 
+/**
+ * crypt_smime_encrypted_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 /* MIME handler for an PGP/MIME encrypted message. */
 void crypt_smime_encrypted_handler (BODY *a, STATE *s)
 {
@@ -318,6 +509,12 @@ void crypt_smime_encrypted_handler (BODY *a, STATE *s)
     (CRYPT_MOD_CALL (SMIME, encrypted_handler)) (a, s);
 }
 
+/**
+ * crypt_smime_getkeys - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 /* fixme: Needs documentation. */
 void crypt_smime_getkeys (ENVELOPE *env)
 {
@@ -325,6 +522,14 @@ void crypt_smime_getkeys (ENVELOPE *env)
     (CRYPT_MOD_CALL (SMIME, smime_getkeys)) (env);
 }
 
+/**
+ * crypt_smime_verify_sender - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Check that the sender matches. */
 int crypt_smime_verify_sender(HEADER *h)
 {
@@ -334,6 +539,15 @@ int crypt_smime_verify_sender(HEADER *h)
   return 1;
 }
 
+/**
+ * crypt_smime_findkeys - XXX
+ * @adrlist:     YYY
+ * @oppenc_mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* This routine attempts to find the keyids of the recipients of a
    message.  It returns NULL if any of the keys can not be found.
    If oppenc_mode is true, only keys that can be determined without
@@ -346,6 +560,14 @@ char *crypt_smime_findkeys (ADDRESS *adrlist, int oppenc_mode)
   return NULL;
 }
 
+/**
+ * crypt_smime_sign_message - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 /* fixme: Needs documentation. */
 BODY *crypt_smime_sign_message (BODY *a)
 {
@@ -355,6 +577,15 @@ BODY *crypt_smime_sign_message (BODY *a)
   return NULL;
 }
 
+/**
+ * crypt_smime_build_smime_entity - XXX
+ * @a:        YYY
+ * @certlist: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 /* fixme: needs documentation. */
 BODY *crypt_smime_build_smime_entity (BODY *a, char *certlist)
 {
@@ -364,6 +595,13 @@ BODY *crypt_smime_build_smime_entity (BODY *a, char *certlist)
   return NULL;
 }
 
+/**
+ * crypt_smime_invoke_import - XXX
+ * @infile:  YYY
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ */
 /* Add a certificate and update index file (externally). */
 void crypt_smime_invoke_import (char *infile, char *mailbox)
 {
@@ -371,6 +609,16 @@ void crypt_smime_invoke_import (char *infile, char *mailbox)
     (CRYPT_MOD_CALL (SMIME, smime_invoke_import)) (infile, mailbox);
 }
 
+/**
+ * crypt_smime_verify_one - XXX
+ * @sigbdy: YYY
+ * @s:      YYY
+ * @tempf:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* fixme: needs documentation */
 int crypt_smime_verify_one (BODY *sigbdy, STATE *s, const char *tempf)
 {
@@ -380,6 +628,15 @@ int crypt_smime_verify_one (BODY *sigbdy, STATE *s, const char *tempf)
   return -1;
 }
 
+/**
+ * crypt_smime_send_menu - XXX
+ * @msg:    YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int crypt_smime_send_menu (HEADER *msg, int *redraw)
 {
   if (CRYPT_MOD_CALL_CHECK (SMIME, send_menu))
@@ -388,6 +645,12 @@ int crypt_smime_send_menu (HEADER *msg, int *redraw)
   return 0;
 }
 
+/**
+ * crypt_smime_set_sender - XXX
+ * @sender: YYY
+ *
+ * DESCRIPTION
+ */
 void crypt_smime_set_sender (const char *sender)
 {
   if (CRYPT_MOD_CALL_CHECK (SMIME, set_sender))

@@ -61,6 +61,20 @@ static char* EditorHelp2 = N_("\
 ~?		this message\n\
 .		on a line by itself ends input\n");
 
+/**
+ * be_snarf_data - XXX
+ * @f:      YYY
+ * @buf:    YYY
+ * @bufmax: YYY
+ * @buflen: YYY
+ * @offset: YYY
+ * @bytes:  YYY
+ * @prefix: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char**
+ */
 static char **
 be_snarf_data (FILE *f, char **buf, int *bufmax, int *buflen, LOFF_T offset,
 	       int bytes, int prefix)
@@ -94,6 +108,18 @@ be_snarf_data (FILE *f, char **buf, int *bufmax, int *buflen, LOFF_T offset,
   return (buf);
 }
 
+/**
+ * be_snarf_file - XXX
+ * @path:    YYY
+ * @buf:     YYY
+ * @max:     YYY
+ * @len:     YYY
+ * @verbose: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char**
+ */
 static char **
 be_snarf_file (const char *path, char **buf, int *max, int *len, int verbose)
 {
@@ -120,6 +146,16 @@ be_snarf_file (const char *path, char **buf, int *max, int *len, int verbose)
   return (buf);
 }
 
+/**
+ * be_barf_file - XXX
+ * @path:   YYY
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int be_barf_file (const char *path, char **buf, int buflen)
 {
   FILE *f;
@@ -137,6 +173,13 @@ static int be_barf_file (const char *path, char **buf, int buflen)
   return (-1);
 }
 
+/**
+ * be_free_memory - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ */
 static void be_free_memory (char **buf, int buflen)
 {
   while (buflen-- > 0)
@@ -145,6 +188,19 @@ static void be_free_memory (char **buf, int buflen)
     FREE (&buf);
 }
 
+/**
+ * be_include_messages - XXX
+ * @msg:      YYY
+ * @buf:      YYY
+ * @bufmax:   YYY
+ * @buflen:   YYY
+ * @pfx:      YYY
+ * @inc_hdrs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char**
+ */
 static char **
 be_include_messages (char *msg, char **buf, int *bufmax, int *buflen,
 		     int pfx, int inc_hdrs)
@@ -193,6 +249,12 @@ be_include_messages (char *msg, char **buf, int *bufmax, int *buflen,
   return (buf);
 }
 
+/**
+ * be_print_header - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 static void be_print_header (ENVELOPE *env)
 {
   char tmp[HUGE_STRING];
@@ -230,6 +292,13 @@ static void be_print_header (ENVELOPE *env)
   addch ('\n');
 }
 
+/**
+ * be_edit_header - XXX
+ * @e:     YYY
+ * @force: YYY
+ *
+ * DESCRIPTION
+ */
 /* args:
  *	force	override the $ask* vars (used for the ~h command)
  */
@@ -315,6 +384,16 @@ static void be_edit_header (ENVELOPE *e, int force)
   }
 }
 
+/**
+ * mutt_builtin_editor - XXX
+ * @path: YYY
+ * @msg:  YYY
+ * @cur:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_builtin_editor (const char *path, HEADER *msg, HEADER *cur)
 {
   char **buf = NULL;

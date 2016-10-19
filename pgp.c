@@ -66,12 +66,24 @@
 char PgpPass[LONG_STRING];
 time_t PgpExptime = 0; /* when does the cached passphrase expire? */
 
+/**
+ * pgp_void_passphrase - XXX
+ *
+ * DESCRIPTION
+ */
 void pgp_void_passphrase (void)
 {
   memset (PgpPass, 0, sizeof (PgpPass));
   PgpExptime = 0;
 }
 
+/**
+ * pgp_valid_passphrase - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int pgp_valid_passphrase (void)
 {
   time_t now = time (NULL);
@@ -99,12 +111,24 @@ int pgp_valid_passphrase (void)
   return 0;
 }
 
+/**
+ * pgp_forget_passphrase - XXX
+ *
+ * DESCRIPTION
+ */
 void pgp_forget_passphrase (void)
 {
   pgp_void_passphrase ();
   mutt_message _("PGP passphrase forgotten.");
 }
 
+/**
+ * pgp_use_gpg_agent - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int pgp_use_gpg_agent (void)
 {
   char *tty;
@@ -119,6 +143,14 @@ int pgp_use_gpg_agent (void)
   return 1;
 }
 
+/**
+ * _pgp_parent - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 static pgp_key_t _pgp_parent(pgp_key_t k)
 {
   if((k->flags & KEYFLAG_SUBKEY) && k->parent && option(OPTPGPIGNORESUB))
@@ -127,6 +159,14 @@ static pgp_key_t _pgp_parent(pgp_key_t k)
   return k;
 }
 
+/**
+ * pgp_long_keyid - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *pgp_long_keyid(pgp_key_t k)
 {
   k = _pgp_parent(k);
@@ -134,6 +174,14 @@ char *pgp_long_keyid(pgp_key_t k)
   return k->keyid;
 }
 
+/**
+ * pgp_short_keyid - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *pgp_short_keyid(pgp_key_t k)
 {
   k = _pgp_parent(k);
@@ -141,6 +189,14 @@ char *pgp_short_keyid(pgp_key_t k)
   return k->keyid + 8;
 }
 
+/**
+ * pgp_keyid - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *pgp_keyid(pgp_key_t k)
 {
   k = _pgp_parent(k);
@@ -148,6 +204,14 @@ char *pgp_keyid(pgp_key_t k)
   return _pgp_keyid(k);
 }
 
+/**
+ * _pgp_keyid - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *_pgp_keyid(pgp_key_t k)
 {
   if(option(OPTPGPLONGIDS))
@@ -156,6 +220,14 @@ char *_pgp_keyid(pgp_key_t k)
     return (k->keyid + 8);
 }
 
+/**
+ * pgp_fingerprint - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *pgp_fingerprint(pgp_key_t k)
 {
   k = _pgp_parent(k);
@@ -163,6 +235,14 @@ char *pgp_fingerprint(pgp_key_t k)
   return k->fingerprint;
 }
 
+/**
+ * pgp_fpr_or_lkeyid - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* Grab the longest key identifier available: fingerprint or else
  * the long keyid.
  *
@@ -185,6 +265,15 @@ char *pgp_fpr_or_lkeyid(pgp_key_t k)
 
 /* Copy PGP output messages and look for signs of a good signature */
 
+/**
+ * pgp_copy_checksig - XXX
+ * @fpin:  YYY
+ * @fpout: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_copy_checksig (FILE *fpin, FILE *fpout)
 {
   int rv = -1;
@@ -224,6 +313,14 @@ static int pgp_copy_checksig (FILE *fpin, FILE *fpout)
   return rv;
 }
 
+/**
+ * pgp_check_decryption_okay - XXX
+ * @fpin: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Checks PGP output messages to look for the $pgp_decryption_okay message.
  * This protects against messages with multipart/encrypted headers
  * but which aren't actually encrypted.  See ticket #3770
@@ -276,6 +373,14 @@ static int pgp_check_decryption_okay (FILE *fpin)
  * existing versions of mutt.) 
  */
 
+/**
+ * pgp_copy_clearsigned - XXX
+ * @fpin:    YYY
+ * @s:       YYY
+ * @charset: YYY
+ *
+ * DESCRIPTION
+ */
 static void pgp_copy_clearsigned (FILE *fpin, STATE *s, char *charset)
 {
   char buf[HUGE_STRING];
@@ -328,6 +433,15 @@ static void pgp_copy_clearsigned (FILE *fpin, STATE *s, char *charset)
 
 /* Support for the Application/PGP Content Type. */
 
+/**
+ * pgp_application_pgp_handler - XXX
+ * @m: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int pgp_application_pgp_handler (BODY *m, STATE *s)
 {
   int could_not_decrypt = 0;
@@ -612,6 +726,16 @@ out:
   return rc;
 }
 
+/**
+ * pgp_check_traditional_one_body - XXX
+ * @fp:          YYY
+ * @b:           YYY
+ * @tagged_only: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_check_traditional_one_body (FILE *fp, BODY *b, int tagged_only)
 {
   char tempfile[_POSIX_PATH_MAX];
@@ -672,6 +796,16 @@ static int pgp_check_traditional_one_body (FILE *fp, BODY *b, int tagged_only)
   return 1;
 }
 
+/**
+ * pgp_check_traditional - XXX
+ * @fp:          YYY
+ * @b:           YYY
+ * @tagged_only: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int pgp_check_traditional (FILE *fp, BODY *b, int tagged_only)
 {
   int rv = 0;
@@ -696,6 +830,16 @@ int pgp_check_traditional (FILE *fp, BODY *b, int tagged_only)
 
 
 
+/**
+ * pgp_verify_one - XXX
+ * @sigbdy:   YYY
+ * @s:        YYY
+ * @tempfile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int pgp_verify_one (BODY *sigbdy, STATE *s, const char *tempfile)
 {
   char sigfile[_POSIX_PATH_MAX], pgperrfile[_POSIX_PATH_MAX];
@@ -762,6 +906,12 @@ int pgp_verify_one (BODY *sigbdy, STATE *s, const char *tempfile)
 
 /* Extract pgp public keys from messages or attachments */
 
+/**
+ * pgp_extract_keys_from_messages - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 void pgp_extract_keys_from_messages (HEADER *h)
 {
   int i;
@@ -825,6 +975,13 @@ void pgp_extract_keys_from_messages (HEADER *h)
   
 }
 
+/**
+ * pgp_extract_keys_from_attachment - XXX
+ * @fp:  YYY
+ * @top: YYY
+ *
+ * DESCRIPTION
+ */
 static void pgp_extract_keys_from_attachment (FILE *fp, BODY *top)
 {
   STATE s;
@@ -853,6 +1010,14 @@ static void pgp_extract_keys_from_attachment (FILE *fp, BODY *top)
   mutt_unlink (tempfname);
 }
 
+/**
+ * pgp_extract_keys_from_attachment_list - XXX
+ * @fp:  YYY
+ * @tag: YYY
+ * @top: YYY
+ *
+ * DESCRIPTION
+ */
 void pgp_extract_keys_from_attachment_list (FILE *fp, int tag, BODY *top)
 {
   if(!fp)
@@ -876,6 +1041,17 @@ void pgp_extract_keys_from_attachment_list (FILE *fp, int tag, BODY *top)
   unset_option(OPTDONTHANDLEPGPKEYS);
 }
 
+/**
+ * pgp_decrypt_part - XXX
+ * @a:     YYY
+ * @s:     YYY
+ * @fpout: YYY
+ * @p:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *pgp_decrypt_part (BODY *a, STATE *s, FILE *fpout, BODY *p)
 {
   char buf[LONG_STRING];
@@ -996,6 +1172,17 @@ BODY *pgp_decrypt_part (BODY *a, STATE *s, FILE *fpout, BODY *p)
   return (tattach);
 }
 
+/**
+ * pgp_decrypt_mime - XXX
+ * @fpin:  YYY
+ * @fpout: YYY
+ * @b:     YYY
+ * @cur:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int pgp_decrypt_mime (FILE *fpin, FILE **fpout, BODY *b, BODY **cur)
 {
   char tempfile[_POSIX_PATH_MAX];
@@ -1073,6 +1260,15 @@ bail:
   return rv;
 }
 
+/**
+ * pgp_encrypted_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * This handler is passed the application/octet-stream directly.
  * The caller must propagate a->goodsig to its parent.
@@ -1144,6 +1340,14 @@ int pgp_encrypted_handler (BODY *a, STATE *s)
  */
 
 
+/**
+ * pgp_sign_message - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *pgp_sign_message (BODY *a)
 {
   BODY *t;
@@ -1266,6 +1470,15 @@ BODY *pgp_sign_message (BODY *a)
   return (a);
 }
 
+/**
+ * pgp_findKeys - XXX
+ * @adrlist:     YYY
+ * @oppenc_mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* This routine attempts to find the keyids of the recipients of a message.
  * It returns NULL if any of the keys can not be found.
  * If oppenc_mode is true, only keys that can be determined without
@@ -1390,6 +1603,16 @@ char *pgp_findKeys (ADDRESS *adrlist, int oppenc_mode)
 /* Warning: "a" is no longer freed in this routine, you need
  * to free it later.  This is necessary for $fcc_attach. */
 
+/**
+ * pgp_encrypt_message - XXX
+ * @a:       YYY
+ * @keylist: YYY
+ * @sign:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *pgp_encrypt_message (BODY *a, char *keylist, int sign)
 {
   char buf[LONG_STRING];
@@ -1514,6 +1737,16 @@ BODY *pgp_encrypt_message (BODY *a, char *keylist, int sign)
   return (t);
 }
 
+/**
+ * pgp_traditional_encryptsign - XXX
+ * @a:       YYY
+ * @flags:   YYY
+ * @keylist: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *pgp_traditional_encryptsign (BODY *a, int flags, char *keylist)
 {
   BODY *b;
@@ -1698,6 +1931,15 @@ BODY *pgp_traditional_encryptsign (BODY *a, int flags, char *keylist)
   return b;
 }
 
+/**
+ * pgp_send_menu - XXX
+ * @msg:    YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int pgp_send_menu (HEADER *msg, int *redraw)
 {
   pgp_key_t p;

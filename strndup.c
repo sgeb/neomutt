@@ -8,6 +8,15 @@
 
 #include "mutt.h"
 
+/**
+ * strndup - XXX
+ * @s: YYY
+ * @n: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *strndup(const char *s, size_t n)
 {
 	size_t len = strnlen(s, n);

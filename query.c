@@ -56,6 +56,14 @@ static const struct mapping_t QueryHelp[] = {
 
 static void query_menu (char *buf, size_t buflen, QUERY *results, int retbuf);
 
+/**
+ * result_to_addr - XXX
+ * @r: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 static ADDRESS *result_to_addr (QUERY *r)
 {
   static ADDRESS *tmp;
@@ -70,6 +78,12 @@ static ADDRESS *result_to_addr (QUERY *r)
   return tmp;
 }
 
+/**
+ * free_query - XXX
+ * @query: YYY
+ *
+ * DESCRIPTION
+ */
 static void free_query (QUERY **query)
 {
   QUERY *p;
@@ -89,6 +103,15 @@ static void free_query (QUERY **query)
   }
 }
 
+/**
+ * run_query - XXX
+ * @s:     YYY
+ * @quiet: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: QUERY*
+ */
 static QUERY *run_query (char *s, int quiet)
 {
   FILE *fp;
@@ -157,6 +180,16 @@ static QUERY *run_query (char *s, int quiet)
   return first;
 }
 
+/**
+ * query_search - XXX
+ * @m:  YYY
+ * @re: YYY
+ * @n:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int query_search (MUTTMENU *m, regex_t *re, int n)
 {
   ENTRY *table = (ENTRY *) m->data;
@@ -183,6 +216,24 @@ static int query_search (MUTTMENU *m, regex_t *re, int n)
   return REG_NOMATCH;
 }
 
+/**
+ * query_format_str - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @fmt:        YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char * query_format_str (char *dest, size_t destlen, size_t col, int cols,
 				      char op, const char *src,
 				      const char *fmt, const char *ifstring,
@@ -237,6 +288,15 @@ static const char * query_format_str (char *dest, size_t destlen, size_t col, in
   return src;
 }
 
+/**
+ * query_entry - XXX
+ * @s:    YYY
+ * @slen: YYY
+ * @m:    YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 static void query_entry (char *s, size_t slen, MUTTMENU *m, int num)
 {
   ENTRY *entry = &((ENTRY *) m->data)[num];
@@ -246,6 +306,16 @@ static void query_entry (char *s, size_t slen, MUTTMENU *m, int num)
 		     (unsigned long) entry, MUTT_FORMAT_ARROWCURSOR);
 }
 
+/**
+ * query_tag - XXX
+ * @menu: YYY
+ * @n:    YYY
+ * @m:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int query_tag (MUTTMENU *menu, int n, int m)
 {
   ENTRY *cur = &((ENTRY *) menu->data)[n];
@@ -255,6 +325,15 @@ static int query_tag (MUTTMENU *menu, int n, int m)
   return cur->tagged - ot;
 }
 
+/**
+ * mutt_query_complete - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_query_complete (char *buf, size_t buflen)
 {
   QUERY *results = NULL;
@@ -287,6 +366,13 @@ int mutt_query_complete (char *buf, size_t buflen)
   return (0);
 }
 
+/**
+ * mutt_query_menu - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_query_menu (char *buf, size_t buflen)
 {
   if (!QueryCmd)
@@ -307,6 +393,15 @@ void mutt_query_menu (char *buf, size_t buflen)
   }
 }
 
+/**
+ * query_menu - XXX
+ * @buf:     YYY
+ * @buflen:  YYY
+ * @results: YYY
+ * @retbuf:  YYY
+ *
+ * DESCRIPTION
+ */
 static void query_menu (char *buf, size_t buflen, QUERY *results, int retbuf)
 {
   MUTTMENU *menu;

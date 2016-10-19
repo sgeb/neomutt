@@ -40,6 +40,15 @@
 #define HC_FEXT		"hcache"	/* extension for hcache as POP lacks paths */
 #endif
 
+/**
+ * fetch_message - XXX
+ * @line: YYY
+ * @file: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* write line to file */
 static int fetch_message (char *line, void *file)
 {
@@ -52,6 +61,15 @@ static int fetch_message (char *line, void *file)
   return 0;
 }
 
+/**
+ * pop_read_header - XXX
+ * @pop_data: YYY
+ * @h:        YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Read header
  * returns:
@@ -136,6 +154,15 @@ static int pop_read_header (POP_DATA *pop_data, HEADER *h)
   return ret;
 }
 
+/**
+ * fetch_uidl - XXX
+ * @line: YYY
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* parse UIDL */
 static int fetch_uidl (char *line, void *data)
 {
@@ -176,6 +203,16 @@ static int fetch_uidl (char *line, void *data)
   return 0;
 }
 
+/**
+ * msg_cache_check - XXX
+ * @id:     YYY
+ * @bcache: YYY
+ * @data:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int msg_cache_check (const char *id, body_cache_t *bcache, void *data)
 {
   CONTEXT *ctx;
@@ -204,12 +241,31 @@ static int msg_cache_check (const char *id, body_cache_t *bcache, void *data)
   return mutt_bcache_del (bcache, id);
 }
 
+/**
+ * pop_hcache_namer - XXX
+ * @path:    YYY
+ * @dest:    YYY
+ * @destlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_HCACHE
 static int pop_hcache_namer (const char *path, char *dest, size_t destlen)
 {
   return snprintf (dest, destlen, "%s." HC_FEXT, path);
 }
 
+/**
+ * pop_hcache_open - XXX
+ * @pop_data: YYY
+ * @path:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: header_cache_t*
+ */
 static header_cache_t *pop_hcache_open (POP_DATA *pop_data, const char *path)
 {
   ciss_url_t url;
@@ -225,6 +281,14 @@ static header_cache_t *pop_hcache_open (POP_DATA *pop_data, const char *path)
 }
 #endif
 
+/**
+ * pop_fetch_headers - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Read headers
  * returns:
@@ -396,6 +460,14 @@ static int pop_fetch_headers (CONTEXT *ctx)
   return (new_count - old_count);
 }
 
+/**
+ * pop_open_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* open POP mailbox - fetch only headers */
 static int pop_open_mailbox (CONTEXT *ctx)
 {
@@ -467,6 +539,12 @@ static int pop_open_mailbox (CONTEXT *ctx)
   }
 }
 
+/**
+ * pop_clear_cache - XXX
+ * @pop_data: YYY
+ *
+ * DESCRIPTION
+ */
 /* delete all cached messages */
 static void pop_clear_cache (POP_DATA *pop_data)
 {
@@ -487,6 +565,14 @@ static void pop_clear_cache (POP_DATA *pop_data)
   }
 }
 
+/**
+ * pop_close_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* close POP mailbox */
 int pop_close_mailbox (CONTEXT *ctx)
 {
@@ -513,6 +599,16 @@ int pop_close_mailbox (CONTEXT *ctx)
   return 0;
 }
 
+/**
+ * pop_fetch_message - XXX
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* fetch message from POP server */
 static int pop_fetch_message (CONTEXT* ctx, MESSAGE* msg, int msgno)
 {
@@ -658,11 +754,29 @@ static int pop_fetch_message (CONTEXT* ctx, MESSAGE* msg, int msgno)
   return 0;
 }
 
+/**
+ * pop_close_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pop_close_message (CONTEXT *ctx, MESSAGE *msg)
 {
   return safe_fclose (&msg->fp);
 }
 
+/**
+ * pop_sync_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* update POP mailbox - delete messages from server */
 int pop_sync_mailbox (CONTEXT *ctx, int *index_hint)
 {
@@ -741,6 +855,15 @@ int pop_sync_mailbox (CONTEXT *ctx, int *index_hint)
   }
 }
 
+/**
+ * pop_check_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Check for new messages and fetch headers */
 static int pop_check_mailbox (CONTEXT *ctx, int *index_hint)
 {
@@ -773,6 +896,11 @@ static int pop_check_mailbox (CONTEXT *ctx, int *index_hint)
   return 0;
 }
 
+/**
+ * pop_fetch_mail - XXX
+ *
+ * DESCRIPTION
+ */
 /* Fetch messages and save them in $spoolfile */
 void pop_fetch_mail (void)
 {

@@ -79,6 +79,14 @@ const char B64Chars[64] = {
 
 static void transform_to_7bit (BODY *a, FILE *fpin);
 
+/**
+ * encode_quoted - XXX
+ * @fc:     YYY
+ * @fout:   YYY
+ * @istext: YYY
+ *
+ * DESCRIPTION
+ */
 static void encode_quoted (FGETCONV * fc, FILE *fout, int istext)
 {
   int c, linelen = 0;
@@ -215,6 +223,12 @@ static char b64_buffer[3];
 static short b64_num;
 static short b64_linelen;
 
+/**
+ * b64_flush - XXX
+ * @fout: YYY
+ *
+ * DESCRIPTION
+ */
 static void b64_flush(FILE *fout)
 {
   short i;
@@ -257,6 +271,13 @@ static void b64_flush(FILE *fout)
 }
 
 
+/**
+ * b64_putc - XXX
+ * @c:    YYY
+ * @fout: YYY
+ *
+ * DESCRIPTION
+ */
 static void b64_putc(char c, FILE *fout)
 {
   if(b64_num == 3)
@@ -266,6 +287,14 @@ static void b64_putc(char c, FILE *fout)
 }
 
 
+/**
+ * encode_base64 - XXX
+ * @fc:     YYY
+ * @fout:   YYY
+ * @istext: YYY
+ *
+ * DESCRIPTION
+ */
 static void encode_base64 (FGETCONV * fc, FILE *fout, int istext)
 {
   int ch, ch1 = EOF;
@@ -287,6 +316,14 @@ static void encode_base64 (FGETCONV * fc, FILE *fout, int istext)
   fputc('\n', fout);
 }
 
+/**
+ * encode_8bit - XXX
+ * @fc:     YYY
+ * @fout:   YYY
+ * @istext: YYY
+ *
+ * DESCRIPTION
+ */
 static void encode_8bit (FGETCONV *fc, FILE *fout, int istext)
 {
   int ch;
@@ -301,6 +338,15 @@ static void encode_8bit (FGETCONV *fc, FILE *fout, int istext)
 }
 
 
+/**
+ * mutt_write_mime_header - XXX
+ * @a: YYY
+ * @f: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_write_mime_header (BODY *a, FILE *f)
 {
   PARAMETER *p;
@@ -419,6 +465,15 @@ int mutt_write_mime_header (BODY *a, FILE *f)
                                  || ((WithCrypto & APPLICATION_PGP)\
                                       && mutt_is_application_pgp(a)))
 
+/**
+ * mutt_write_mime_body - XXX
+ * @a: YYY
+ * @f: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_write_mime_body (BODY *a, FILE *f)
 {
   char *p, boundary[SHORT_STRING];
@@ -497,6 +552,12 @@ int mutt_write_mime_body (BODY *a, FILE *f)
 
 #undef write_as_text_part
 
+/**
+ * mutt_generate_boundary - XXX
+ * @parm: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_generate_boundary (PARAMETER **parm)
 {
   char rs[MUTT_RANDTAG_LEN + 1];
@@ -517,6 +578,15 @@ typedef struct
 CONTENT_STATE;
 
 
+/**
+ * update_content_info - XXX
+ * @info: YYY
+ * @s:    YYY
+ * @d:    YYY
+ * @dlen: YYY
+ *
+ * DESCRIPTION
+ */
 static void update_content_info (CONTENT *info, CONTENT_STATE *s, char *d, size_t dlen)
 {
   int from = s->from;
@@ -627,6 +697,19 @@ static void update_content_info (CONTENT *info, CONTENT_STATE *s, char *d, size_
 /* Define as 1 if iconv sometimes returns -1(EILSEQ) instead of transcribing. */
 #define BUGGY_ICONV 1
 
+/**
+ * convert_file_to - XXX
+ * @file:     YYY
+ * @fromcode: YYY
+ * @ncodes:   YYY
+ * @tocodes:  YYY
+ * @tocode:   YYY
+ * @info:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 /*
  * Find the best charset conversion of the file from fromcode into one
  * of the tocodes. If successful, set *tocode and CONTENT *info and
@@ -777,6 +860,19 @@ static size_t convert_file_to (FILE *file, const char *fromcode,
 #endif /* !HAVE_ICONV */
 }
 
+/**
+ * convert_file_from_to - XXX
+ * @file:      YYY
+ * @fromcodes: YYY
+ * @tocodes:   YYY
+ * @fromcode:  YYY
+ * @tocode:    YYY
+ * @info:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 /*
  * Find the first of the fromcodes that gives a valid conversion and
  * the best charset conversion of the file into one of the tocodes. If
@@ -859,6 +955,15 @@ static size_t convert_file_from_to (FILE *file,
   return ret;
 }
 
+/**
+ * mutt_get_content_info - XXX
+ * @fname: YYY
+ * @b:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: CONTENT*
+ */
 /*
  * Analyze the contents of a file to determine which MIME encoding to use.
  * Also set the body charset, sometimes, or not.
@@ -944,6 +1049,15 @@ CONTENT *mutt_get_content_info (const char *fname, BODY *b)
  * exists.
  */
 
+/**
+ * mutt_lookup_mime_type - XXX
+ * @att:  YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_lookup_mime_type (BODY *att, const char *path)
 {
   FILE *f;
@@ -1047,6 +1161,13 @@ int mutt_lookup_mime_type (BODY *att, const char *path)
   return (type);
 }
 
+/**
+ * mutt_message_to_7bit - XXX
+ * @a:  YYY
+ * @fp: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_message_to_7bit (BODY *a, FILE *fp)
 {
   char temp[_POSIX_PATH_MAX];
@@ -1120,6 +1241,13 @@ void mutt_message_to_7bit (BODY *a, FILE *fp)
   a->hdr->content = NULL;
 }
 
+/**
+ * transform_to_7bit - XXX
+ * @a:    YYY
+ * @fpin: YYY
+ *
+ * DESCRIPTION
+ */
 static void transform_to_7bit (BODY *a, FILE *fpin)
 {
   char buff[_POSIX_PATH_MAX];
@@ -1174,6 +1302,13 @@ static void transform_to_7bit (BODY *a, FILE *fpin)
   }
 }
 
+/**
+ * mutt_set_encoding - XXX
+ * @b:    YYY
+ * @info: YYY
+ *
+ * DESCRIPTION
+ */
 /* determine which Content-Transfer-Encoding to use */
 static void mutt_set_encoding (BODY *b, CONTENT *info)
 {
@@ -1222,6 +1357,12 @@ static void mutt_set_encoding (BODY *b, CONTENT *info)
 #endif
 }
 
+/**
+ * mutt_stamp_attachment - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_stamp_attachment(BODY *a)
 {
   a->stamp = time(NULL);
@@ -1229,6 +1370,16 @@ void mutt_stamp_attachment(BODY *a)
 
 /* Get a body's character set */
 
+/**
+ * mutt_get_body_charset - XXX
+ * @d:    YYY
+ * @dlen: YYY
+ * @b:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_get_body_charset (char *d, size_t dlen, BODY *b)
 {
   char *p = NULL;
@@ -1248,6 +1399,12 @@ char *mutt_get_body_charset (char *d, size_t dlen, BODY *b)
 }
 
 
+/**
+ * mutt_update_encoding - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ */
 /* Assumes called from send mode where BODY->filename points to actual file */
 void mutt_update_encoding (BODY *a)
 {
@@ -1272,6 +1429,16 @@ void mutt_update_encoding (BODY *a)
 
 }
 
+/**
+ * mutt_make_message_attach - XXX
+ * @ctx:        YYY
+ * @hdr:        YYY
+ * @attach_msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *mutt_make_message_attach (CONTEXT *ctx, HEADER *hdr, int attach_msg)
 {
   char buffer[LONG_STRING];
@@ -1362,6 +1529,14 @@ BODY *mutt_make_message_attach (CONTEXT *ctx, HEADER *hdr, int attach_msg)
   return (body);
 }
 
+/**
+ * mutt_make_file_attach - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *mutt_make_file_attach (const char *path)
 {
   BODY *att;
@@ -1419,6 +1594,14 @@ BODY *mutt_make_file_attach (const char *path)
   return (att);
 }
 
+/**
+ * get_toplevel_encoding - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int get_toplevel_encoding (BODY *a)
 {
   int e = ENC7BIT;
@@ -1434,6 +1617,15 @@ static int get_toplevel_encoding (BODY *a)
   return (e);
 }
 
+/**
+ * mutt_check_boundary - XXX
+ * @boundary: YYY
+ * @b:        YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* check for duplicate boundary. return 1 if duplicate */
 static int mutt_check_boundary (const char* boundary, BODY *b)
 {
@@ -1451,6 +1643,14 @@ static int mutt_check_boundary (const char* boundary, BODY *b)
   return 0;
 }
 
+/**
+ * mutt_make_multipart - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *mutt_make_multipart (BODY *b)
 {
   BODY *new;
@@ -1474,6 +1674,14 @@ BODY *mutt_make_multipart (BODY *b)
   return new;
 }
 
+/**
+ * mutt_remove_multipart - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 /* remove the multipart body if it exists */
 BODY *mutt_remove_multipart (BODY *b)
 {
@@ -1489,6 +1697,15 @@ BODY *mutt_remove_multipart (BODY *b)
   return b;
 }
 
+/**
+ * mutt_make_date - XXX
+ * @s:   YYY
+ * @len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_make_date (char *s, size_t len)
 {
   time_t t = time (NULL);
@@ -1504,6 +1721,15 @@ char *mutt_make_date (char *s, size_t len)
   return (s);
 }
 
+/**
+ * mutt_write_address_list - XXX
+ * @adr:     YYY
+ * @fp:      YYY
+ * @linelen: YYY
+ * @display: YYY
+ *
+ * DESCRIPTION
+ */
 /* wrapper around mutt_write_address() so we can handle very large
    recipient lists without needing a huge temporary buffer in memory */
 void mutt_write_address_list (ADDRESS *adr, FILE *fp, int linelen, int display)
@@ -1550,6 +1776,14 @@ void mutt_write_address_list (ADDRESS *adr, FILE *fp, int linelen, int display)
 /* arbitrary number of elements to grow the array by */
 #define REF_INC 16
 
+/**
+ * mutt_write_references - XXX
+ * @r:    YYY
+ * @f:    YYY
+ * @trim: YYY
+ *
+ * DESCRIPTION
+ */
 /* need to write the list in reverse because they are stored in reverse order
  * when parsed to speed up threading
  */
@@ -1586,6 +1820,14 @@ void mutt_write_references (LIST *r, FILE *f, int trim)
   FREE (&ref);
 }
 
+/**
+ * find_word - XXX
+ * @src: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *find_word (const char *src)
 {
   const char *p = src;
@@ -1597,6 +1839,16 @@ static const char *find_word (const char *src)
   return p;
 }
 
+/**
+ * my_width - XXX
+ * @str:   YYY
+ * @col:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* like wcwidth(), but gets const char* not wchar_t* */
 static int my_width (const char *str, int col, int flags)
 {
@@ -1632,6 +1884,18 @@ static int my_width (const char *str, int col, int flags)
   return w;
 }
 
+/**
+ * print_val - XXX
+ * @fp:    YYY
+ * @pfx:   YYY
+ * @value: YYY
+ * @flags: YYY
+ * @col:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int print_val (FILE *fp, const char *pfx, const char *value,
 		      int flags, size_t col)
 {
@@ -1667,6 +1931,19 @@ static int print_val (FILE *fp, const char *pfx, const char *value,
   return 0;
 }
 
+/**
+ * fold_one_header - XXX
+ * @fp:      YYY
+ * @tag:     YYY
+ * @value:   YYY
+ * @pfx:     YYY
+ * @wraplen: YYY
+ * @flags:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int fold_one_header (FILE *fp, const char *tag, const char *value,
 			      const char *pfx, int wraplen, int flags)
 {
@@ -1759,6 +2036,14 @@ static int fold_one_header (FILE *fp, const char *tag, const char *value,
   return 0;
 }
 
+/**
+ * unfold_header - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *unfold_header (char *s)
 {
   char *p = s, *q = s;
@@ -1788,6 +2073,21 @@ static char *unfold_header (char *s)
   return s;
 }
 
+/**
+ * write_one_header - XXX
+ * @fp:      YYY
+ * @pfxw:    YYY
+ * @max:     YYY
+ * @wraplen: YYY
+ * @pfx:     YYY
+ * @start:   YYY
+ * @end:     YYY
+ * @flags:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int write_one_header (FILE *fp, int pfxw, int max, int wraplen,
 			     const char *pfx, const char *start, const char *end,
 			     int flags)
@@ -1859,6 +2159,19 @@ static int write_one_header (FILE *fp, int pfxw, int max, int wraplen,
   return 0;
 }
 
+/**
+ * mutt_write_one_header - XXX
+ * @fp:      YYY
+ * @tag:     YYY
+ * @value:   YYY
+ * @pfx:     YYY
+ * @wraplen: YYY
+ * @flags:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* split several headers into individual ones and call write_one_header
  * for each one */
 int mutt_write_one_header (FILE *fp, const char *tag, const char *value,
@@ -1959,6 +2272,18 @@ out:
 
 
 
+/**
+ * mutt_write_rfc822_header - XXX
+ * @fp:      YYY
+ * @env:     YYY
+ * @attach:  YYY
+ * @mode:    YYY
+ * @privacy: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_write_rfc822_header (FILE *fp, ENVELOPE *env, BODY *attach,
 			      int mode, int privacy)
 {
@@ -2128,6 +2453,12 @@ int mutt_write_rfc822_header (FILE *fp, ENVELOPE *env, BODY *attach,
   return (ferror (fp) == 0 ? 0 : -1);
 }
 
+/**
+ * encode_headers - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 static void encode_headers (LIST *h)
 {
   char *tmp;
@@ -2155,6 +2486,14 @@ static void encode_headers (LIST *h)
   }
 }
 
+/**
+ * mutt_fqdn - XXX
+ * @may_hide_host: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *mutt_fqdn(short may_hide_host)
 {
   char *p = NULL;
@@ -2180,6 +2519,13 @@ const char *mutt_fqdn(short may_hide_host)
   return p;
 }
 
+/**
+ * mutt_gen_msgid - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_gen_msgid (void)
 {
   char buf[SHORT_STRING];
@@ -2201,11 +2547,28 @@ char *mutt_gen_msgid (void)
   return (safe_strdup (buf));
 }
 
+/**
+ * alarm_handler - XXX
+ * @sig: YYY
+ *
+ * DESCRIPTION
+ */
 static void alarm_handler (int sig)
 {
   SigAlrm = 1;
 }
 
+/**
+ * send_msg - XXX
+ * @path:     YYY
+ * @args:     YYY
+ * @msg:      YYY
+ * @tempfile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* invoke sendmail in a subshell
    path	(in)		path to program to execute
    args	(in)		arguments to pass to program
@@ -2370,6 +2733,17 @@ send_msg (const char *path, char **args, const char *msg, char **tempfile)
   return (st);
 }
 
+/**
+ * add_args - XXX
+ * @args:    YYY
+ * @argslen: YYY
+ * @argsmax: YYY
+ * @addr:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char**
+ */
 static char **
 add_args (char **args, size_t *argslen, size_t *argsmax, ADDRESS *addr)
 {
@@ -2386,6 +2760,17 @@ add_args (char **args, size_t *argslen, size_t *argsmax, ADDRESS *addr)
   return (args);
 }
 
+/**
+ * add_option - XXX
+ * @args:    YYY
+ * @argslen: YYY
+ * @argsmax: YYY
+ * @s:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char**
+ */
 static char **
 add_option (char **args, size_t *argslen, size_t *argsmax, char *s)
 {
@@ -2395,6 +2780,19 @@ add_option (char **args, size_t *argslen, size_t *argsmax, char *s)
   return (args);
 }
 
+/**
+ * mutt_invoke_sendmail - XXX
+ * @from:     YYY
+ * @to:       YYY
+ * @cc:       YYY
+ * @bcc:      YYY
+ * @msg:      YYY
+ * @eightbit: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_invoke_sendmail (ADDRESS *from,	/* the sender */
 		 ADDRESS *to, ADDRESS *cc, ADDRESS *bcc, /* recips */
@@ -2531,6 +2929,13 @@ mutt_invoke_sendmail (ADDRESS *from,	/* the sender */
   return (i);
 }
 
+/**
+ * mutt_prepare_envelope - XXX
+ * @env:   YYY
+ * @final: YYY
+ *
+ * DESCRIPTION
+ */
 /* For postponing (!final) do the necessary encodings only */
 void mutt_prepare_envelope (ENVELOPE *env, int final)
 {
@@ -2579,6 +2984,12 @@ void mutt_prepare_envelope (ENVELOPE *env, int final)
   encode_headers (env->userhdrs);
 }
 
+/**
+ * mutt_unprepare_envelope - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_unprepare_envelope (ENVELOPE *env)
 {
   LIST *item;
@@ -2597,6 +3008,18 @@ void mutt_unprepare_envelope (ENVELOPE *env)
   rfc2047_decode (&env->subject);
 }
 
+/**
+ * _mutt_bounce_message - XXX
+ * @fp:          YYY
+ * @h:           YYY
+ * @to:          YYY
+ * @resent_from: YYY
+ * @env_from:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _mutt_bounce_message (FILE *fp, HEADER *h, ADDRESS *to, const char *resent_from,
 				  ADDRESS *env_from)
 {
@@ -2661,6 +3084,16 @@ static int _mutt_bounce_message (FILE *fp, HEADER *h, ADDRESS *to, const char *r
   return ret;
 }
 
+/**
+ * mutt_bounce_message - XXX
+ * @fp: YYY
+ * @h:  YYY
+ * @to: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_bounce_message (FILE *fp, HEADER *h, ADDRESS *to)
 {
   ADDRESS *from, *resent_to;
@@ -2716,6 +3149,14 @@ int mutt_bounce_message (FILE *fp, HEADER *h, ADDRESS *to)
 }
 
 
+/**
+ * mutt_remove_duplicates - XXX
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 /* given a list of addresses, return a list of unique addresses */
 ADDRESS *mutt_remove_duplicates (ADDRESS *addr)
 {
@@ -2758,6 +3199,13 @@ ADDRESS *mutt_remove_duplicates (ADDRESS *addr)
   return (top);
 }
 
+/**
+ * set_noconv_flags - XXX
+ * @b:    YYY
+ * @flag: YYY
+ *
+ * DESCRIPTION
+ */
 static void set_noconv_flags (BODY *b, short flag)
 {
   for(; b; b = b->next)
@@ -2774,6 +3222,19 @@ static void set_noconv_flags (BODY *b, short flag)
   }
 }
 
+/**
+ * mutt_write_multiple_fcc - XXX
+ * @path:      YYY
+ * @hdr:       YYY
+ * @msgid:     YYY
+ * @post:      YYY
+ * @fcc:       YYY
+ * @finalpath: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Handle a Fcc with multiple, comma separated entries. */
 int mutt_write_multiple_fcc (const char *path, HEADER *hdr, const char *msgid,
         int post, char *fcc, char **finalpath)
@@ -2810,6 +3271,19 @@ int mutt_write_multiple_fcc (const char *path, HEADER *hdr, const char *msgid,
   return 0;
 }
 
+/**
+ * mutt_write_fcc - XXX
+ * @path:      YYY
+ * @hdr:       YYY
+ * @msgid:     YYY
+ * @post:      YYY
+ * @fcc:       YYY
+ * @finalpath: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_write_fcc (const char *path, HEADER *hdr, const char *msgid,
 		    int post, char *fcc, char **finalpath)
 {

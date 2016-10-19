@@ -124,6 +124,14 @@ static int alias_compare PARAMS ((const struct alias_map *map1,
 				  const struct alias_map *map2));
 
 
+/**
+ * _nl_expand_alias - XXX
+ * @name: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *
 _nl_expand_alias (name)
     const char *name;
@@ -187,6 +195,15 @@ _nl_expand_alias (name)
 }
 
 
+/**
+ * read_alias_file - XXX
+ * @fname:     YYY
+ * @fname_len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 static size_t
 internal_function
 read_alias_file (fname, fname_len)
@@ -339,6 +356,13 @@ read_alias_file (fname, fname_len)
 }
 
 
+/**
+ * extend_alias_table - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 extend_alias_table ()
 {
@@ -371,6 +395,15 @@ text_set_element (__libc_subfreeres, free_mem);
 #endif
 
 
+/**
+ * alias_compare - XXX
+ * @map1: YYY
+ * @map2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 alias_compare (map1, map2)
      const struct alias_map *map1;

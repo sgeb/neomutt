@@ -31,6 +31,15 @@
 #include <ctype.h>
 #include <string.h>
 
+/**
+ * help_lookupFunction - XXX
+ * @op:   YYY
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const struct binding_t*
+ */
 static const struct binding_t *help_lookupFunction (int op, int menu)
 {
   int i;
@@ -54,6 +63,16 @@ static const struct binding_t *help_lookupFunction (int op, int menu)
   return (NULL);
 }
 
+/**
+ * mutt_make_help - XXX
+ * @d:    YYY
+ * @dlen: YYY
+ * @txt:  YYY
+ * @menu: YYY
+ * @op:   YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_make_help (char *d, size_t dlen, const char *txt, int menu, int op)
 {
   char buf[SHORT_STRING];
@@ -65,6 +84,17 @@ void mutt_make_help (char *d, size_t dlen, const char *txt, int menu, int op)
     d[0] = 0;
 }
 
+/**
+ * mutt_compile_help - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @menu:   YYY
+ * @items:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *
 mutt_compile_help (char *buf, size_t buflen, int menu, const struct mapping_t *items)
 {
@@ -88,6 +118,16 @@ mutt_compile_help (char *buf, size_t buflen, int menu, const struct mapping_t *i
   return buf;
 }
 
+/**
+ * print_macro - XXX
+ * @f:        YYY
+ * @maxwidth: YYY
+ * @macro:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int print_macro (FILE *f, int maxwidth, const char **macro)
 {
   int n = maxwidth;
@@ -149,6 +189,15 @@ static int print_macro (FILE *f, int maxwidth, const char **macro)
   return (maxwidth - n);
 }
 
+/**
+ * get_wrapped_width - XXX
+ * @t:   YYY
+ * @wid: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int get_wrapped_width (const char *t, size_t wid)
 {
   wchar_t wc;
@@ -183,6 +232,16 @@ static int get_wrapped_width (const char *t, size_t wid)
   return n;
 }
 
+/**
+ * pad - XXX
+ * @f:   YYY
+ * @col: YYY
+ * @i:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pad (FILE *f, int col, int i)
 {
   char fmt[8];
@@ -197,6 +256,24 @@ static int pad (FILE *f, int col, int i)
   return (col + 1);
 }
 
+/**
+ * format_line - XXX
+ * @lineInfo:     YYY
+ * @n:            YYY
+ * @buf:          YYY
+ * @flags:        YYY
+ * @pa:           YYY
+ * @cnt:          YYY
+ * @pspace:       YYY
+ * @pvch:         YYY
+ * @pcol:         YYY
+ * @pspecial:     YYY
+ * @pager_window: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static void format_line (FILE *f, int ismacro,
 			 const char *t1, const char *t2, const char *t3)
 {
@@ -283,6 +360,13 @@ static void format_line (FILE *f, int ismacro,
   fputc ('\n', f);
 }
 
+/**
+ * dump_menu - XXX
+ * @f:    YYY
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 static void dump_menu (FILE *f, int menu)
 {
   struct keymap_t *map;
@@ -313,6 +397,15 @@ static void dump_menu (FILE *f, int menu)
   }
 }
 
+/**
+ * is_bound - XXX
+ * @map: YYY
+ * @op:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int is_bound (struct keymap_t *map, int op)
 {
   for (; map; map = map->next)
@@ -321,6 +414,15 @@ static int is_bound (struct keymap_t *map, int op)
   return 0;
 }
 
+/**
+ * dump_unbound - XXX
+ * @f:     YYY
+ * @funcs: YYY
+ * @map:   YYY
+ * @aux:   YYY
+ *
+ * DESCRIPTION
+ */
 static void dump_unbound (FILE *f,
 			  const struct binding_t *funcs,
 			  struct keymap_t *map,
@@ -336,6 +438,12 @@ static void dump_unbound (FILE *f,
   }
 }
 
+/**
+ * mutt_help - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_help (int menu)
 {
   char t[_POSIX_PATH_MAX];

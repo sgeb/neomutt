@@ -70,12 +70,23 @@
 #include "nntp.h"
 #endif
 
+/**
+ * mutt_exit - XXX
+ * @code: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_exit (int code)
 {
   mutt_endwin (NULL);
   exit (code);
 }
 
+/**
+ * mutt_usage - XXX
+ *
+ * DESCRIPTION
+ */
 static void mutt_usage (void)
 {
   puts (mutt_make_version ());
@@ -128,6 +139,11 @@ options:\n\
   exit (0);
 }
 
+/**
+ * start_curses - XXX
+ *
+ * DESCRIPTION
+ */
 static void start_curses (void)
 {
   km_init (); /* must come before mutt_init */
@@ -177,6 +193,15 @@ init_extended_keys();
 #define MUTT_NEWS    (1<<5)	/* -g and -G */
 #endif
 
+/**
+ * main - XXX
+ * @argc: YYY
+ * @argv: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int main (int argc, char **argv)
 {
   char folder[_POSIX_PATH_MAX] = "";

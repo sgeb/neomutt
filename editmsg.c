@@ -43,6 +43,15 @@
  * -1   error
  */
 
+/**
+ * edit_one_message - XXX
+ * @ctx: YYY
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int edit_one_message (CONTEXT *ctx, HEADER *cur)
 {
   char tmp[_POSIX_PATH_MAX];
@@ -213,6 +222,15 @@ static int edit_one_message (CONTEXT *ctx, HEADER *cur)
   return rc;
 }
 
+/**
+ * mutt_edit_message - XXX
+ * @ctx: YYY
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_edit_message (CONTEXT *ctx, HEADER *hdr)
 {
   int i, j;

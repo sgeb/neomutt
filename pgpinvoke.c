@@ -56,6 +56,24 @@ struct pgp_command_context {
 };
 
 
+/**
+ * _mutt_fmt_pgp_command - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @prefix:     YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *_mutt_fmt_pgp_command (char *dest,
 				   size_t destlen,
 				   size_t col,
@@ -148,6 +166,15 @@ const char *_mutt_fmt_pgp_command (char *dest,
   return (src);
 }
 
+/**
+ * mutt_pgp_command - XXX
+ * @d:    YYY
+ * @dlen: YYY
+ * @cctx: YYY
+ * @fmt:  YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_pgp_command (char *d, size_t dlen, struct pgp_command_context *cctx, const char *fmt)
 {
   mutt_FormatString (d, dlen, 0, MuttIndexWindow->cols, NONULL (fmt), _mutt_fmt_pgp_command, (unsigned long) cctx, 0);
@@ -159,6 +186,25 @@ void mutt_pgp_command (char *d, size_t dlen, struct pgp_command_context *cctx, c
  */
 
 
+/**
+ * pgp_invoke - XXX
+ * @pgpin:           YYY
+ * @pgpout:          YYY
+ * @pgperr:          YYY
+ * @pgpinfd:         YYY
+ * @pgpoutfd:        YYY
+ * @pgperrfd:        YYY
+ * @need_passphrase: YYY
+ * @fname:           YYY
+ * @sig_fname:       YYY
+ * @signas:          YYY
+ * @ids:             YYY
+ * @format:          YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 static pid_t pgp_invoke (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			 int pgpinfd, int pgpoutfd, int pgperrfd,
 			 short need_passphrase,
@@ -197,6 +243,21 @@ static pid_t pgp_invoke (FILE **pgpin, FILE **pgpout, FILE **pgperr,
  */
 
 
+/**
+ * pgp_invoke_decode - XXX
+ * @pgpin:           YYY
+ * @pgpout:          YYY
+ * @pgperr:          YYY
+ * @pgpinfd:         YYY
+ * @pgpoutfd:        YYY
+ * @pgperrfd:        YYY
+ * @fname:           YYY
+ * @need_passphrase: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_decode (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			 int pgpinfd, int pgpoutfd, int pgperrfd, 
 			 const char *fname, short need_passphrase)
@@ -206,6 +267,21 @@ pid_t pgp_invoke_decode (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 		     PgpDecodeCommand);
 }
 
+/**
+ * pgp_invoke_verify - XXX
+ * @pgpin:     YYY
+ * @pgpout:    YYY
+ * @pgperr:    YYY
+ * @pgpinfd:   YYY
+ * @pgpoutfd:  YYY
+ * @pgperrfd:  YYY
+ * @fname:     YYY
+ * @sig_fname: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_verify (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			 int pgpinfd, int pgpoutfd, int pgperrfd, 
 			 const char *fname, const char *sig_fname)
@@ -214,6 +290,20 @@ pid_t pgp_invoke_verify (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 		     0, fname, sig_fname, PgpSignAs, NULL, PgpVerifyCommand);
 }
 
+/**
+ * pgp_invoke_decrypt - XXX
+ * @pgpin:    YYY
+ * @pgpout:   YYY
+ * @pgperr:   YYY
+ * @pgpinfd:  YYY
+ * @pgpoutfd: YYY
+ * @pgperrfd: YYY
+ * @fname:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_decrypt (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			  int pgpinfd, int pgpoutfd, int pgperrfd, 
 			  const char *fname)
@@ -222,6 +312,20 @@ pid_t pgp_invoke_decrypt (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 		     1, fname, NULL, PgpSignAs, NULL, PgpDecryptCommand);
 }
 
+/**
+ * pgp_invoke_sign - XXX
+ * @pgpin:    YYY
+ * @pgpout:   YYY
+ * @pgperr:   YYY
+ * @pgpinfd:  YYY
+ * @pgpoutfd: YYY
+ * @pgperrfd: YYY
+ * @fname:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_sign (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 		       int pgpinfd, int pgpoutfd, int pgperrfd, 
 		       const char *fname)
@@ -231,6 +335,22 @@ pid_t pgp_invoke_sign (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 }
 
 
+/**
+ * pgp_invoke_encrypt - XXX
+ * @pgpin:    YYY
+ * @pgpout:   YYY
+ * @pgperr:   YYY
+ * @pgpinfd:  YYY
+ * @pgpoutfd: YYY
+ * @pgperrfd: YYY
+ * @fname:    YYY
+ * @uids:     YYY
+ * @sign:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_encrypt (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			  int pgpinfd, int pgpoutfd, int pgperrfd,
 			  const char *fname, const char *uids, int sign)
@@ -245,6 +365,22 @@ pid_t pgp_invoke_encrypt (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 		       PgpEncryptOnlyCommand);
 }
 
+/**
+ * pgp_invoke_traditional - XXX
+ * @pgpin:    YYY
+ * @pgpout:   YYY
+ * @pgperr:   YYY
+ * @pgpinfd:  YYY
+ * @pgpoutfd: YYY
+ * @pgperrfd: YYY
+ * @fname:    YYY
+ * @uids:     YYY
+ * @flags:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_traditional (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			      int pgpinfd, int pgpoutfd, int pgperrfd,
 			      const char *fname, const char *uids, int flags)
@@ -260,6 +396,12 @@ pid_t pgp_invoke_traditional (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 }
 
 
+/**
+ * pgp_invoke_import - XXX
+ * @fname: YYY
+ *
+ * DESCRIPTION
+ */
 void pgp_invoke_import (const char *fname)
 {
   char _fname[_POSIX_PATH_MAX + SHORT_STRING];
@@ -276,6 +418,12 @@ void pgp_invoke_import (const char *fname)
   mutt_system (cmd);
 }
 
+/**
+ * pgp_invoke_getkeys - XXX
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ */
 void pgp_invoke_getkeys (ADDRESS *addr)
 {
   char buff[LONG_STRING];
@@ -316,6 +464,20 @@ void pgp_invoke_getkeys (ADDRESS *addr)
   close (devnull);
 }
 
+/**
+ * pgp_invoke_export - XXX
+ * @pgpin:    YYY
+ * @pgpout:   YYY
+ * @pgperr:   YYY
+ * @pgpinfd:  YYY
+ * @pgpoutfd: YYY
+ * @pgperrfd: YYY
+ * @uids:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_export (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			 int pgpinfd, int pgpoutfd, int pgperrfd, 
 			 const char *uids)
@@ -325,6 +487,20 @@ pid_t pgp_invoke_export (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 		     PgpExportCommand);
 }
 
+/**
+ * pgp_invoke_verify_key - XXX
+ * @pgpin:    YYY
+ * @pgpout:   YYY
+ * @pgperr:   YYY
+ * @pgpinfd:  YYY
+ * @pgpoutfd: YYY
+ * @pgperrfd: YYY
+ * @uids:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_verify_key (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			     int pgpinfd, int pgpoutfd, int pgperrfd, 
 			     const char *uids)
@@ -334,6 +510,21 @@ pid_t pgp_invoke_verify_key (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 		     PgpVerifyKeyCommand);
 }
 
+/**
+ * pgp_invoke_list_keys - XXX
+ * @pgpin:    YYY
+ * @pgpout:   YYY
+ * @pgperr:   YYY
+ * @pgpinfd:  YYY
+ * @pgpoutfd: YYY
+ * @pgperrfd: YYY
+ * @keyring:  YYY
+ * @hints:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 pid_t pgp_invoke_list_keys (FILE **pgpin, FILE **pgpout, FILE **pgperr,
 			    int pgpinfd, int pgpoutfd, int pgperrfd, 
 			    pgp_ring_t keyring, LIST *hints)

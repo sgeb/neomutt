@@ -57,6 +57,12 @@ const char * const RFC822Errors[] = {
   "bad address spec"
 };
 
+/**
+ * rfc822_dequote_comment - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 void rfc822_dequote_comment (char *s)
 {
   char *w = s;
@@ -79,6 +85,7 @@ void rfc822_dequote_comment (char *s)
   *w = 0;
 }
 
+
 static void free_address (ADDRESS *a)
 {
   FREE(&a->personal);
@@ -89,6 +96,15 @@ static void free_address (ADDRESS *a)
   FREE(&a);
 }
 
+/**
+ * rfc822_remove_from_adrlist - XXX
+ * @a:       YYY
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int rfc822_remove_from_adrlist (ADDRESS **a, const char *mailbox)
 {
   ADDRESS *p, *last = NULL, *t;
@@ -119,6 +135,12 @@ int rfc822_remove_from_adrlist (ADDRESS **a, const char *mailbox)
   return (rv);
 }
 
+/**
+ * rfc822_free_address - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ */
 void rfc822_free_address (ADDRESS **p)
 {
   ADDRESS *t;
@@ -136,6 +158,17 @@ void rfc822_free_address (ADDRESS **p)
   }
 }
 
+/**
+ * parse_comment - XXX
+ * @s:          YYY
+ * @comment:    YYY
+ * @commentlen: YYY
+ * @commentmax: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 parse_comment (const char *s,
 	       char *comment, size_t *commentlen, size_t commentmax)
@@ -171,6 +204,17 @@ parse_comment (const char *s,
   return s;
 }
 
+/**
+ * parse_quote - XXX
+ * @s:        YYY
+ * @token:    YYY
+ * @tokenlen: YYY
+ * @tokenmax: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 parse_quote (const char *s, char *token, size_t *tokenlen, size_t tokenmax)
 {
@@ -195,6 +239,17 @@ parse_quote (const char *s, char *token, size_t *tokenlen, size_t tokenmax)
   return NULL;
 }
 
+/**
+ * next_token - XXX
+ * @s:        YYY
+ * @token:    YYY
+ * @tokenlen: YYY
+ * @tokenmax: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 next_token (const char *s, char *token, size_t *tokenlen, size_t tokenmax)
 {
@@ -219,6 +274,21 @@ next_token (const char *s, char *token, size_t *tokenlen, size_t tokenmax)
   return s;
 }
 
+/**
+ * parse_mailboxdomain - XXX
+ * @s:          YYY
+ * @nonspecial: YYY
+ * @mailbox:    YYY
+ * @mailboxlen: YYY
+ * @mailboxmax: YYY
+ * @comment:    YYY
+ * @commentlen: YYY
+ * @commentmax: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 parse_mailboxdomain (const char *s, const char *nonspecial,
 		     char *mailbox, size_t *mailboxlen, size_t mailboxmax,
@@ -251,6 +321,21 @@ parse_mailboxdomain (const char *s, const char *nonspecial,
   return s;
 }
 
+/**
+ * parse_address - XXX
+ * @s:          YYY
+ * @token:      YYY
+ * @tokenlen:   YYY
+ * @tokenmax:   YYY
+ * @comment:    YYY
+ * @commentlen: YYY
+ * @commentmax: YYY
+ * @addr:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 parse_address (const char *s,
                char *token, size_t *tokenlen, size_t tokenmax,
@@ -286,6 +371,18 @@ parse_address (const char *s,
   return s;
 }
 
+/**
+ * parse_route_addr - XXX
+ * @s:          YYY
+ * @comment:    YYY
+ * @commentlen: YYY
+ * @commentmax: YYY
+ * @addr:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 parse_route_addr (const char *s,
 		  char *comment, size_t *commentlen, size_t commentmax,
@@ -334,6 +431,18 @@ parse_route_addr (const char *s,
   return s;
 }
 
+/**
+ * parse_addr_spec - XXX
+ * @s:          YYY
+ * @comment:    YYY
+ * @commentlen: YYY
+ * @commentmax: YYY
+ * @addr:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 parse_addr_spec (const char *s,
 		 char *comment, size_t *commentlen, size_t commentmax,
@@ -351,6 +460,17 @@ parse_addr_spec (const char *s,
   return s;
 }
 
+/**
+ * add_addrspec - XXX
+ * @top:        YYY
+ * @last:       YYY
+ * @phrase:     YYY
+ * @comment:    YYY
+ * @commentlen: YYY
+ * @commentmax: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 add_addrspec (ADDRESS **top, ADDRESS **last, const char *phrase,
 	      char *comment, size_t *commentlen, size_t commentmax)
@@ -370,6 +490,15 @@ add_addrspec (ADDRESS **top, ADDRESS **last, const char *phrase,
   *last = cur;
 }
 
+/**
+ * rfc822_parse_adrlist - XXX
+ * @top: YYY
+ * @s:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 ADDRESS *rfc822_parse_adrlist (ADDRESS *top, const char *s)
 {
   int ws_pending, nl;
@@ -556,6 +685,13 @@ ADDRESS *rfc822_parse_adrlist (ADDRESS *top, const char *s)
   return top;
 }
 
+/**
+ * rfc822_qualify - XXX
+ * @addr: YYY
+ * @host: YYY
+ *
+ * DESCRIPTION
+ */
 void rfc822_qualify (ADDRESS *addr, const char *host)
 {
   char *p;
@@ -570,6 +706,15 @@ void rfc822_qualify (ADDRESS *addr, const char *host)
     }
 }
 
+/**
+ * rfc822_cat - XXX
+ * @buf:      YYY
+ * @buflen:   YYY
+ * @value:    YYY
+ * @specials: YYY
+ *
+ * DESCRIPTION
+ */
 void
 rfc822_cat (char *buf, size_t buflen, const char *value, const char *specials)
 {
@@ -597,6 +742,15 @@ rfc822_cat (char *buf, size_t buflen, const char *value, const char *specials)
     strfcpy (buf, value, buflen);
 }
 
+/**
+ * rfc822_write_address_single - XXX
+ * @buf:     YYY
+ * @buflen:  YYY
+ * @addr:    YYY
+ * @display: YYY
+ *
+ * DESCRIPTION
+ */
 void rfc822_write_address_single (char *buf, size_t buflen, ADDRESS *addr,
 				  int display)
 {
@@ -734,6 +888,17 @@ done:
   *pbuf = 0;
 }
 
+/**
+ * rfc822_write_address - XXX
+ * @buf:     YYY
+ * @buflen:  YYY
+ * @addr:    YYY
+ * @display: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* note: it is assumed that `buf' is nul terminated! */
 int rfc822_write_address (char *buf, size_t buflen, ADDRESS *addr, int display)
 {
@@ -790,6 +955,14 @@ done:
   return pbuf - buf;
 }
 
+/**
+ * rfc822_cpy_adr_real - XXX
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 /* this should be rfc822_cpy_adr */
 ADDRESS *rfc822_cpy_adr_real (ADDRESS *addr)
 {
@@ -806,6 +979,15 @@ ADDRESS *rfc822_cpy_adr_real (ADDRESS *addr)
   return p;
 }
 
+/**
+ * rfc822_cpy_adr - XXX
+ * @addr:  YYY
+ * @prune: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 /* this should be rfc822_cpy_adrlist */
 ADDRESS *rfc822_cpy_adr (ADDRESS *addr, int prune)
 {
@@ -828,6 +1010,16 @@ ADDRESS *rfc822_cpy_adr (ADDRESS *addr, int prune)
   return top;
 }
 
+/**
+ * rfc822_append - XXX
+ * @a:     YYY
+ * @b:     YYY
+ * @prune: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 /* append list 'b' to list 'a' and return the last element in the new list */
 ADDRESS *rfc822_append (ADDRESS **a, ADDRESS *b, int prune)
 {
@@ -846,6 +1038,14 @@ ADDRESS *rfc822_append (ADDRESS **a, ADDRESS *b, int prune)
   return tmp;
 }
 
+/**
+ * rfc822_valid_msgid - XXX
+ * @msgid: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* incomplete. Only used to thwart the APOP MD5 attack (#2846). */
 int rfc822_valid_msgid (const char *msgid)
 {

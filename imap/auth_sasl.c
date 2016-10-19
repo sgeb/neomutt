@@ -30,6 +30,15 @@
 #include <sasl/sasl.h>
 #include <sasl/saslutil.h>
 
+/**
+ * imap_auth_sasl - XXX
+ * @idata:  YYY
+ * @method: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: imap_auth_res_t
+ */
 /* imap_auth_sasl: Default authenticator if available. */
 imap_auth_res_t imap_auth_sasl (IMAP_DATA* idata, const char* method)
 {

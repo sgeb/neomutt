@@ -65,6 +65,14 @@ const int Index_64[128] = {
     41,42,43,44, 45,46,47,48, 49,50,51,-1, -1,-1,-1,-1
 };
 
+/**
+ * state_prefix_put - XXX
+ * @d:    YYY
+ * @dlen: YYY
+ * @s:    YYY
+ *
+ * DESCRIPTION
+ */
 static void state_prefix_put (const char *d, size_t dlen, STATE *s)
 {
   if (s->prefix)
@@ -74,6 +82,15 @@ static void state_prefix_put (const char *d, size_t dlen, STATE *s)
     fwrite (d, dlen, 1, s->fpout);
 }
 
+/**
+ * mutt_convert_to_state - XXX
+ * @cd:   YYY
+ * @bufi: YYY
+ * @l:    YYY
+ * @s:    YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_convert_to_state(iconv_t cd, char *bufi, size_t *l, STATE *s)
 {
   char bufo[BUFO_SIZE];
@@ -113,6 +130,15 @@ static void mutt_convert_to_state(iconv_t cd, char *bufi, size_t *l, STATE *s)
   *l = ibl;
 }
 
+/**
+ * mutt_decode_xbit - XXX
+ * @s:      YYY
+ * @len:    YYY
+ * @istext: YYY
+ * @cd:     YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_decode_xbit (STATE *s, long len, int istext, iconv_t cd)
 {
   int c, ch;
@@ -150,6 +176,15 @@ static void mutt_decode_xbit (STATE *s, long len, int istext, iconv_t cd)
     mutt_copy_bytes (s->fpin, s->fpout, len);
 }
 
+/**
+ * qp_decode_triple - XXX
+ * @s: YYY
+ * @d: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int qp_decode_triple (char *s, char *d)
 {
   /* soft line break */
@@ -169,6 +204,15 @@ static int qp_decode_triple (char *s, char *d)
   return -1;
 }
 
+/**
+ * qp_decode_line - XXX
+ * @dest: YYY
+ * @src:  YYY
+ * @l:    YYY
+ * @last: YYY
+ *
+ * DESCRIPTION
+ */
 static void qp_decode_line (char *dest, char *src, size_t *l,
 			    int last)
 {
@@ -229,6 +273,15 @@ static void qp_decode_line (char *dest, char *src, size_t *l,
  * 
  */
 
+/**
+ * mutt_decode_quoted - XXX
+ * @s:      YYY
+ * @len:    YYY
+ * @istext: YYY
+ * @cd:     YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_decode_quoted (STATE *s, long len, int istext, iconv_t cd)
 {
   char line[STRING];
@@ -283,6 +336,15 @@ static void mutt_decode_quoted (STATE *s, long len, int istext, iconv_t cd)
   state_reset_prefix(s);
 }
 
+/**
+ * mutt_decode_base64 - XXX
+ * @s:      YYY
+ * @len:    YYY
+ * @istext: YYY
+ * @cd:     YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_decode_base64 (STATE *s, long len, int istext, iconv_t cd)
 {
   char buf[5];
@@ -367,6 +429,14 @@ void mutt_decode_base64 (STATE *s, long len, int istext, iconv_t cd)
   state_reset_prefix(s);
 }
 
+/**
+ * decode_byte - XXX
+ * @ch: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char
+ */
 static unsigned char decode_byte (char ch)
 {
   if (ch == 96)
@@ -374,6 +444,15 @@ static unsigned char decode_byte (char ch)
   return ch - 32;
 }
 
+/**
+ * mutt_decode_uuencoded - XXX
+ * @s:      YYY
+ * @len:    YYY
+ * @istext: YYY
+ * @cd:     YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_decode_uuencoded (STATE *s, long len, int istext, iconv_t cd)
 {
   char tmps[SHORT_STRING];
@@ -476,6 +555,12 @@ struct enriched_state
   STATE *s;
 };
 
+/**
+ * enriched_wrap - XXX
+ * @stte: YYY
+ *
+ * DESCRIPTION
+ */
 static void enriched_wrap (struct enriched_state *stte)
 {
   int x;
@@ -586,6 +671,13 @@ static void enriched_wrap (struct enriched_state *stte)
   }
 }
 
+/**
+ * enriched_flush - XXX
+ * @stte: YYY
+ * @wrap: YYY
+ *
+ * DESCRIPTION
+ */
 static void enriched_flush (struct enriched_state *stte, int wrap)
 {
   if (!stte->tag_level[RICH_NOFILL] && (stte->line_len + stte->word_len > 
@@ -613,6 +705,13 @@ static void enriched_flush (struct enriched_state *stte, int wrap)
 }
 
 
+/**
+ * enriched_putwc - XXX
+ * @c:    YYY
+ * @stte: YYY
+ *
+ * DESCRIPTION
+ */
 static void enriched_putwc (wchar_t c, struct enriched_state *stte)
 {
   if (stte->tag_level[RICH_PARAM]) 
@@ -680,6 +779,13 @@ static void enriched_putwc (wchar_t c, struct enriched_state *stte)
   }
 }
 
+/**
+ * enriched_puts - XXX
+ * @s:    YYY
+ * @stte: YYY
+ *
+ * DESCRIPTION
+ */
 static void enriched_puts (const char *s, struct enriched_state *stte)
 {
   const char *c;
@@ -697,6 +803,13 @@ static void enriched_puts (const char *s, struct enriched_state *stte)
   }
 }
 
+/**
+ * enriched_set_flags - XXX
+ * @tag:  YYY
+ * @stte: YYY
+ *
+ * DESCRIPTION
+ */
 static void enriched_set_flags (const wchar_t *tag, struct enriched_state *stte)
 {
   const wchar_t *tagptr = tag;
@@ -777,6 +890,15 @@ static void enriched_set_flags (const wchar_t *tag, struct enriched_state *stte)
   }
 }
 
+/**
+ * text_enriched_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int text_enriched_handler (BODY *a, STATE *s)
 {
   enum {
@@ -904,6 +1026,14 @@ static int text_enriched_handler (BODY *a, STATE *s)
   return 0;
 }                                                                              
 
+/**
+ * is_mmnoask - XXX
+ * @buf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* for compatibility with metamail */
 static int is_mmnoask (const char *buf)
 {
@@ -947,6 +1077,14 @@ static int is_mmnoask (const char *buf)
   return (0);
 }
 
+/**
+ * mutt_is_autoview - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Returns:
  * 1    if the body part should be filtered by a mailcap entry prior to viewing inline.
@@ -996,6 +1134,15 @@ static int mutt_is_autoview (BODY *b)
 #define TXTPLAIN    2
 #define TXTENRICHED 3
 
+/**
+ * alternative_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int alternative_handler (BODY *a, STATE *s)
 {
   BODY *choice = NULL;
@@ -1146,6 +1293,15 @@ static int alternative_handler (BODY *a, STATE *s)
   return rc;
 }
 
+/**
+ * message_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* handles message/rfc822 body parts */
 static int message_handler (BODY *a, STATE *s)
 {
@@ -1187,6 +1343,14 @@ static int message_handler (BODY *a, STATE *s)
   return rc;
 }
 
+/**
+ * mutt_can_decode - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns 1 if decoding the attachment will produce output */
 int mutt_can_decode (BODY *a)
 {
@@ -1225,6 +1389,15 @@ int mutt_can_decode (BODY *a)
   return (0);
 }
 
+/**
+ * multipart_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int multipart_handler (BODY *a, STATE *s)
 {
   BODY *b, *p;
@@ -1298,6 +1471,15 @@ static int multipart_handler (BODY *a, STATE *s)
   return rc;
 }
 
+/**
+ * autoview_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int autoview_handler (BODY *a, STATE *s)
 {
   rfc1524_entry *entry = rfc1524_new_entry ();
@@ -1431,6 +1613,15 @@ static int autoview_handler (BODY *a, STATE *s)
   return rc;
 }
 
+/**
+ * external_body_handler - XXX
+ * @b: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int external_body_handler (BODY *b, STATE *s)
 {
   const char *access_type;
@@ -1527,6 +1718,13 @@ static int external_body_handler (BODY *b, STATE *s)
   return 0;
 }
 
+/**
+ * mutt_decode_attachment - XXX
+ * @b: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_decode_attachment (BODY *b, STATE *s)
 {
   int istext = mutt_is_text_part (b);
@@ -1564,6 +1762,15 @@ void mutt_decode_attachment (BODY *b, STATE *s)
     iconv_close (cd);
 }
 
+/**
+ * text_plain_handler - XXX
+ * @b: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* when generating format=flowed ($text_flowed is set) from format=fixed,
  * strip all trailing spaces to improve interoperability;
  * if $text_flowed is unset, simply verbatim copy input
@@ -1591,6 +1798,17 @@ static int text_plain_handler (BODY *b, STATE *s)
   return 0;
 }
 
+/**
+ * run_decode_and_handler - XXX
+ * @b:         YYY
+ * @s:         YYY
+ * @handler:   YYY
+ * @plaintext: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int run_decode_and_handler (BODY *b, STATE *s, handler_t handler, int plaintext)
 {
   int origType;
@@ -1720,6 +1938,15 @@ static int run_decode_and_handler (BODY *b, STATE *s, handler_t handler, int pla
   return rc;
 }
 
+/**
+ * valid_pgp_encrypted_handler - XXX
+ * @b: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int valid_pgp_encrypted_handler (BODY *b, STATE *s)
 {
   int rc;
@@ -1732,6 +1959,15 @@ static int valid_pgp_encrypted_handler (BODY *b, STATE *s)
   return rc;
 }
 
+/**
+ * malformed_pgp_encrypted_handler - XXX
+ * @b: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int malformed_pgp_encrypted_handler (BODY *b, STATE *s)
 {
   int rc;
@@ -1745,6 +1981,15 @@ static int malformed_pgp_encrypted_handler (BODY *b, STATE *s)
   return rc;
 }
 
+/**
+ * mutt_body_handler - XXX
+ * @b: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_body_handler (BODY *b, STATE *s)
 {
   int plaintext = 0;

@@ -27,16 +27,39 @@
 #include "crypt-mod.h"
 #include "smime.h"
 
+/**
+ * crypt_mod_smime_void_passphrase - XXX
+ *
+ * DESCRIPTION
+ */
 static void crypt_mod_smime_void_passphrase (void)
 {
   smime_void_passphrase ();
 }
 
+/**
+ * crypt_mod_smime_valid_passphrase - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_valid_passphrase (void)
 {
   return smime_valid_passphrase ();
 }
 
+/**
+ * crypt_mod_smime_decrypt_mime - XXX
+ * @a: YYY
+ * @b: YYY
+ * @c: YYY
+ * @d: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_decrypt_mime (FILE *a, FILE **b, BODY *c, BODY **d)
 {
   return smime_decrypt_mime (a, b, c, d);
@@ -46,31 +69,81 @@ static int crypt_mod_smime_application_handler (BODY *m, STATE *s)
   return smime_application_smime_handler (m, s);
 }
 
+/**
+ * crypt_mod_smime_findkeys - XXX
+ * @adrlist:     YYY
+ * @oppenc_mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *crypt_mod_smime_findkeys (ADDRESS *adrlist, int oppenc_mode)
 {
   return smime_findKeys (adrlist, oppenc_mode);
 }
 
+/**
+ * crypt_mod_smime_sign_message - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 static BODY *crypt_mod_smime_sign_message (BODY *a)
 {
   return smime_sign_message (a);
 }
 
+/**
+ * crypt_mod_smime_verify_one - XXX
+ * @sigbdy: YYY
+ * @s:      YYY
+ * @tempf:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_verify_one (BODY *sigbdy, STATE *s, const char *tempf)
 {
   return smime_verify_one (sigbdy, s, tempf);
 }
 
+/**
+ * crypt_mod_smime_send_menu - XXX
+ * @msg:    YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_send_menu (HEADER *msg, int *redraw)
 {
   return smime_send_menu (msg, redraw);
 }
 
+/**
+ * crypt_mod_smime_getkeys - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 static void crypt_mod_smime_getkeys (ENVELOPE *env)
 {
   smime_getkeys (env);
 }
 
+/**
+ * crypt_mod_smime_verify_sender - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_verify_sender (HEADER *h)
 {
   return smime_verify_sender (h);
@@ -81,6 +154,13 @@ static BODY *crypt_mod_smime_build_smime_entity (BODY *a, char *certlist)
   return smime_build_smime_entity (a, certlist);
 }
 
+/**
+ * crypt_mod_smime_invoke_import - XXX
+ * @infile:  YYY
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ */
 static void crypt_mod_smime_invoke_import (char *infile, char *mailbox)
 {
   smime_invoke_import (infile, mailbox);

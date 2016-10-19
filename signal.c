@@ -34,6 +34,12 @@ static struct sigaction SysOldInt;
 static struct sigaction SysOldQuit;
 static int IsEndwin = 0;
 
+/**
+ * exit_handler - XXX
+ * @sig: YYY
+ *
+ * DESCRIPTION
+ */
 /* Attempt to catch "ordinary" signals and shut down gracefully. */
 static void exit_handler (int sig)
 {
@@ -55,11 +61,23 @@ static void exit_handler (int sig)
   exit (0);
 }
 
+/**
+ * chld_handler - XXX
+ * @sig: YYY
+ *
+ * DESCRIPTION
+ */
 static void chld_handler (int sig)
 {
   /* empty */
 }
 
+/**
+ * sighandler - XXX
+ * @sig: YYY
+ *
+ * DESCRIPTION
+ */
 static void sighandler (int sig)
 {
   int save_errno = errno;
@@ -107,6 +125,11 @@ int mutt_intr_hook (void)
 }
 #endif /* USE_SLANG_CURSES */
 
+/**
+ * mutt_signal_init - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_signal_init (void)
 {
   struct sigaction act;
@@ -166,6 +189,11 @@ void mutt_signal_init (void)
 #endif
 }
 
+/**
+ * mutt_block_signals - XXX
+ *
+ * DESCRIPTION
+ */
 /* signals which are important to block while doing critical ops */
 void mutt_block_signals (void)
 {
@@ -184,6 +212,11 @@ void mutt_block_signals (void)
   }
 }
 
+/**
+ * mutt_unblock_signals - XXX
+ *
+ * DESCRIPTION
+ */
 /* restore the previous signal mask */
 void mutt_unblock_signals (void)
 {
@@ -194,6 +227,11 @@ void mutt_unblock_signals (void)
   }
 }
 
+/**
+ * mutt_block_signals_system - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_block_signals_system (void)
 {
   struct sigaction sa;
@@ -214,6 +252,12 @@ void mutt_block_signals_system (void)
   }
 }
 
+/**
+ * mutt_unblock_signals_system - XXX
+ * @catch: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_unblock_signals_system (int catch)
 {
   if (option (OPTSYSSIGNALSBLOCKED))
@@ -239,6 +283,12 @@ void mutt_unblock_signals_system (int catch)
   }
 }
 
+/**
+ * mutt_allow_interrupt - XXX
+ * @disposition: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_allow_interrupt (int disposition)
 {
   struct sigaction sa;

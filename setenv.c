@@ -12,6 +12,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * setenv - XXX
+ * @name:      YYY
+ * @value:     YYY
+ * @overwrite: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 setenv(const char *name, const char *value, int overwrite)
 {

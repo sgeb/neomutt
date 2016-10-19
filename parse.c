@@ -34,6 +34,16 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 
+/**
+ * mutt_read_rfc822_line - XXX
+ * @f:       YYY
+ * @line:    YYY
+ * @linelen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* Reads an arbitrarily long header field, and looks ahead for continuation
  * lines.  ``line'' must point to a dynamically allocated string; it is
  * increased if more space is required to fit the whole line.
@@ -94,6 +104,15 @@ char *mutt_read_rfc822_line (FILE *f, char *line, size_t *linelen)
   /* not reached */
 }
 
+/**
+ * mutt_parse_references - XXX
+ * @s:           YYY
+ * @in_reply_to: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: LIST*
+ */
 LIST *mutt_parse_references (char *s, int in_reply_to)
 {
   LIST *t, *lst = NULL;
@@ -114,6 +133,14 @@ LIST *mutt_parse_references (char *s, int in_reply_to)
   return lst;
 }
 
+/**
+ * mutt_check_encoding - XXX
+ * @c: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_check_encoding (const char *c)
 {
   if (ascii_strncasecmp ("7bit", c, sizeof ("7bit")-1) == 0)
@@ -136,6 +163,14 @@ int mutt_check_encoding (const char *c)
     return (ENCOTHER);
 }
 
+/**
+ * parse_parameters - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: PARAMETER*
+ */
 static PARAMETER *parse_parameters (const char *s)
 {
   PARAMETER *head = 0, *cur = 0, *new;
@@ -260,6 +295,14 @@ bail:
   return (head);
 }
 
+/**
+ * mutt_check_mime_type - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_check_mime_type (const char *s)
 {
   if (ascii_strcasecmp ("text", s) == 0)
@@ -290,6 +333,13 @@ int mutt_check_mime_type (const char *s)
     return TYPEOTHER;
 }
 
+/**
+ * mutt_parse_content_type - XXX
+ * @s:  YYY
+ * @ct: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_parse_content_type (char *s, BODY *ct)
 {
   char *pc;
@@ -377,6 +427,13 @@ void mutt_parse_content_type (char *s, BODY *ct)
 
 }
 
+/**
+ * parse_content_disposition - XXX
+ * @s:  YYY
+ * @ct: YYY
+ *
+ * DESCRIPTION
+ */
 static void parse_content_disposition (const char *s, BODY *ct)
 {
   PARAMETER *parms;
@@ -407,6 +464,15 @@ static void parse_content_disposition (const char *s, BODY *ct)
  *		otherwise
  */
 
+/**
+ * mutt_read_mime_header - XXX
+ * @fp:     YYY
+ * @digest: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *mutt_read_mime_header (FILE *fp, int digest)
 {
   BODY *p = mutt_new_body();
@@ -481,6 +547,13 @@ BODY *mutt_read_mime_header (FILE *fp, int digest)
   return (p);
 }
 
+/**
+ * mutt_parse_part - XXX
+ * @fp: YYY
+ * @b:  YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_parse_part (FILE *fp, BODY *b)
 {
   char *bound = 0;
@@ -537,6 +610,15 @@ void mutt_parse_part (FILE *fp, BODY *b)
  * NOTE: this assumes that `parent->length' has been set!
  */
 
+/**
+ * mutt_parse_messageRFC822 - XXX
+ * @fp:     YYY
+ * @parent: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *mutt_parse_messageRFC822 (FILE *fp, BODY *parent)
 {
   BODY *msg;
@@ -572,6 +654,17 @@ BODY *mutt_parse_messageRFC822 (FILE *fp, BODY *parent)
  *	digest		1 if reading a multipart/digest, 0 otherwise
  */
 
+/**
+ * mutt_parse_multipart - XXX
+ * @fp:       YYY
+ * @boundary: YYY
+ * @end_off:  YYY
+ * @digest:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *mutt_parse_multipart (FILE *fp, const char *boundary, LOFF_T end_off, int digest)
 {
 #ifdef SUN_ATTACHMENT
@@ -664,6 +757,16 @@ BODY *mutt_parse_multipart (FILE *fp, const char *boundary, LOFF_T end_off, int 
   return (head);
 }
 
+/**
+ * uncomment_timezone - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @tz:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *uncomment_timezone (char *buf, size_t buflen, const char *tz)
 {
   char *p;
@@ -741,6 +844,15 @@ TimeZones[] =
   { "wst",   8,  0, 0 }, /* Western Australia */
 };
 
+/**
+ * mutt_parse_date - XXX
+ * @s: YYY
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: time_t
+ */
 /* parses a date string in RFC822 format:
  *
  * Date: [ weekday , ] day-of-month month year hour:minute:second timezone
@@ -890,6 +1002,15 @@ time_t mutt_parse_date (const char *s, HEADER *h)
   return (mutt_mktime (&tm, 0) + tz_offset);
 }
 
+/**
+ * mutt_extract_message_id - XXX
+ * @s:       YYY
+ * @saveptr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* extract the first substring that looks like a message-id.
  * call back with NULL for more (like strtok).
  */
@@ -950,6 +1071,13 @@ char *mutt_extract_message_id (const char *s, const char **saveptr)
   return NULL;
 }
 
+/**
+ * mutt_parse_mime_message - XXX
+ * @ctx: YYY
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_parse_mime_message (CONTEXT *ctx, HEADER *cur)
 {
   MESSAGE *msg;
@@ -976,6 +1104,21 @@ void mutt_parse_mime_message (CONTEXT *ctx, HEADER *cur)
   cur->attach_valid = 0;
 }
 
+/**
+ * mutt_parse_rfc822_line - XXX
+ * @e:         YYY
+ * @hdr:       YYY
+ * @line:      YYY
+ * @p:         YYY
+ * @user_hdrs: YYY
+ * @weed:      YYY
+ * @do_2047:   YYY
+ * @lastp:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_rfc822_line (ENVELOPE *e, HEADER *hdr, char *line, char *p, short user_hdrs, short weed,
 			    short do_2047, LIST **lastp)
 {
@@ -1416,6 +1559,17 @@ int mutt_parse_rfc822_line (ENVELOPE *e, HEADER *hdr, char *line, char *p, short
   return matched;
 }
 
+/**
+ * mutt_read_rfc822_header - XXX
+ * @f:         YYY
+ * @hdr:       YYY
+ * @user_hdrs: YYY
+ * @weed:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ENVELOPE*
+ */
   
 /* mutt_read_rfc822_header() -- parses a RFC822 header
  *
@@ -1584,6 +1738,15 @@ ENVELOPE *mutt_read_rfc822_header (FILE *f, HEADER *hdr, short user_hdrs,
   return (e);
 }
 
+/**
+ * mutt_parse_adrlist - XXX
+ * @p: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 ADDRESS *mutt_parse_adrlist (ADDRESS *p, const char *s)
 {
   const char *q;
@@ -1608,6 +1771,16 @@ ADDRESS *mutt_parse_adrlist (ADDRESS *p, const char *s)
   return p;
 }
 
+/**
+ * count_body_parts_check - XXX
+ * @checklist: YYY
+ * @b:         YYY
+ * @dflt:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Compares mime types to the ok and except lists */
 static int count_body_parts_check(LIST **checklist, BODY *b, int dflt)
 {
@@ -1645,6 +1818,15 @@ static int count_body_parts_check(LIST **checklist, BODY *b, int dflt)
 #define AT_COUNT(why)   { shallcount = 1; }
 #define AT_NOCOUNT(why) { shallcount = 0; }
 
+/**
+ * count_body_parts - XXX
+ * @body:  YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int count_body_parts (BODY *body, int flags)
 {
   int count = 0;
@@ -1739,6 +1921,15 @@ static int count_body_parts (BODY *body, int flags)
   return count < 0 ? 0 : count;
 }
 
+/**
+ * mutt_count_body_parts - XXX
+ * @ctx: YYY
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_count_body_parts (CONTEXT *ctx, HEADER *hdr)
 {
   short keep_parts = 0;

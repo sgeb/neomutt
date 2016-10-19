@@ -47,6 +47,14 @@ typedef struct flowed_state
   int delsp;
 } flowed_state_t;
 
+/**
+ * get_quote_level - XXX
+ * @line: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int get_quote_level (const char *line)
 {
   int quoted = 0;
@@ -61,6 +69,14 @@ static int get_quote_level (const char *line)
   return quoted;
 }
 
+/**
+ * space_quotes - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Determines whether to add spacing between/after each quote level:
  *    >>>foo
  * becomes
@@ -77,6 +93,15 @@ static int space_quotes (STATE *s)
   return option (OPTREFLOWSPACEQUOTES);
 }
 
+/**
+ * add_quote_suffix - XXX
+ * @s:  YYY
+ * @ql: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Determines whether to add a trailing space to quotes:
  *    >>> foo
  * as opposed to
@@ -100,6 +125,16 @@ static int add_quote_suffix (STATE *s, int ql)
   return 1;
 }
 
+/**
+ * print_indent - XXX
+ * @ql:         YYY
+ * @s:          YYY
+ * @add_suffix: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 static size_t print_indent (int ql, STATE *s, int add_suffix)
 {
   int i;
@@ -133,6 +168,13 @@ static size_t print_indent (int ql, STATE *s, int add_suffix)
   return ql + add_suffix + wid;
 }
 
+/**
+ * flush_par - XXX
+ * @s:   YYY
+ * @fst: YYY
+ *
+ * DESCRIPTION
+ */
 static void flush_par (STATE *s, flowed_state_t *fst)
 {
   if (fst->width > 0)
@@ -143,6 +185,15 @@ static void flush_par (STATE *s, flowed_state_t *fst)
   fst->spaces = 0;
 }
 
+/**
+ * quote_width - XXX
+ * @s:  YYY
+ * @ql: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Calculate the paragraph width based upon the current quote level. The start
  * of a quoted line will be ">>> ", so we need to subtract the space required
  * for the prefix from the terminal width. */
@@ -169,6 +220,16 @@ static int quote_width (STATE *s, int ql)
   return width;
 }
 
+/**
+ * print_flowed_line - XXX
+ * @line: YYY
+ * @s:    YYY
+ * @ql:   YYY
+ * @fst:  YYY
+ * @term: YYY
+ *
+ * DESCRIPTION
+ */
 static void print_flowed_line (char *line, STATE *s, int ql,
 			       flowed_state_t *fst, int term)
 {
@@ -241,6 +302,15 @@ static void print_flowed_line (char *line, STATE *s, int ql,
     flush_par (s, fst);
 }
 
+/**
+ * print_fixed_line - XXX
+ * @line: YYY
+ * @s:    YYY
+ * @ql:   YYY
+ * @fst:  YYY
+ *
+ * DESCRIPTION
+ */
 static void print_fixed_line (const char *line, STATE *s, int ql,
 			      flowed_state_t *fst)
 {
@@ -253,6 +323,15 @@ static void print_fixed_line (const char *line, STATE *s, int ql,
   fst->spaces = 0;
 }
 
+/**
+ * rfc3676_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int rfc3676_handler (BODY * a, STATE * s)
 {
   char *buf = NULL, *t = NULL;
@@ -321,6 +400,12 @@ int rfc3676_handler (BODY * a, STATE * s)
   return (0);
 }
 
+/**
+ * rfc3676_space_stuff - XXX
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ */
 /*
  * This routine does RfC3676 space stuffing since it's a MUST.
  * Space stuffing means that we have to add leading spaces to

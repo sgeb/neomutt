@@ -81,6 +81,14 @@ __libc_rwlock_define (extern, _nl_state_lock)
 # define BIND_TEXTDOMAIN_CODESET bind_textdomain_codeset__
 #endif
 
+/**
+ * set_binding_values - XXX
+ * @domainname: YYY
+ * @dirnamep:   YYY
+ * @codesetp:   YYY
+ *
+ * DESCRIPTION
+ */
 /* Prototypes for local functions.  */
 static void set_binding_values PARAMS ((const char *domainname,
 					const char **dirnamep,

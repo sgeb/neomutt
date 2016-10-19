@@ -72,6 +72,14 @@
 #include <ctype.h>
 #include <utime.h>
 
+/**
+ * mx_get_ops - XXX
+ * @magic: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct mx_ops*
+ */
 struct mx_ops* mx_get_ops (int magic)
 {
   switch (magic)
@@ -190,6 +198,18 @@ static int undotlock_file (const char *path, int fd)
 
 #endif /* USE_DOTLOCK */
 
+/**
+ * mx_lock_file - XXX
+ * @path:    YYY
+ * @fd:      YYY
+ * @excl:    YYY
+ * @dot:     YYY
+ * @timeout: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Args:
  *	excl		if excl != 0, request an exclusive lock
  *	dot		if dot != 0, try to dotlock the file
@@ -299,6 +319,16 @@ int mx_lock_file (const char *path, int fd, int excl, int dot, int timeout)
   return r;
 }
 
+/**
+ * mx_unlock_file - XXX
+ * @path: YYY
+ * @fd:   YYY
+ * @dot:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mx_unlock_file (const char *path, int fd, int dot)
 {
 #ifdef USE_FCNTL
@@ -322,6 +352,12 @@ int mx_unlock_file (const char *path, int fd, int dot)
   return 0;
 }
 
+/**
+ * mx_unlink_empty - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ */
 static void mx_unlink_empty (const char *path)
 {
   int fd;
@@ -359,6 +395,14 @@ static void mx_unlink_empty (const char *path)
 
 #ifdef USE_IMAP
 
+/**
+ * mx_is_imap - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mx_is_imap(const char *p)
 {
   url_scheme_t scheme;
@@ -378,6 +422,14 @@ int mx_is_imap(const char *p)
 
 #endif
 
+/**
+ * mx_is_pop - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_POP
 int mx_is_pop (const char *p)
 {
@@ -394,6 +446,14 @@ int mx_is_pop (const char *p)
 }
 #endif
 
+/**
+ * mx_is_nntp - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NNTP
 int mx_is_nntp (const char *p)
 {
@@ -412,6 +472,14 @@ int mx_is_nntp (const char *p)
 
 #ifdef USE_NOTMUCH
 
+/**
+ * mx_is_notmuch - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mx_is_notmuch(const char *p)
 {
   url_scheme_t scheme;
@@ -428,6 +496,14 @@ int mx_is_notmuch(const char *p)
 
 #endif
 
+/**
+ * mx_get_magic - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mx_get_magic (const char *path)
 {
   struct stat st;
@@ -518,6 +594,14 @@ int mx_get_magic (const char *path)
   return (magic);
 }
 
+/**
+ * mx_set_magic - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * set DefaultMagic to the given value
  */
@@ -537,6 +621,15 @@ int mx_set_magic (const char *s)
   return 0;
 }
 
+/**
+ * mx_access - XXX
+ * @path:  YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mx_access: Wrapper for access, checks permissions on a given mailbox.
  *   We may be interested in using ACL-style flags at some point, currently
  *   we use the normal access() flags. */
@@ -550,6 +643,15 @@ int mx_access (const char* path, int flags)
   return access (path, flags);
 }
 
+/**
+ * mx_open_mailbox_append - XXX
+ * @ctx:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mx_open_mailbox_append (CONTEXT *ctx, int flags)
 {
   struct stat sb;
@@ -593,6 +695,14 @@ static int mx_open_mailbox_append (CONTEXT *ctx, int flags)
   return ctx->mx_ops->open_append (ctx, flags);
 }
 
+/**
+ * mx_close_mailbox_append - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* close a mailbox opened in write-mode */
 static int mx_close_mailbox_append (CONTEXT *ctx)
 {
@@ -602,6 +712,16 @@ static int mx_close_mailbox_append (CONTEXT *ctx)
   return 0;
 }
 
+/**
+ * mx_open_mailbox - XXX
+ * @path:  YYY
+ * @flags: YYY
+ * @pctx:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: CONTEXT*
+ */
 /*
  * open a mailbox and parse it
  *
@@ -705,6 +825,12 @@ CONTEXT *mx_open_mailbox (const char *path, int flags, CONTEXT *pctx)
   return (ctx);
 }
 
+/**
+ * mx_fastclose_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 /* free up memory associated with the mailbox context */
 void mx_fastclose_mailbox (CONTEXT *ctx)
 {
@@ -747,6 +873,15 @@ void mx_fastclose_mailbox (CONTEXT *ctx)
   memset (ctx, 0, sizeof (CONTEXT));
 }
 
+/**
+ * sync_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* save changes to disk */
 static int sync_mailbox (CONTEXT *ctx, int *index_hint)
 {
@@ -815,6 +950,14 @@ static int sync_mailbox (CONTEXT *ctx, int *index_hint)
   return rc;
 }
 
+/**
+ * trash_append - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* move deleted mails to the trash folder */
 static int trash_append (CONTEXT *ctx)
 {
@@ -882,6 +1025,15 @@ static int trash_append (CONTEXT *ctx)
   return 0;
 }
 
+/**
+ * mx_close_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* save changes and close mailbox */
 int mx_close_mailbox (CONTEXT *ctx, int *index_hint)
 {
@@ -1149,6 +1301,13 @@ int mx_close_mailbox (CONTEXT *ctx, int *index_hint)
 
 /* update a Context structure's internal tables. */
 
+/**
+ * mx_update_tables - XXX
+ * @ctx:        YYY
+ * @committing: YYY
+ *
+ * DESCRIPTION
+ */
 void mx_update_tables(CONTEXT *ctx, int committing)
 {
   int i, j;
@@ -1234,6 +1393,15 @@ void mx_update_tables(CONTEXT *ctx, int committing)
 }
 
 
+/**
+ * mx_sync_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* save changes to mailbox
  *
  * return values:
@@ -1364,6 +1532,16 @@ int mx_sync_mailbox (CONTEXT *ctx, int *index_hint)
   return (rc);
 }
 
+/**
+ * mx_open_new_message - XXX
+ * @dest:  YYY
+ * @hdr:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: MESSAGE*
+ */
 /* args:
  *	dest	destination mailbox
  *	hdr	message being copied (required for maildir support, because
@@ -1423,6 +1601,15 @@ MESSAGE *mx_open_new_message (CONTEXT *dest, HEADER *hdr, int flags)
   return msg;
 }
 
+/**
+ * mx_check_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* check for new mail */
 int mx_check_mailbox (CONTEXT *ctx, int *index_hint)
 {
@@ -1435,6 +1622,15 @@ int mx_check_mailbox (CONTEXT *ctx, int *index_hint)
   return ctx->mx_ops->check (ctx, index_hint);
 }
 
+/**
+ * mx_open_message - XXX
+ * @ctx:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: MESSAGE*
+ */
 /* return a stream pointer for a message */
 MESSAGE *mx_open_message (CONTEXT *ctx, int msgno)
 {
@@ -1455,6 +1651,15 @@ MESSAGE *mx_open_message (CONTEXT *ctx, int msgno)
 
 /* commit a message to a folder */
 
+/**
+ * mx_commit_message - XXX
+ * @msg: YYY
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mx_commit_message (MESSAGE *msg, CONTEXT *ctx)
 {
   if (!ctx->mx_ops || !ctx->mx_ops->commit_msg)
@@ -1470,6 +1675,15 @@ int mx_commit_message (MESSAGE *msg, CONTEXT *ctx)
   return ctx->mx_ops->commit_msg (ctx, msg);
 }
 
+/**
+ * mx_close_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* close a pointer to a message */
 int mx_close_message (CONTEXT *ctx, MESSAGE **msg)
 {
@@ -1491,6 +1705,12 @@ int mx_close_message (CONTEXT *ctx, MESSAGE **msg)
   return (r);
 }
 
+/**
+ * mx_alloc_memory - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void mx_alloc_memory (CONTEXT *ctx)
 {
   int i;
@@ -1520,6 +1740,13 @@ void mx_alloc_memory (CONTEXT *ctx)
   }
 }
 
+/**
+ * mx_update_context - XXX
+ * @ctx:          YYY
+ * @new_messages: YYY
+ *
+ * DESCRIPTION
+ */
 /* this routine is called to update the counts in the context structure for
  * the last message header parsed.
  */
@@ -1589,6 +1816,14 @@ void mx_update_context (CONTEXT *ctx, int new_messages)
   }
 }
 
+/**
+ * mx_check_empty - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Return:
  * 1 if the specified mailbox contains 0 messages.

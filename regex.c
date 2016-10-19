@@ -177,6 +177,11 @@ extern char *re_syntax_table;
 
 static char re_syntax_table[CHAR_SET_SIZE];
 
+/**
+ * init_syntax_once - XXX
+ *
+ * DESCRIPTION
+ */
 static void
 init_syntax_once ()
 {
@@ -989,6 +994,14 @@ reg_syntax_t re_syntax_options;
    The argument SYNTAX is a bit mask comprised of the various bits
    defined in regex.h.  We return the old syntax.  */
 
+/**
+ * re_set_syntax - XXX
+ * @syntax: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: reg_syntax_t
+ */
 reg_syntax_t
 re_set_syntax (syntax)
     reg_syntax_t syntax;
@@ -1817,6 +1830,17 @@ static boolean group_in_compile_stack _RE_ARGS ((compile_stack_type
 #define FREE_STACK_RETURN(value)		\
   return (free (compile_stack.stack), value)		/* __MEM_CHECKED__ */
 
+/**
+ * regex_compile - XXX
+ * @pattern: YYY
+ * @size:    YYY
+ * @syntax:  YYY
+ * @bufp:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: reg_errcode_t
+ */
 static reg_errcode_t
 regex_compile (pattern, size, syntax, bufp)
      const char *pattern;
@@ -2922,6 +2946,14 @@ regex_compile (pattern, size, syntax, bufp)
 
 /* Store OP at LOC followed by two-byte integer parameter ARG.  */
 
+/**
+ * store_op1 - XXX
+ * @op:  YYY
+ * @loc: YYY
+ * @arg: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 store_op1 (op, loc, arg)
     re_opcode_t op;
@@ -2935,6 +2967,15 @@ store_op1 (op, loc, arg)
 
 /* Like `store_op1', but for two two-byte parameters ARG1 and ARG2.  */
 
+/**
+ * store_op2 - XXX
+ * @op:   YYY
+ * @loc:  YYY
+ * @arg1: YYY
+ * @arg2: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 store_op2 (op, loc, arg1, arg2)
     re_opcode_t op;
@@ -2950,6 +2991,15 @@ store_op2 (op, loc, arg1, arg2)
 /* Copy the bytes from LOC to END to open up three bytes of space at LOC
    for OP followed by two-byte integer parameter ARG.  */
 
+/**
+ * insert_op1 - XXX
+ * @op:  YYY
+ * @loc: YYY
+ * @arg: YYY
+ * @end: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 insert_op1 (op, loc, arg, end)
     re_opcode_t op;
@@ -2969,6 +3019,16 @@ insert_op1 (op, loc, arg, end)
 
 /* Like `insert_op1', but for two two-byte parameters ARG1 and ARG2.  */
 
+/**
+ * insert_op2 - XXX
+ * @op:   YYY
+ * @loc:  YYY
+ * @arg1: YYY
+ * @arg2: YYY
+ * @end:  YYY
+ *
+ * DESCRIPTION
+ */
 static void
 insert_op2 (op, loc, arg1, arg2, end)
     re_opcode_t op;
@@ -2990,6 +3050,16 @@ insert_op2 (op, loc, arg1, arg2, end)
    after an alternative or a begin-subexpression.  We assume there is at
    least one character before the ^.  */
 
+/**
+ * at_begline_loc_p - XXX
+ * @pattern: YYY
+ * @p:       YYY
+ * @syntax:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: boolean
+ */
 static boolean
 at_begline_loc_p (pattern, p, syntax)
     const char *pattern, *p;
@@ -3009,6 +3079,16 @@ at_begline_loc_p (pattern, p, syntax)
 /* The dual of at_begline_loc_p.  This one is for $.  We assume there is
    at least one character after the $, i.e., `P < PEND'.  */
 
+/**
+ * at_endline_loc_p - XXX
+ * @p:      YYY
+ * @pend:   YYY
+ * @syntax: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: boolean
+ */
 static boolean
 at_endline_loc_p (p, pend, syntax)
     const char *p, *pend;
@@ -3031,6 +3111,15 @@ at_endline_loc_p (p, pend, syntax)
 /* Returns true if REGNUM is in one of COMPILE_STACK's elements and
    false if it's not.  */
 
+/**
+ * group_in_compile_stack - XXX
+ * @compile_stack: YYY
+ * @regnum:        YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: boolean
+ */
 static boolean
 group_in_compile_stack (compile_stack, regnum)
     compile_stack_type compile_stack;
@@ -3059,6 +3148,18 @@ group_in_compile_stack (compile_stack, regnum)
    We use these short variable names so we can use the same macros as
    `regex_compile' itself.  */
 
+/**
+ * compile_range - XXX
+ * @p_ptr:     YYY
+ * @pend:      YYY
+ * @translate: YYY
+ * @syntax:    YYY
+ * @b:         YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: reg_errcode_t
+ */
 static reg_errcode_t
 compile_range (p_ptr, pend, translate, syntax, b)
     const char **p_ptr, *pend;
@@ -3118,6 +3219,14 @@ compile_range (p_ptr, pend, translate, syntax, b)
 
    Returns 0 if we succeed, -2 if an internal error.   */
 
+/**
+ * re_compile_fastmap - XXX
+ * @bufp: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 re_compile_fastmap (bufp)
      struct re_pattern_buffer *bufp;
@@ -3420,6 +3529,16 @@ re_compile_fastmap (bufp)
    PATTERN_BUFFER will allocate its own register data, without
    freeing the old data.  */
 
+/**
+ * re_set_registers - XXX
+ * @bufp:     YYY
+ * @regs:     YYY
+ * @num_regs: YYY
+ * @starts:   YYY
+ * @ends:     YYY
+ *
+ * DESCRIPTION
+ */
 void
 re_set_registers (bufp, regs, num_regs, starts, ends)
     struct re_pattern_buffer *bufp;
@@ -3447,6 +3566,19 @@ re_set_registers (bufp, regs, num_regs, starts, ends)
 /* Like re_search_2, below, but only one string is specified, and
    doesn't let you say where to stop matching. */
 
+/**
+ * re_search - XXX
+ * @bufp:     YYY
+ * @string:   YYY
+ * @size:     YYY
+ * @startpos: YYY
+ * @range:    YYY
+ * @regs:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 re_search (bufp, string, size, startpos, range, regs)
      struct re_pattern_buffer *bufp;
@@ -3480,6 +3612,22 @@ re_search (bufp, string, size, startpos, range, regs)
    found, -1 if no match, or -2 if error (such as failure
    stack overflow).  */
 
+/**
+ * re_search_2 - XXX
+ * @bufp:     YYY
+ * @string1:  YYY
+ * @size1:    YYY
+ * @string2:  YYY
+ * @size2:    YYY
+ * @startpos: YYY
+ * @range:    YYY
+ * @regs:     YYY
+ * @stop:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 re_search_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
      struct re_pattern_buffer *bufp;
@@ -3698,6 +3846,18 @@ re_search_2 (bufp, string1, size1, string2, size2, startpos, range, regs, stop)
 #ifndef emacs   /* Emacs never uses this.  */
 /* re_match is like re_match_2 except it takes only a single string.  */
 
+/**
+ * re_match - XXX
+ * @bufp:   YYY
+ * @string: YYY
+ * @size:   YYY
+ * @pos:    YYY
+ * @regs:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 re_match (bufp, string, size, pos, regs)
      struct re_pattern_buffer *bufp;
@@ -3741,6 +3901,21 @@ static int bcmp_translate _RE_ARGS ((const char *s1, const char *s2,
    failure stack overflowing).  Otherwise, we return the length of the
    matched substring.  */
 
+/**
+ * re_match_2 - XXX
+ * @bufp:    YYY
+ * @string1: YYY
+ * @size1:   YYY
+ * @string2: YYY
+ * @size2:   YYY
+ * @pos:     YYY
+ * @regs:    YYY
+ * @stop:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
      struct re_pattern_buffer *bufp;
@@ -3760,6 +3935,21 @@ re_match_2 (bufp, string1, size1, string2, size2, pos, regs, stop)
   return result;
 }
 
+/**
+ * re_match_2_internal - XXX
+ * @bufp:    YYY
+ * @string1: YYY
+ * @size1:   YYY
+ * @string2: YYY
+ * @size2:   YYY
+ * @pos:     YYY
+ * @regs:    YYY
+ * @stop:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* This is a separate function so that we can force an alloca cleanup
    afterwards.  */
 static int
@@ -5165,6 +5355,16 @@ re_match_2_internal (bufp, string1, size1, string2, size2, pos, regs, stop)
 
    We don't handle duplicates properly (yet).  */
 
+/**
+ * group_match_null_string_p - XXX
+ * @p:        YYY
+ * @end:      YYY
+ * @reg_info: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: boolean
+ */
 static boolean
 group_match_null_string_p (p, end, reg_info)
     unsigned char **p, *end;
@@ -5274,6 +5474,16 @@ group_match_null_string_p (p, end, reg_info)
    It expects P to be the first byte of a single alternative and END one
    byte past the last. The alternative can contain groups.  */
 
+/**
+ * alt_match_null_string_p - XXX
+ * @p:        YYY
+ * @end:      YYY
+ * @reg_info: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: boolean
+ */
 static boolean
 alt_match_null_string_p (p, end, reg_info)
     unsigned char *p, *end;
@@ -5311,6 +5521,16 @@ alt_match_null_string_p (p, end, reg_info)
 
    Sets P to one after the op and its arguments, if any.  */
 
+/**
+ * common_op_match_null_string_p - XXX
+ * @p:        YYY
+ * @end:      YYY
+ * @reg_info: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: boolean
+ */
 static boolean
 common_op_match_null_string_p (p, end, reg_info)
     unsigned char **p, *end;
@@ -5399,6 +5619,17 @@ common_op_match_null_string_p (p, end, reg_info)
 /* Return zero if TRANSLATE[S1] and TRANSLATE[S2] are identical for LEN
    bytes; nonzero otherwise.  */
 
+/**
+ * bcmp_translate - XXX
+ * @s1:        YYY
+ * @s2:        YYY
+ * @len:       YYY
+ * @translate: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 bcmp_translate (s1, s2, len, translate)
      const char *s1, *s2;
@@ -5426,6 +5657,16 @@ bcmp_translate (s1, s2, len, translate)
 
    We call regex_compile to do the actual compilation.  */
 
+/**
+ * re_compile_pattern - XXX
+ * @pattern: YYY
+ * @length:  YYY
+ * @bufp:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *
 re_compile_pattern (pattern, length, bufp)
      const char *pattern;
@@ -5560,6 +5801,16 @@ re_exec (s)
    It returns 0 if it succeeds, nonzero if it doesn't.  (See regex.h for
    the return codes and their meanings.)  */
 
+/**
+ * regcomp - XXX
+ * @preg:    YYY
+ * @pattern: YYY
+ * @cflags:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 regcomp (preg, pattern, cflags)
     regex_t *preg;
@@ -5638,6 +5889,18 @@ regcomp (preg, pattern, cflags)
 
    We return 0 if we find a match and REG_NOMATCH if not.  */
 
+/**
+ * regexec - XXX
+ * @preg:     YYY
+ * @string:   YYY
+ * @nmatch:   YYY
+ * @pmatch[]: YYY
+ * @eflags:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 regexec (preg, string, nmatch, pmatch, eflags)
     const regex_t *preg;
@@ -5703,6 +5966,17 @@ regexec (preg, string, nmatch, pmatch, eflags)
 /* Returns a message corresponding to an error code, ERRCODE, returned
    from either regcomp or regexec.   We don't use PREG here.  */
 
+/**
+ * regerror - XXX
+ * @errcode:     YYY
+ * @preg:        YYY
+ * @errbuf:      YYY
+ * @errbuf_size: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 size_t
 regerror (errcode, preg, errbuf, errbuf_size)
     int errcode;
@@ -5743,6 +6017,12 @@ regerror (errcode, preg, errbuf, errbuf_size)
 
 /* Free dynamically allocated space used by PREG.  */
 
+/**
+ * regfree - XXX
+ * @preg: YYY
+ *
+ * DESCRIPTION
+ */
 void
 regfree (preg)
     regex_t *preg;

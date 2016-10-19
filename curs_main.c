@@ -127,6 +127,13 @@ static const char *No_visible = N_("No visible messages.");
 static char *tsl = "\033]0;";
 static char *fsl = "\007";
 
+/**
+ * mutt_ts_capability - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 /* terminal status capability check. terminfo must have been initialized. */
 short mutt_ts_capability(void)
 {
@@ -184,6 +191,12 @@ short mutt_ts_capability(void)
   return 0;
 }
 
+/**
+ * mutt_ts_status - XXX
+ * @str: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_ts_status(char *str)
 {
   /* If empty, do not set.  To clear, use a single space. */
@@ -192,6 +205,12 @@ void mutt_ts_status(char *str)
   fprintf(stderr, "%s%s%s", tsl, str, fsl);
 }
 
+/**
+ * mutt_ts_icon - XXX
+ * @str: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_ts_icon(char *str)
 {
   /* If empty, do not set.  To clear, use a single space. */
@@ -202,6 +221,15 @@ void mutt_ts_icon(char *str)
   fprintf(stderr, "\033]1;%s\007", str);
 }
 
+/**
+ * index_make_entry - XXX
+ * @s:    YYY
+ * @l:    YYY
+ * @menu: YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 void index_make_entry (char *s, size_t l, MUTTMENU *menu, int num)
 {
   if (!Context || !menu || (num < 0))
@@ -267,6 +295,14 @@ void index_make_entry (char *s, size_t l, MUTTMENU *menu, int num)
   _mutt_make_string (s, l, NONULL (HdrFmt), Context, h, flag);
 }
 
+/**
+ * index_color - XXX
+ * @index_no: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int index_color (int index_no)
 {
   if (!Context || (index_no < 0))
@@ -284,6 +320,14 @@ int index_color (int index_no)
   return 0;
 }
 
+/**
+ * ci_next_undeleted - XXX
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ci_next_undeleted (int msgno)
 {
   int i;
@@ -294,6 +338,14 @@ static int ci_next_undeleted (int msgno)
   return (-1);
 }
 
+/**
+ * ci_previous_undeleted - XXX
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ci_previous_undeleted (int msgno)
 {
   int i;
@@ -304,6 +356,13 @@ static int ci_previous_undeleted (int msgno)
   return (-1);
 }
 
+/**
+ * ci_first_message - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Return the index of the first new message, or failing that, the first
  * unread message.
  */
@@ -341,6 +400,14 @@ static int ci_first_message (void)
   return 0;
 }
 
+/**
+ * mx_toggle_write - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* This should be in mx.c, but it only gets used here. */
 static int mx_toggle_write (CONTEXT *ctx)
 {
@@ -367,6 +434,16 @@ static int mx_toggle_write (CONTEXT *ctx)
   return 0;
 }
 
+/**
+ * update_index - XXX
+ * @menu:       YYY
+ * @ctx:        YYY
+ * @check:      YYY
+ * @oldcount:   YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ */
 void update_index (MUTTMENU *menu, CONTEXT *ctx, int check,
 			  int oldcount, int index_hint)
 {
@@ -478,6 +555,12 @@ void update_index (MUTTMENU *menu, CONTEXT *ctx, int check,
 
 }
 
+/**
+ * resort_index - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 static void resort_index (MUTTMENU *menu)
 {
   int i;
@@ -505,6 +588,14 @@ static void resort_index (MUTTMENU *menu)
   menu->redraw = REDRAW_INDEX | REDRAW_STATUS;
 }
 
+/**
+ * mutt_draw_statusline - XXX
+ * @cols:   YYY
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ */
 /**
  * mutt_draw_statusline - Draw a highlighted status bar
  * @cols:  Maximum number of screen columns
@@ -639,6 +730,20 @@ dsl_finish:
   FREE(&syntax);
 }
 
+/**
+ * main_change_folder - XXX
+ * @menu:       YYY
+ * @op:         YYY
+ * @buf:        YYY
+ * @bufsz:      YYY
+ * @oldcount:   YYY
+ * @index_hint: YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int main_change_folder(MUTTMENU *menu, int op, char *buf, size_t bufsz,
 			  int *oldcount, int *index_hint, int flags)
 {
@@ -748,6 +853,13 @@ struct mapping_t IndexNewsHelp[] = {
 };
 #endif
 
+/**
+ * mutt_index_menu - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* This function handles the message index window as well as commands returned
  * from the pager (MENU_PAGER).
  */
@@ -3088,6 +3200,13 @@ int mutt_index_menu (void)
   return (close);
 }
 
+/**
+ * mutt_set_header_color - XXX
+ * @ctx:    YYY
+ * @curhdr: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_set_header_color (CONTEXT *ctx, HEADER *curhdr)
 {
   COLOR_LINE *color;

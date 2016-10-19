@@ -128,6 +128,15 @@ int LastKey;
 
 struct keymap_t *Keymaps[MENU_MAX];
 
+/**
+ * allocKeys - XXX
+ * @len:  YYY
+ * @keys: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct keymap_t*
+ */
 static struct keymap_t *allocKeys (int len, keycode_t *keys)
 {
   struct keymap_t *p;
@@ -139,6 +148,14 @@ static struct keymap_t *allocKeys (int len, keycode_t *keys)
   return (p);
 }
 
+/**
+ * parse_fkey - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_fkey(char *s)
 {
   char *t;
@@ -159,6 +176,14 @@ static int parse_fkey(char *s)
     return n;
 }
 
+/**
+ * parse_keycode - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * This function parses the string <NNN> and uses the octal value as the key
  * to bind.
@@ -178,6 +203,16 @@ static int parse_keycode (const char *s)
   return result;
 }
 
+/**
+ * parsekeys - XXX
+ * @str: YYY
+ * @d:   YYY
+ * @max: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parsekeys (const char *str, keycode_t *d, int max)
 {
   int n, len = max;
@@ -226,6 +261,16 @@ static int parsekeys (const char *str, keycode_t *d, int max)
   return (max - len);
 }
 
+/**
+ * km_bind - XXX
+ * @s:     YYY
+ * @menu:  YYY
+ * @op:    YYY
+ * @macro: YYY
+ * @descr: YYY
+ *
+ * DESCRIPTION
+ */
 /* insert a key sequence into the specified map.  the map is sorted by ASCII
  * value (lowest to highest)
  */
@@ -291,11 +336,29 @@ void km_bind (char *s, int menu, int op, char *macro, char *descr)
     Keymaps[menu] = map;
 }
 
+/**
+ * km_bindkey - XXX
+ * @s:    YYY
+ * @menu: YYY
+ * @op:   YYY
+ *
+ * DESCRIPTION
+ */
 void km_bindkey (char *s, int menu, int op)
 {
   km_bind (s, menu, op, NULL, NULL);
 }
 
+/**
+ * get_op - XXX
+ * @bindings: YYY
+ * @start:    YYY
+ * @len:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int get_op (const struct binding_t *bindings, const char *start, size_t len)
 {
   int i;
@@ -310,6 +373,15 @@ static int get_op (const struct binding_t *bindings, const char *start, size_t l
   return OP_NULL;
 }
 
+/**
+ * get_func - XXX
+ * @bindings: YYY
+ * @op:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *get_func (const struct binding_t *bindings, int op)
 {
   int i;
@@ -323,6 +395,13 @@ static char *get_func (const struct binding_t *bindings, int op)
   return NULL;
 }
 
+/**
+ * generic_tokenize_push_string - XXX
+ * @s:            YYY
+ * @generic_push: YYY
+ *
+ * DESCRIPTION
+ */
 /* Parses s for <function> syntax and adds the whole sequence to
  * either the macro or unget buffer.  This function is invoked by the next
  * two defines below.
@@ -394,6 +473,17 @@ static void generic_tokenize_push_string (char *s, void (*generic_push) (int, in
 /* This should be used for other unget operations. */
 #define tokenize_unget_string(s) generic_tokenize_push_string (s, mutt_unget_event)
 
+/**
+ * retry_generic - XXX
+ * @menu:    YYY
+ * @keys:    YYY
+ * @keyslen: YYY
+ * @lastkey: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int retry_generic (int menu, keycode_t *keys, int keyslen, int lastkey)
 {
   if (menu != MENU_EDITOR && menu != MENU_GENERIC && menu != MENU_PAGER)
@@ -412,6 +502,14 @@ static int retry_generic (int menu, keycode_t *keys, int keyslen, int lastkey)
   return OP_NULL;
 }
 
+/**
+ * km_dokey - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* return values:
  *	>0		function to execute
  *	OP_NULL		no function bound to key sequence
@@ -553,6 +651,13 @@ int km_dokey (int menu)
   /* not reached */
 }
 
+/**
+ * create_bindings - XXX
+ * @map:  YYY
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 static void create_bindings (const struct binding_t *map, int menu)
 {
   int i;
@@ -562,6 +667,14 @@ static void create_bindings (const struct binding_t *map, int menu)
       km_bindkey (map[i].seq, menu, map[i].op);
 }
 
+/**
+ * km_keyname - XXX
+ * @c: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *km_keyname (int c)
 {
   static char buf[10];
@@ -593,6 +706,16 @@ static const char *km_keyname (int c)
   return (buf);
 }
 
+/**
+ * km_expand_key - XXX
+ * @s:   YYY
+ * @len: YYY
+ * @map: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int km_expand_key (char *s, size_t len, struct keymap_t *map)
 {
   size_t l;
@@ -615,6 +738,15 @@ int km_expand_key (char *s, size_t len, struct keymap_t *map)
   /* not reached */
 }
 
+/**
+ * km_find_func - XXX
+ * @menu: YYY
+ * @func: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct keymap_t*
+ */
 struct keymap_t *km_find_func (int menu, int func)
 {
   struct keymap_t *map = Keymaps[menu];
@@ -667,6 +799,14 @@ static const struct extkey ExtKeys[] = {
   { 0, 0 }
 };
 
+/**
+ * find_ext_name - XXX
+ * @key: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Look up Mutt's name for a key and find the ncurses extended name for it */
 static const char *find_ext_name(const char *key)
 {
@@ -681,6 +821,11 @@ static const char *find_ext_name(const char *key)
 }
 #endif /* NCURSES_VERSION */
 
+/**
+ * init_extended_keys - XXX
+ *
+ * DESCRIPTION
+ */
 /* Determine the keycodes for ncurses extended keys and fill in the KeyNames array.
  *
  * This function must be called *after* initscr(), or tigetstr() returns -1.  This
@@ -716,6 +861,11 @@ void init_extended_keys(void)
 #endif
 }
 
+/**
+ * km_init - XXX
+ *
+ * DESCRIPTION
+ */
 void km_init (void)
 {
   memset (Keymaps, 0, sizeof (struct keymap_t *) * MENU_MAX);
@@ -836,6 +986,12 @@ void km_init (void)
   km_bindkey ("T", MENU_COMPOSE, OP_TAG);
 }
 
+/**
+ * km_error_key - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
 void km_error_key (int menu)
 {
   char buf[SHORT_STRING];
@@ -862,6 +1018,17 @@ void km_error_key (int menu)
   return;
 }
 
+/**
+ * mutt_parse_push - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_push (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   int r = 0;
@@ -877,6 +1044,18 @@ int mutt_parse_push (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return (r);
 }
 
+/**
+ * parse_keymap - XXX
+ * @menu:     YYY
+ * @s:        YYY
+ * @maxmenus: YYY
+ * @nummenus: YYY
+ * @err:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* expects to see: <menu-string>,<menu-string>,... <key-string> */
 static char *parse_keymap (int *menu, BUFFER *s, int maxmenus, int *nummenus, BUFFER *err)
 {
@@ -928,6 +1107,17 @@ error:
   return (NULL);
 }
 
+/**
+ * try_bind - XXX
+ * @key:      YYY
+ * @menu:     YYY
+ * @func:     YYY
+ * @bindings: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 try_bind (char *key, int menu, char *func, const struct binding_t *bindings)
 {
@@ -942,6 +1132,14 @@ try_bind (char *key, int menu, char *func, const struct binding_t *bindings)
   return (-1);
 }
 
+/**
+ * km_get_table - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const struct binding_t*
+ */
 const struct binding_t *km_get_table (int menu)
 {
   switch (menu)
@@ -986,6 +1184,17 @@ const struct binding_t *km_get_table (int menu)
   return NULL;
 }
 
+/**
+ * mutt_parse_bind - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* bind menu-name '<key_sequence>' function-name */
 int mutt_parse_bind (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
@@ -1034,6 +1243,17 @@ int mutt_parse_bind (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return (r);
 }
 
+/**
+ * mutt_parse_macro - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* macro <menu> <key> <macro> <description> */
 int mutt_parse_macro (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
@@ -1085,6 +1305,17 @@ int mutt_parse_macro (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return (r);
 }
 
+/**
+ * mutt_parse_exec - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* exec function-name */
 int mutt_parse_exec (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
@@ -1128,6 +1359,11 @@ int mutt_parse_exec (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return 0;
 }
 
+/**
+ * mutt_what_key - XXX
+ *
+ * DESCRIPTION
+ */
 /*
  * prompts the user to enter a keystroke, and displays the octal value back
  * to the user.

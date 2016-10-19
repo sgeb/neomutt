@@ -23,6 +23,15 @@
 #include "mutt.h"
 #include "mbyte.h"
 
+/**
+ * wcscasecmp - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int wcscasecmp (const wchar_t *a, const wchar_t *b)
 {
   const wchar_t *p = a;

@@ -60,6 +60,12 @@ static void rfc2231_free_parameter (struct rfc2231_parameter **);
 static void rfc2231_join_continuations (PARAMETER **, struct rfc2231_parameter *);
 static void rfc2231_list_insert (struct rfc2231_parameter **, struct rfc2231_parameter *);
 
+/**
+ * purge_empty_parameters - XXX
+ * @headp: YYY
+ *
+ * DESCRIPTION
+ */
 static void purge_empty_parameters (PARAMETER **headp)
 {
   PARAMETER *p, *q, **last;
@@ -79,6 +85,12 @@ static void purge_empty_parameters (PARAMETER **headp)
 }
 
 
+/**
+ * rfc2231_decode_parameters - XXX
+ * @headp: YYY
+ *
+ * DESCRIPTION
+ */
 void rfc2231_decode_parameters (PARAMETER **headp)
 {
   PARAMETER *head = NULL;
@@ -163,6 +175,13 @@ void rfc2231_decode_parameters (PARAMETER **headp)
     }
   }
 
+/**
+ * rfc2231_new_parameter - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct rfc2231_parameter*
+ */
   if (conthead)
   {
     rfc2231_join_continuations (last, conthead);
@@ -180,6 +199,12 @@ static struct rfc2231_parameter *rfc2231_new_parameter (void)
   return safe_calloc (sizeof (struct rfc2231_parameter), 1);
 }
 
+/**
+ * rfc2231_free_parameter - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ */
 static void rfc2231_free_parameter (struct rfc2231_parameter **p)
 {
   if (*p)
@@ -190,6 +215,16 @@ static void rfc2231_free_parameter (struct rfc2231_parameter **p)
   }
 }
 
+/**
+ * rfc2231_get_charset - XXX
+ * @value:   YYY
+ * @charset: YYY
+ * @chslen:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *rfc2231_get_charset (char *value, char *charset, size_t chslen)
 {
   char *t, *u;
@@ -209,6 +244,13 @@ static char *rfc2231_get_charset (char *value, char *charset, size_t chslen)
     return t + 1;
 }
 
+/**
+ * rfc2231_decode_one - XXX
+ * @dest: YYY
+ * @src:  YYY
+ *
+ * DESCRIPTION
+ */
 static void rfc2231_decode_one (char *dest, char *src)
 {
   char *d;
@@ -235,6 +277,13 @@ static void rfc2231_decode_one (char *dest, char *src)
  * Secondary sorting key: index
  */
 
+/**
+ * rfc2231_list_insert - XXX
+ * @list: YYY
+ * @par:  YYY
+ *
+ * DESCRIPTION
+ */
 static void rfc2231_list_insert (struct rfc2231_parameter **list,
 				 struct rfc2231_parameter *par)
 {
@@ -258,6 +307,13 @@ static void rfc2231_list_insert (struct rfc2231_parameter **list,
 
 /* process continuation parameters */
 
+/**
+ * rfc2231_join_continuations - XXX
+ * @head: YYY
+ * @par:  YYY
+ *
+ * DESCRIPTION
+ */
 static void rfc2231_join_continuations (PARAMETER **head,
 					struct rfc2231_parameter *par)
 {
@@ -311,6 +367,14 @@ static void rfc2231_join_continuations (PARAMETER **head,
   }
 }
 
+/**
+ * rfc2231_encode_string - XXX
+ * @pd: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int rfc2231_encode_string (char **pd)
 {
   int ext = 0, encode = 0;

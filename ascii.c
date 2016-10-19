@@ -60,6 +60,15 @@ inline int ascii_tolower (int c)
   return c;
 }
 
+/**
+ * ascii_strcasecmp - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int ascii_strcasecmp (const char *a, const char *b)
 {
   int i;
@@ -85,6 +94,16 @@ int ascii_strcasecmp (const char *a, const char *b)
   return 0;
 }
 
+/**
+ * ascii_strncasecmp - XXX
+ * @a: YYY
+ * @b: YYY
+ * @n: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int ascii_strncasecmp (const char *a, const char *b, int n)
 {
   int i, j;

@@ -3,6 +3,16 @@
 
 /* UnixWare doesn't have these functions in its standard C library */
 
+/**
+ * strncasecmp - XXX
+ * @s1: YYY
+ * @s2: YYY
+ * @n:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int strncasecmp (char *s1, char *s2, size_t n)
 {
   register int c1, c2, l = 0;
@@ -23,6 +33,15 @@ int strncasecmp (char *s1, char *s2, size_t n)
     return (int) (*s1 - *s2);
 }
 
+/**
+ * strcasecmp - XXX
+ * @s1: YYY
+ * @s2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int strcasecmp (char *s1, char *s2)
 {
   register int c1, c2;

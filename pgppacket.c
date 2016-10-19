@@ -40,6 +40,16 @@
 static unsigned char *pbuf = NULL;
 static size_t plen = 0;
 
+/**
+ * read_material - XXX
+ * @material: YYY
+ * @used:     YYY
+ * @fp:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int read_material (size_t material, size_t * used, FILE * fp)
 {
   if (*used + material >= plen)
@@ -68,6 +78,15 @@ static int read_material (size_t material, size_t * used, FILE * fp)
   return 0;
 }
 
+/**
+ * pgp_read_packet - XXX
+ * @fp:  YYY
+ * @len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned char*
+ */
 unsigned char *pgp_read_packet (FILE * fp, size_t * len)
 {
   size_t used = 0;
@@ -223,6 +242,11 @@ bail:
   return NULL;
 }
 
+/**
+ * pgp_release_packet - XXX
+ *
+ * DESCRIPTION
+ */
 void pgp_release_packet (void)
 {
   plen = 0;

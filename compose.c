@@ -130,6 +130,15 @@ static struct mapping_t ComposeNewsHelp[] = {
 };
 #endif
 
+/**
+ * snd_entry - XXX
+ * @b:    YYY
+ * @blen: YYY
+ * @menu: YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 static void snd_entry (char *b, size_t blen, MUTTMENU *menu, int num)
 {
   mutt_FormatString (b, blen, 0, MuttIndexWindow->cols, NONULL (AttachFormat), mutt_attach_fmt,
@@ -141,6 +150,12 @@ static void snd_entry (char *b, size_t blen, MUTTMENU *menu, int num)
 
 #include "mutt_crypt.h"
 
+/**
+ * redraw_crypt_lines - XXX
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ */
 static void redraw_crypt_lines (HEADER *msg)
 {
   mutt_window_mvprintw (MuttIndexWindow, HDR_CRYPT, 0, TITLE_FMT, "Security: ");
@@ -236,6 +251,15 @@ static void redraw_mix_line (LIST *chain)
 }
 #endif /* MIXMASTER */
 
+/**
+ * check_attachments - XXX
+ * @idx:    YYY
+ * @idxlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 check_attachments(ATTACHPTR **idx, short idxlen)
 {
@@ -270,6 +294,13 @@ check_attachments(ATTACHPTR **idx, short idxlen)
   return 0;
 }
 
+/**
+ * draw_envelope_addr - XXX
+ * @line: YYY
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ */
 static void draw_envelope_addr (int line, ADDRESS *addr)
 {
   char buf[LONG_STRING];
@@ -280,6 +311,13 @@ static void draw_envelope_addr (int line, ADDRESS *addr)
   mutt_paddstr (W, buf);
 }
 
+/**
+ * draw_envelope - XXX
+ * @msg: YYY
+ * @fcc: YYY
+ *
+ * DESCRIPTION
+ */
 static void draw_envelope (HEADER *msg, char *fcc)
 {
   draw_envelope_addr (HDR_FROM, msg->env->from);
@@ -325,6 +363,15 @@ static void draw_envelope (HEADER *msg, char *fcc)
   NORMAL_COLOR;
 }
 
+/**
+ * edit_address_list - XXX
+ * @line: YYY
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int edit_address_list (int line, ADDRESS **addr)
 {
   char buf[HUGE_STRING] = ""; /* needs to be large for alias expansion */
@@ -361,6 +408,16 @@ static int edit_address_list (int line, ADDRESS **addr)
   return 0;
 }
 
+/**
+ * delete_attachment - XXX
+ * @menu:   YYY
+ * @idxlen: YYY
+ * @x:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int delete_attachment (MUTTMENU *menu, short *idxlen, int x)
 {
   ATTACHPTR **idx = (ATTACHPTR **) menu->data;
@@ -397,6 +454,14 @@ static int delete_attachment (MUTTMENU *menu, short *idxlen, int x)
   return (0);
 }
 
+/**
+ * update_idx - XXX
+ * @menu:   YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ *
+ * DESCRIPTION
+ */
 static void update_idx (MUTTMENU *menu, ATTACHPTR **idx, short idxlen)
 {
   idx[idxlen]->level = (idxlen > 0) ? idx[idxlen-1]->level : 0;
@@ -419,6 +484,14 @@ static void update_idx (MUTTMENU *menu, ATTACHPTR **idx, short idxlen)
  * 
  */
 
+/**
+ * cum_attachs_size - XXX
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned long
+ */
 static unsigned long cum_attachs_size (MUTTMENU *menu)
 {
   size_t s;
@@ -470,6 +543,24 @@ static void compose_status_line (char *buf, size_t buflen, size_t col, int cols,
  * help when modifying this function.
  */
 
+/**
+ * compose_format_str - XXX
+ * @buf:        YYY
+ * @buflen:     YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @prefix:     YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 compose_format_str (char *buf, size_t buflen, size_t col, int cols, char op, const char *src,
 		   const char *prefix, const char *ifstring,
@@ -521,6 +612,17 @@ compose_format_str (char *buf, size_t buflen, size_t col, int cols, char op, con
   return (src);
 }
 
+/**
+ * compose_status_line - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @col:    YYY
+ * @cols:   YYY
+ * @menu:   YYY
+ * @p:      YYY
+ *
+ * DESCRIPTION
+ */
 static void compose_status_line (char *buf, size_t buflen, size_t col, int cols,
                                  MUTTMENU *menu, const char *p)
 {
@@ -529,6 +631,18 @@ static void compose_status_line (char *buf, size_t buflen, size_t col, int cols,
 }
 
 
+/**
+ * mutt_compose_menu - XXX
+ * @msg:    YYY
+ * @fcc:    YYY
+ * @fcclen: YYY
+ * @cur:    YYY
+ * @flags:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* return values:
  *
  * 1	message should be postponed

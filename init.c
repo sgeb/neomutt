@@ -85,6 +85,12 @@ static char **nm_tags;
 #endif
 
 
+/**
+ * toggle_quadoption - XXX
+ * @opt: YYY
+ *
+ * DESCRIPTION
+ */
 static void toggle_quadoption (int opt)
 {
   int n = opt/4;
@@ -93,6 +99,13 @@ static void toggle_quadoption (int opt)
   QuadOptions[n] ^= (1 << b);
 }
 
+/**
+ * set_quadoption - XXX
+ * @opt:  YYY
+ * @flag: YYY
+ *
+ * DESCRIPTION
+ */
 void set_quadoption (int opt, int flag)
 {
   int n = opt/4;
@@ -102,6 +115,14 @@ void set_quadoption (int opt, int flag)
   QuadOptions[n] |= (flag & 0x3) << b;
 }
 
+/**
+ * quadoption - XXX
+ * @opt: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int quadoption (int opt)
 {
   int n = opt/4;
@@ -110,6 +131,15 @@ int quadoption (int opt)
   return (QuadOptions[n] >> b) & 0x3;
 }
 
+/**
+ * query_quadoption - XXX
+ * @opt:    YYY
+ * @prompt: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int query_quadoption (int opt, const char *prompt)
 {
   int v = quadoption (opt);
@@ -129,6 +159,14 @@ int query_quadoption (int opt, const char *prompt)
   /* not reached */
 }
 
+/**
+ * mutt_option_index - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* given the variable ``s'', return the index into the rc_vars array which
    matches, or -1 if the variable is not found.  */
 static int mutt_option_index (char *s)
@@ -141,6 +179,16 @@ static int mutt_option_index (char *s)
   return (-1);
 }
 
+/**
+ * mutt_extract_token - XXX
+ * @dest:  YYY
+ * @tok:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_extract_token (BUFFER *dest, BUFFER *tok, int flags)
 {
   char		ch;
@@ -338,6 +386,12 @@ int mutt_extract_token (BUFFER *dest, BUFFER *tok, int flags)
   return 0;
 }
 
+/**
+ * mutt_free_opt - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_free_opt (struct option_t* p)
 {
   REGEXP* pp;
@@ -363,6 +417,11 @@ static void mutt_free_opt (struct option_t* p)
   }
 }
 
+/**
+ * mutt_free_opts - XXX
+ *
+ * DESCRIPTION
+ */
 /* clean up before quitting */
 void mutt_free_opts (void)
 {
@@ -380,6 +439,13 @@ void mutt_free_opts (void)
   mutt_free_rx_list (&NoSpamList);
 }
 
+/**
+ * add_to_list - XXX
+ * @list: YYY
+ * @str:  YYY
+ *
+ * DESCRIPTION
+ */
 static void add_to_list (LIST **list, const char *str)
 {
   LIST *t, *last = NULL;
@@ -415,6 +481,17 @@ static void add_to_list (LIST **list, const char *str)
   }
 }
 
+/**
+ * mutt_add_to_rx_list - XXX
+ * @list:  YYY
+ * @s:     YYY
+ * @flags: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_add_to_rx_list (RX_LIST **list, const char *s, int flags, BUFFER *err)
 {
   RX_LIST *t, *last = NULL;
@@ -462,6 +539,17 @@ int mutt_add_to_rx_list (RX_LIST **list, const char *s, int flags, BUFFER *err)
 
 static int remove_from_spam_list (SPAM_LIST **list, const char *pat);
 
+/**
+ * add_to_spam_list - XXX
+ * @list:  YYY
+ * @pat:   YYY
+ * @templ: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int add_to_spam_list (SPAM_LIST **list, const char *pat, const char *templ, BUFFER *err)
 {
   SPAM_LIST *t = NULL, *last = NULL;
@@ -542,6 +630,15 @@ static int add_to_spam_list (SPAM_LIST **list, const char *pat, const char *temp
   return 0;
 }
 
+/**
+ * remove_from_spam_list - XXX
+ * @list: YYY
+ * @pat:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int remove_from_spam_list (SPAM_LIST **list, const char *pat)
 {
   SPAM_LIST *spam, *prev;
@@ -580,6 +677,13 @@ static int remove_from_spam_list (SPAM_LIST **list, const char *pat)
 }
 
 
+/**
+ * remove_from_list - XXX
+ * @l:   YYY
+ * @str: YYY
+ *
+ * DESCRIPTION
+ */
 static void remove_from_list (LIST **l, const char *str)
 {
   LIST *p, *last = NULL;
@@ -611,6 +715,17 @@ static void remove_from_list (LIST **l, const char *str)
 }
 
 /**
+ * finish_source - XXX
+ * @tmp:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * finish_source - 'finish' command: stop processing current config file
  * @tmp:  Temporary space shared by all command handlers
  * @s:    Current line of the config file
@@ -634,6 +749,17 @@ static int finish_source (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *er
   return 1;
 }
 
+/**
+ * parse_ifdef - XXX
+ * @tmp:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * parse_ifdef - 'ifdef' command: conditional config
  * @tmp:  Temporary space shared by all command handlers
@@ -729,6 +855,17 @@ static int parse_ifdef (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *err)
   return 0;
 }
 
+/**
+ * parse_unignore - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_unignore (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   do
@@ -746,6 +883,17 @@ static int parse_unignore (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *e
   return 0;
 }
 
+/**
+ * parse_ignore - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_ignore (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   do
@@ -759,6 +907,17 @@ static int parse_ignore (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err
   return 0;
 }
 
+/**
+ * parse_list - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_list (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   do
@@ -771,6 +930,11 @@ static int parse_list (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return 0;
 }
 
+/**
+ * _alternates_clean - XXX
+ *
+ * DESCRIPTION
+ */
 static void _alternates_clean (void)
 {
   int i;
@@ -781,6 +945,17 @@ static void _alternates_clean (void)
   }
 }
 
+/**
+ * parse_alternates - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_alternates (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   group_context_t *gc = NULL;
@@ -812,6 +987,17 @@ static int parse_alternates (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER 
   return -1;
 }
 
+/**
+ * parse_unalternates - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_unalternates (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   _alternates_clean();
@@ -830,6 +1016,17 @@ static int parse_unalternates (BUFFER *buf, BUFFER *s, unsigned long data, BUFFE
   return 0;
 }
 
+/**
+ * parse_spam_list - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_spam_list (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   BUFFER templ;
@@ -904,6 +1101,17 @@ static int parse_spam_list (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *
 }
 
 
+/**
+ * parse_unlist - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_unlist (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   do
@@ -924,6 +1132,17 @@ static int parse_unlist (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err
   return 0;
 }
 
+/**
+ * parse_lists - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_lists (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   group_context_t *gc = NULL;
@@ -957,6 +1176,17 @@ typedef enum group_state_t {
   NONE, RX, ADDR
 } group_state_t;
 
+/**
+ * parse_group - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_group (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   group_context_t *gc = NULL;
@@ -1027,6 +1257,11 @@ bail:
   return -1;
 }
 
+/**
+ * _attachments_clean - XXX
+ *
+ * DESCRIPTION
+ */
 /* always wise to do what someone else did before */
 static void _attachments_clean (void)
 {
@@ -1038,6 +1273,17 @@ static void _attachments_clean (void)
   }
 }
 
+/**
+ * parse_attach_list - XXX
+ * @buf:   YYY
+ * @s:     YYY
+ * @ldata: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_attach_list (BUFFER *buf, BUFFER *s, LIST **ldata, BUFFER *err)
 {
   ATTACH_MATCH *a;
@@ -1129,6 +1375,17 @@ static int parse_attach_list (BUFFER *buf, BUFFER *s, LIST **ldata, BUFFER *err)
   return 0;
 }
 
+/**
+ * parse_unattach_list - XXX
+ * @buf:   YYY
+ * @s:     YYY
+ * @ldata: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_unattach_list (BUFFER *buf, BUFFER *s, LIST **ldata, BUFFER *err)
 {
   ATTACH_MATCH *a;
@@ -1199,6 +1456,16 @@ static int parse_unattach_list (BUFFER *buf, BUFFER *s, LIST **ldata, BUFFER *er
   return 0;
 }
 
+/**
+ * print_attach_list - XXX
+ * @lp:   YYY
+ * @op:   YYY
+ * @name: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int print_attach_list (LIST *lp, char op, char *name)
 {
   while (lp) {
@@ -1212,6 +1479,17 @@ static int print_attach_list (LIST *lp, char op, char *name)
 }
 
 
+/**
+ * parse_attachments - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_attachments (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   char op, *category;
@@ -1264,6 +1542,17 @@ static int parse_attachments (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER
   return parse_attach_list(buf, s, listp, err);
 }
 
+/**
+ * parse_unattachments - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_unattachments (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   char op, *p;
@@ -1301,6 +1590,17 @@ static int parse_unattachments (BUFFER *buf, BUFFER *s, unsigned long data, BUFF
   return parse_unattach_list(buf, s, listp, err);
 }
 
+/**
+ * parse_unlists - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_unlists (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   do
@@ -1318,6 +1618,17 @@ static int parse_unlists (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *er
   return 0;
 }
 
+/**
+ * parse_subscribe - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_subscribe (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   group_context_t *gc = NULL;
@@ -1349,6 +1660,17 @@ static int parse_subscribe (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *
   return -1;
 }
 
+/**
+ * parse_unsubscribe - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_unsubscribe (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   do
@@ -1362,6 +1684,17 @@ static int parse_unsubscribe (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER
   }
   while (MoreArgs (s));
 
+/**
+ * parse_unalias - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
   return 0;
 }
   
@@ -1412,6 +1745,17 @@ static int parse_unalias (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *er
   return 0;
 }
 
+/**
+ * parse_alias - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_alias (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   ALIAS *tmp = Aliases;
@@ -1501,6 +1845,17 @@ static int parse_alias (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return -1;
 }
 
+/**
+ * parse_unmy_hdr - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 parse_unmy_hdr (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
@@ -1548,6 +1903,17 @@ parse_unmy_hdr (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return 0;
 }
 
+/**
+ * parse_my_hdr - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_my_hdr (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   LIST *tmp;
@@ -1591,6 +1957,17 @@ static int parse_my_hdr (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err
   return 0;
 }
 
+/**
+ * parse_sort - XXX
+ * @val: YYY
+ * @s:   YYY
+ * @map: YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 parse_sort (short *val, const char *s, const struct mapping_t *map, BUFFER *err)
 {
@@ -1619,6 +1996,12 @@ parse_sort (short *val, const char *s, const struct mapping_t *map, BUFFER *err)
   return 0;
 }
 
+/**
+ * mutt_set_default - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_set_default (struct option_t *p)
 {
   switch (p->type & DT_MASK)
@@ -1654,6 +2037,12 @@ static void mutt_set_default (struct option_t *p)
   }
 }
 
+/**
+ * mutt_restore_default - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_restore_default (struct option_t *p)
 {
   switch (p->type & DT_MASK)
@@ -1753,6 +2142,16 @@ static void mutt_restore_default (struct option_t *p)
 #endif
 }
 
+/**
+ * escape_string - XXX
+ * @dst: YYY
+ * @len: YYY
+ * @src: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 static size_t escape_string (char *dst, size_t len, const char* src)
 {
   char* p = dst;
@@ -1786,6 +2185,15 @@ static size_t escape_string (char *dst, size_t len, const char* src)
   return p - dst;
 }
 
+/**
+ * pretty_var - XXX
+ * @dst:    YYY
+ * @len:    YYY
+ * @option: YYY
+ * @val:    YYY
+ *
+ * DESCRIPTION
+ */
 static void pretty_var (char *dst, size_t len, const char *option, const char *val)
 {
   char *p;
@@ -1807,6 +2215,15 @@ static void pretty_var (char *dst, size_t len, const char *option, const char *v
   *p = 0;
 }
 
+/**
+ * check_charset - XXX
+ * @opt: YYY
+ * @val: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int check_charset (struct option_t *opt, const char *val)
 {
   char *p, *q = NULL, *s = safe_strdup (val);
@@ -1830,6 +2247,17 @@ static int check_charset (struct option_t *opt, const char *val)
   return rc;
 }
 
+/**
+ * parse_set - XXX
+ * @tmp:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_set (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *err)
 {
   int query, unset, inv, reset, r = 0;
@@ -2382,6 +2810,15 @@ static int parse_set (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *err)
 
 #define MAXERRS 128
 
+/**
+ * source_rc - XXX
+ * @rcfile: YYY
+ * @err:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* reads the specified initialization file.  returns -1 if errors were found
    so that we can pause to let the user know...  */
 static int source_rc (const char *rcfile, BUFFER *err)
@@ -2450,6 +2887,17 @@ static int source_rc (const char *rcfile, BUFFER *err)
 
 #undef MAXERRS
 
+/**
+ * parse_source - XXX
+ * @tmp:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_source (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *err)
 {
   char path[_POSIX_PATH_MAX];
@@ -2478,6 +2926,16 @@ static int parse_source (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *err
 		memory to use, which avoids having to create new space for
 		every call to this function.
 
+/**
+ * mutt_parse_rc_line - XXX
+ * @line:  YYY
+ * @token: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
    err		where to write error messages */
 int mutt_parse_rc_line (/* const */ char *line, BUFFER *token, BUFFER *err)
 {
@@ -2541,6 +2999,12 @@ static const char **Matches;
 /* this is a lie until mutt_init runs: */
 static int  Matches_listsize = MAX(NUMVARS,NUMCOMMANDS) + 10;
 
+/**
+ * matches_ensure_morespace - XXX
+ * @current: YYY
+ *
+ * DESCRIPTION
+ */
 static void matches_ensure_morespace(int current)
 {
   int base_space, extra_space, space;
@@ -2557,6 +3021,15 @@ static void matches_ensure_morespace(int current)
   }
 }
 
+/**
+ * candidate - XXX
+ * @dest: YYY
+ * @try:  YYY
+ * @src:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ */
 /* helper function for completion.  Changes the dest buffer if
    necessary/possible to aid completion.
 	dest == completion result gets here.
@@ -2582,6 +3055,17 @@ static void candidate (char *dest, char *try, const char *src, int len)
   }
 }
 
+/**
+ * mutt_command_complete - XXX
+ * @buffer:  YYY
+ * @len:     YYY
+ * @pos:     YYY
+ * @numtabs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_command_complete (char *buffer, size_t len, int pos, int numtabs)
 {
   char *pt = buffer;
@@ -2739,6 +3223,16 @@ int mutt_command_complete (char *buffer, size_t len, int pos, int numtabs)
   return 1;
 }
 
+/**
+ * mutt_var_value_complete - XXX
+ * @buffer: YYY
+ * @len:    YYY
+ * @pos:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_var_value_complete (char *buffer, size_t len, int pos)
 {
   char var[STRING], *pt = buffer;
@@ -2786,6 +3280,14 @@ int mutt_var_value_complete (char *buffer, size_t len, int pos)
 
 #if USE_NOTMUCH
 
+/**
+ * complete_all_nm_tags - XXX
+ * @pt: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Fetch a list of all notmuch tags and insert them into the completion
  * machinery.
  */
@@ -2839,6 +3341,16 @@ done:
   return 0;
 }
 
+/**
+ * rstrnstr - XXX
+ * @haystack:        YYY
+ * @haystack_length: YYY
+ * @needle:          YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Return the last instance of needle in the haystack, or NULL.
  * Like strstr(), only backwards, and for a limited haystack length.
  */
@@ -2864,6 +3376,17 @@ static const char* rstrnstr(const char* haystack,
   return NULL;
 }
 
+/**
+ * mutt_nm_query_complete - XXX
+ * @buffer:  YYY
+ * @len:     YYY
+ * @pos:     YYY
+ * @numtabs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Complete the nearest "tag:"-prefixed string previous to pos. */
 int mutt_nm_query_complete (char *buffer, size_t len, int pos, int numtabs)
 {
@@ -2908,6 +3431,17 @@ int mutt_nm_query_complete (char *buffer, size_t len, int pos, int numtabs)
   return 1;
 }
 
+/**
+ * mutt_nm_tag_complete - XXX
+ * @buffer:  YYY
+ * @len:     YYY
+ * @pos:     YYY
+ * @numtabs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Complete the nearest "+" or "-" -prefixed string previous to pos. */
 int mutt_nm_tag_complete (char *buffer, size_t len, int pos, int numtabs)
 {
@@ -2956,6 +3490,16 @@ int mutt_nm_tag_complete (char *buffer, size_t len, int pos, int numtabs)
 }
 #endif
 
+/**
+ * var_to_string - XXX
+ * @idx: YYY
+ * @val: YYY
+ * @len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int var_to_string (int idx, char* val, size_t len)
 {
   char tmp[LONG_STRING];
@@ -3049,6 +3593,14 @@ static int var_to_string (int idx, char* val, size_t len)
   return 1;
 }
 
+/**
+ * mutt_query_variables - XXX
+ * @queries: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Implement the -Q command line flag */
 int mutt_query_variables (LIST *queries)
 {
@@ -3084,6 +3636,13 @@ int mutt_query_variables (LIST *queries)
   return 0;
 }
 
+/**
+ * mutt_dump_variables - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* dump out the value of all the variables we have */
 int mutt_dump_variables (void)
 {
@@ -3122,6 +3681,15 @@ int mutt_dump_variables (void)
   return 0;
 }
 
+/**
+ * mutt_getnamebyvalue - XXX
+ * @val: YYY
+ * @map: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *mutt_getnamebyvalue (int val, const struct mapping_t *map)
 {
   int i;
@@ -3132,6 +3700,15 @@ const char *mutt_getnamebyvalue (int val, const struct mapping_t *map)
   return NULL;
 }
 
+/**
+ * mutt_getvaluebyname - XXX
+ * @name: YYY
+ * @map:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_getvaluebyname (const char *name, const struct mapping_t *map)
 {
   int i;
@@ -3142,6 +3719,11 @@ int mutt_getvaluebyname (const char *name, const struct mapping_t *map)
   return (-1);
 }
 
+/**
+ * start_debug - XXX
+ *
+ * DESCRIPTION
+ */
 #ifdef DEBUG
 static void start_debug (void)
 {
@@ -3165,6 +3747,14 @@ static void start_debug (void)
 }
 #endif
 
+/**
+ * mutt_execute_commands - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_execute_commands (LIST *p)
 {
   BUFFER err, token;
@@ -3190,6 +3780,13 @@ static int mutt_execute_commands (LIST *p)
   return 0;
 }
 
+/**
+ * mutt_init - XXX
+ * @skip_sys_rc: YYY
+ * @commands:    YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_init (int skip_sys_rc, LIST *commands)
 {
   struct passwd *pw;
@@ -3553,6 +4150,14 @@ void mutt_init (int skip_sys_rc, LIST *commands)
   FREE (&err.data);
 }
 
+/**
+ * mutt_get_hook_type - XXX
+ * @name: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_get_hook_type (const char *name)
 {
   const struct command_t *c;
@@ -3563,6 +4168,18 @@ int mutt_get_hook_type (const char *name)
   return 0;
 }
 
+/**
+ * parse_group_context - XXX
+ * @ctx:  YYY
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int parse_group_context (group_context_t **ctx, BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   while (!mutt_strcasecmp (buf->data, "-group"))
@@ -3593,6 +4210,17 @@ static int parse_group_context (group_context_t **ctx, BUFFER *buf, BUFFER *s, u
   return -1;
 }
 
+/**
+ * parse_tag_transforms - XXX
+ * @b:    YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NOTMUCH
 int parse_tag_transforms (BUFFER *b, BUFFER *s, unsigned long data, BUFFER *err)
 {
@@ -3625,6 +4253,17 @@ int parse_tag_transforms (BUFFER *b, BUFFER *s, unsigned long data, BUFFER *err)
   return 0;
 }
 
+/**
+ * parse_tag_formats - XXX
+ * @b:    YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int parse_tag_formats (BUFFER *b, BUFFER *s, unsigned long data, BUFFER *err)
 {
   char *tmp;
@@ -3657,6 +4296,13 @@ int parse_tag_formats (BUFFER *b, BUFFER *s, unsigned long data, BUFFER *err)
 }
 #endif
 
+/**
+ * myvar_set - XXX
+ * @var: YYY
+ * @val: YYY
+ *
+ * DESCRIPTION
+ */
 static void myvar_set (const char* var, const char* val)
 {
   myvar_t** cur;
@@ -3674,6 +4320,12 @@ static void myvar_set (const char* var, const char* val)
   mutt_str_replace (&(*cur)->value, val);
 }
 
+/**
+ * myvar_del - XXX
+ * @var: YYY
+ *
+ * DESCRIPTION
+ */
 static void myvar_del (const char* var)
 {
   myvar_t **cur;
@@ -3694,6 +4346,14 @@ static void myvar_del (const char* var)
   }
 }
 
+/**
+ * myvar_get - XXX
+ * @var: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char* myvar_get (const char* var)
 {
   myvar_t* cur;
@@ -3705,6 +4365,17 @@ static const char* myvar_get (const char* var)
   return NULL;
 }
 
+/**
+ * mutt_label_complete - XXX
+ * @buffer:  YYY
+ * @len:     YYY
+ * @pos:     YYY
+ * @numtabs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_label_complete (char *buffer, size_t len, int pos, int numtabs)
 {
   char *pt = buffer;

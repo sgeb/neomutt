@@ -73,6 +73,12 @@
 
 static char *_chs = 0;
 
+/**
+ * fix_uid - XXX
+ * @uid: YYY
+ *
+ * DESCRIPTION
+ */
 static void fix_uid (char *uid)
 {
   char *s, *d;
@@ -116,6 +122,16 @@ static void fix_uid (char *uid)
   }
 }
 
+/**
+ * parse_pub_line - XXX
+ * @buf:       YYY
+ * @is_subkey: YYY
+ * @k:         YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 static pgp_key_t parse_pub_line (char *buf, int *is_subkey, pgp_key_t k)
 {
   pgp_uid_t *uid = NULL;
@@ -381,6 +397,15 @@ bail:
   return NULL;
 }
 
+/**
+ * pgp_get_candidates - XXX
+ * @keyring: YYY
+ * @hints:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 pgp_key_t pgp_get_candidates (pgp_ring_t keyring, LIST * hints)
 {
   FILE *fp;

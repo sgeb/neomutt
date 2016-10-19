@@ -53,6 +53,19 @@ extern char RFC822Specials[];
 typedef size_t (*encoder_t) (char *, ICONV_CONST char *, size_t,
 			     const char *);
 
+/**
+ * convert_string - XXX
+ * @f:    YYY
+ * @flen: YYY
+ * @from: YYY
+ * @to:   YYY
+ * @t:    YYY
+ * @tlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 static size_t convert_string (ICONV_CONST char *f, size_t flen,
 			      const char *from, const char *to,
 			      char **t, size_t *tlen)
@@ -87,6 +100,14 @@ static size_t convert_string (ICONV_CONST char *f, size_t flen,
   return n;
 }
 
+/**
+ * convert_nonmime_string - XXX
+ * @ps: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int convert_nonmime_string (char **ps)
 {
   const char *c, *c1;
@@ -124,6 +145,19 @@ int convert_nonmime_string (char **ps)
   return -1;
 }
 
+/**
+ * mutt_choose_charset - XXX
+ * @fromcode: YYY
+ * @charsets: YYY
+ * @u:        YYY
+ * @ulen:     YYY
+ * @d:        YYY
+ * @dlen:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_choose_charset (const char *fromcode, const char *charsets,
 		      char *u, size_t ulen, char **d, size_t *dlen)
 {
@@ -189,6 +223,17 @@ char *mutt_choose_charset (const char *fromcode, const char *charsets,
   return tocode;
 }
 
+/**
+ * b_encoder - XXX
+ * @s:      YYY
+ * @d:      YYY
+ * @dlen:   YYY
+ * @tocode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 static size_t b_encoder (char *s, ICONV_CONST char *d, size_t dlen,
 			 const char *tocode)
 {
@@ -230,6 +275,17 @@ static size_t b_encoder (char *s, ICONV_CONST char *d, size_t dlen,
   return s - s0;
 }
 
+/**
+ * q_encoder - XXX
+ * @s:      YYY
+ * @d:      YYY
+ * @dlen:   YYY
+ * @tocode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 static size_t q_encoder (char *s, ICONV_CONST char *d, size_t dlen,
 			 const char *tocode)
 {
@@ -257,6 +313,19 @@ static size_t q_encoder (char *s, ICONV_CONST char *d, size_t dlen,
   return s - s0;
 }
 
+/**
+ * try_block - XXX
+ * @d:        YYY
+ * @dlen:     YYY
+ * @fromcode: YYY
+ * @tocode:   YYY
+ * @encoder:  YYY
+ * @wlen:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 /*
  * Return 0 if and set *encoder and *wlen if the data (d, dlen) could
  * be converted to an encoded word of length *wlen using *encoder.
@@ -334,6 +403,19 @@ static size_t try_block (ICONV_CONST char *d, size_t dlen,
     return dlen;
 }
 
+/**
+ * encode_block - XXX
+ * @s:        YYY
+ * @d:        YYY
+ * @dlen:     YYY
+ * @fromcode: YYY
+ * @tocode:   YYY
+ * @encoder:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 /*
  * Encode the data (d, dlen) into s using the encoder.
  * Return the length of the encoded word.
@@ -363,6 +445,20 @@ static size_t encode_block (char *s, char *d, size_t dlen,
     return (*encoder) (s, d, dlen, tocode);
 }
 
+/**
+ * choose_block - XXX
+ * @d:        YYY
+ * @dlen:     YYY
+ * @col:      YYY
+ * @fromcode: YYY
+ * @tocode:   YYY
+ * @encoder:  YYY
+ * @wlen:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 /*
  * Discover how much of the data (d, dlen) can be converted into
  * a single encoded word. Return how much data can be converted,
@@ -392,6 +488,21 @@ static size_t choose_block (char *d, size_t dlen, int col,
   return n;
 }
 
+/**
+ * rfc2047_encode - XXX
+ * @d:        YYY
+ * @dlen:     YYY
+ * @col:      YYY
+ * @fromcode: YYY
+ * @charsets: YYY
+ * @e:        YYY
+ * @elen:     YYY
+ * @specials: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Place the result of RFC-2047-encoding (d, dlen) into the dynamically
  * allocated buffer (e, elen). The input data is in charset fromcode
@@ -583,6 +694,14 @@ static int rfc2047_encode (ICONV_CONST char *d, size_t dlen, int col,
   return ret;
 }
 
+/**
+ * _rfc2047_encode_string - XXX
+ * @pd:              YYY
+ * @encode_specials: YYY
+ * @col:             YYY
+ *
+ * DESCRIPTION
+ */
 void _rfc2047_encode_string (char **pd, int encode_specials, int col)
 {
   char *e;
@@ -604,6 +723,13 @@ void _rfc2047_encode_string (char **pd, int encode_specials, int col)
   *pd = e;
 }
 
+/**
+ * rfc2047_encode_adrlist - XXX
+ * @addr: YYY
+ * @tag:  YYY
+ *
+ * DESCRIPTION
+ */
 void rfc2047_encode_adrlist (ADDRESS *addr, const char *tag)
 {
   ADDRESS *ptr = addr;
@@ -623,6 +749,16 @@ void rfc2047_encode_adrlist (ADDRESS *addr, const char *tag)
   }
 }
 
+/**
+ * rfc2047_decode_word - XXX
+ * @d:   YYY
+ * @s:   YYY
+ * @len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int rfc2047_decode_word (char *d, const char *s, size_t len)
 {
   const char *pp, *pp1;
@@ -722,6 +858,15 @@ error_out_0:
   return rv;
 }
 
+/**
+ * find_encoded_word - XXX
+ * @s: YYY
+ * @x: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /*
  * Find the start and end of the first encoded word in the string.
  * We use the grammar in section 2 of RFC 2047, but the "encoding"
@@ -757,6 +902,15 @@ static const char *find_encoded_word (const char *s, const char **x)
   return 0;
 }
 
+/**
+ * lwslen - XXX
+ * @s: YYY
+ * @n: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 /* return length of linear-white-space */
 static size_t lwslen (const char *s, size_t n)
 {
@@ -777,6 +931,15 @@ static size_t lwslen (const char *s, size_t n)
   return len;
 }
 
+/**
+ * lwsrlen - XXX
+ * @s: YYY
+ * @n: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 /* return length of linear-white-space : reverse */
 static size_t lwsrlen (const char *s, size_t n)
 {
@@ -798,6 +961,12 @@ static size_t lwsrlen (const char *s, size_t n)
   return len;
 }
 
+/**
+ * rfc2047_decode - XXX
+ * @pd: YYY
+ *
+ * DESCRIPTION
+ */
 /* try to decode anything that looks like a valid RFC2047 encoded
  * header field, ignoring RFC822 parsing rules
  */
@@ -904,6 +1073,12 @@ void rfc2047_decode (char **pd)
   mutt_str_adjust (pd);
 }
 
+/**
+ * rfc2047_decode_adrlist - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ */
 void rfc2047_decode_adrlist (ADDRESS *a)
 {
   while (a)

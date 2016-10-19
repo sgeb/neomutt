@@ -200,6 +200,16 @@ init_germanic_plural ()
 #endif
 
 
+/**
+ * _nl_init_domain_conv - XXX
+ * @domain_file:   YYY
+ * @domain:        YYY
+ * @domainbinding: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Initialize the codeset dependent parts of an opened message catalog.
    Return the header entry.  */
 const char *
@@ -313,6 +323,12 @@ _nl_init_domain_conv (domain_file, domain, domainbinding)
   return nullentry;
 }
 
+/**
+ * _nl_free_domain_conv - XXX
+ * @domain: YYY
+ *
+ * DESCRIPTION
+ */
 /* Frees the codeset dependent parts of an opened message catalog.  */
 void
 internal_function
@@ -333,6 +349,13 @@ _nl_free_domain_conv (domain)
 #endif
 }
 
+/**
+ * _nl_load_domain - XXX
+ * @domain_file:   YYY
+ * @domainbinding: YYY
+ *
+ * DESCRIPTION
+ */
 /* Load the message catalogs specified by FILENAME.  If it is no valid
    message catalog do nothing.  */
 void

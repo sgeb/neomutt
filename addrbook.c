@@ -42,6 +42,24 @@ static const struct mapping_t AliasHelp[] = {
   { NULL,	  0 }
 };
 
+/**
+ * alias_format_str - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @fmt:        YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 alias_format_str (char *dest, size_t destlen, size_t col, int cols, char op, const char *src,
 		  const char *fmt, const char *ifstring, const char *elsestring,
@@ -78,11 +96,30 @@ alias_format_str (char *dest, size_t destlen, size_t col, int cols, char op, con
   return (src);
 }
 
+/**
+ * alias_entry - XXX
+ * @s:    YYY
+ * @slen: YYY
+ * @m:    YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 static void alias_entry (char *s, size_t slen, MUTTMENU *m, int num)
 {
   mutt_FormatString (s, slen, 0, MuttIndexWindow->cols, NONULL (AliasFmt), alias_format_str, (unsigned long) ((ALIAS **) m->data)[num], MUTT_FORMAT_ARROWCURSOR);
 }
 
+/**
+ * alias_tag - XXX
+ * @menu: YYY
+ * @n:    YYY
+ * @m:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int alias_tag (MUTTMENU *menu, int n, int m)
 {
   ALIAS *cur = ((ALIAS **) menu->data)[n];
@@ -93,6 +130,15 @@ static int alias_tag (MUTTMENU *menu, int n, int m)
   return cur->tagged - ot;
 }
 
+/**
+ * alias_SortAlias - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int alias_SortAlias (const void *a, const void *b)
 {
   ALIAS *pa = *(ALIAS **) a;
@@ -102,6 +148,15 @@ static int alias_SortAlias (const void *a, const void *b)
   return (RSORT (r));
 }
 
+/**
+ * alias_SortAddress - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int alias_SortAddress (const void *a, const void *b)
 {
   ADDRESS *pa = (*(ALIAS **) a)->addr;
@@ -128,6 +183,14 @@ static int alias_SortAddress (const void *a, const void *b)
   return (RSORT (r));
 }
 
+/**
+ * mutt_alias_menu - XXX
+ * @buf:     YYY
+ * @buflen:  YYY
+ * @aliases: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_alias_menu (char *buf, size_t buflen, ALIAS *aliases)
 {
   ALIAS *aliasp;

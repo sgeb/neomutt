@@ -21,6 +21,16 @@
 
 /* Taken from glibc 2.6.1 */
 
+/**
+ * strtok_r - XXX
+ * @s:        YYY
+ * @delim:    YYY
+ * @save_ptr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* Parse S into tokens separated by characters in DELIM.
    If S is NULL, the saved pointer in SAVE_PTR is used as
    the next starting point.  For example:

@@ -29,6 +29,15 @@
 
 #define SOMEPRIME 149711
 
+/**
+ * hash_string - XXX
+ * @s: YYY
+ * @n: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned int
+ */
 static unsigned int hash_string (const unsigned char *s, unsigned int n)
 {
   unsigned int h = 0;
@@ -40,6 +49,15 @@ static unsigned int hash_string (const unsigned char *s, unsigned int n)
   return h;
 }
 
+/**
+ * hash_case_string - XXX
+ * @s: YYY
+ * @n: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned int
+ */
 static unsigned int hash_case_string (const unsigned char *s, unsigned int n)
 {
   unsigned int h = 0;
@@ -51,6 +69,15 @@ static unsigned int hash_case_string (const unsigned char *s, unsigned int n)
   return h;
 }
 
+/**
+ * hash_create - XXX
+ * @nelem: YYY
+ * @lower: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HASH*
+ */
 HASH *hash_create (int nelem, int lower)
 {
   HASH *table = safe_malloc (sizeof (HASH));
@@ -72,6 +99,16 @@ HASH *hash_create (int nelem, int lower)
   return table;
 }
 
+/**
+ * hash_resize - XXX
+ * @ptr:   YYY
+ * @nelem: YYY
+ * @lower: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HASH*
+ */
 HASH *hash_resize (HASH *ptr, int nelem, int lower)
 {
   HASH *table;
@@ -95,6 +132,17 @@ HASH *hash_resize (HASH *ptr, int nelem, int lower)
   return table;
 }
 
+/**
+ * hash_insert - XXX
+ * @table:     YYY
+ * @key:       YYY
+ * @data:      YYY
+ * @allow_dup: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* table        hash table to update
  * key          key to hash on
  * data         data to associate with `key'
@@ -142,6 +190,16 @@ int hash_insert (HASH * table, const char *key, void *data, int allow_dup)
   return h;
 }
 
+/**
+ * hash_find_hash - XXX
+ * @table: YYY
+ * @hash:  YYY
+ * @key:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: void*
+ */
 void *hash_find_hash (const HASH * table, int hash, const char *key)
 {
   struct hash_elem *ptr = table->table[hash];
@@ -153,6 +211,14 @@ void *hash_find_hash (const HASH * table, int hash, const char *key)
   return NULL;
 }
 
+/**
+ * hash_set_data - XXX
+ * @table: YYY
+ * @key:   YYY
+ * @data:  YYY
+ *
+ * DESCRIPTION
+ */
 void hash_set_data (HASH *table, const char *key, void *data)
 {
   if (!table)
@@ -167,6 +233,16 @@ void hash_set_data (HASH *table, const char *key, void *data)
   ptr->data = data;
 }
 
+/**
+ * hash_delete_hash - XXX
+ * @table:   YYY
+ * @hash:    YYY
+ * @key:     YYY
+ * @data:    YYY
+ * @destroy: YYY
+ *
+ * DESCRIPTION
+ */
 void hash_delete_hash (HASH * table, int hash, const char *key, const void *data,
 		       void (*destroy) (void *))
 {
@@ -194,6 +270,13 @@ void hash_delete_hash (HASH * table, int hash, const char *key, const void *data
   }
 }
 
+/**
+ * hash_destroy - XXX
+ * @ptr:     YYY
+ * @destroy: YYY
+ *
+ * DESCRIPTION
+ */
 /* ptr		pointer to the hash table to be freed
  * destroy()	function to call to free the ->data member (optional) 
  */
@@ -218,6 +301,15 @@ void hash_destroy (HASH **ptr, void (*destroy) (void *))
   FREE (ptr);		/* __FREE_CHECKED__ */
 }
 
+/**
+ * hash_walk - XXX
+ * @table: YYY
+ * @state: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct hash_elem*
+ */
 struct hash_elem *hash_walk(const HASH *table, struct hash_walk_state *state)
 {
   if (state->last && state->last->next)

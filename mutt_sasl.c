@@ -33,6 +33,14 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+/**
+ * getnameinfo_err - XXX
+ * @ret: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int getnameinfo_err(int ret)
 {
   int err;
@@ -88,6 +96,28 @@ static sasl_secret_t *secret_ptr = NULL;
 
 static int mutt_sasl_start (void);
 
+/**
+ * mutt_sasl_cb_pass - XXX
+ * @conn:    YYY
+ * @context: YYY
+ * @id:      YYY
+ * @psecret: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
+ * mutt_sasl_cb_authname - XXX
+ * @context: YYY
+ * @id:      YYY
+ * @result:  YYY
+ * @len:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* callbacks */
 static int mutt_sasl_cb_log (void* context, int priority, const char* message);
 static int mutt_sasl_cb_authname (void* context, int id, const char** result,
@@ -95,6 +125,16 @@ static int mutt_sasl_cb_authname (void* context, int id, const char** result,
 static int mutt_sasl_cb_pass (sasl_conn_t* conn, void* context, int id,
   sasl_secret_t** psecret);
 
+/**
+ * mutt_sasl_conn_write - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* socket wrappers for a SASL security layer */
 static int mutt_sasl_conn_open (CONNECTION* conn);
 static int mutt_sasl_conn_close (CONNECTION* conn);
@@ -103,6 +143,17 @@ static int mutt_sasl_conn_write (CONNECTION* conn, const char* buf,
   size_t count);
 static int mutt_sasl_conn_poll (CONNECTION* conn);
 
+/**
+ * iptostring - XXX
+ * @addr:    YYY
+ * @addrlen: YYY
+ * @out:     YYY
+ * @outlen:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* utility function, stolen from sasl2 sample code */
 static int iptostring(const struct sockaddr *addr, socklen_t addrlen,
                       char *out, unsigned outlen)
@@ -130,6 +181,13 @@ static int iptostring(const struct sockaddr *addr, socklen_t addrlen,
   return SASL_OK;
 }
 
+/**
+ * mutt_sasl_start - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_sasl_start: called before doing a SASL exchange - initialises library
  *   (if necessary). */
 int mutt_sasl_start (void)
@@ -164,6 +222,15 @@ int mutt_sasl_start (void)
   return SASL_OK;
 }
 
+/**
+ * mutt_sasl_client_new - XXX
+ * @conn:     YYY
+ * @saslconn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_sasl_client_new: wrapper for sasl_client_new which also sets various
  * security properties. If this turns out to be fine for POP too we can
  * probably stop exporting mutt_sasl_get_callbacks(). */
@@ -270,6 +337,14 @@ int mutt_sasl_client_new (CONNECTION* conn, sasl_conn_t** saslconn)
   return 0;
 }
 
+/**
+ * mutt_sasl_get_callbacks - XXX
+ * @account: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: sasl_callback_t*
+ */
 sasl_callback_t* mutt_sasl_get_callbacks (ACCOUNT* account)
 {
   sasl_callback_t* callback;
@@ -303,6 +378,14 @@ sasl_callback_t* mutt_sasl_get_callbacks (ACCOUNT* account)
   return mutt_sasl_callbacks;
 }
 
+/**
+ * mutt_sasl_interact - XXX
+ * @interaction: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_sasl_interact (sasl_interact_t* interaction)
 {
   char prompt[SHORT_STRING];
@@ -340,6 +423,13 @@ int mutt_sasl_interact (sasl_interact_t* interaction)
  * abstraction problem is that there is more in CONNECTION than there
  * needs to be. Ideally it would have only (void*)data and methods. */
 
+/**
+ * mutt_sasl_setup_conn - XXX
+ * @conn:     YYY
+ * @saslconn: YYY
+ *
+ * DESCRIPTION
+ */
 /* mutt_sasl_setup_conn: replace connection methods, sockdata with 
  *   SASL wrappers, for protection layers. Also get ssf, as a fastpath
  *   for the read/write methods. */
@@ -382,6 +472,16 @@ void mutt_sasl_setup_conn (CONNECTION* conn, sasl_conn_t* saslconn)
   conn->conn_poll = mutt_sasl_conn_poll;
 }
 
+/**
+ * mutt_sasl_cb_log - XXX
+ * @context:  YYY
+ * @priority: YYY
+ * @message:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_sasl_cb_log: callback to log SASL messages */
 static int mutt_sasl_cb_log (void* context, int priority, const char* message)
 {
@@ -390,6 +490,11 @@ static int mutt_sasl_cb_log (void* context, int priority, const char* message)
   return SASL_OK;
 }
 
+/**
+ * mutt_sasl_done - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_sasl_done (void)
 {
   sasl_done ();
@@ -460,6 +565,14 @@ static int mutt_sasl_cb_pass (sasl_conn_t* conn, void* context, int id,
   return SASL_OK;
 }
 
+/**
+ * mutt_sasl_conn_open - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_sasl_conn_open: empty wrapper for underlying open function. We
  *   don't know in advance that a connection will use SASL, so we
  *   replace conn's methods with sasl methods when authentication
@@ -477,6 +590,14 @@ static int mutt_sasl_conn_open (CONNECTION* conn)
   return rc;
 }
 
+/**
+ * mutt_sasl_conn_close - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_sasl_conn_close: calls underlying close function and disposes of
  *   the sasl_conn_t object, then restores connection to pre-sasl state */
 static int mutt_sasl_conn_close (CONNECTION* conn)
@@ -504,6 +625,16 @@ static int mutt_sasl_conn_close (CONNECTION* conn)
   return rc;
 }
 
+/**
+ * mutt_sasl_conn_read - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_sasl_conn_read (CONNECTION* conn, char* buf, size_t len)
 {
   SASL_DATA* sasldata;
@@ -618,6 +749,14 @@ static int mutt_sasl_conn_write (CONNECTION* conn, const char* buf,
   return -1;
 }
 
+/**
+ * mutt_sasl_conn_poll - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_sasl_conn_poll (CONNECTION* conn)
 {
   SASL_DATA* sasldata = conn->sockdata;

@@ -84,6 +84,14 @@ static void ssl_get_client_cert(sslsockdata *ssldata, CONNECTION *conn);
 static int ssl_passwd_cb(char *buf, int size, int rwflag, void *userdata);
 static int ssl_negotiate (CONNECTION *conn, sslsockdata*);
 
+/**
+ * mutt_ssl_starttls - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* mutt_ssl_starttls: Negotiate TLS over an already opened connection.
  *   TODO: Merge this code better with ssl_socket_open. */
 int mutt_ssl_starttls (CONNECTION* conn)
@@ -180,6 +188,13 @@ int mutt_ssl_starttls (CONNECTION* conn)
   return -1;
 }
 
+/**
+ * ssl_init - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * OpenSSL library needs to be fed with sufficient entropy. On systems
  * with /dev/urandom, this is done transparently by the library itself,
@@ -231,6 +246,14 @@ static int ssl_init (void)
   return 0;
 }
 
+/**
+ * add_entropy - XXX
+ * @file: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int add_entropy (const char *file)
 {
   struct stat st;
@@ -266,6 +289,14 @@ static int add_entropy (const char *file)
   return n;
 }
 
+/**
+ * ssl_socket_open_err - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ssl_socket_open_err (CONNECTION *conn)
 {
   mutt_error (_("SSL disabled due to the lack of entropy"));
@@ -274,6 +305,14 @@ static int ssl_socket_open_err (CONNECTION *conn)
 }
 
 
+/**
+ * mutt_ssl_socket_setup - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_ssl_socket_setup (CONNECTION * conn)
 {
   if (ssl_init() < 0)
@@ -291,6 +330,16 @@ int mutt_ssl_socket_setup (CONNECTION * conn)
   return 0;
 }
 
+/**
+ * ssl_socket_read - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ssl_socket_read (CONNECTION* conn, char* buf, size_t len)
 {
   sslsockdata *data = conn->sockdata;
@@ -310,6 +359,16 @@ static int ssl_socket_read (CONNECTION* conn, char* buf, size_t len)
   return rc;
 }
 
+/**
+ * ssl_socket_write - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ssl_socket_write (CONNECTION* conn, const char* buf, size_t len)
 {
   sslsockdata *data = conn->sockdata;
@@ -327,6 +386,14 @@ static int ssl_socket_write (CONNECTION* conn, const char* buf, size_t len)
   return rc;
 }
 
+/**
+ * ssl_socket_open - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ssl_socket_open (CONNECTION * conn)
 {
   sslsockdata *data;
@@ -402,6 +469,15 @@ static int ssl_socket_open (CONNECTION * conn)
   return 0;
 }
 
+/**
+ * ssl_negotiate - XXX
+ * @conn:    YYY
+ * @ssldata: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* ssl_negotiate: After SSL state has been initialized, attempt to negotiate
  *   SSL over the wire, including certificate checks. */
 static int ssl_negotiate (CONNECTION *conn, sslsockdata* ssldata)
@@ -457,6 +533,14 @@ static int ssl_negotiate (CONNECTION *conn, sslsockdata* ssldata)
   return 0;
 }
 
+/**
+ * ssl_socket_close - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ssl_socket_close (CONNECTION * conn)
 {
   sslsockdata *data = conn->sockdata;
@@ -478,6 +562,14 @@ static int ssl_socket_close (CONNECTION * conn)
   return raw_socket_close (conn);
 }
 
+/**
+ * tls_close - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int tls_close (CONNECTION* conn)
 {
   int rc;
@@ -490,6 +582,13 @@ static int tls_close (CONNECTION* conn)
   return rc;
 }
 
+/**
+ * ssl_err - XXX
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ */
 static void ssl_err (sslsockdata *data, int err)
 {
   const char* errmsg;
@@ -547,6 +646,11 @@ static void ssl_err (sslsockdata *data, int err)
   dprint (1, (debugfile, "SSL error: %s\n", errmsg));
 }
 
+/**
+ * ssl_dprint_err_stack - XXX
+ *
+ * DESCRIPTION
+ */
 static void ssl_dprint_err_stack (void)
 {
 #ifdef DEBUG
@@ -571,6 +675,15 @@ static void ssl_dprint_err_stack (void)
 }
 
 
+/**
+ * x509_get_part - XXX
+ * @line: YYY
+ * @ndx:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *x509_get_part (char *line, const char *ndx)
 {
   static char ret[SHORT_STRING];
@@ -593,6 +706,14 @@ static char *x509_get_part (char *line, const char *ndx)
   return ret;
 }
 
+/**
+ * x509_fingerprint - XXX
+ * @s:    YYY
+ * @l:    YYY
+ * @cert: YYY
+ *
+ * DESCRIPTION
+ */
 static void x509_fingerprint (char *s, int l, X509 * cert)
 {
   unsigned char md[EVP_MAX_MD_SIZE];
@@ -614,6 +735,14 @@ static void x509_fingerprint (char *s, int l, X509 * cert)
   }
 }
 
+/**
+ * asn1time_to_string - XXX
+ * @tm: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *asn1time_to_string (ASN1_UTCTIME *tm)
 {
   static char buf[64];
@@ -632,6 +761,14 @@ static char *asn1time_to_string (ASN1_UTCTIME *tm)
   return buf;
 }
 
+/**
+ * check_certificate_by_signer - XXX
+ * @peercert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int check_certificate_by_signer (X509 *peercert)
 {
   X509_STORE_CTX *xsc;
@@ -688,6 +825,17 @@ static int check_certificate_by_signer (X509 *peercert)
   return pass;
 }
 
+/**
+ * compare_certificates - XXX
+ * @cert:      YYY
+ * @peercert:  YYY
+ * @peermd:    YYY
+ * @peermdlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_certificates (X509 *cert, X509 *peercert,
   unsigned char *peermd, unsigned int peermdlen)
 {
@@ -710,6 +858,14 @@ static int compare_certificates (X509 *cert, X509 *peercert,
   return 0;
 }
 
+/**
+ * check_certificate_cache - XXX
+ * @peercert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int check_certificate_cache (X509 *peercert)
 {
   unsigned char peermd[EVP_MAX_MD_SIZE];
@@ -735,6 +891,14 @@ static int check_certificate_cache (X509 *peercert)
   return 0;
 }
 
+/**
+ * check_certificate_by_digest - XXX
+ * @peercert: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int check_certificate_by_digest (X509 *peercert)
 {
   unsigned char peermd[EVP_MAX_MD_SIZE];
@@ -784,6 +948,15 @@ static int check_certificate_by_digest (X509 *peercert)
   return pass;
 }
 
+/**
+ * hostname_match - XXX
+ * @hostname: YYY
+ * @certname: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* port to mutt from msmtp's tls.c */
 static int hostname_match (const char *hostname, const char *certname)
 {
@@ -821,6 +994,17 @@ static int hostname_match (const char *hostname, const char *certname)
   return 1;
 }
 
+/**
+ * check_host - XXX
+ * @x509cert: YYY
+ * @hostname: YYY
+ * @err:      YYY
+ * @errlen:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* port to mutt from msmtp's tls.c */
 static int check_host (X509 *x509cert, const char *hostname, char *err, size_t errlen)
 {
@@ -925,6 +1109,14 @@ out:
   return rc;
 }
 
+/**
+ * ssl_cache_trusted_cert - XXX
+ * @c: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ssl_cache_trusted_cert (X509 *c)
 {
   dprint (1, (debugfile, "trusted: %s\n", c->name));
@@ -933,6 +1125,15 @@ static int ssl_cache_trusted_cert (X509 *c)
   return (sk_X509_push (SslSessionCerts, X509_dup(c)));
 }
 
+/**
+ * ssl_check_preauth - XXX
+ * @cert: YYY
+ * @host: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* check whether cert is preauthorized. If host is not null, verify that
  * it matches the certificate.
  * Return > 0: authorized, < 0: problems, 0: unknown validity */
@@ -975,6 +1176,15 @@ static int ssl_check_preauth (X509 *cert, const char* host)
   return 0;
 }
 
+/**
+ * ssl_check_certificate - XXX
+ * @conn: YYY
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ssl_check_certificate (CONNECTION *conn, sslsockdata *data)
 {
   int i, preauthrc, chain_len;
@@ -1010,6 +1220,16 @@ static int ssl_check_certificate (CONNECTION *conn, sslsockdata *data)
   return 0;
 }
 
+/**
+ * interactive_check_cert - XXX
+ * @cert: YYY
+ * @idx:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int interactive_check_cert (X509 *cert, int idx, int len)
 {
   static const char * const part[] =
@@ -1133,6 +1353,13 @@ static int interactive_check_cert (X509 *cert, int idx, int len)
   return (done == 2);
 }
 
+/**
+ * ssl_get_client_cert - XXX
+ * @ssldata: YYY
+ * @conn:    YYY
+ *
+ * DESCRIPTION
+ */
 static void ssl_get_client_cert(sslsockdata *ssldata, CONNECTION *conn)
 {
   if (SslClientCert)
@@ -1148,6 +1375,17 @@ static void ssl_get_client_cert(sslsockdata *ssldata, CONNECTION *conn)
   }
 }
 
+/**
+ * ssl_passwd_cb - XXX
+ * @buf:      YYY
+ * @size:     YYY
+ * @rwflag:   YYY
+ * @userdata: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int ssl_passwd_cb(char *buf, int size, int rwflag, void *userdata)
 {
   ACCOUNT *account = (ACCOUNT*)userdata;

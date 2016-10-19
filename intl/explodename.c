@@ -37,6 +37,14 @@
 
 /* @@ end of prolog @@ */
 
+/**
+ * _nl_find_language - XXX
+ * @name: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *
 _nl_find_language (name)
      const char *name;
@@ -49,6 +57,22 @@ _nl_find_language (name)
 }
 
 
+/**
+ * _nl_explode_name - XXX
+ * @name:               YYY
+ * @language:           YYY
+ * @modifier:           YYY
+ * @territory:          YYY
+ * @codeset:            YYY
+ * @normalized_codeset: YYY
+ * @special:            YYY
+ * @sponsor:            YYY
+ * @revision:           YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 _nl_explode_name (name, language, modifier, territory, codeset,
 		  normalized_codeset, special, sponsor, revision)

@@ -29,6 +29,15 @@
 #include "mutt.h"
 
 
+/**
+ * getdnsdomainname - XXX
+ * @d:   YYY
+ * @len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int getdnsdomainname (char *d, size_t len)
 {
   int ret = -1;

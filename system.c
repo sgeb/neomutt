@@ -32,6 +32,15 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+/**
+ * _mutt_system - XXX
+ * @cmd:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int _mutt_system (const char *cmd, int flags)
 {
   int rc = -1;

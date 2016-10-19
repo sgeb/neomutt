@@ -6,6 +6,14 @@
 #include <time.h>
 #include <string.h>
 
+/**
+ * mkdtemp - XXX
+ * @tmpl: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* mkdtemp function for systems which don't have one */
 char *mkdtemp (char *tmpl)
 {

@@ -38,6 +38,17 @@ struct body_cache {
   size_t pathlen;
 };
 
+/**
+ * bcache_path - XXX
+ * @account: YYY
+ * @mailbox: YYY
+ * @dst:     YYY
+ * @dstlen:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int bcache_path(ACCOUNT *account, const char *mailbox,
 		       char *dst, size_t dstlen)
 {
@@ -79,6 +90,15 @@ static int bcache_path(ACCOUNT *account, const char *mailbox,
   return 0;
 }
 
+/**
+ * mutt_bcache_open - XXX
+ * @account: YYY
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: body_cache_t*
+ */
 body_cache_t *mutt_bcache_open (ACCOUNT *account, const char *mailbox)
 {
   struct body_cache *bcache = NULL;
@@ -100,6 +120,12 @@ bail:
   return NULL;
 }
 
+/**
+ * mutt_bcache_close - XXX
+ * @bcache: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_bcache_close (body_cache_t **bcache)
 {
   if (!bcache || !*bcache)
@@ -107,6 +133,15 @@ void mutt_bcache_close (body_cache_t **bcache)
   FREE(bcache);			/* __FREE_CHECKED__ */
 }
 
+/**
+ * mutt_bcache_get - XXX
+ * @bcache: YYY
+ * @id:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FILE*
+ */
 FILE* mutt_bcache_get(body_cache_t *bcache, const char *id)
 {
   char path[_POSIX_PATH_MAX];
@@ -126,6 +161,16 @@ FILE* mutt_bcache_get(body_cache_t *bcache, const char *id)
   return fp;
 }
 
+/**
+ * mutt_bcache_put - XXX
+ * @bcache: YYY
+ * @id:     YYY
+ * @tmp:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FILE*
+ */
 FILE* mutt_bcache_put(body_cache_t *bcache, const char *id, int tmp)
 {
   char path[_POSIX_PATH_MAX];
@@ -163,6 +208,15 @@ FILE* mutt_bcache_put(body_cache_t *bcache, const char *id, int tmp)
   return fp;
 }
 
+/**
+ * mutt_bcache_commit - XXX
+ * @bcache: YYY
+ * @id:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_bcache_commit(body_cache_t* bcache, const char* id)
 {
   char tmpid[_POSIX_PATH_MAX];
@@ -172,6 +226,16 @@ int mutt_bcache_commit(body_cache_t* bcache, const char* id)
   return mutt_bcache_move (bcache, tmpid, id);
 }
 
+/**
+ * mutt_bcache_move - XXX
+ * @bcache: YYY
+ * @id:     YYY
+ * @newid:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_bcache_move(body_cache_t* bcache, const char* id, const char* newid)
 {
   char path[_POSIX_PATH_MAX];
@@ -188,6 +252,15 @@ int mutt_bcache_move(body_cache_t* bcache, const char* id, const char* newid)
   return rename (path, newpath);
 }
 
+/**
+ * mutt_bcache_del - XXX
+ * @bcache: YYY
+ * @id:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_bcache_del(body_cache_t *bcache, const char *id)
 {
   char path[_POSIX_PATH_MAX];
@@ -204,6 +277,15 @@ int mutt_bcache_del(body_cache_t *bcache, const char *id)
   return unlink (path);
 }
 
+/**
+ * mutt_bcache_exists - XXX
+ * @bcache: YYY
+ * @id:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_bcache_exists(body_cache_t *bcache, const char *id)
 {
   char path[_POSIX_PATH_MAX];
@@ -227,6 +309,20 @@ int mutt_bcache_exists(body_cache_t *bcache, const char *id)
   return rc;
 }
 
+/**
+ * mutt_bcache_list - XXX
+ * @bcache:  YYY
+ * @int:     YYY
+ * @want_id: YYY
+ * @id:      YYY
+ * @bcache:  YYY
+ * @data:    YYY
+ * @data:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_bcache_list(body_cache_t *bcache,
 		     int (*want_id)(const char *id, body_cache_t *bcache,
 				    void *data), void *data)

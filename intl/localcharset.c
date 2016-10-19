@@ -77,6 +77,13 @@
    ALIAS_1 '\0' CANONICAL_1 '\0' ... ALIAS_n '\0' CANONICAL_n '\0' '\0'  */
 static const char * volatile charset_aliases;
 
+/**
+ * get_charset_aliases - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Return a pointer to the contents of the charset.alias file.  */
 static const char *
 get_charset_aliases ()
@@ -196,6 +203,13 @@ get_charset_aliases ()
    If the canonical name cannot be determined, the result is a non-canonical
    name.  */
 
+/**
+ * locale_charset - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 #ifdef STATIC
 STATIC
 #endif

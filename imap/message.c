@@ -52,6 +52,16 @@ static int msg_fetch_header (CONTEXT* ctx, IMAP_HEADER* h, char* buf,
 static int msg_parse_fetch (IMAP_HEADER* h, char* s);
 static char* msg_parse_flags (IMAP_HEADER* h, char* s);
 
+/**
+ * imap_read_headers - XXX
+ * @idata:    YYY
+ * @msgbegin: YYY
+ * @msgend:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_read_headers:
  * Changed to read many headers instead of just one. It will return the
  * msgno of the last message read. It will return a value other than
@@ -392,6 +402,16 @@ error_out_0:
   return retval;
 }
 
+/**
+ * imap_fetch_message - XXX
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_fetch_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
 {
   IMAP_DATA* idata;
@@ -597,11 +617,29 @@ bail:
   return -1;
 }
 
+/**
+ * imap_close_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_close_message (CONTEXT *ctx, MESSAGE *msg)
 {
   return safe_fclose (&msg->fp);
 }
 
+/**
+ * imap_commit_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_commit_message (CONTEXT *ctx, MESSAGE *msg)
 {
   int r = safe_fclose (&msg->fp);
@@ -612,6 +650,15 @@ int imap_commit_message (CONTEXT *ctx, MESSAGE *msg)
   return imap_append_message (ctx, msg);
 }
 
+/**
+ * imap_append_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_append_message (CONTEXT *ctx, MESSAGE *msg)
 {
   IMAP_DATA* idata;
@@ -748,6 +795,17 @@ int imap_append_message (CONTEXT *ctx, MESSAGE *msg)
   return -1;
 }
 
+/**
+ * imap_copy_messages - XXX
+ * @ctx:    YYY
+ * @h:      YYY
+ * @dest:   YYY
+ * @delete: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_copy_messages: use server COPY command to copy messages to another
  *   folder.
  *   Return codes:
@@ -929,6 +987,14 @@ int imap_copy_messages (CONTEXT* ctx, HEADER* h, char* dest, int delete)
   return rc < 0 ? -1 : rc;
 }
 
+/**
+ * msg_cache_open - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: body_cache_t*
+ */
 static body_cache_t *msg_cache_open (IMAP_DATA *idata)
 {
   char mailbox[_POSIX_PATH_MAX];
@@ -941,6 +1007,15 @@ static body_cache_t *msg_cache_open (IMAP_DATA *idata)
   return mutt_bcache_open (&idata->conn->account, mailbox);
 }
 
+/**
+ * msg_cache_get - XXX
+ * @idata: YYY
+ * @h:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FILE*
+ */
 static FILE* msg_cache_get (IMAP_DATA* idata, HEADER* h)
 {
   char id[_POSIX_PATH_MAX];
@@ -953,6 +1028,15 @@ static FILE* msg_cache_get (IMAP_DATA* idata, HEADER* h)
   return mutt_bcache_get (idata->bcache, id);
 }
 
+/**
+ * msg_cache_put - XXX
+ * @idata: YYY
+ * @h:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FILE*
+ */
 static FILE* msg_cache_put (IMAP_DATA* idata, HEADER* h)
 {
   char id[_POSIX_PATH_MAX];
@@ -965,6 +1049,15 @@ static FILE* msg_cache_put (IMAP_DATA* idata, HEADER* h)
   return mutt_bcache_put (idata->bcache, id, 1);
 }
 
+/**
+ * msg_cache_commit - XXX
+ * @idata: YYY
+ * @h:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int msg_cache_commit (IMAP_DATA* idata, HEADER* h)
 {
   char id[_POSIX_PATH_MAX];
@@ -978,6 +1071,15 @@ static int msg_cache_commit (IMAP_DATA* idata, HEADER* h)
   return mutt_bcache_commit (idata->bcache, id);
 }
 
+/**
+ * imap_cache_del - XXX
+ * @idata: YYY
+ * @h:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_cache_del (IMAP_DATA* idata, HEADER* h)
 {
   char id[_POSIX_PATH_MAX];
@@ -990,6 +1092,16 @@ int imap_cache_del (IMAP_DATA* idata, HEADER* h)
   return mutt_bcache_del (idata->bcache, id);
 }
 
+/**
+ * msg_cache_clean_cb - XXX
+ * @id:     YYY
+ * @bcache: YYY
+ * @data:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int msg_cache_clean_cb (const char* id, body_cache_t* bcache, void* data)
 {
   unsigned int uv, uid, n;
@@ -1013,6 +1125,14 @@ static int msg_cache_clean_cb (const char* id, body_cache_t* bcache, void* data)
   return 0;
 }
 
+/**
+ * imap_cache_clean - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_cache_clean (IMAP_DATA* idata)
 {
   idata->bcache = msg_cache_open (idata);
@@ -1021,6 +1141,15 @@ int imap_cache_clean (IMAP_DATA* idata)
   return 0;
 }
 
+/**
+ * imap_add_keywords - XXX
+ * @s:             YYY
+ * @h:             YYY
+ * @mailbox_flags: YYY
+ * @slen:          YYY
+ *
+ * DESCRIPTION
+ */
 /* imap_add_keywords: concatenate custom IMAP tags to list, if they
  *   appear in the folder flags list. Why wouldn't they? */
 void imap_add_keywords (char* s, HEADER* h, LIST* mailbox_flags, size_t slen)
@@ -1043,6 +1172,12 @@ void imap_add_keywords (char* s, HEADER* h, LIST* mailbox_flags, size_t slen)
   }
 }
 
+/**
+ * imap_free_header_data - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ */
 /* imap_free_header_data: free IMAP_HEADER structure */
 void imap_free_header_data (IMAP_HEADER_DATA** data)
 {
@@ -1054,6 +1189,16 @@ void imap_free_header_data (IMAP_HEADER_DATA** data)
   }
 }
 
+/**
+ * imap_set_flags - XXX
+ * @idata: YYY
+ * @h:     YYY
+ * @s:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* imap_set_flags: fill out the message header according to the flags from
  *   the server. Expects a flags line of the form "FLAGS (flag flag ...)" */
 char* imap_set_flags (IMAP_DATA* idata, HEADER* h, char* s)
@@ -1095,6 +1240,17 @@ char* imap_set_flags (IMAP_DATA* idata, HEADER* h, char* s)
 }
 
 
+/**
+ * msg_fetch_header - XXX
+ * @ctx: YYY
+ * @h:   YYY
+ * @buf: YYY
+ * @fp:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* msg_fetch_header: import IMAP FETCH response into an IMAP_HEADER.
  *   Expects string beginning with * n FETCH.
  *   Returns:
@@ -1155,6 +1311,15 @@ static int msg_fetch_header (CONTEXT* ctx, IMAP_HEADER* h, char* buf, FILE* fp)
   return rc;
 }
 
+/**
+ * msg_parse_fetch - XXX
+ * @h: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* msg_parse_fetch: handle headers returned from header fetch */
 static int msg_parse_fetch (IMAP_HEADER *h, char *s)
 {
@@ -1229,6 +1394,15 @@ static int msg_parse_fetch (IMAP_HEADER *h, char *s)
   return 0;
 }
 
+/**
+ * msg_parse_flags - XXX
+ * @h: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* msg_parse_flags: read a FLAGS token into an IMAP_HEADER */
 static char* msg_parse_flags (IMAP_HEADER* h, char* s)
 {
@@ -1316,6 +1490,14 @@ static char* msg_parse_flags (IMAP_HEADER* h, char* s)
   return s;
 }
 
+/**
+ * flush_buffer - XXX
+ * @buf:  YYY
+ * @len:  YYY
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ */
 static void flush_buffer(char *buf, size_t *len, CONNECTION *conn)
 {
   buf[*len] = '\0';

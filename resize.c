@@ -36,6 +36,11 @@
 # endif
 #endif
 
+/**
+ * mutt_resize_screen - XXX
+ *
+ * DESCRIPTION
+ */
 /* this routine should be called after receiving SIGWINCH */
 void mutt_resize_screen (void)
 {

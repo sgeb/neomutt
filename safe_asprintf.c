@@ -24,6 +24,16 @@
  * version using it.
  */
 
+/**
+ * safe_asprintf - XXX
+ * @strp: YYY
+ * @fmt:  YYY
+ * @...:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef HAVE_VASPRINTF
 int safe_asprintf (char **strp, const char *fmt, ...)
 {

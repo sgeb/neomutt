@@ -35,6 +35,15 @@
 #include <errno.h>
 #include <netinet/in.h>
 
+/**
+ * pop_parse_path - XXX
+ * @path: YYY
+ * @acct: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* given an POP mailbox name, return host, port, username and password */
 int pop_parse_path (const char* path, ACCOUNT* acct)
 {
@@ -74,6 +83,13 @@ int pop_parse_path (const char* path, ACCOUNT* acct)
   return 0;
 }
 
+/**
+ * pop_error - XXX
+ * @pop_data: YYY
+ * @msg:      YYY
+ *
+ * DESCRIPTION
+ */
 /* Copy error message to err_msg buffer */
 void pop_error (POP_DATA *pop_data, char *msg)
 {
@@ -94,6 +110,15 @@ void pop_error (POP_DATA *pop_data, char *msg)
   mutt_remove_trailing_ws (pop_data->err_msg);
 }
 
+/**
+ * fetch_capa - XXX
+ * @line: YYY
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Parse CAPA output */
 static int fetch_capa (char *line, void *data)
 {
@@ -122,6 +147,15 @@ static int fetch_capa (char *line, void *data)
   return 0;
 }
 
+/**
+ * fetch_auth - XXX
+ * @line: YYY
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Fetch list of the authentication mechanisms */
 static int fetch_auth (char *line, void *data)
 {
@@ -143,6 +177,15 @@ static int fetch_auth (char *line, void *data)
   return 0;
 }
 
+/**
+ * pop_capabilities - XXX
+ * @pop_data: YYY
+ * @mode:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Get capabilities
  *  0 - successful,
@@ -221,6 +264,14 @@ static int pop_capabilities (POP_DATA *pop_data, int mode)
   return 0;
 }
 
+/**
+ * pop_connect - XXX
+ * @pop_data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Open connection
  *  0 - successful,
@@ -254,6 +305,14 @@ int pop_connect (POP_DATA *pop_data)
   return 0;
 }
 
+/**
+ * pop_open_connection - XXX
+ * @pop_data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Open connection and authenticate
  *  0 - successful,
@@ -380,6 +439,12 @@ err_conn:
   return -1;
 }
 
+/**
+ * pop_logout - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 /* logout from POP server */
 void pop_logout (CONTEXT *ctx)
 {
@@ -410,6 +475,17 @@ void pop_logout (CONTEXT *ctx)
   return;
 }
 
+/**
+ * pop_query_d - XXX
+ * @pop_data: YYY
+ * @buf:      YYY
+ * @buflen:   YYY
+ * @msg:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Send data from buffer and receive answer to the same buffer
  *  0 - successful,
@@ -451,6 +527,21 @@ int pop_query_d (POP_DATA *pop_data, char *buf, size_t buflen, char *msg)
   return -2;
 }
 
+/**
+ * pop_fetch_data - XXX
+ * @pop_data:    YYY
+ * @query:       YYY
+ * @progressbar: YYY
+ * @int:         YYY
+ * @funct:       YYY
+ * @:            YYY
+ * @:            YYY
+ * @data:        YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * This function calls  funct(*line, *data)  for each received line,
  * funct(NULL, *data)  if  rewind(*data)  needs, exits when fail or done.
@@ -519,6 +610,15 @@ int pop_fetch_data (POP_DATA *pop_data, char *query, progress_t *progressbar,
   return ret;
 }
 
+/**
+ * check_uidl - XXX
+ * @line: YYY
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* find message with this UIDL and set refno */
 static int check_uidl (char *line, void *data)
 {
@@ -547,6 +647,14 @@ static int check_uidl (char *line, void *data)
   return 0;
 }
 
+/**
+ * pop_reconnect - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* reconnect and verify idnexes if connection was lost */
 int pop_reconnect (CONTEXT *ctx)
 {

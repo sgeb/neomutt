@@ -35,6 +35,14 @@
 #include <errno.h>
 #include <sys/wait.h>
 
+/**
+ * mutt_pattern_group - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: group_t*
+ */
 group_t *mutt_pattern_group (const char *k)
 {
   group_t *p;
@@ -53,6 +61,12 @@ group_t *mutt_pattern_group (const char *k)
   return p;
 }
 
+/**
+ * mutt_group_remove - XXX
+ * @g: YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_group_remove (group_t *g)
 {
   if (!g)
@@ -64,6 +78,14 @@ static void mutt_group_remove (group_t *g)
   FREE(&g);
 }
 
+/**
+ * mutt_group_context_clear - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_group_context_clear (group_context_t **ctx)
 {
   group_context_t *t;
@@ -76,6 +98,14 @@ int mutt_group_context_clear (group_context_t **ctx)
   return 0;
 }
 
+/**
+ * empty_group - XXX
+ * @g: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int empty_group (group_t *g)
 {
   if (!g)
@@ -83,6 +113,13 @@ static int empty_group (group_t *g)
   return !g->as && !g->rs;
 }
 
+/**
+ * mutt_group_context_add - XXX
+ * @ctx:   YYY
+ * @group: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_group_context_add (group_context_t **ctx, group_t *group)
 {
   for (; *ctx; ctx = &((*ctx)->next))
@@ -95,6 +132,12 @@ void mutt_group_context_add (group_context_t **ctx, group_t *group)
   (*ctx)->g = group;
 }
 
+/**
+ * mutt_group_context_destroy - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_group_context_destroy (group_context_t **ctx)
 {
   group_context_t *p;
@@ -105,6 +148,13 @@ void mutt_group_context_destroy (group_context_t **ctx)
   }
 }
 
+/**
+ * mutt_group_add_adrlist - XXX
+ * @g: YYY
+ * @a: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_group_add_adrlist (group_t *g, ADDRESS *a)
 {
   ADDRESS **p, *q;
@@ -122,6 +172,15 @@ void mutt_group_add_adrlist (group_t *g, ADDRESS *a)
   *p = q;
 }
 
+/**
+ * mutt_group_remove_adrlist - XXX
+ * @g: YYY
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_group_remove_adrlist (group_t *g, ADDRESS *a)
 {
   ADDRESS *p;
@@ -137,22 +196,58 @@ static int mutt_group_remove_adrlist (group_t *g, ADDRESS *a)
   return 0;
 }
 
+/**
+ * mutt_group_add_rx - XXX
+ * @g:     YYY
+ * @s:     YYY
+ * @flags: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_group_add_rx (group_t *g, const char *s, int flags, BUFFER *err)
 {
   return mutt_add_to_rx_list (&g->rs, s, flags, err);
 }
 
+/**
+ * mutt_group_remove_rx - XXX
+ * @g: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_group_remove_rx (group_t *g, const char *s)
 {
   return mutt_remove_from_rx_list (&g->rs, s);
 }
 
+/**
+ * mutt_group_context_add_adrlist - XXX
+ * @ctx: YYY
+ * @a:   YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_group_context_add_adrlist (group_context_t *ctx, ADDRESS *a)
 {
   for (; ctx; ctx = ctx->next)
     mutt_group_add_adrlist (ctx->g, a);
 }
 
+/**
+ * mutt_group_context_remove_adrlist - XXX
+ * @ctx: YYY
+ * @a:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_group_context_remove_adrlist (group_context_t *ctx, ADDRESS * a)
 {
   int rv = 0;
@@ -167,6 +262,17 @@ int mutt_group_context_remove_adrlist (group_context_t *ctx, ADDRESS * a)
   return rv;
 }
 
+/**
+ * mutt_group_context_add_rx - XXX
+ * @ctx:   YYY
+ * @s:     YYY
+ * @flags: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_group_context_add_rx (group_context_t *ctx, const char *s, int flags, BUFFER *err)
 {
   int rv = 0;
@@ -177,6 +283,15 @@ int mutt_group_context_add_rx (group_context_t *ctx, const char *s, int flags, B
   return rv;
 }
 
+/**
+ * mutt_group_context_remove_rx - XXX
+ * @ctx: YYY
+ * @s:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_group_context_remove_rx (group_context_t *ctx, const char *s)
 {
   int rv = 0;
@@ -191,6 +306,15 @@ int mutt_group_context_remove_rx (group_context_t *ctx, const char *s)
   return rv;
 }
 
+/**
+ * mutt_group_match - XXX
+ * @g: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_group_match (group_t *g, const char *s)
 {
   ADDRESS *ap;

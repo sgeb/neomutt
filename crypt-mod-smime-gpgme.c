@@ -29,22 +29,50 @@
 #include "crypt-mod.h"
 #include "crypt-gpgme.h"
 
+/**
+ * crypt_mod_smime_init - XXX
+ *
+ * DESCRIPTION
+ */
 static void crypt_mod_smime_init (void)
 {
   smime_gpgme_init ();
 }
 
+/**
+ * crypt_mod_smime_void_passphrase - XXX
+ *
+ * DESCRIPTION
+ */
 static void crypt_mod_smime_void_passphrase (void)
 {
   /* Handled by gpg-agent.  */
 }
 
+/**
+ * crypt_mod_smime_valid_passphrase - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_valid_passphrase (void)
 {
   /* Handled by gpg-agent.  */
   return 1;
 }
 
+/**
+ * crypt_mod_smime_decrypt_mime - XXX
+ * @a: YYY
+ * @b: YYY
+ * @c: YYY
+ * @d: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_decrypt_mime (FILE *a, FILE **b, BODY *c, BODY **d)
 {
   return smime_gpgme_decrypt_mime (a, b, c, d);
@@ -55,21 +83,57 @@ static int crypt_mod_smime_application_handler (BODY *m, STATE *s)
   return smime_gpgme_application_handler (m, s);
 }
 
+/**
+ * crypt_mod_smime_findkeys - XXX
+ * @adrlist:     YYY
+ * @oppenc_mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *crypt_mod_smime_findkeys (ADDRESS *adrlist, int oppenc_mode)
 {
   return smime_gpgme_findkeys (adrlist, oppenc_mode);
 }
 
+/**
+ * crypt_mod_smime_sign_message - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 static BODY *crypt_mod_smime_sign_message (BODY *a)
 {
   return smime_gpgme_sign_message (a);
 }
 
+/**
+ * crypt_mod_smime_verify_one - XXX
+ * @sigbdy: YYY
+ * @s:      YYY
+ * @tempf:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_verify_one (BODY *sigbdy, STATE *s, const char *tempf)
 {
   return smime_gpgme_verify_one (sigbdy, s, tempf);
 }
 
+/**
+ * crypt_mod_smime_send_menu - XXX
+ * @msg:    YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_send_menu (HEADER *msg, int *redraw)
 {
   return smime_gpgme_send_menu (msg, redraw);
@@ -80,6 +144,14 @@ static BODY *crypt_mod_smime_build_smime_entity (BODY *a, char *certlist)
   return smime_gpgme_build_smime_entity (a, certlist);
 }
 
+/**
+ * crypt_mod_smime_verify_sender - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int crypt_mod_smime_verify_sender (HEADER *h)
 {
   return smime_gpgme_verify_sender (h);

@@ -48,6 +48,15 @@
 
 #define BAD     -1
 
+/**
+ * mutt_to_base64 - XXX
+ * @out:  YYY
+ * @in:   YYY
+ * @len:  YYY
+ * @olen: YYY
+ *
+ * DESCRIPTION
+ */
 /* raw bytes to null-terminated base 64 string */
 void mutt_to_base64 (unsigned char *out, const unsigned char *in, size_t len,
 		     size_t olen)
@@ -79,6 +88,15 @@ void mutt_to_base64 (unsigned char *out, const unsigned char *in, size_t len,
   *out = '\0';
 }
 
+/**
+ * mutt_from_base64 - XXX
+ * @out: YYY
+ * @in:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Convert '\0'-terminated base 64 string to raw bytes.
  * Returns length of returned buffer, or -1 on error */
 int mutt_from_base64 (char *out, const char *in)

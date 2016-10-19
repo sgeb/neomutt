@@ -55,6 +55,14 @@ static int socket_preconnect (void);
 static int socket_connect (int fd, struct sockaddr* sa);
 static CONNECTION* socket_new_conn (void);
 
+/**
+ * mutt_socket_open - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Wrappers */
 int mutt_socket_open (CONNECTION* conn) 
 {
@@ -71,6 +79,14 @@ int mutt_socket_open (CONNECTION* conn)
   return rc;
 }
 
+/**
+ * mutt_socket_close - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_socket_close (CONNECTION* conn)
 {
   int rc = -1;
@@ -86,6 +102,16 @@ int mutt_socket_close (CONNECTION* conn)
   return rc;
 }
 
+/**
+ * mutt_socket_read - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_socket_read (CONNECTION* conn, char* buf, size_t len)
 {
   int rc;
@@ -109,6 +135,17 @@ int mutt_socket_read (CONNECTION* conn, char* buf, size_t len)
   return rc;
 }
 
+/**
+ * mutt_socket_write_d - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ * @dbg:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_socket_write_d (CONNECTION *conn, const char *buf, int len, int dbg)
 {
   int rc;
@@ -148,6 +185,14 @@ int mutt_socket_write_d (CONNECTION *conn, const char *buf, int len, int dbg)
   return sent;
 }
 
+/**
+ * mutt_socket_poll - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* poll whether reads would block.
  *   Returns: >0 if there is data to read,
  *            0 if a read would block,
@@ -163,6 +208,15 @@ int mutt_socket_poll (CONNECTION* conn)
   return -1;
 }
 
+/**
+ * mutt_socket_readchar - XXX
+ * @conn: YYY
+ * @c:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* simple read buffering to speed things up. */
 int mutt_socket_readchar (CONNECTION *conn, char *c)
 {
@@ -192,6 +246,17 @@ int mutt_socket_readchar (CONNECTION *conn, char *c)
   return 1;
 }
 
+/**
+ * mutt_socket_readln_d - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @conn:   YYY
+ * @dbg:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_socket_readln_d (char* buf, size_t buflen, CONNECTION* conn, int dbg)
 {
   char ch;
@@ -221,11 +286,24 @@ int mutt_socket_readln_d (char* buf, size_t buflen, CONNECTION* conn, int dbg)
   return i + 1;
 }
 
+/**
+ * mutt_socket_head - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: CONNECTION*
+ */
 CONNECTION* mutt_socket_head (void)
 {
   return Connections;
 }
 
+/**
+ * mutt_socket_free - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ */
 /* mutt_socket_free: remove connection from connection list and free it */
 void mutt_socket_free (CONNECTION* conn)
 {
@@ -255,6 +333,15 @@ void mutt_socket_free (CONNECTION* conn)
   }
 }
 
+/**
+ * mutt_conn_find - XXX
+ * @start:   YYY
+ * @account: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: CONNECTION*
+ */
 /* mutt_conn_find: find a connection off the list of connections whose
  *   account matches account. If start is not null, only search for
  *   connections after the given connection (allows higher level socket code
@@ -316,6 +403,13 @@ CONNECTION* mutt_conn_find (const CONNECTION* start, const ACCOUNT* account)
   return conn;
 }
 
+/**
+ * socket_preconnect - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int socket_preconnect (void)
 {
   int rc;
@@ -339,6 +433,15 @@ static int socket_preconnect (void)
   return 0;
 }
 
+/**
+ * socket_connect - XXX
+ * @fd: YYY
+ * @sa: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* socket_connect: set up to connect to a socket fd. */
 static int socket_connect (int fd, struct sockaddr* sa)
 {
@@ -378,6 +481,13 @@ static int socket_connect (int fd, struct sockaddr* sa)
   return save_errno;
 }
 
+/**
+ * socket_new_conn - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: CONNECTION*
+ */
 /* socket_new_conn: allocate and initialise a new connection. */
 static CONNECTION* socket_new_conn (void)
 {
@@ -389,11 +499,29 @@ static CONNECTION* socket_new_conn (void)
   return conn;
 }
 
+/**
+ * raw_socket_close - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int raw_socket_close (CONNECTION *conn)
 {
   return close (conn->fd);
 }
 
+/**
+ * raw_socket_read - XXX
+ * @conn: YYY
+ * @buf:  YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int raw_socket_read (CONNECTION* conn, char* buf, size_t len)
 {
   int rc;
@@ -415,6 +543,16 @@ int raw_socket_read (CONNECTION* conn, char* buf, size_t len)
   return rc;
 }
 
+/**
+ * raw_socket_write - XXX
+ * @conn:  YYY
+ * @buf:   YYY
+ * @count: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int raw_socket_write (CONNECTION* conn, const char* buf, size_t count)
 {
   int rc;
@@ -436,6 +574,14 @@ int raw_socket_write (CONNECTION* conn, const char* buf, size_t count)
   return rc;
 }
 
+/**
+ * raw_socket_poll - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int raw_socket_poll (CONNECTION* conn)
 {
   fd_set rfds;
@@ -450,6 +596,14 @@ int raw_socket_poll (CONNECTION* conn)
   return select (conn->fd + 1, &rfds, NULL, NULL, &tv);
 }
 
+/**
+ * raw_socket_open - XXX
+ * @conn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int raw_socket_open (CONNECTION* conn)
 {
   int rc;

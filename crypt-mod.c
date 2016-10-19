@@ -33,6 +33,12 @@ struct crypt_module
 
 static crypt_module_t modules;
 
+/**
+ * crypto_module_register - XXX
+ * @specs: YYY
+ *
+ * DESCRIPTION
+ */
 /* Register a new crypto module. */
 void crypto_module_register (crypt_module_specs_t specs)
 {
@@ -45,6 +51,14 @@ void crypto_module_register (crypt_module_specs_t specs)
   modules = module_new;
 }
 
+/**
+ * crypto_module_lookup - XXX
+ * @identifier: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: crypt_module_specs_t
+ */
 /* Return the crypto module specs for IDENTIFIER.  This function is
    usually used via the CRYPT_MOD_CALL[_CHECK] macros. */
 crypt_module_specs_t crypto_module_lookup (int identifier)

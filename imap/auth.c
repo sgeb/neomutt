@@ -46,6 +46,14 @@ static const imap_auth_t imap_authenticators[] = {
   { NULL, NULL }
 };
 
+/**
+ * imap_authenticate - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_authenticate: Attempt to authenticate using either user-specified
  *   authentication method if specified, or any. */
 int imap_authenticate (IMAP_DATA* idata)

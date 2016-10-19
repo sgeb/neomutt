@@ -7,6 +7,15 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+/**
+ * strcasestr - XXX
+ * @s1: YYY
+ * @s2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *strcasestr(const char *s1, const char *s2)
 {
         register const char *s = s1;

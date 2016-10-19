@@ -35,6 +35,16 @@
 #include <ctype.h>
 #include <unistd.h>
 
+/**
+ * get_sort_str - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @method: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *get_sort_str (char *buf, size_t buflen, int method)
 {
   snprintf (buf, buflen, "%s%s%s",
@@ -46,6 +56,24 @@ static char *get_sort_str (char *buf, size_t buflen, int method)
 
 static void _menu_status_line (char *buf, size_t buflen, size_t col, int cols, MUTTMENU *menu, const char *p);
 
+/**
+ * status_format_str - XXX
+ * @buf:        YYY
+ * @buflen:     YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @prefix:     YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* %b = number of incoming folders with unread messages [option]
  * %d = number of deleted messages [option]
  * %f = full mailbox path
@@ -316,11 +344,31 @@ status_format_str (char *buf, size_t buflen, size_t col, int cols, char op, cons
   return (src);
 }
 
+/**
+ * _menu_status_line - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @col:    YYY
+ * @cols:   YYY
+ * @menu:   YYY
+ * @p:      YYY
+ *
+ * DESCRIPTION
+ */
 static void _menu_status_line (char *buf, size_t buflen, size_t col, int cols, MUTTMENU *menu, const char *p)
 {
   mutt_FormatString (buf, buflen, col, cols, p, status_format_str, (unsigned long) menu, 0);
 }
 
+/**
+ * menu_status_line - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ * @menu:   YYY
+ * @p:      YYY
+ *
+ * DESCRIPTION
+ */
 void menu_status_line (char *buf, size_t buflen, MUTTMENU *menu, const char *p)
 {
   mutt_FormatString (buf, buflen, 0,

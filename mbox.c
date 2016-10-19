@@ -48,6 +48,16 @@ struct m_update_t
   LOFF_T length;
 };
 
+/**
+ * mbox_lock_mailbox - XXX
+ * @ctx:   YYY
+ * @excl:  YYY
+ * @retry: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* parameters:
  * ctx - context to lock
  * excl - exclusive lock?
@@ -68,6 +78,12 @@ int mbox_lock_mailbox (CONTEXT *ctx, int excl, int retry)
   return (r);
 }
 
+/**
+ * mbox_unlock_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void mbox_unlock_mailbox (CONTEXT *ctx)
 {
   if (ctx->locked)
@@ -79,6 +95,14 @@ void mbox_unlock_mailbox (CONTEXT *ctx)
   }
 }
 
+/**
+ * mmdf_parse_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mmdf_parse_mailbox (CONTEXT *ctx)
 {
   char buf[HUGE_STRING];
@@ -223,6 +247,14 @@ int mmdf_parse_mailbox (CONTEXT *ctx)
   return (0);
 }
 
+/**
+ * mbox_parse_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Note that this function is also called when new mail is appended to the
  * currently open folder, and NOT just when the mailbox is initially read.
  *
@@ -413,6 +445,14 @@ int mbox_parse_mailbox (CONTEXT *ctx)
 
 #undef PREV
 
+/**
+ * mbox_open_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* open a mbox or mmdf style mailbox */
 static int mbox_open_mailbox (CONTEXT *ctx)
 {
@@ -442,6 +482,15 @@ static int mbox_open_mailbox (CONTEXT *ctx)
   return (rc);
 }
 
+/**
+ * mbox_open_mailbox_append - XXX
+ * @ctx:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mbox_open_mailbox_append (CONTEXT *ctx, int flags)
 {
   ctx->fp = safe_fopen (ctx->path, flags & MUTT_NEWFOLDER ? "w" : "a");
@@ -463,11 +512,29 @@ static int mbox_open_mailbox_append (CONTEXT *ctx, int flags)
   return 0;
 }
 
+/**
+ * mbox_close_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mbox_close_mailbox (CONTEXT *ctx)
 {
   return 0;
 }
 
+/**
+ * mbox_open_message - XXX
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mbox_open_message (CONTEXT *ctx,  MESSAGE *msg, int msgno)
 {
   msg->fp = ctx->fp;
@@ -475,6 +542,15 @@ static int mbox_open_message (CONTEXT *ctx,  MESSAGE *msg, int msgno)
   return 0;
 }
 
+/**
+ * mbox_close_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mbox_close_message (CONTEXT *ctx, MESSAGE *msg)
 {
   msg->fp = NULL;
@@ -482,6 +558,15 @@ static int mbox_close_message (CONTEXT *ctx, MESSAGE *msg)
   return 0;
 }
 
+/**
+ * mbox_commit_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mbox_commit_message (CONTEXT *ctx, MESSAGE *msg)
 {
   if (fputc ('\n', msg->fp) == EOF)
@@ -497,6 +582,15 @@ static int mbox_commit_message (CONTEXT *ctx, MESSAGE *msg)
   return 0;
 }
 
+/**
+ * mmdf_commit_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mmdf_commit_message (CONTEXT *ctx, MESSAGE *msg)
 {
   if (fputs (MMDF_SEP, msg->fp) == EOF)
@@ -512,12 +606,31 @@ static int mmdf_commit_message (CONTEXT *ctx, MESSAGE *msg)
   return 0;
 }
 
+/**
+ * mbox_open_new_message - XXX
+ * @msg:  YYY
+ * @dest: YYY
+ * @hdr:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mbox_open_new_message (MESSAGE *msg, CONTEXT *dest, HEADER *hdr)
 {
   msg->fp = dest->fp;
   return 0;
 }
 
+/**
+ * strict_addrcmp - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* return 1 if address lists are strictly identical */
 static int strict_addrcmp (const ADDRESS *a, const ADDRESS *b)
 {
@@ -536,6 +649,15 @@ static int strict_addrcmp (const ADDRESS *a, const ADDRESS *b)
   return (1);
 }
 
+/**
+ * strict_cmp_lists - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int strict_cmp_lists (const LIST *a, const LIST *b)
 {
   while (a && b)
@@ -552,6 +674,15 @@ static int strict_cmp_lists (const LIST *a, const LIST *b)
   return (1);
 }
 
+/**
+ * strict_cmp_envelopes - XXX
+ * @e1: YYY
+ * @e2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int strict_cmp_envelopes (const ENVELOPE *e1, const ENVELOPE *e2)
 {
   if (e1 && e2)
@@ -578,6 +709,15 @@ static int strict_cmp_envelopes (const ENVELOPE *e1, const ENVELOPE *e2)
   }
 }
 
+/**
+ * strict_cmp_parameters - XXX
+ * @p1: YYY
+ * @p2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int strict_cmp_parameters (const PARAMETER *p1, const PARAMETER *p2)
 {
   while (p1 && p2)
@@ -595,6 +735,15 @@ static int strict_cmp_parameters (const PARAMETER *p1, const PARAMETER *p2)
   return (1);
 }
 
+/**
+ * strict_cmp_bodies - XXX
+ * @b1: YYY
+ * @b2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int strict_cmp_bodies (const BODY *b1, const BODY *b2)
 {
   if (b1->type != b2->type ||
@@ -607,6 +756,15 @@ static int strict_cmp_bodies (const BODY *b1, const BODY *b2)
   return (1);
 }
 
+/**
+ * mbox_strict_cmp_headers - XXX
+ * @h1: YYY
+ * @h2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* return 1 if headers are strictly identical */
 int mbox_strict_cmp_headers (const HEADER *h1, const HEADER *h2)
 {
@@ -635,6 +793,15 @@ int mbox_strict_cmp_headers (const HEADER *h1, const HEADER *h2)
   }
 }
 
+/**
+ * mbox_check_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* check to see if the mailbox has changed on disk.
  *
  * return values:
@@ -749,6 +916,14 @@ static int mbox_check_mailbox (CONTEXT *ctx, int *index_hint)
   return (-1);
 }
 
+/**
+ * mbox_has_new - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Returns 1 if the mailbox has at least 1 new messages (not old)
  * otherwise returns 0.
@@ -763,6 +938,13 @@ static int mbox_has_new(CONTEXT *ctx)
   return 0;
 }
 
+/**
+ * mbox_reset_atime - XXX
+ * @ctx: YYY
+ * @st:  YYY
+ *
+ * DESCRIPTION
+ */
 /* if mailbox has at least 1 new message, sets mtime > atime of mailbox
  * so buffy check reports new mail */
 void mbox_reset_atime (CONTEXT *ctx, struct stat *st)
@@ -790,6 +972,15 @@ void mbox_reset_atime (CONTEXT *ctx, struct stat *st)
   utime (ctx->path, &utimebuf);
 }
 
+/**
+ * mbox_sync_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* return values:
  *	0	success
  *	-1	failure
@@ -1147,6 +1338,15 @@ bail:  /* Come here in case of disaster */
   return rc;
 }
 
+/**
+ * mutt_reopen_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_reopen_mailbox (CONTEXT *ctx, int *index_hint)
 {
   int (*cmp_headers) (const HEADER *, const HEADER *) = NULL;
@@ -1321,6 +1521,14 @@ int mutt_reopen_mailbox (CONTEXT *ctx, int *index_hint)
   return ((ctx->changed || msg_mod) ? MUTT_REOPENED : MUTT_NEW_MAIL);
 }
 
+/**
+ * mbox_check_empty - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Returns:
  * 1 if the mailbox is not empty

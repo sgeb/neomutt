@@ -43,6 +43,14 @@
 #include <string.h>
 #include <errno.h>
 
+/**
+ * mutt_get_tmp_attachment - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_get_tmp_attachment (BODY *a)
 {
   char type[STRING];
@@ -83,6 +91,14 @@ int mutt_get_tmp_attachment (BODY *a)
 }
 
 
+/**
+ * mutt_compose_attachment - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* return 1 if require full screen redraw, 0 otherwise */
 int mutt_compose_attachment (BODY *a)
 {
@@ -210,6 +226,14 @@ int mutt_compose_attachment (BODY *a)
   return rc;
 }
 
+/**
+ * mutt_edit_attachment - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* 
  * Currently, this only works for send mode, as it assumes that the 
  * BODY->filename actually contains the information.  I'm not sure
@@ -293,6 +317,14 @@ int mutt_edit_attachment (BODY *a)
 }
 
 
+/**
+ * mutt_check_lookup_list - XXX
+ * @b:    YYY
+ * @type: YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_check_lookup_list (BODY *b, char *type, int len)
 {
   LIST *t = MimeLookupList;
@@ -328,6 +360,19 @@ void mutt_check_lookup_list (BODY *b, char *type, int len)
   }
 }
 
+/**
+ * mutt_view_attachment - XXX
+ * @fp:     YYY
+ * @a:      YYY
+ * @flag:   YYY
+ * @hdr:    YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns -1 on error, 0 or the return code from mutt_do_pager() on success */
 int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
 			  ATTACHPTR **idx, short idxlen)
@@ -597,6 +642,17 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
   return rc;
 }
 
+/**
+ * mutt_pipe_attachment - XXX
+ * @fp:      YYY
+ * @b:       YYY
+ * @path:    YYY
+ * @outfile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns 1 on success, 0 on error */
 int mutt_pipe_attachment (FILE *fp, BODY *b, const char *path, char *outfile)
 {
@@ -688,6 +744,15 @@ bail:
   return rv;
 }
 
+/**
+ * mutt_save_attachment_open - XXX
+ * @path:  YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FILE*
+ */
 static FILE *
 mutt_save_attachment_open (char *path, int flags)
 {
@@ -699,6 +764,18 @@ mutt_save_attachment_open (char *path, int flags)
   return safe_fopen (path, "w");
 }
 
+/**
+ * mutt_save_attachment - XXX
+ * @fp:    YYY
+ * @m:     YYY
+ * @path:  YYY
+ * @flags: YYY
+ * @hdr:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns 0 on success, -1 on error */
 int mutt_save_attachment (FILE *fp, BODY *m, char *path, int flags, HEADER *hdr)
 {
@@ -809,6 +886,18 @@ int mutt_save_attachment (FILE *fp, BODY *m, char *path, int flags, HEADER *hdr)
   return 0;
 }
 
+/**
+ * mutt_decode_save_attachment - XXX
+ * @fp:         YYY
+ * @m:          YYY
+ * @path:       YYY
+ * @displaying: YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns 0 on success, -1 on error */
 int mutt_decode_save_attachment (FILE *fp, BODY *m, char *path,
 				 int displaying, int flags)
@@ -902,6 +991,15 @@ int mutt_decode_save_attachment (FILE *fp, BODY *m, char *path,
  *       attachment
  */
 
+/**
+ * mutt_print_attachment - XXX
+ * @fp: YYY
+ * @a:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_print_attachment (FILE *fp, BODY *a)
 {
   char newfile[_POSIX_PATH_MAX] = "";

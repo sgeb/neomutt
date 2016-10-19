@@ -55,6 +55,14 @@ HashAlgorithms[] =
   { -1, 	NULL }
 };
 
+/**
+ * pgp_hash_to_micalg - XXX
+ * @id: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *pgp_hash_to_micalg (short id)
 {
   int i;
@@ -65,6 +73,13 @@ static const char *pgp_hash_to_micalg (short id)
   return "x-unknown";
 }
 
+/**
+ * pgp_dearmor - XXX
+ * @in:  YYY
+ * @out: YYY
+ *
+ * DESCRIPTION
+ */
 static void pgp_dearmor (FILE *in, FILE *out)
 {
   char line[HUGE_STRING];
@@ -135,6 +150,15 @@ static void pgp_dearmor (FILE *in, FILE *out)
   mutt_decode_base64 (&state, end - start, 0, (iconv_t) -1);
 }
 
+/**
+ * pgp_mic_from_packet - XXX
+ * @p:   YYY
+ * @len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short pgp_mic_from_packet (unsigned char *p, size_t len)
 {
   /* is signature? */
@@ -158,6 +182,14 @@ static short pgp_mic_from_packet (unsigned char *p, size_t len)
   }
 }
 
+/**
+ * pgp_find_hash - XXX
+ * @fname: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short pgp_find_hash (const char *fname)
 {
   FILE *in = NULL;
@@ -204,6 +236,14 @@ static short pgp_find_hash (const char *fname)
   return rv;
 }
 
+/**
+ * pgp_micalg - XXX
+ * @fname: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *pgp_micalg (const char *fname)
 {
   return pgp_hash_to_micalg (pgp_find_hash (fname));

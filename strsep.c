@@ -20,6 +20,15 @@
 
 /* Taken from glibc 2.6.1 */
 
+/**
+ * strsep - XXX
+ * @stringp: YYY
+ * @delim:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *strsep (char **stringp, const char *delim)
 {
   char *begin, *end;

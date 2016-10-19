@@ -81,6 +81,12 @@ static char OldLastDir[_POSIX_PATH_MAX] = "";
 static char LastDir[_POSIX_PATH_MAX] = "";
 static char LastDirBackup[_POSIX_PATH_MAX] = "";
 
+/**
+ * destroy_state - XXX
+ * @state: YYY
+ *
+ * DESCRIPTION
+ */
 /* Frees up the memory allocated for the local-global variables.  */
 static void destroy_state (struct browser_state *state)
 {
@@ -97,6 +103,15 @@ static void destroy_state (struct browser_state *state)
   FREE (&state->entry);
 }
 
+/**
+ * browser_compare_subject - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_subject (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -111,6 +126,15 @@ static int browser_compare_subject (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare_desc - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_desc (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -121,6 +145,15 @@ static int browser_compare_desc (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare_date - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_date (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -131,6 +164,15 @@ static int browser_compare_date (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare_size - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_size (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -141,6 +183,15 @@ static int browser_compare_size (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare_count - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_count (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -157,6 +208,15 @@ static int browser_compare_count (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare_count_new - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int browser_compare_count_new (const void *a, const void *b)
 {
   struct folder_file *pa = (struct folder_file *) a;
@@ -173,6 +233,15 @@ static int browser_compare_count_new (const void *a, const void *b)
   return ((BrowserSort & SORT_REVERSE) ? -r : r);
 }
 
+/**
+ * browser_compare - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Wild compare function that calls the others. It's useful
  * because it provides a way to tell "../" is always on the
  * top of the list, independently of the sort method.
@@ -207,6 +276,12 @@ static int browser_compare (const void *a, const void *b)
   }
 }
 
+/**
+ * browser_sort - XXX
+ * @state: YYY
+ *
+ * DESCRIPTION
+ */
 /* Call to qsort using browser_compare function. Some
  * specific sort methods are not used via NNTP.
  */
@@ -230,6 +305,15 @@ static void browser_sort (struct browser_state *state)
   qsort (state->entry, state->entrylen, sizeof (struct folder_file), browser_compare);
 }
 
+/**
+ * link_is_dir - XXX
+ * @folder: YYY
+ * @path:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int link_is_dir (const char *folder, const char *path)
 {
   struct stat st;
@@ -243,6 +327,24 @@ static int link_is_dir (const char *folder, const char *path)
     return 0;
 }
 
+/**
+ * folder_format_str - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @fmt:        YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *
 folder_format_str (char *dest, size_t destlen, size_t col, int cols, char op, const char *src,
 		   const char *fmt, const char *ifstring, const char *elsestring,
@@ -450,6 +552,24 @@ folder_format_str (char *dest, size_t destlen, size_t col, int cols, char op, co
   return (src);
 }
 
+/**
+ * newsgroup_format_str - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @fmt:        YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 #ifdef USE_NNTP
 static const char *
 newsgroup_format_str (char *dest, size_t destlen, size_t col, int cols, char op, const char *src,
@@ -553,6 +673,18 @@ newsgroup_format_str (char *dest, size_t destlen, size_t col, int cols, char op,
 }
 #endif /* USE_NNTP */
 
+/**
+ * add_folder - XXX
+ * @m:     YYY
+ * @state: YYY
+ * @name:  YYY
+ * @desc:  YYY
+ * @s:     YYY
+ * @b:     YYY
+ * @data:  YYY
+ *
+ * DESCRIPTION
+ */
 static void add_folder (MUTTMENU *m, struct browser_state *state,
 			const char *name, const char *desc, const struct stat *s, BUFFY *b,
 			void *data)
@@ -602,6 +734,13 @@ static void add_folder (MUTTMENU *m, struct browser_state *state,
   (state->entrylen)++;
 }
 
+/**
+ * init_state - XXX
+ * @state: YYY
+ * @menu:  YYY
+ *
+ * DESCRIPTION
+ */
 static void init_state (struct browser_state *state, MUTTMENU *menu)
 {
   state->entrylen = 0;
@@ -614,6 +753,17 @@ static void init_state (struct browser_state *state, MUTTMENU *menu)
     menu->data = state->entry;
 }
 
+/**
+ * examine_directory - XXX
+ * @menu:   YYY
+ * @state:  YYY
+ * @d:      YYY
+ * @prefix: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* get list of all files/newsgroups with mask */
 static int examine_directory (MUTTMENU *menu, struct browser_state *state,
 			      char *d, const char *prefix)
@@ -717,6 +867,15 @@ static int examine_directory (MUTTMENU *menu, struct browser_state *state,
   return 0;
 }
 
+/**
+ * examine_vfolders - XXX
+ * @menu:  YYY
+ * @state: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NOTMUCH
 static int examine_vfolders (MUTTMENU *menu, struct browser_state *state)
 {
@@ -743,6 +902,15 @@ static int examine_vfolders (MUTTMENU *menu, struct browser_state *state)
 }
 #endif
 
+/**
+ * examine_mailboxes - XXX
+ * @menu:  YYY
+ * @state: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* get list of mailboxes/subscribed newsgroups */
 static int examine_mailboxes (MUTTMENU *menu, struct browser_state *state)
 {
@@ -841,6 +1009,16 @@ static int examine_mailboxes (MUTTMENU *menu, struct browser_state *state)
   return 0;
 }
 
+/**
+ * select_file_search - XXX
+ * @menu: YYY
+ * @re:   YYY
+ * @n:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int select_file_search (MUTTMENU *menu, regex_t *re, int n)
 {
 #ifdef USE_NNTP
@@ -850,6 +1028,16 @@ static int select_file_search (MUTTMENU *menu, regex_t *re, int n)
   return (regexec (re, ((struct folder_file *) menu->data)[n].name, 0, NULL, 0));
 }
 
+/**
+ * select_vfolder_search - XXX
+ * @menu: YYY
+ * @re:   YYY
+ * @n:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef USE_NOTMUCH
 static int select_vfolder_search (MUTTMENU *menu, regex_t *re, int n)
 {
@@ -857,6 +1045,15 @@ static int select_vfolder_search (MUTTMENU *menu, regex_t *re, int n)
 }
 #endif
 
+/**
+ * folder_entry - XXX
+ * @s:    YYY
+ * @slen: YYY
+ * @menu: YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 static void folder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
 {
   FOLDER folder;
@@ -874,6 +1071,15 @@ static void folder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
       (unsigned long) &folder, MUTT_FORMAT_ARROWCURSOR);
 }
 
+/**
+ * vfolder_entry - XXX
+ * @s:    YYY
+ * @slen: YYY
+ * @menu: YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 #ifdef USE_NOTMUCH
 static void vfolder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
 {
@@ -887,6 +1093,13 @@ static void vfolder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
 }
 #endif
 
+/**
+ * mutt_browser_highlight_default - XXX
+ * @state: YYY
+ * @menu:  YYY
+ *
+ * DESCRIPTION
+ */
 /* Public function
  *
  * This function takes a menu and a state and defines the current
@@ -906,6 +1119,16 @@ void mutt_browser_highlight_default (struct browser_state *state, MUTTMENU *menu
     menu->current = 0;
 }
 
+/**
+ * init_menu - XXX
+ * @state:    YYY
+ * @menu:     YYY
+ * @title:    YYY
+ * @titlelen: YYY
+ * @buffy:    YYY
+ *
+ * DESCRIPTION
+ */
 static void init_menu (struct browser_state *state, MUTTMENU *menu, char *title,
 		       size_t titlelen, int buffy)
 {
@@ -995,6 +1218,16 @@ static void init_menu (struct browser_state *state, MUTTMENU *menu, char *title,
   menu->redraw = REDRAW_FULL;
 }
 
+/**
+ * file_tag - XXX
+ * @menu: YYY
+ * @n:    YYY
+ * @m:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int file_tag (MUTTMENU *menu, int n, int m)
 {
   struct folder_file *ff = &(((struct folder_file *)menu->data)[n]);
@@ -1011,6 +1244,12 @@ static int file_tag (MUTTMENU *menu, int n, int m)
   return ff->tagged - ot;
 }
 
+/**
+ * mutt_browser_select_dir - XXX
+ * @f: YYY
+ *
+ * DESCRIPTION
+ */
 /* Public function
  *
  * This function helps the browser to know which directory has
@@ -1028,6 +1267,16 @@ void mutt_browser_select_dir (char *f)
   mutt_get_parent_path (LastDir, OldLastDir, sizeof (LastDir));
 }
 
+/**
+ * _mutt_select_file - XXX
+ * @f:        YYY
+ * @flen:     YYY
+ * @flags:    YYY
+ * @files:    YYY
+ * @numfiles: YYY
+ *
+ * DESCRIPTION
+ */
 void _mutt_select_file (char *f, size_t flen, int flags, char ***files, int *numfiles)
 {
   char buf[_POSIX_PATH_MAX];

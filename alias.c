@@ -29,6 +29,14 @@
 #include <ctype.h>
 #include <errno.h>
 
+/**
+ * mutt_lookup_alias - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 ADDRESS *mutt_lookup_alias (const char *s)
 {
   ALIAS *t = Aliases;
@@ -39,6 +47,15 @@ ADDRESS *mutt_lookup_alias (const char *s)
   return (NULL);   /* no such alias */
 }
 
+/**
+ * mutt_expand_aliases_r - XXX
+ * @a:    YYY
+ * @expn: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 static ADDRESS *mutt_expand_aliases_r (ADDRESS *a, LIST **expn)
 {
   ADDRESS *head = NULL, *last = NULL, *t, *w;
@@ -124,6 +141,14 @@ static ADDRESS *mutt_expand_aliases_r (ADDRESS *a, LIST **expn)
   return (head);
 }
 
+/**
+ * mutt_expand_aliases - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 ADDRESS *mutt_expand_aliases (ADDRESS *a)
 {
   ADDRESS *t;
@@ -134,6 +159,12 @@ ADDRESS *mutt_expand_aliases (ADDRESS *a)
   return (mutt_remove_duplicates (t));
 }
 
+/**
+ * mutt_expand_aliases_env - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_expand_aliases_env (ENVELOPE *env)
 {
   env->from = mutt_expand_aliases (env->from);
@@ -166,6 +197,13 @@ void mutt_expand_aliases_env (ENVELOPE *env)
  * variable.
  */
 
+/**
+ * write_safe_address - XXX
+ * @fp: YYY
+ * @s:  YYY
+ *
+ * DESCRIPTION
+ */
 static void write_safe_address (FILE *fp, char *s)
 {
   while (*s)
@@ -178,6 +216,15 @@ static void write_safe_address (FILE *fp, char *s)
   }
 }
 
+/**
+ * mutt_get_address - XXX
+ * @env:  YYY
+ * @pfxp: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 ADDRESS *mutt_get_address (ENVELOPE *env, char **pfxp)
 {
   ADDRESS *adr;
@@ -212,6 +259,13 @@ ADDRESS *mutt_get_address (ENVELOPE *env, char **pfxp)
   return adr;
 }
 
+/**
+ * recode_buf - XXX
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ */
 static void recode_buf (char *buf, size_t buflen)
 {
   char *s;
@@ -226,6 +280,13 @@ static void recode_buf (char *buf, size_t buflen)
   FREE(&s);
 }
 
+/**
+ * mutt_create_alias - XXX
+ * @cur:  YYY
+ * @iadr: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_create_alias (ENVELOPE *cur, ADDRESS *iadr)
 {
   ALIAS *new, *t;
@@ -401,6 +462,16 @@ retry_name:
  * the RFC 822 and the mutt configuration parser are permitted.
  */
 
+/**
+ * mutt_check_alias_name - XXX
+ * @s:       YYY
+ * @dest:    YYY
+ * @destlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_check_alias_name (const char *s, char *dest, size_t destlen)
 {
   wchar_t wc;
@@ -442,6 +513,14 @@ int mutt_check_alias_name (const char *s, char *dest, size_t destlen)
   return rv;
 }
 
+/**
+ * alias_reverse_lookup - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 /*
  * This routine looks to see if the user has an alias defined for the given
  * address.
@@ -454,6 +533,12 @@ ADDRESS *alias_reverse_lookup (ADDRESS *a)
   return hash_find (ReverseAlias, a->mailbox);
 }
 
+/**
+ * mutt_alias_add_reverse - XXX
+ * @t: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_alias_add_reverse (ALIAS *t)
 {
   ADDRESS *ap;
@@ -467,6 +552,12 @@ void mutt_alias_add_reverse (ALIAS *t)
   }
 }
 
+/**
+ * mutt_alias_delete_reverse - XXX
+ * @t: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_alias_delete_reverse (ALIAS *t)
 {
   ADDRESS *ap;
@@ -480,6 +571,15 @@ void mutt_alias_delete_reverse (ALIAS *t)
   }
 }
 
+/**
+ * mutt_alias_complete - XXX
+ * @s:      YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* alias_complete() -- alias completion routine
  *
  * given a partial alias, this routine attempts to fill in the alias
@@ -591,6 +691,16 @@ int mutt_alias_complete (char *s, size_t buflen)
   return 0;
 }
 
+/**
+ * string_is_address - XXX
+ * @str: YYY
+ * @u:   YYY
+ * @d:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int string_is_address(const char *str, const char *u, const char *d)
 {
   char buf[LONG_STRING];
@@ -602,6 +712,14 @@ static int string_is_address(const char *str, const char *u, const char *d)
   return 0;
 }
 
+/**
+ * mutt_addr_is_user - XXX
+ * @addr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns TRUE if the given address belongs to the user. */
 int mutt_addr_is_user (ADDRESS *addr)
 {

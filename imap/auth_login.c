@@ -26,6 +26,15 @@
 #include "imap_private.h"
 #include "auth.h"
 
+/**
+ * imap_auth_login - XXX
+ * @idata:  YYY
+ * @method: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: imap_auth_res_t
+ */
 /* imap_auth_login: Plain LOGIN support */
 imap_auth_res_t imap_auth_login (IMAP_DATA* idata, const char* method)
 {

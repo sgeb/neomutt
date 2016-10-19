@@ -33,6 +33,16 @@
  */
 static LIST *LabelList = NULL;
 
+/**
+ * mutt_edit_headers - XXX
+ * @editor: YYY
+ * @body:   YYY
+ * @msg:    YYY
+ * @fcc:    YYY
+ * @fcclen: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_edit_headers (const char *editor,
 			const char *body,
 			HEADER *msg,
@@ -221,6 +231,14 @@ void mutt_edit_headers (const char *editor,
 }
 
 /**
+ * label_add - XXX
+ * @label: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: LIST*
+ */
+/**
  * label_add - Add to a list of all labels
  * @label: Label name to keep
  *
@@ -251,6 +269,12 @@ static LIST *label_add (const char *label)
 }
 
 /**
+ * label_delete - XXX
+ * @label: YYY
+ *
+ * DESCRIPTION
+ */
+/**
  * label_delete - Delete from a list of all labels
  * @label: Label name to remove
  *
@@ -279,6 +303,12 @@ static void label_delete (const char *label)
   }
 }
 
+/**
+ * mutt_label_ref_dec - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_label_ref_dec(ENVELOPE *env)
 {
   uintptr_t count;
@@ -310,6 +340,12 @@ void mutt_label_ref_dec(ENVELOPE *env)
   }
 }
 
+/**
+ * mutt_label_ref_inc - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_label_ref_inc(ENVELOPE *env)
 {
   uintptr_t count;
@@ -342,6 +378,15 @@ void mutt_label_ref_inc(ENVELOPE *env)
   }
 }
 
+/**
+ * label_message - XXX
+ * @hdr: YYY
+ * @new: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * set labels on a message
  */
@@ -388,6 +433,14 @@ static int label_message(HEADER *hdr, char *new)
   return hdr->changed = hdr->label_changed = 1;
 }
 
+/**
+ * mutt_label_message - XXX
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_label_message(HEADER *hdr)
 {
   char buf[LONG_STRING], *new;
@@ -439,6 +492,12 @@ int mutt_label_message(HEADER *hdr)
   return changed;
 }
 
+/**
+ * mutt_scan_labels - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 /* scan a context (mailbox) and hash all labels we find */
 void mutt_scan_labels(CONTEXT *ctx)
 {
@@ -453,6 +512,17 @@ void mutt_scan_labels(CONTEXT *ctx)
 }
 
 
+/**
+ * mutt_labels - XXX
+ * @dst: YYY
+ * @sz:  YYY
+ * @env: YYY
+ * @sep: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_labels(char *dst, int sz, ENVELOPE *env, char *sep)
 {
   static char sbuf[HUGE_STRING];

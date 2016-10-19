@@ -46,12 +46,32 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+/**
+ * imap_set_flag - XXX
+ * @idata:  YYY
+ * @aclbit: YYY
+ * @flag:   YYY
+ * @str:    YYY
+ * @flags:  YYY
+ * @flsize: YYY
+ *
+ * DESCRIPTION
+ */
 /* imap forward declarations */
 static char* imap_get_flags (LIST** hflags, char* s);
 static int imap_check_capabilities (IMAP_DATA* idata);
 static void imap_set_flag (IMAP_DATA* idata, int aclbit, int flag,
 			   const char* str, char* flags, size_t flsize);
 
+/**
+ * imap_access - XXX
+ * @path:  YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_access: Check permissions on an IMAP mailbox.
  * TODO: ACL checks. Right now we assume if it exists we can
  *       mess with it. */
@@ -113,6 +133,15 @@ int imap_access (const char* path, int flags)
   return 0;
 }
 
+/**
+ * imap_create_mailbox - XXX
+ * @idata:   YYY
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_create_mailbox (IMAP_DATA* idata, char* mailbox)
 {
   char buf[LONG_STRING], mbox[LONG_STRING];
@@ -129,6 +158,16 @@ int imap_create_mailbox (IMAP_DATA* idata, char* mailbox)
   return 0;
 }
 
+/**
+ * imap_rename_mailbox - XXX
+ * @idata:   YYY
+ * @mx:      YYY
+ * @newname: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_rename_mailbox (IMAP_DATA* idata, IMAP_MBOX* mx, const char* newname)
 {
   char oldmbox[LONG_STRING];
@@ -146,6 +185,15 @@ int imap_rename_mailbox (IMAP_DATA* idata, IMAP_MBOX* mx, const char* newname)
   return 0;
 }
 
+/**
+ * imap_delete_mailbox - XXX
+ * @ctx: YYY
+ * @mx:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_delete_mailbox (CONTEXT* ctx, IMAP_MBOX mx)
 {
   char buf[LONG_STRING], mbox[LONG_STRING];
@@ -171,6 +219,11 @@ int imap_delete_mailbox (CONTEXT* ctx, IMAP_MBOX mx)
   return 0;
 }
 
+/**
+ * imap_logout_all - XXX
+ *
+ * DESCRIPTION
+ */
 /* imap_logout_all: close all open connections. Quick and dirty until we can
  *   make sure we've got all the context we need. */
 void imap_logout_all (void)
@@ -196,6 +249,17 @@ void imap_logout_all (void)
   }
 }
 
+/**
+ * imap_read_literal - XXX
+ * @fp:    YYY
+ * @idata: YYY
+ * @bytes: YYY
+ * @pbar:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_read_literal: read bytes bytes from server into file. Not explicitly
  *   buffered, relies on FILE buffering. NOTE: strips \r from \r\n.
  *   Apparently even literals use \r\n-terminated strings ?! */
@@ -243,6 +307,12 @@ int imap_read_literal (FILE* fp, IMAP_DATA* idata, long bytes, progress_t* pbar)
   return 0;
 }
 
+/**
+ * imap_expunge_mailbox - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ */
 /* imap_expunge_mailbox: Purge IMAP portion of expunged messages from the
  *   context. Must not be done while something has a handle on any headers
  *   (eg inside pager or editor). That is, check IMAP_REOPEN_ALLOW. */
@@ -294,6 +364,14 @@ void imap_expunge_mailbox (IMAP_DATA* idata)
   mutt_sort_headers (idata->ctx, 1);
 }
 
+/**
+ * imap_check_capabilities - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_check_capabilities: make sure we can log in to this server. */
 static int imap_check_capabilities (IMAP_DATA* idata)
 {
@@ -315,6 +393,15 @@ static int imap_check_capabilities (IMAP_DATA* idata)
   return 0;
 }
 
+/**
+ * imap_conn_find - XXX
+ * @account: YYY
+ * @flags:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: IMAP_DATA*
+ */
 /* imap_conn_find: Find an open IMAP connection matching account, or open
  *   a new one if none can be found. */
 IMAP_DATA* imap_conn_find (const ACCOUNT* account, int flags)
@@ -401,6 +488,14 @@ IMAP_DATA* imap_conn_find (const ACCOUNT* account, int flags)
   return idata;
 }
 
+/**
+ * imap_open_connection - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_open_connection (IMAP_DATA* idata)
 {
   char buf[LONG_STRING];
@@ -486,6 +581,12 @@ int imap_open_connection (IMAP_DATA* idata)
   return -1;
 }
 
+/**
+ * imap_close_connection - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ */
 void imap_close_connection(IMAP_DATA* idata)
 {
   if (idata->state != IMAP_DISCONNECTED)
@@ -497,6 +598,15 @@ void imap_close_connection(IMAP_DATA* idata)
   memset (idata->cmds, 0, sizeof (IMAP_COMMAND) * idata->cmdslots);
 }
 
+/**
+ * imap_get_flags - XXX
+ * @hflags: YYY
+ * @s:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* imap_get_flags: Make a simple list out of a FLAGS response.
  *   return stream following FLAGS response */
 static char* imap_get_flags (LIST** hflags, char* s)
@@ -554,6 +664,14 @@ static char* imap_get_flags (LIST** hflags, char* s)
   return s;
 }
 
+/**
+ * imap_open_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int imap_open_mailbox (CONTEXT* ctx)
 {
   IMAP_DATA *idata;
@@ -771,6 +889,15 @@ static int imap_open_mailbox (CONTEXT* ctx)
   return -1;
 }
 
+/**
+ * imap_open_mailbox_append - XXX
+ * @ctx:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int imap_open_mailbox_append (CONTEXT *ctx, int flags)
 {
   IMAP_DATA *idata;
@@ -815,6 +942,12 @@ static int imap_open_mailbox_append (CONTEXT *ctx, int flags)
   return 0;
 }
 
+/**
+ * imap_logout - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ */
 /* imap_logout: Gracefully log out of server. */
 void imap_logout (IMAP_DATA** idata)
 {
@@ -829,6 +962,16 @@ void imap_logout (IMAP_DATA** idata)
   imap_free_idata (idata);
 }
 
+/**
+ * imap_open_new_message - XXX
+ * @msg:  YYY
+ * @dest: YYY
+ * @hdr:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int imap_open_new_message (MESSAGE *msg, CONTEXT *dest, HEADER *hdr)
 {
   char tmp[_POSIX_PATH_MAX];
@@ -853,6 +996,15 @@ static void imap_set_flag (IMAP_DATA* idata, int aclbit, int flag,
       safe_strcat (flags, flsize, str);
 }
 
+/**
+ * imap_has_flag - XXX
+ * @flag_list: YYY
+ * @flag:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_has_flag: do a caseless comparison of the flag against a flag list,
 *   return 1 if found or flag list has '\*', 0 otherwise */
 int imap_has_flag (LIST* flag_list, const char* flag)
@@ -875,6 +1027,19 @@ int imap_has_flag (LIST* flag_list, const char* flag)
   return 0;
 }
 
+/**
+ * imap_make_msg_set - XXX
+ * @idata:   YYY
+ * @buf:     YYY
+ * @flag:    YYY
+ * @changed: YYY
+ * @invert:  YYY
+ * @pos:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Note: headers must be in SORT_ORDER. See imap_exec_msgset for args.
  * Pos is an opaque pointer a la strtok. It should be 0 at first call. */
 static int imap_make_msg_set (IMAP_DATA* idata, BUFFER* buf, int flag,
@@ -962,6 +1127,19 @@ static int imap_make_msg_set (IMAP_DATA* idata, BUFFER* buf, int flag,
   return count;
 }
 
+/**
+ * imap_exec_msgset - XXX
+ * @idata:   YYY
+ * @pre:     YYY
+ * @post:    YYY
+ * @flag:    YYY
+ * @changed: YYY
+ * @invert:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Prepares commands for all messages matching conditions (must be flushed
  * with imap_exec)
  * Params:
@@ -1037,6 +1215,14 @@ out:
   return rc;
 }
 
+/**
+ * compare_flags - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns 0 if mutt's flags match cached server flags */
 static int compare_flags (HEADER* h)
 {
@@ -1056,6 +1242,17 @@ static int compare_flags (HEADER* h)
   return 0;
 }
 
+/**
+ * imap_sync_message - XXX
+ * @idata:        YYY
+ * @hdr:          YYY
+ * @cmd:          YYY
+ * @err_continue: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Update the IMAP server to reflect the flags a single message.  */
 int imap_sync_message (IMAP_DATA *idata, HEADER *hdr, BUFFER *cmd,
 		       int *err_continue)
@@ -1134,6 +1331,17 @@ int imap_sync_message (IMAP_DATA *idata, HEADER *hdr, BUFFER *cmd,
   return 0;
 }
 
+/**
+ * sync_helper - XXX
+ * @idata: YYY
+ * @right: YYY
+ * @flag:  YYY
+ * @name:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int sync_helper (IMAP_DATA* idata, int right, int flag, const char* name)
 {
   int count = 0;
@@ -1162,6 +1370,16 @@ static int sync_helper (IMAP_DATA* idata, int right, int flag, const char* name)
   return count;
 }
 
+/**
+ * imap_sync_mailbox - XXX
+ * @ctx:        YYY
+ * @expunge:    YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* update the IMAP server to reflect message changes done within mutt.
  * Arguments
  *   ctx: the current context
@@ -1360,6 +1578,14 @@ int imap_sync_mailbox (CONTEXT* ctx, int expunge, int* index_hint)
   return rc;
 }
 
+/**
+ * imap_close_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_close_mailbox: clean up IMAP data in CONTEXT */
 int imap_close_mailbox (CONTEXT* ctx)
 {
@@ -1408,6 +1634,16 @@ int imap_close_mailbox (CONTEXT* ctx)
   return 0;
 }
 
+/**
+ * imap_check_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ * @force:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* use the NOOP or IDLE command to poll for new mail
  *
  * return values:
@@ -1470,6 +1706,15 @@ int imap_check_mailbox (CONTEXT *ctx, int *index_hint, int force)
   return result;
 }
 
+/**
+ * imap_check_mailbox_reopen - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int imap_check_mailbox_reopen (CONTEXT *ctx, int *index_hint)
 {
   int rc;
@@ -1481,6 +1726,17 @@ static int imap_check_mailbox_reopen (CONTEXT *ctx, int *index_hint)
   return rc;
 }
 
+/**
+ * imap_get_mailbox - XXX
+ * @path:   YYY
+ * @hidata: YYY
+ * @buf:    YYY
+ * @blen:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* split path into (idata,mailbox name) */
 static int imap_get_mailbox (const char* path, IMAP_DATA** hidata, char* buf, size_t blen)
 {
@@ -1506,6 +1762,15 @@ static int imap_get_mailbox (const char* path, IMAP_DATA** hidata, char* buf, si
   return 0;
 }
 
+/**
+ * imap_buffy_check - XXX
+ * @force:       YYY
+ * @check_stats: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* check for new mail in any subscribed mailboxes. Given a list of mailboxes
  * rather than called once for each so that it can batch the commands and
  * save on round trips. Returns number of mailboxes with new mail. */
@@ -1598,6 +1863,15 @@ int imap_buffy_check (int force, int check_stats)
   return buffies;
 }
 
+/**
+ * imap_status - XXX
+ * @path:  YYY
+ * @queue: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_status: returns count of messages in mailbox, or -1 on error.
  * if queue != 0, queue the command and expect it to have been run
  * on the next call (for pipelining the postponed count) */
@@ -1644,6 +1918,16 @@ int imap_status (char* path, int queue)
   return 0;
 }
 
+/**
+ * imap_mboxcache_get - XXX
+ * @idata:  YYY
+ * @mbox:   YYY
+ * @create: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: IMAP_STATUS*
+ */
 /* return cached mailbox stats or NULL if create is 0 */
 IMAP_STATUS* imap_mboxcache_get (IMAP_DATA* idata, const char* mbox, int create)
 {
@@ -1704,6 +1988,12 @@ IMAP_STATUS* imap_mboxcache_get (IMAP_DATA* idata, const char* mbox, int create)
   return status;
 }
 
+/**
+ * imap_mboxcache_free - XXX
+ * @idata: YYY
+ *
+ * DESCRIPTION
+ */
 void imap_mboxcache_free (IMAP_DATA* idata)
 {
   LIST* cur;
@@ -1719,6 +2009,15 @@ void imap_mboxcache_free (IMAP_DATA* idata)
   mutt_free_list (&idata->mboxcache);
 }
 
+/**
+ * do_search - XXX
+ * @search:  YYY
+ * @allpats: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns number of patterns in the search that should be done server-side
  * (eg are full-text) */
 static int do_search (const pattern_t* search, int allpats)
@@ -1748,6 +2047,15 @@ static int do_search (const pattern_t* search, int allpats)
   return rc;
 }
 
+/**
+ * imap_compile_search - XXX
+ * @pat: YYY
+ * @buf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* convert mutt pattern_t to IMAP SEARCH command containing only elements
  * that require full-text search (mutt already has what it needs for most
  * match types, and does a better job (eg server doesn't support regexps). */
@@ -1834,6 +2142,15 @@ static int imap_compile_search (const pattern_t* pat, BUFFER* buf)
   return 0;
 }
 
+/**
+ * imap_search - XXX
+ * @ctx: YYY
+ * @pat: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_search (CONTEXT* ctx, const pattern_t* pat)
 {
   BUFFER buf;
@@ -1863,6 +2180,15 @@ int imap_search (CONTEXT* ctx, const pattern_t* pat)
   return 0;
 }
 
+/**
+ * imap_subscribe - XXX
+ * @path:      YYY
+ * @subscribe: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_subscribe (char *path, int subscribe)
 {
   IMAP_DATA *idata;
@@ -1921,6 +2247,17 @@ int imap_subscribe (char *path, int subscribe)
   return -1;
 }
 
+/**
+ * longest_common_prefix - XXX
+ * @dest:  YYY
+ * @src:   YYY
+ * @start: YYY
+ * @dlen:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* trim dest to the length of the longest prefix it shares with src,
  * returning the length of the trimmed string */
 static int
@@ -1935,6 +2272,15 @@ longest_common_prefix (char *dest, const char* src, int start, size_t dlen)
   return pos;
 }
 
+/**
+ * imap_complete_hosts - XXX
+ * @dest: YYY
+ * @len:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* look for IMAP URLs to complete from defined mailboxes. Could be extended
  * to complete over open connections and account/folder hooks too. */
 static int
@@ -1988,6 +2334,16 @@ imap_complete_hosts (char *dest, size_t len)
   return rc;
 }
 
+/**
+ * imap_complete - XXX
+ * @dest: YYY
+ * @dlen: YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_complete: given a partial IMAP folder path, return a string which
  *   adds as much to the path as is unique */
 int imap_complete(char* dest, size_t dlen, char* path) {
@@ -2077,6 +2433,15 @@ int imap_complete(char* dest, size_t dlen, char* path) {
   return -1;
 }
 
+/**
+ * imap_fast_trash - XXX
+ * @ctx:  YYY
+ * @dest: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_fast_trash: use server COPY command to copy deleted
  * messages to the trash folder.
  *   Return codes:

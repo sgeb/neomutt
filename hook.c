@@ -47,6 +47,17 @@ static HOOK *Hooks = NULL;
 
 static int current_hook_type = 0;
 
+/**
+ * mutt_parse_hook - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_hook (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   HOOK *ptr;
@@ -227,6 +238,12 @@ error:
   return (-1);
 }
 
+/**
+ * delete_hook - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 static void delete_hook (HOOK *h)
 {
   FREE (&h->command);
@@ -239,6 +256,12 @@ static void delete_hook (HOOK *h)
   FREE (&h);
 }
 
+/**
+ * delete_hooks - XXX
+ * @type: YYY
+ *
+ * DESCRIPTION
+ */
 /* Deletes all hooks of type ``type'', or all defined hooks if ``type'' is 0 */
 static void delete_hooks (int type)
 {
@@ -266,6 +289,17 @@ static void delete_hooks (int type)
   }
 }
 
+/**
+ * mutt_parse_unhook - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_unhook (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   while (MoreArgs (s))
@@ -304,6 +338,12 @@ int mutt_parse_unhook (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return 0;
 }
 
+/**
+ * mutt_folder_hook - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_folder_hook (char *path)
 {
   HOOK *tmp = Hooks;
@@ -343,6 +383,15 @@ void mutt_folder_hook (char *path)
   current_hook_type = 0;
 }
 
+/**
+ * mutt_find_hook - XXX
+ * @type: YYY
+ * @pat:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_find_hook (int type, const char *pat)
 {
   HOOK *tmp = Hooks;
@@ -356,6 +405,14 @@ char *mutt_find_hook (int type, const char *pat)
   return (NULL);
 }
 
+/**
+ * mutt_message_hook - XXX
+ * @ctx:  YYY
+ * @hdr:  YYY
+ * @type: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_message_hook (CONTEXT *ctx, HEADER *hdr, int type)
 {
   BUFFER err, token;
@@ -391,6 +448,18 @@ void mutt_message_hook (CONTEXT *ctx, HEADER *hdr, int type)
   current_hook_type = 0;
 }
 
+/**
+ * mutt_addr_hook - XXX
+ * @path:    YYY
+ * @pathlen: YYY
+ * @type:    YYY
+ * @ctx:     YYY
+ * @hdr:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 mutt_addr_hook (char *path, size_t pathlen, int type, CONTEXT *ctx, HEADER *hdr)
 {
@@ -413,6 +482,14 @@ mutt_addr_hook (char *path, size_t pathlen, int type, CONTEXT *ctx, HEADER *hdr)
   return -1;
 }
 
+/**
+ * mutt_default_save - XXX
+ * @path:    YYY
+ * @pathlen: YYY
+ * @hdr:     YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_default_save (char *path, size_t pathlen, HEADER *hdr)
 {
   *path = 0;
@@ -441,6 +518,14 @@ void mutt_default_save (char *path, size_t pathlen, HEADER *hdr)
   }
 }
 
+/**
+ * mutt_select_fcc - XXX
+ * @path:    YYY
+ * @pathlen: YYY
+ * @hdr:     YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_select_fcc (char *path, size_t pathlen, HEADER *hdr)
 {
   ADDRESS *adr;
@@ -464,6 +549,15 @@ void mutt_select_fcc (char *path, size_t pathlen, HEADER *hdr)
   mutt_pretty_mailbox (path, pathlen);
 }
 
+/**
+ * _mutt_string_hook - XXX
+ * @match: YYY
+ * @hook:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *_mutt_string_hook (const char *match, int hook)
 {
   HOOK *tmp = Hooks;
@@ -477,6 +571,15 @@ static char *_mutt_string_hook (const char *match, int hook)
   return (NULL);
 }
 
+/**
+ * _mutt_list_hook - XXX
+ * @match: YYY
+ * @hook:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: LIST*
+ */
 static LIST *_mutt_list_hook (const char *match, int hook)
 {
   HOOK *tmp = Hooks;
@@ -491,21 +594,51 @@ static LIST *_mutt_list_hook (const char *match, int hook)
   return (matches);
 }
 
+/**
+ * mutt_charset_hook - XXX
+ * @chs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_charset_hook (const char *chs)
 {
   return _mutt_string_hook (chs, MUTT_CHARSETHOOK);
 }
 
+/**
+ * mutt_iconv_hook - XXX
+ * @chs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_iconv_hook (const char *chs)
 {
   return _mutt_string_hook (chs, MUTT_ICONVHOOK);
 }
 
+/**
+ * mutt_crypt_hook - XXX
+ * @adr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: LIST*
+ */
 LIST *mutt_crypt_hook (ADDRESS *adr)
 {
   return _mutt_list_hook (adr->mailbox, MUTT_CRYPTHOOK);
 }
 
+/**
+ * mutt_account_hook - XXX
+ * @url: YYY
+ *
+ * DESCRIPTION
+ */
 #ifdef USE_SOCKET
 void mutt_account_hook (const char* url)
 {
@@ -555,6 +688,11 @@ void mutt_account_hook (const char* url)
 }
 #endif
 
+/**
+ * mutt_timeout_hook - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_timeout_hook (void)
 {
   HOOK *hook;

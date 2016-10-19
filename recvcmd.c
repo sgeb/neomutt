@@ -35,6 +35,15 @@
  * on message/rfc822 attachments
  */
 
+/**
+ * check_msg - XXX
+ * @b:   YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short check_msg (BODY * b, short err)
 {
   if (!mutt_is_message_type (b->type, b->subtype))
@@ -46,6 +55,17 @@ static short check_msg (BODY * b, short err)
   return 0;
 }
 
+/**
+ * check_all_msg - XXX
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @cur:    YYY
+ * @err:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short check_all_msg (ATTACHPTR ** idx, short idxlen,
 			    BODY * cur, short err)
 {
@@ -70,6 +90,16 @@ static short check_all_msg (ATTACHPTR ** idx, short idxlen,
 
 /* can we decode all tagged attachments? */
 
+/**
+ * check_can_decode - XXX
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @cur:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short check_can_decode (ATTACHPTR ** idx, short idxlen, 
 			      BODY * cur)
 {
@@ -85,6 +115,15 @@ static short check_can_decode (ATTACHPTR ** idx, short idxlen,
   return 1;
 }
 
+/**
+ * count_tagged - XXX
+ * @idx:    YYY
+ * @idxlen: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short count_tagged (ATTACHPTR **idx, short idxlen)
 {
   short count = 0;
@@ -101,6 +140,16 @@ static short count_tagged (ATTACHPTR **idx, short idxlen)
  * attachment.
  */
 
+/**
+ * count_tagged_children - XXX
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @i:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 static short count_tagged_children (ATTACHPTR ** idx, 
 				    short idxlen, short i)
 {
@@ -122,6 +171,16 @@ static short count_tagged_children (ATTACHPTR ** idx,
  **
  **/
 
+/**
+ * mutt_attach_bounce - XXX
+ * @fp:     YYY
+ * @hdr:    YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @cur:    YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_attach_bounce (FILE * fp, HEADER * hdr, 
 	   ATTACHPTR ** idx, short idxlen, BODY * cur)
 {
@@ -250,6 +309,16 @@ void mutt_attach_bounce (FILE * fp, HEADER * hdr,
  **
  **/
 
+/**
+ * mutt_attach_resend - XXX
+ * @fp:     YYY
+ * @hdr:    YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @cur:    YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_attach_resend (FILE * fp, HEADER * hdr, ATTACHPTR ** idx, 
 			 short idxlen, BODY * cur)
 {
@@ -277,6 +346,16 @@ void mutt_attach_resend (FILE * fp, HEADER * hdr, ATTACHPTR ** idx,
   
 /* try to find a common parent message for the tagged attachments. */
 
+/**
+ * find_common_parent - XXX
+ * @idx:     YYY
+ * @idxlen:  YYY
+ * @nattach: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HEADER*
+ */
 static HEADER *find_common_parent (ATTACHPTR ** idx, short idxlen,
 				   short nattach)
 {
@@ -308,6 +387,17 @@ static HEADER *find_common_parent (ATTACHPTR ** idx, short idxlen,
  * bit.  For now, it's not worth the effort.
  */
 
+/**
+ * is_parent - XXX
+ * @i:      YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @cur:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int is_parent (short i, ATTACHPTR **idx, short idxlen, BODY *cur)
 {
   short level = idx[i]->level;
@@ -321,6 +411,17 @@ static int is_parent (short i, ATTACHPTR **idx, short idxlen, BODY *cur)
   return 0;
 }
 
+/**
+ * find_parent - XXX
+ * @idx:     YYY
+ * @idxlen:  YYY
+ * @cur:     YYY
+ * @nattach: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HEADER*
+ */
 static HEADER *find_parent (ATTACHPTR **idx, short idxlen, BODY *cur, short nattach)
 {
   short i;
@@ -343,6 +444,16 @@ static HEADER *find_parent (ATTACHPTR **idx, short idxlen, BODY *cur, short natt
   return parent;
 }
 
+/**
+ * include_header - XXX
+ * @quote:   YYY
+ * @ifp:     YYY
+ * @hdr:     YYY
+ * @ofp:     YYY
+ * @_prefix: YYY
+ *
+ * DESCRIPTION
+ */
 static void include_header (int quote, FILE * ifp,
 			    HEADER * hdr, FILE * ofp,
 			    char *_prefix)
@@ -372,6 +483,18 @@ static void include_header (int quote, FILE * ifp,
 /* Attach all the body parts which can't be decoded. 
  * This code is shared by forwarding and replying. */
 
+/**
+ * copy_problematic_attachments - XXX
+ * @fp:     YYY
+ * @last:   YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @force:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY**
+ */
 static BODY ** copy_problematic_attachments (FILE *fp,
 					     BODY **last, 
 					     ATTACHPTR **idx, 
@@ -398,6 +521,18 @@ static BODY ** copy_problematic_attachments (FILE *fp,
  * (non-message types)
  */
 
+/**
+ * attach_forward_bodies - XXX
+ * @fp:      YYY
+ * @hdr:     YYY
+ * @idx:     YYY
+ * @idxlen:  YYY
+ * @cur:     YYY
+ * @nattach: YYY
+ * @flags:   YYY
+ *
+ * DESCRIPTION
+ */
 static void attach_forward_bodies (FILE * fp, HEADER * hdr,
 				   ATTACHPTR ** idx, short idxlen,
 				   BODY * cur,
@@ -573,6 +708,17 @@ _("Can't decode all tagged attachments.  MIME-forward the others?"))) == -1)
  * the attachment index. 
  */
 
+/**
+ * attach_forward_msgs - XXX
+ * @fp:     YYY
+ * @hdr:    YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @cur:    YYY
+ * @flags:  YYY
+ *
+ * DESCRIPTION
+ */
 static void attach_forward_msgs (FILE * fp, HEADER * hdr, 
 	       ATTACHPTR ** idx, short idxlen, BODY * cur, int flags)
 {
@@ -684,6 +830,17 @@ static void attach_forward_msgs (FILE * fp, HEADER * hdr,
 
 }
 
+/**
+ * mutt_attach_forward - XXX
+ * @fp:     YYY
+ * @hdr:    YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @cur:    YYY
+ * @flags:  YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_attach_forward (FILE * fp, HEADER * hdr, 
 			  ATTACHPTR ** idx, short idxlen, BODY * cur, int flags)
 {
@@ -708,6 +865,18 @@ void mutt_attach_forward (FILE * fp, HEADER * hdr,
  **
  **/
 
+/**
+ * attach_reply_envelope_defaults - XXX
+ * @env:    YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @parent: YYY
+ * @flags:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Create the envelope defaults for a reply.
  *
  * This function can be invoked in two ways.
@@ -808,6 +977,15 @@ attach_reply_envelope_defaults (ENVELOPE *env, ATTACHPTR **idx, short idxlen,
 
 /*  This is _very_ similar to send.c's include_reply(). */
 
+/**
+ * attach_include_reply - XXX
+ * @fp:    YYY
+ * @tmpfp: YYY
+ * @cur:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ */
 static void attach_include_reply (FILE *fp, FILE *tmpfp, HEADER *cur, int flags)
 {
   int cmflags = MUTT_CM_PREFIX | MUTT_CM_DECODE | MUTT_CM_CHARCONV;
@@ -825,6 +1003,17 @@ static void attach_include_reply (FILE *fp, FILE *tmpfp, HEADER *cur, int flags)
     cmflags |= MUTT_CM_WEED;
   }
 
+/**
+ * mutt_attach_reply - XXX
+ * @fp:     YYY
+ * @hdr:    YYY
+ * @idx:    YYY
+ * @idxlen: YYY
+ * @cur:    YYY
+ * @flags:  YYY
+ *
+ * DESCRIPTION
+ */
   _mutt_copy_message (tmpfp, fp, cur, cur->content, cmflags, chflags);
   mutt_make_post_indent (Context, cur, tmpfp);
 }

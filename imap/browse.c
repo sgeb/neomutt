@@ -30,12 +30,43 @@
 #include "buffy.h"
 #include "imap_private.h"
 
+/**
+ * imap_add_folder - XXX
+ * @delim:       YYY
+ * @folder:      YYY
+ * @noselect:    YYY
+ * @noinferiors: YYY
+ * @state:       YYY
+ * @isparent:    YYY
+ *
+ * DESCRIPTION
+ */
+/**
+ * browse_add_list_result - XXX
+ * @idata:    YYY
+ * @cmd:      YYY
+ * @state:    YYY
+ * @isparent: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* -- forward declarations -- */
 static int browse_add_list_result (IMAP_DATA* idata, const char* cmd,
   struct browser_state* state, short isparent);
 static void imap_add_folder (char delim, char *folder, int noselect,
   int noinferiors, struct browser_state *state, short isparent);
 
+/**
+ * imap_browse - XXX
+ * @path:  YYY
+ * @state: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_browse: IMAP hook into the folder browser, fills out browser_state,
  *   given a current folder to browse */
 int imap_browse (char* path, struct browser_state* state)
@@ -202,6 +233,14 @@ int imap_browse (char* path, struct browser_state* state)
   return -1;
 }
 
+/**
+ * imap_mailbox_create - XXX
+ * @folder: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* imap_mailbox_create: Prompt for a new mailbox name, and try to create it */
 int imap_mailbox_create (const char* folder)
 {
@@ -257,6 +296,14 @@ int imap_mailbox_create (const char* folder)
   return -1;
 }
 
+/**
+ * imap_mailbox_rename - XXX
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int imap_mailbox_rename(const char* mailbox)
 {
   IMAP_DATA* idata;

@@ -52,6 +52,13 @@
 #endif
 
 
+/**
+ * crypt_current_time - XXX
+ * @s:        YYY
+ * @app_name: YYY
+ *
+ * DESCRIPTION
+ */
 /* print the current time to avoid spoofing of the signature output */
 void crypt_current_time(STATE *s, char *app_name)
 {
@@ -75,6 +82,11 @@ void crypt_current_time(STATE *s, char *app_name)
 
 
 
+/**
+ * crypt_forget_passphrase - XXX
+ *
+ * DESCRIPTION
+ */
 void crypt_forget_passphrase (void)
 {
   if ((WithCrypto & APPLICATION_PGP))
@@ -105,6 +117,14 @@ static void disable_coredumps (void)
 #endif /* HAVE_SETRLIMIT */
 
 
+/**
+ * crypt_valid_passphrase - XXX
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int crypt_valid_passphrase(int flags)
 {
   int ret = 0;
@@ -124,6 +144,15 @@ int crypt_valid_passphrase(int flags)
 
 
 
+/**
+ * mutt_protect - XXX
+ * @msg:     YYY
+ * @keylist: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_protect (HEADER *msg, char *keylist)
 {
   BODY *pbody = NULL, *tmp_pbody = NULL;
@@ -310,6 +339,14 @@ int mutt_protect (HEADER *msg, char *keylist)
 }
 
 
+/**
+ * mutt_is_multipart_signed - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
    
      
 int mutt_is_multipart_signed (BODY *b)
@@ -337,6 +374,14 @@ int mutt_is_multipart_signed (BODY *b)
       && !(ascii_strcasecmp (p, "application/pkcs7-signature")))
     return SMIMESIGN;
 
+/**
+ * mutt_is_multipart_encrypted - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
   return 0;
 }
    
@@ -360,6 +405,14 @@ int mutt_is_multipart_encrypted (BODY *b)
 }
 
 
+/**
+ * mutt_is_valid_multipart_pgp_encrypted - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_is_valid_multipart_pgp_encrypted (BODY *b)
 {
   if (! mutt_is_multipart_encrypted (b))
@@ -379,6 +432,14 @@ int mutt_is_valid_multipart_pgp_encrypted (BODY *b)
 }
 
 
+/**
+ * mutt_is_malformed_multipart_pgp_encrypted - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * This checks for the malformed layout caused by MS Exchange in
  * some cases:
@@ -421,6 +482,14 @@ int mutt_is_malformed_multipart_pgp_encrypted (BODY *b)
 }
 
 
+/**
+ * mutt_is_application_pgp - XXX
+ * @m: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_is_application_pgp (BODY *m)
 {
   int t = 0;
@@ -465,6 +534,14 @@ int mutt_is_application_pgp (BODY *m)
   return t;
 }
 
+/**
+ * mutt_is_application_smime - XXX
+ * @m: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_is_application_smime (BODY *m)
 {
   char *t=NULL;
@@ -536,6 +613,14 @@ int mutt_is_application_smime (BODY *m)
 
 
 
+/**
+ * crypt_query - XXX
+ * @m: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int crypt_query (BODY *m)
 {
   int t = 0;
@@ -600,6 +685,16 @@ int crypt_query (BODY *m)
 
 
 
+/**
+ * crypt_write_signed - XXX
+ * @a:        YYY
+ * @s:        YYY
+ * @tempfile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int crypt_write_signed(BODY *a, STATE *s, const char *tempfile)
 {
   FILE *fp;
@@ -646,6 +741,12 @@ int crypt_write_signed(BODY *a, STATE *s, const char *tempfile)
 
 
 
+/**
+ * convert_to_7bit - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ */
 void convert_to_7bit (BODY *a)
 {
   if (!WithCrypto)
@@ -684,6 +785,12 @@ void convert_to_7bit (BODY *a)
 
 
 
+/**
+ * crypt_extract_keys_from_messages - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 void crypt_extract_keys_from_messages (HEADER * h)
 {
   int i;
@@ -808,6 +915,16 @@ void crypt_extract_keys_from_messages (HEADER * h)
 
 
 
+/**
+ * crypt_get_keys - XXX
+ * @msg:         YYY
+ * @keylist:     YYY
+ * @oppenc_mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int crypt_get_keys (HEADER *msg, char **keylist, int oppenc_mode)
 {
   ADDRESS *adrlist = NULL, *last = NULL;
@@ -867,6 +984,12 @@ int crypt_get_keys (HEADER *msg, char **keylist, int oppenc_mode)
  * Enable encryption if they can, otherwise disable encryption.
  */
 
+/**
+ * crypt_opportunistic_encrypt - XXX
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ */
 void crypt_opportunistic_encrypt(HEADER *msg)
 {
   char *pgpkeylist = NULL;
@@ -891,6 +1014,14 @@ void crypt_opportunistic_encrypt(HEADER *msg)
 
 
 
+/**
+ * crypt_fetch_signatures - XXX
+ * @signatures: YYY
+ * @a:          YYY
+ * @n:          YYY
+ *
+ * DESCRIPTION
+ */
 static void crypt_fetch_signatures (BODY ***signatures, BODY *a, int *n)
 {
   if (!WithCrypto)
@@ -915,6 +1046,15 @@ static void crypt_fetch_signatures (BODY ***signatures, BODY *a, int *n)
  * This routine verifies a  "multipart/signed"  body.
  */
 
+/**
+ * mutt_signed_handler - XXX
+ * @a: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_signed_handler (BODY *a, STATE *s)
 {
   char tempfile[_POSIX_PATH_MAX];
@@ -1039,6 +1179,17 @@ int mutt_signed_handler (BODY *a, STATE *s)
 }
 
 
+/**
+ * crypt_get_fingerprint_or_id - XXX
+ * @p:      YYY
+ * @pphint: YYY
+ * @ppl:    YYY
+ * @pps:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Obtain pointers to fingerprint or short or long key ID, if any.
  * See mutt_crypt.h for details.
  */
@@ -1126,6 +1277,14 @@ const char* crypt_get_fingerprint_or_id (char *p, const char **pphint,
  * value is a key id.
  */
 
+/**
+ * crypt_is_numerical_keyid - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: short
+ */
 short crypt_is_numerical_keyid (const char *s)
 {
   /* or should we require the "0x"? */

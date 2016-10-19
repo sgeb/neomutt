@@ -25,6 +25,16 @@
 #include "sort.h"
 #include "mx.h"
 
+/**
+ * _mutt_set_flag - XXX
+ * @ctx:     YYY
+ * @h:       YYY
+ * @flag:    YYY
+ * @bf:      YYY
+ * @upd_ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void _mutt_set_flag (CONTEXT *ctx, HEADER *h, int flag, int bf, int upd_ctx)
 {
   if (!ctx || !h)
@@ -287,10 +297,28 @@ void _mutt_set_flag (CONTEXT *ctx, HEADER *h, int flag, int bf, int upd_ctx)
     h->searched = 0;
 }
 
+/**
+ * mutt_tag_set_flag - XXX
+ * @flag: YYY
+ * @bf:   YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_tag_set_flag (int flag, int bf)
 {
   int j;
 
+/**
+ * mutt_thread_set_flag - XXX
+ * @hdr:       YYY
+ * @flag:      YYY
+ * @bf:        YYY
+ * @subthread: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
   for (j = 0; j < Context->vcount; j++)
     if (Context->hdrs[Context->v2r[j]]->tagged)
       mutt_set_flag (Context, Context->hdrs[Context->v2r[j]], flag, bf);
@@ -339,6 +367,15 @@ int mutt_thread_set_flag (HEADER *hdr, int flag, int bf, int subthread)
   /* not reached */
 }
 
+/**
+ * mutt_change_flag - XXX
+ * @h:  YYY
+ * @bf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_change_flag (HEADER *h, int bf)
 {
   int i, flag;

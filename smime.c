@@ -73,6 +73,12 @@ static char SmimeCertToUse[_POSIX_PATH_MAX];
 static char SmimeIntermediateToUse[_POSIX_PATH_MAX];
 
 
+/**
+ * smime_free_key - XXX
+ * @keylist: YYY
+ *
+ * DESCRIPTION
+ */
 void smime_free_key (smime_key_t **keylist)
 {
   smime_key_t *key;
@@ -93,6 +99,14 @@ void smime_free_key (smime_key_t **keylist)
   }
 }
 
+/**
+ * smime_copy_key - XXX
+ * @key: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: smime_key_t*
+ */
 static smime_key_t *smime_copy_key (smime_key_t *key)
 {
   smime_key_t *copy;
@@ -122,12 +136,24 @@ static smime_key_t *smime_copy_key (smime_key_t *key)
 /* these are copies from pgp.c */
 
 
+/**
+ * smime_void_passphrase - XXX
+ *
+ * DESCRIPTION
+ */
 void smime_void_passphrase (void)
 {
   memset (SmimePass, 0, sizeof (SmimePass));
   SmimeExptime = 0;
 }
 
+/**
+ * smime_valid_passphrase - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int smime_valid_passphrase (void)
 {
   time_t now = time (NULL);
@@ -156,6 +182,24 @@ int smime_valid_passphrase (void)
 
 /* This is almost identical to ppgp's invoking interface. */
 
+/**
+ * _mutt_fmt_smime_command - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @prefix:     YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *_mutt_fmt_smime_command (char *dest,
 					    size_t destlen,
 					    size_t col,
@@ -296,6 +340,15 @@ static const char *_mutt_fmt_smime_command (char *dest,
 
 
 
+/**
+ * mutt_smime_command - XXX
+ * @d:    YYY
+ * @dlen: YYY
+ * @cctx: YYY
+ * @fmt:  YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_smime_command (char *d, size_t dlen,
 				struct smime_command_context *cctx, const char *fmt)
 {
@@ -307,6 +360,27 @@ static void mutt_smime_command (char *d, size_t dlen,
 
 
 
+/**
+ * smime_invoke - XXX
+ * @smimein:       YYY
+ * @smimeout:      YYY
+ * @smimeerr:      YYY
+ * @smimeinfd:     YYY
+ * @smimeoutfd:    YYY
+ * @smimeerrfd:    YYY
+ * @fname:         YYY
+ * @sig_fname:     YYY
+ * @cryptalg:      YYY
+ * @digestalg:     YYY
+ * @key:           YYY
+ * @certificates:  YYY
+ * @intermediates: YYY
+ * @format:        YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 static pid_t smime_invoke (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 			   int smimeinfd, int smimeoutfd, int smimeerrfd,
 			   const char *fname,
@@ -350,6 +424,14 @@ static pid_t smime_invoke (FILE **smimein, FILE **smimeout, FILE **smimeerr,
  */
 
 
+/**
+ * smime_key_flags - XXX
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *smime_key_flags (int flags)
 {
   static char buff[3];
@@ -370,6 +452,15 @@ static char *smime_key_flags (int flags)
 }
 
 
+/**
+ * smime_entry - XXX
+ * @s:    YYY
+ * @l:    YYY
+ * @menu: YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 static void smime_entry (char *s, size_t l, MUTTMENU * menu, int num)
 {
   smime_key_t **Table = (smime_key_t **) menu->data;
@@ -402,6 +493,15 @@ static void smime_entry (char *s, size_t l, MUTTMENU * menu, int num)
 }
 
 
+/**
+ * smime_select_key - XXX
+ * @keys:  YYY
+ * @query: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: smime_key_t*
+ */
 static smime_key_t *smime_select_key (smime_key_t *keys, char *query)
 {
   smime_key_t **table = NULL;
@@ -500,6 +600,14 @@ static smime_key_t *smime_select_key (smime_key_t *keys, char *query)
   return selected_key;
 }
 
+/**
+ * smime_parse_key - XXX
+ * @buf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: smime_key_t*
+ */
 static smime_key_t *smime_parse_key(char *buf)
 {
   smime_key_t *key;
@@ -581,6 +689,7 @@ static smime_key_t *smime_parse_key(char *buf)
   return key;
 }
 
+
 static smime_key_t *smime_get_candidates(char *search, short public)
 {
   char index_file[_POSIX_PATH_MAX];
@@ -618,6 +727,15 @@ static smime_key_t *smime_get_candidates(char *search, short public)
   return results;
 }
 
+/**
+ * smime_get_key_by_hash - XXX
+ * @hash:   YYY
+ * @public: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: smime_key_t*
+ */
 /* Returns the first matching key record, without prompting or checking of
  * abilities or trust.
  */
@@ -641,6 +759,17 @@ static smime_key_t *smime_get_key_by_hash(char *hash, short public)
   return match;
 }
 
+/**
+ * smime_get_key_by_addr - XXX
+ * @mailbox:   YYY
+ * @abilities: YYY
+ * @public:    YYY
+ * @may_ask:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: smime_key_t*
+ */
 static smime_key_t *smime_get_key_by_addr(char *mailbox, short abilities, short public, short may_ask)
 {
   smime_key_t *results, *result;
@@ -713,6 +842,16 @@ static smime_key_t *smime_get_key_by_addr(char *mailbox, short abilities, short 
   return return_key;
 }
 
+/**
+ * smime_get_key_by_str - XXX
+ * @str:       YYY
+ * @abilities: YYY
+ * @public:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: smime_key_t*
+ */
 static smime_key_t *smime_get_key_by_str(char *str, short abilities, short public)
 {
   smime_key_t *results, *result;
@@ -754,6 +893,16 @@ static smime_key_t *smime_get_key_by_str(char *str, short abilities, short publi
 }
 
 
+/**
+ * smime_ask_for_key - XXX
+ * @prompt:    YYY
+ * @abilities: YYY
+ * @public:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: smime_key_t*
+ */
 smime_key_t *smime_ask_for_key(char *prompt, short abilities, short public)
 {
   smime_key_t *key;
@@ -783,6 +932,12 @@ smime_key_t *smime_ask_for_key(char *prompt, short abilities, short public)
    the required key is different from SmimeDefaultKey.
 */
 
+/**
+ * _smime_getkeys - XXX
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ */
 void _smime_getkeys (char *mailbox)
 {
   smime_key_t *key = NULL;
@@ -840,6 +995,12 @@ void _smime_getkeys (char *mailbox)
 	    NONULL (SmimeCertificates), NONULL (SmimeDefaultKey));
 }
 
+/**
+ * smime_getkeys - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void smime_getkeys (ENVELOPE *env)
 {
   ADDRESS *t;
@@ -881,6 +1042,15 @@ void smime_getkeys (ENVELOPE *env)
  * prompting will be used.
  */
 
+/**
+ * smime_findKeys - XXX
+ * @adrlist:     YYY
+ * @oppenc_mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *smime_findKeys (ADDRESS *adrlist, int oppenc_mode)
 {
   smime_key_t *key = NULL;
@@ -927,6 +1097,18 @@ char *smime_findKeys (ADDRESS *adrlist, int oppenc_mode)
 
 
 
+/**
+ * smime_handle_cert_email - XXX
+ * @certificate: YYY
+ * @mailbox:     YYY
+ * @copy:        YYY
+ * @buffer:      YYY
+ * @num:         YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int smime_handle_cert_email (char *certificate, char *mailbox,
 				   int copy, char ***buffer, int *num)
 {
@@ -1023,6 +1205,14 @@ static int smime_handle_cert_email (char *certificate, char *mailbox,
 
 
 
+/**
+ * smime_extract_certificate - XXX
+ * @infile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *smime_extract_certificate (char *infile)
 {
   FILE *fpout = NULL, *fperr = NULL;
@@ -1132,6 +1322,14 @@ static char *smime_extract_certificate (char *infile)
   return safe_strdup (certfile);
 }
 
+/**
+ * smime_extract_signer_certificate - XXX
+ * @infile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *smime_extract_signer_certificate (char *infile)
 {
   FILE *fpout = NULL, *fperr = NULL;
@@ -1202,6 +1400,13 @@ static char *smime_extract_signer_certificate (char *infile)
 
 /* Add a certificate and update index file (externally). */
 
+/**
+ * smime_invoke_import - XXX
+ * @infile:  YYY
+ * @mailbox: YYY
+ *
+ * DESCRIPTION
+ */
 void smime_invoke_import (char *infile, char *mailbox)
 {
   char tmpfname[_POSIX_PATH_MAX], *certfile = NULL, buf[STRING];
@@ -1268,6 +1473,14 @@ void smime_invoke_import (char *infile, char *mailbox)
 
 
 
+/**
+ * smime_verify_sender - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int smime_verify_sender(HEADER *h)
 {
   char *mbox = NULL, *certfile, tempfname[_POSIX_PATH_MAX];
@@ -1342,6 +1555,21 @@ int smime_verify_sender(HEADER *h)
 
 
 
+/**
+ * smime_invoke_encrypt - XXX
+ * @smimein:    YYY
+ * @smimeout:   YYY
+ * @smimeerr:   YYY
+ * @smimeinfd:  YYY
+ * @smimeoutfd: YYY
+ * @smimeerrfd: YYY
+ * @fname:      YYY
+ * @uids:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 static
 pid_t smime_invoke_encrypt (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 			    int smimeinfd, int smimeoutfd, int smimeerrfd,
@@ -1354,6 +1582,20 @@ pid_t smime_invoke_encrypt (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 }
 
 
+/**
+ * smime_invoke_sign - XXX
+ * @smimein:    YYY
+ * @smimeout:   YYY
+ * @smimeerr:   YYY
+ * @smimeinfd:  YYY
+ * @smimeoutfd: YYY
+ * @smimeerrfd: YYY
+ * @fname:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 static
 pid_t smime_invoke_sign (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 			 int smimeinfd, int smimeoutfd, int smimeerrfd, 
@@ -1368,6 +1610,15 @@ pid_t smime_invoke_sign (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 
 
 
+/**
+ * smime_build_smime_entity - XXX
+ * @a:        YYY
+ * @certlist: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *smime_build_smime_entity (BODY *a, char *certlist)
 {
   char buf[LONG_STRING], certfile[LONG_STRING];
@@ -1487,6 +1738,14 @@ BODY *smime_build_smime_entity (BODY *a, char *certlist)
 }
 
 
+/**
+ * openssl_md_to_smime_micalg - XXX
+ * @md: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* The openssl -md doesn't want hyphens:
  *   md5, sha1,  sha224,  sha256,  sha384,  sha512
  * However, the micalg does:
@@ -1516,6 +1775,14 @@ static char *openssl_md_to_smime_micalg(char *md)
 
 
 
+/**
+ * smime_sign_message - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *smime_sign_message (BODY *a )
 {
   BODY *t;
@@ -1674,6 +1941,22 @@ BODY *smime_sign_message (BODY *a )
 
 
 
+/**
+ * smime_invoke_verify - XXX
+ * @smimein:    YYY
+ * @smimeout:   YYY
+ * @smimeerr:   YYY
+ * @smimeinfd:  YYY
+ * @smimeoutfd: YYY
+ * @smimeerrfd: YYY
+ * @fname:      YYY
+ * @sig_fname:  YYY
+ * @opaque:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 static
 pid_t smime_invoke_verify (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 			   int smimeinfd, int smimeoutfd, int smimeerrfd, 
@@ -1685,6 +1968,20 @@ pid_t smime_invoke_verify (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 }
 
 
+/**
+ * smime_invoke_decrypt - XXX
+ * @smimein:    YYY
+ * @smimeout:   YYY
+ * @smimeerr:   YYY
+ * @smimeinfd:  YYY
+ * @smimeoutfd: YYY
+ * @smimeerrfd: YYY
+ * @fname:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pid_t
+ */
 static
 pid_t smime_invoke_decrypt (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 			    int smimeinfd, int smimeoutfd, int smimeerrfd, 
@@ -1697,6 +1994,16 @@ pid_t smime_invoke_decrypt (FILE **smimein, FILE **smimeout, FILE **smimeerr,
 
 
 
+/**
+ * smime_verify_one - XXX
+ * @sigbdy:   YYY
+ * @s:        YYY
+ * @tempfile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int smime_verify_one (BODY *sigbdy, STATE *s, const char *tempfile)
 {
   char signedfile[_POSIX_PATH_MAX], smimeerrfile[_POSIX_PATH_MAX];
@@ -1814,6 +2121,16 @@ int smime_verify_one (BODY *sigbdy, STATE *s, const char *tempfile)
   or an encrypted message.
 */
 
+/**
+ * smime_handle_entity - XXX
+ * @m:       YYY
+ * @s:       YYY
+ * @outFile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 static BODY *smime_handle_entity (BODY *m, STATE *s, FILE *outFile)
 {
   int len=0;
@@ -2015,6 +2332,17 @@ static BODY *smime_handle_entity (BODY *m, STATE *s, FILE *outFile)
 
 
 
+/**
+ * smime_decrypt_mime - XXX
+ * @fpin:  YYY
+ * @fpout: YYY
+ * @b:     YYY
+ * @cur:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int smime_decrypt_mime (FILE *fpin, FILE **fpout, BODY *b, BODY **cur)
 {
 
@@ -2084,11 +2412,29 @@ bail:
 }
 
 
+/**
+ * smime_application_smime_handler - XXX
+ * @m: YYY
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int smime_application_smime_handler (BODY *m, STATE *s)
 {
   return smime_handle_entity (m, s, NULL) ? 0 : -1;
 }
 
+/**
+ * smime_send_menu - XXX
+ * @msg:    YYY
+ * @redraw: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int smime_send_menu (HEADER *msg, int *redraw)
 {
   smime_key_t *key;

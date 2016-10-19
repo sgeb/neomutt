@@ -42,6 +42,18 @@
 #include <errno.h>
 #include <unistd.h>
 
+/**
+ * rfc1524_expand_command - XXX
+ * @a:        YYY
+ * @filename: YYY
+ * @_type:    YYY
+ * @command:  YYY
+ * @clen:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* The command semantics include the following:
  * %s is the filename that contains the mail body data
  * %t is the content type, like text/plain
@@ -117,6 +129,14 @@ int rfc1524_expand_command (BODY *a, char *filename, char *_type,
   return needspipe;
 }
 
+/**
+ * get_field - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* NUL terminates a rfc 1524 field,
  * returns start of next field or NULL */
 static char *get_field (char *s)
@@ -145,6 +165,18 @@ static char *get_field (char *s)
   return ch;
 }
 
+/**
+ * get_field_text - XXX
+ * @field:    YYY
+ * @entry:    YYY
+ * @type:     YYY
+ * @filename: YYY
+ * @line:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int get_field_text (char *field, char **entry,
 			   char *type, char *filename, int line)
 {
@@ -167,6 +199,18 @@ static int get_field_text (char *field, char **entry,
   }
 }
 
+/**
+ * rfc1524_mailcap_parse - XXX
+ * @a:        YYY
+ * @filename: YYY
+ * @type:     YYY
+ * @entry:    YYY
+ * @opt:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int rfc1524_mailcap_parse (BODY *a,
 				  char *filename,
 				  char *type, 
@@ -353,11 +397,24 @@ static int rfc1524_mailcap_parse (BODY *a,
   return found;
 }
 
+/**
+ * rfc1524_new_entry - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: rfc1524_entry*
+ */
 rfc1524_entry *rfc1524_new_entry(void)
 {
   return (rfc1524_entry *)safe_calloc(1, sizeof(rfc1524_entry));
 }
 
+/**
+ * rfc1524_free_entry - XXX
+ * @entry: YYY
+ *
+ * DESCRIPTION
+ */
 void rfc1524_free_entry(rfc1524_entry **entry)
 {
   rfc1524_entry *p = *entry;
@@ -372,6 +429,17 @@ void rfc1524_free_entry(rfc1524_entry **entry)
   FREE (entry);		/* __FREE_CHECKED__ */
 }
 
+/**
+ * rfc1524_mailcap_lookup - XXX
+ * @a:     YYY
+ * @type:  YYY
+ * @entry: YYY
+ * @opt:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * rfc1524_mailcap_lookup attempts to find the given type in the
  * list of mailcap files.  On success, this returns the entry information
@@ -438,6 +506,15 @@ int rfc1524_mailcap_lookup (BODY *a, char *type, rfc1524_entry *entry, int opt)
  * Returns 1 if newfile specified
  */
 
+/**
+ * strnfcpy - XXX
+ * @d:   YYY
+ * @s:   YYY
+ * @siz: YYY
+ * @len: YYY
+ *
+ * DESCRIPTION
+ */
 static void strnfcpy(char *d, char *s, size_t siz, size_t len)
 {
   if(len > siz)
@@ -445,6 +522,17 @@ static void strnfcpy(char *d, char *s, size_t siz, size_t len)
   strfcpy(d, s, len);
 }
 
+/**
+ * rfc1524_expand_filename - XXX
+ * @nametemplate: YYY
+ * @oldfile:      YYY
+ * @newfile:      YYY
+ * @nflen:        YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int rfc1524_expand_filename (char *nametemplate,
 			     char *oldfile, 
 			     char *newfile,
@@ -570,6 +658,15 @@ int rfc1524_expand_filename (char *nametemplate,
  * safe_fopen().
  */
 
+/**
+ * mutt_rename_file - XXX
+ * @oldfile: YYY
+ * @newfile: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_rename_file (char *oldfile, char *newfile)
 {
   FILE *ofp, *nfp;

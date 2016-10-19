@@ -52,6 +52,16 @@ typedef struct
 
 
 /**
+ * lock_mailbox - XXX
+ * @ctx:  YYY
+ * @fp:   YYY
+ * @excl: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * lock_mailbox - Try to lock a mailbox (exclusively)
  * @ctx:  Mailbox to lock
  * @fp:   File pointer to the mailbox file
@@ -87,6 +97,13 @@ lock_mailbox (CONTEXT *ctx, FILE *fp, int excl)
 }
 
 /**
+ * unlock_mailbox - XXX
+ * @ctx: YYY
+ * @fp:  YYY
+ *
+ * DESCRIPTION
+ */
+/**
  * unlock_mailbox - Unlock a mailbox
  * @ctx: Mailbox to unlock
  * @fp:  File pointer to mailbox file
@@ -108,6 +125,12 @@ unlock_mailbox (CONTEXT *ctx, FILE *fp)
   ctx->locked = 0;
 }
 
+/**
+ * setup_paths - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 /**
  * setup_paths - Set the mailbox paths
  * @ctx: Mailbox to modify
@@ -135,6 +158,12 @@ setup_paths (CONTEXT *ctx)
 }
 
 /**
+ * restore_path - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
+/**
  * restore_path - Put back the original mailbox name
  * @ctx: Mailbox to modify
  *
@@ -160,6 +189,14 @@ restore_path (CONTEXT *ctx)
 }
 
 /**
+ * get_size - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * get_size - Get the size of a file
  * @path: File to measure
  *
@@ -181,6 +218,12 @@ get_size (const char *path)
 }
 
 /**
+ * store_size - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
+/**
  * store_size - Save the size of the compressed file
  * @ctx: Mailbox
  *
@@ -199,6 +242,15 @@ store_size (const CONTEXT *ctx)
   ci->size = get_size (ctx->realpath);
 }
 
+/**
+ * find_hook - XXX
+ * @type: YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /**
  * find_hook - Find a hook to match a path
  * @type: Type of hook, e.g. MUTT_CLOSEHOOK
@@ -230,6 +282,14 @@ find_hook (int type, const char *path)
   return c;
 }
 
+/**
+ * set_compress_info - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: COMPRESS_INFO*
+ */
 /**
  * set_compress_info - Find the compress hooks for a mailbox
  * @ctx: Mailbox to examine
@@ -313,6 +373,15 @@ cb_format_str (char *dest, size_t destlen, size_t col, int cols, char op, const 
 }
 
 /**
+ * expand_command_str - XXX
+ * @ctx:    YYY
+ * @cmd:    YYY
+ * @buf:    YYY
+ * @buflen: YYY
+ *
+ * DESCRIPTION
+ */
+/**
  * expand_command_str - Expand placeholders in command string
  * @ctx:    Mailbox for paths
  * @buf:    Buffer to store the command
@@ -337,6 +406,17 @@ expand_command_str (const CONTEXT *ctx, const char *cmd, char *buf, int buflen)
   mutt_FormatString (buf, buflen, 0, buflen, cmd, cb_format_str, (unsigned long) ctx, 0);
 }
 
+/**
+ * execute_command - XXX
+ * @ctx:         YYY
+ * @command:     YYY
+ * @create_file: YYY
+ * @progress:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * execute_command - Run a system command
  * @ctx:         Mailbox to work with
@@ -404,6 +484,14 @@ execute_command (CONTEXT *ctx, const char *command, int create_file, const char 
 }
 
 /**
+ * open_read - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * open_read - Open a compressed mailbox for reading
  * @ctx: Mailbox to open
  *
@@ -468,6 +556,14 @@ or_fail:
 struct mx_ops mx_comp_ops;
 
 /**
+ * open_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * open_mailbox - Open a compressed mailbox
  * @ctx: Mailbox to open
  *
@@ -497,6 +593,15 @@ open_mailbox (CONTEXT *ctx)
   return ops->open (ctx);
 }
 
+/**
+ * open_append_mailbox - XXX
+ * @ctx:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * open_append_mailbox - Open a compressed mailbox for appending
  * @ctx:   Mailbox to open
@@ -580,6 +685,14 @@ oa_fail:
 }
 
 /**
+ * close_mailbox - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * close_mailbox - Close a compressed mailbox
  * @ctx: Mailbox to close
  *
@@ -650,6 +763,15 @@ close_mailbox (CONTEXT *ctx)
 }
 
 /**
+ * check_mailbox - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * check_mailbox - Check for changes in the compressed file
  * @ctx: Mailbox
  *
@@ -700,6 +822,16 @@ check_mailbox (CONTEXT *ctx, int *index_hint)
 
 
 /**
+ * open_message - XXX
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * open_message - Delegated to mbox handler
  */
 static int
@@ -720,6 +852,15 @@ open_message (CONTEXT *ctx,  MESSAGE *msg, int msgno)
   return ops->open_msg (ctx, msg, msgno);
 }
 
+/**
+ * close_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * close_message - Delegated to mbox handler
  */
@@ -742,6 +883,15 @@ close_message (CONTEXT *ctx, MESSAGE *msg)
 }
 
 /**
+ * commit_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * commit_message - Delegated to mbox handler
  */
 static int
@@ -762,6 +912,16 @@ commit_message (CONTEXT *ctx, MESSAGE *msg)
   return ops->commit_msg (ctx, msg);
 }
 
+/**
+ * open_new_message - XXX
+ * @msg: YYY
+ * @ctx: YYY
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * open_new_message - Delegated to mbox handler
  */
@@ -784,6 +944,14 @@ open_new_message (MESSAGE *msg, CONTEXT *ctx, HEADER *hdr)
 }
 
 
+/**
+ * comp_can_append - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * comp_can_append - Can we append to this path?
  * @path: pathname of file to be tested
@@ -818,6 +986,14 @@ comp_can_append (CONTEXT *ctx)
 }
 
 /**
+ * comp_can_read - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
+/**
  * comp_can_read - Can we read from this file?
  * @path: Pathname of file to be tested
  *
@@ -841,6 +1017,14 @@ comp_can_read (const char *path)
     return 0;
 }
 
+/**
+ * comp_sync - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * comp_sync - Save changes to the compressed mailbox file
  * @ctx: Mailbox to sync
@@ -877,6 +1061,14 @@ comp_sync (CONTEXT *ctx)
   return 0;
 }
 
+/**
+ * comp_valid_command - XXX
+ * @cmd: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /**
  * comp_valid_command - Is this command string allowed?
  * @cmd:  Command string

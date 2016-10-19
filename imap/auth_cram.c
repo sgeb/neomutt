@@ -30,10 +30,27 @@
 #define MD5_BLOCK_LEN 64
 #define MD5_DIGEST_LEN 16
 
+/**
+ * hmac_md5 - XXX
+ * @password:  YYY
+ * @challenge: YYY
+ * @response:  YYY
+ *
+ * DESCRIPTION
+ */
 /* forward declarations */
 static void hmac_md5 (const char* password, char* challenge,
   unsigned char* response);
 
+/**
+ * imap_auth_cram_md5 - XXX
+ * @idata:  YYY
+ * @method: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: imap_auth_res_t
+ */
 /* imap_auth_cram_md5: AUTH=CRAM-MD5 support. */
 imap_auth_res_t imap_auth_cram_md5 (IMAP_DATA* idata, const char* method)
 {

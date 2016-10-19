@@ -58,6 +58,13 @@ static const struct mapping_t AttachHelp[] = {
   { NULL,        0 }
 };
 
+/**
+ * mutt_update_tree - XXX
+ * @idx:    YYY
+ * @idxlen: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_update_tree (ATTACHPTR **idx, short idxlen)
 {
   char buf[STRING];
@@ -98,6 +105,20 @@ void mutt_update_tree (ATTACHPTR **idx, short idxlen)
   }
 }
 
+/**
+ * mutt_gen_attach_list - XXX
+ * @m:           YYY
+ * @parent_type: YYY
+ * @idx:         YYY
+ * @idxlen:      YYY
+ * @idxmax:      YYY
+ * @level:       YYY
+ * @compose:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ATTACHPTR**
+ */
 ATTACHPTR **mutt_gen_attach_list (BODY *m,
 				  int parent_type,
 				  ATTACHPTR **idx,
@@ -155,6 +176,24 @@ ATTACHPTR **mutt_gen_attach_list (BODY *m,
   return (idx);
 }
 
+/**
+ * mutt_attach_fmt - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @prefix:     YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* %c = character set: convert?
  * %C = character set
  * %D = deleted flag
@@ -372,11 +411,30 @@ const char *mutt_attach_fmt (char *dest,
   return (src);
 }
 
+/**
+ * attach_entry - XXX
+ * @b:    YYY
+ * @blen: YYY
+ * @menu: YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 static void attach_entry (char *b, size_t blen, MUTTMENU *menu, int num)
 {
   mutt_FormatString (b, blen, 0, MuttIndexWindow->cols, NONULL (AttachFormat), mutt_attach_fmt, (unsigned long) (((ATTACHPTR **)menu->data)[num]), MUTT_FORMAT_ARROWCURSOR);
 }
 
+/**
+ * mutt_tag_attach - XXX
+ * @menu: YYY
+ * @n:    YYY
+ * @m:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_tag_attach (MUTTMENU *menu, int n, int m)
 {
   BODY *cur = ((ATTACHPTR **) menu->data)[n]->content;
@@ -386,6 +444,15 @@ int mutt_tag_attach (MUTTMENU *menu, int n, int m)
   return cur->tagged - ot;
 }
 
+/**
+ * mutt_is_message_type - XXX
+ * @type:    YYY
+ * @subtype: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_is_message_type (int type, const char *subtype)
 {
   if (type != TYPEMESSAGE)
@@ -395,6 +462,13 @@ int mutt_is_message_type (int type, const char *subtype)
   return (ascii_strcasecmp (subtype, "rfc822") == 0 || ascii_strcasecmp (subtype, "news") == 0);
 }
 
+/**
+ * prepend_curdir - XXX
+ * @dst:    YYY
+ * @dstlen: YYY
+ *
+ * DESCRIPTION
+ */
 static void prepend_curdir (char *dst, size_t dstlen)
 {
   size_t l;
@@ -413,6 +487,17 @@ static void prepend_curdir (char *dst, size_t dstlen)
   dst[l + 2] = 0;
 }
 
+/**
+ * mutt_query_save_attachment - XXX
+ * @fp:        YYY
+ * @body:      YYY
+ * @hdr:       YYY
+ * @directory: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mutt_query_save_attachment (FILE *fp, BODY *body, HEADER *hdr, char **directory)
 {
   char *prompt;
@@ -438,6 +523,16 @@ static int mutt_query_save_attachment (FILE *fp, BODY *body, HEADER *hdr, char *
 
   prepend_curdir (buf, sizeof (buf));
 
+/**
+ * mutt_save_attachment_list - XXX
+ * @fp:   YYY
+ * @tag:  YYY
+ * @top:  YYY
+ * @hdr:  YYY
+ * @menu: YYY
+ *
+ * DESCRIPTION
+ */
   prompt = _("Save to file: ");
   while (prompt)
   {
@@ -579,6 +674,15 @@ void mutt_save_attachment_list (FILE *fp, int tag, BODY *top, HEADER *hdr, MUTTM
     mutt_message _("Attachment saved.");
 }
 
+/**
+ * mutt_query_pipe_attachment - XXX
+ * @command: YYY
+ * @fp:      YYY
+ * @body:    YYY
+ * @filter:  YYY
+ *
+ * DESCRIPTION
+ */
 static void
 mutt_query_pipe_attachment (char *command, FILE *fp, BODY *body, int filter)
 {
@@ -616,6 +720,14 @@ mutt_query_pipe_attachment (char *command, FILE *fp, BODY *body, int filter)
   }
 }
 
+/**
+ * pipe_attachment - XXX
+ * @fp:    YYY
+ * @b:     YYY
+ * @state: YYY
+ *
+ * DESCRIPTION
+ */
 static void pipe_attachment (FILE *fp, BODY *b, STATE *state)
 {
   FILE *ifp;
@@ -641,6 +753,17 @@ static void pipe_attachment (FILE *fp, BODY *b, STATE *state)
   }
 }
 
+/**
+ * pipe_attachment_list - XXX
+ * @command: YYY
+ * @fp:      YYY
+ * @tag:     YYY
+ * @top:     YYY
+ * @filter:  YYY
+ * @state:   YYY
+ *
+ * DESCRIPTION
+ */
 static void
 pipe_attachment_list (char *command, FILE *fp, int tag, BODY *top, int filter,
 		      STATE *state)
@@ -661,6 +784,15 @@ pipe_attachment_list (char *command, FILE *fp, int tag, BODY *top, int filter,
   }
 }
 
+/**
+ * mutt_pipe_attachment_list - XXX
+ * @fp:     YYY
+ * @tag:    YYY
+ * @top:    YYY
+ * @filter: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_pipe_attachment_list (FILE *fp, int tag, BODY *top, int filter)
 {
   STATE state;
@@ -692,6 +824,15 @@ void mutt_pipe_attachment_list (FILE *fp, int tag, BODY *top, int filter)
     pipe_attachment_list (buf, fp, tag, top, filter, &state);
 }
 
+/**
+ * can_print - XXX
+ * @top: YYY
+ * @tag: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int can_print (BODY *top, int tag)
 {
   char type [STRING];
@@ -722,6 +863,15 @@ static int can_print (BODY *top, int tag)
   return (1);
 }
 
+/**
+ * print_attachment_list - XXX
+ * @fp:    YYY
+ * @tag:   YYY
+ * @top:   YYY
+ * @state: YYY
+ *
+ * DESCRIPTION
+ */
 static void print_attachment_list (FILE *fp, int tag, BODY *top, STATE *state)
 {
   char type [STRING];
@@ -768,6 +918,14 @@ static void print_attachment_list (FILE *fp, int tag, BODY *top, STATE *state)
   }
 }
 
+/**
+ * mutt_print_attachment_list - XXX
+ * @fp:  YYY
+ * @tag: YYY
+ * @top: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_print_attachment_list (FILE *fp, int tag, BODY *top)
 {
   STATE state;
@@ -792,6 +950,16 @@ void mutt_print_attachment_list (FILE *fp, int tag, BODY *top)
     print_attachment_list (fp, tag, top, &state);
 }
 
+/**
+ * mutt_update_attach_index - XXX
+ * @cur:    YYY
+ * @idxp:   YYY
+ * @idxlen: YYY
+ * @idxmax: YYY
+ * @menu:   YYY
+ *
+ * DESCRIPTION
+ */
 static void
 mutt_update_attach_index (BODY *cur, ATTACHPTR ***idxp,
 				      short *idxlen, short *idxmax,
@@ -815,6 +983,22 @@ mutt_update_attach_index (BODY *cur, ATTACHPTR ***idxp,
 }
 
 
+/**
+ * mutt_attach_display_loop - XXX
+ * @menu:   YYY
+ * @op:     YYY
+ * @fp:     YYY
+ * @hdr:    YYY
+ * @cur:    YYY
+ * @idxp:   YYY
+ * @idxlen: YYY
+ * @idxmax: YYY
+ * @recv:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_attach_display_loop (MUTTMENU *menu, int op, FILE *fp, HEADER *hdr,
 			  BODY *cur, ATTACHPTR ***idxp, short *idxlen, short *idxmax,
@@ -894,6 +1078,15 @@ mutt_attach_display_loop (MUTTMENU *menu, int op, FILE *fp, HEADER *hdr,
   return op;
 }
 
+/**
+ * attach_collapse - XXX
+ * @b:        YYY
+ * @collapse: YYY
+ * @init:     YYY
+ * @just_one: YYY
+ *
+ * DESCRIPTION
+ */
 static void attach_collapse (BODY *b, short collapse, short init, short just_one)
 {
   short i;
@@ -911,6 +1104,12 @@ static void attach_collapse (BODY *b, short collapse, short init, short just_one
   }
 }
 
+/**
+ * mutt_attach_init - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_attach_init (BODY *b)
 {
   for (; b; b = b->next)
@@ -934,6 +1133,12 @@ static const char *Function_not_permitted = N_("Function not permitted in attach
 
 
 
+/**
+ * mutt_view_attachments - XXX
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_view_attachments (HEADER *hdr)
 {
   int secured = 0;

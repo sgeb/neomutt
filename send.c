@@ -58,6 +58,12 @@
 #include "mutt_notmuch.h"
 #endif
 
+/**
+ * append_signature - XXX
+ * @f: YYY
+ *
+ * DESCRIPTION
+ */
 static void append_signature (FILE *f)
 {
   FILE *tmpfp;
@@ -74,6 +80,15 @@ static void append_signature (FILE *f)
   }
 }
 
+/**
+ * mutt_addrcmp - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* compare two e-mail addresses and return 1 if they are equivalent */
 static int mutt_addrcmp (ADDRESS *a, ADDRESS *b)
 {
@@ -84,6 +99,15 @@ static int mutt_addrcmp (ADDRESS *a, ADDRESS *b)
   return 1;
 }
 
+/**
+ * mutt_addrsrc - XXX
+ * @a:   YYY
+ * @lst: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* search an e-mail address in a list */
 static int mutt_addrsrc (ADDRESS *a, ADDRESS *lst)
 {
@@ -95,6 +119,15 @@ static int mutt_addrsrc (ADDRESS *a, ADDRESS *lst)
   return (0);
 }
 
+/**
+ * mutt_remove_xrefs - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 /* removes addresses from "b" which are contained in "a" */
 ADDRESS *mutt_remove_xrefs (ADDRESS *a, ADDRESS *b)
 {
@@ -134,6 +167,15 @@ ADDRESS *mutt_remove_xrefs (ADDRESS *a, ADDRESS *b)
   return top;
 }
 
+/**
+ * remove_user - XXX
+ * @a:          YYY
+ * @leave_only: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 /* remove any address which matches the current user.  if `leave_only' is
  * nonzero, don't remove the user's address if it is the only one in the list
  */
@@ -172,6 +214,15 @@ static ADDRESS *remove_user (ADDRESS *a, int leave_only)
   return top;
 }
 
+/**
+ * find_mailing_lists - XXX
+ * @t: YYY
+ * @c: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 static ADDRESS *find_mailing_lists (ADDRESS *t, ADDRESS *c)
 {
   ADDRESS *top = NULL, *ptr = NULL;
@@ -195,6 +246,15 @@ static ADDRESS *find_mailing_lists (ADDRESS *t, ADDRESS *c)
   return top;
 }
 
+/**
+ * edit_address - XXX
+ * @a:     YYY
+ * @field: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int edit_address (ADDRESS **a, /* const */ char *field)
 {
   char buf[HUGE_STRING];
@@ -222,6 +282,15 @@ static int edit_address (ADDRESS **a, /* const */ char *field)
   return 0;
 }
 
+/**
+ * edit_envelope - XXX
+ * @en:    YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int edit_envelope (ENVELOPE *en, int flags)
 {
   char buf[HUGE_STRING];
@@ -305,6 +374,14 @@ static int edit_envelope (ENVELOPE *en, int flags)
   return 0;
 }
 
+/**
+ * nntp_get_header - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 #ifdef USE_NNTP
 char *nntp_get_header (const char *s)
 {
@@ -313,6 +390,12 @@ char *nntp_get_header (const char *s)
 }
 #endif
 
+/**
+ * process_user_recips - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 static void process_user_recips (ENVELOPE *env)
 {
   LIST *uh = UserHeader;
@@ -336,6 +419,12 @@ static void process_user_recips (ENVELOPE *env)
   }
 }
 
+/**
+ * process_user_header - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 static void process_user_header (ENVELOPE *env)
 {
   LIST *uh = UserHeader;
@@ -392,6 +481,13 @@ static void process_user_header (ENVELOPE *env)
   }
 }
 
+/**
+ * mutt_forward_intro - XXX
+ * @fp:  YYY
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_forward_intro (FILE *fp, HEADER *cur)
 {
   char buffer[STRING];
@@ -403,12 +499,28 @@ void mutt_forward_intro (FILE *fp, HEADER *cur)
   fputs (" -----\n\n", fp);
 }
 
+/**
+ * mutt_forward_trailer - XXX
+ * @fp: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_forward_trailer (FILE *fp)
 {
   fputs ("\n----- End forwarded message -----\n", fp);
 }
 
 
+/**
+ * include_forward - XXX
+ * @ctx: YYY
+ * @cur: YYY
+ * @out: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int include_forward (CONTEXT *ctx, HEADER *cur, FILE *out)
 {
   int chflags = CH_DECODE, cmflags = 0;
@@ -445,6 +557,14 @@ static int include_forward (CONTEXT *ctx, HEADER *cur, FILE *out)
   return 0;
 }
 
+/**
+ * mutt_make_attribution - XXX
+ * @ctx: YYY
+ * @cur: YYY
+ * @out: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_make_attribution (CONTEXT *ctx, HEADER *cur, FILE *out)
 {
   char buffer[LONG_STRING];
@@ -458,6 +578,14 @@ void mutt_make_attribution (CONTEXT *ctx, HEADER *cur, FILE *out)
   }
 }
 
+/**
+ * mutt_make_post_indent - XXX
+ * @ctx: YYY
+ * @cur: YYY
+ * @out: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_make_post_indent (CONTEXT *ctx, HEADER *cur, FILE *out)
 {
   char buffer[STRING];
@@ -469,6 +597,16 @@ void mutt_make_post_indent (CONTEXT *ctx, HEADER *cur, FILE *out)
   }
 }
 
+/**
+ * include_reply - XXX
+ * @ctx: YYY
+ * @cur: YYY
+ * @out: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int include_reply (CONTEXT *ctx, HEADER *cur, FILE *out)
 {
   int cmflags = MUTT_CM_PREFIX | MUTT_CM_DECODE | MUTT_CM_CHARCONV | MUTT_CM_REPLYING;
@@ -500,6 +638,17 @@ static int include_reply (CONTEXT *ctx, HEADER *cur, FILE *out)
   return 0;
 }
 
+/**
+ * default_to - XXX
+ * @to:      YYY
+ * @env:     YYY
+ * @flags:   YYY
+ * @hmfupto: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int default_to (ADDRESS **to, ENVELOPE *env, int flags, int hmfupto)
 {
   char prompt[STRING];
@@ -577,6 +726,16 @@ static int default_to (ADDRESS **to, ENVELOPE *env, int flags, int hmfupto)
   return (0);
 }
 
+/**
+ * mutt_fetch_recips - XXX
+ * @out:   YYY
+ * @in:    YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_fetch_recips (ENVELOPE *out, ENVELOPE *in, int flags)
 {
   char prompt[STRING];
@@ -618,6 +777,14 @@ int mutt_fetch_recips (ENVELOPE *out, ENVELOPE *in, int flags)
   return 0;
 }
 
+/**
+ * mutt_make_references - XXX
+ * @e: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: LIST*
+ */
 LIST *mutt_make_references(ENVELOPE *e)
 {
   LIST *t = NULL, *l = NULL;
@@ -638,6 +805,12 @@ LIST *mutt_make_references(ENVELOPE *e)
   return l;
 }
 
+/**
+ * mutt_fix_reply_recipients - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_fix_reply_recipients (ENVELOPE *env)
 {
   if (! option (OPTMETOO))
@@ -661,6 +834,14 @@ void mutt_fix_reply_recipients (ENVELOPE *env)
   }
 }
 
+/**
+ * mutt_make_forward_subject - XXX
+ * @env: YYY
+ * @ctx: YYY
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_make_forward_subject (ENVELOPE *env, CONTEXT *ctx, HEADER *cur)
 {
   char buffer[STRING];
@@ -670,6 +851,15 @@ void mutt_make_forward_subject (ENVELOPE *env, CONTEXT *ctx, HEADER *cur)
   mutt_str_replace (&env->subject, buffer);
 }
 
+/**
+ * mutt_make_misc_reply_headers - XXX
+ * @env:    YYY
+ * @ctx:    YYY
+ * @cur:    YYY
+ * @curenv: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_make_misc_reply_headers (ENVELOPE *env, CONTEXT *ctx,
 				    HEADER *cur, ENVELOPE *curenv)
 {
@@ -686,6 +876,15 @@ void mutt_make_misc_reply_headers (ENVELOPE *env, CONTEXT *ctx,
     env->subject = safe_strdup ("Re: your mail");
 }
 
+/**
+ * mutt_add_to_reference_headers - XXX
+ * @env:    YYY
+ * @curenv: YYY
+ * @pp:     YYY
+ * @qq:     YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_add_to_reference_headers (ENVELOPE *env, ENVELOPE *curenv, LIST ***pp, LIST ***qq)
 {
   LIST **p = NULL, **q = NULL;
@@ -716,6 +915,14 @@ void mutt_add_to_reference_headers (ENVELOPE *env, ENVELOPE *curenv, LIST ***pp,
 #endif
 }
 
+/**
+ * mutt_make_reference_headers - XXX
+ * @curenv: YYY
+ * @env:    YYY
+ * @ctx:    YYY
+ *
+ * DESCRIPTION
+ */
 static void 
 mutt_make_reference_headers (ENVELOPE *curenv, ENVELOPE *env, CONTEXT *ctx)
 {
@@ -745,6 +952,17 @@ mutt_make_reference_headers (ENVELOPE *curenv, ENVELOPE *env, CONTEXT *ctx)
     mutt_free_list (&env->references);
 }
 
+/**
+ * envelope_defaults - XXX
+ * @env:   YYY
+ * @ctx:   YYY
+ * @cur:   YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 envelope_defaults (ENVELOPE *env, CONTEXT *ctx, HEADER *cur, int flags)
 {
@@ -815,6 +1033,18 @@ envelope_defaults (ENVELOPE *env, CONTEXT *ctx, HEADER *cur, int flags)
   return (0);
 }
 
+/**
+ * generate_body - XXX
+ * @tempfp: YYY
+ * @msg:    YYY
+ * @flags:  YYY
+ * @ctx:    YYY
+ * @cur:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 generate_body (FILE *tempfp,	/* stream for outgoing message */
 	       HEADER *msg,	/* header for outgoing message */
@@ -922,6 +1152,12 @@ generate_body (FILE *tempfp,	/* stream for outgoing message */
   return (0);
 }
 
+/**
+ * mutt_set_followup_to - XXX
+ * @e: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_set_followup_to (ENVELOPE *e)
 {
   ADDRESS *t = NULL;
@@ -992,6 +1228,14 @@ void mutt_set_followup_to (ENVELOPE *e)
 }
 
 
+/**
+ * set_reverse_name - XXX
+ * @env: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 /* look through the recipients of the message we are replying to, and if
    we find an address that matches $alternates, we use that as the default
    from field */
@@ -1026,6 +1270,13 @@ static ADDRESS *set_reverse_name (ENVELOPE *env)
   return (tmp);
 }
 
+/**
+ * mutt_default_from - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: ADDRESS*
+ */
 ADDRESS *mutt_default_from (void)
 {
   ADDRESS *adr;
@@ -1053,6 +1304,14 @@ ADDRESS *mutt_default_from (void)
   return (adr);
 }
 
+/**
+ * send_message - XXX
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int send_message (HEADER *msg)
 {  
   char tempfile[_POSIX_PATH_MAX];
@@ -1120,6 +1379,13 @@ static int send_message (HEADER *msg)
   return (i);
 }
 
+/**
+ * mutt_encode_descriptions - XXX
+ * @b:       YYY
+ * @recurse: YYY
+ *
+ * DESCRIPTION
+ */
 /* rfc2047 encode the content-descriptions */
 void mutt_encode_descriptions (BODY *b, short recurse)
 {
@@ -1136,6 +1402,12 @@ void mutt_encode_descriptions (BODY *b, short recurse)
   }
 }
 
+/**
+ * decode_descriptions - XXX
+ * @b: YYY
+ *
+ * DESCRIPTION
+ */
 /* rfc2047 decode them in case of an error */
 static void decode_descriptions (BODY *b)
 {
@@ -1152,6 +1424,12 @@ static void decode_descriptions (BODY *b)
   }
 }
 
+/**
+ * fix_end_of_file - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ */
 static void fix_end_of_file (const char *data)
 {
   FILE *fp;
@@ -1165,6 +1443,14 @@ static void fix_end_of_file (const char *data)
   safe_fclose (&fp);
 }
 
+/**
+ * mutt_compose_to_sender - XXX
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_compose_to_sender (HEADER *hdr)
 {
   HEADER *msg = mutt_new_header();
@@ -1186,6 +1472,16 @@ int mutt_compose_to_sender (HEADER *hdr)
   return ci_send_message (0, msg, NULL, NULL, NULL);
 }
 
+/**
+ * mutt_resend_message - XXX
+ * @fp:  YYY
+ * @ctx: YYY
+ * @cur: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_resend_message (FILE *fp, CONTEXT *ctx, HEADER *cur)
 {
   HEADER *msg = mutt_new_header ();
@@ -1217,12 +1513,29 @@ int mutt_resend_message (FILE *fp, CONTEXT *ctx, HEADER *cur)
   return ci_send_message (SENDRESEND, msg, NULL, ctx, cur);
 }
 
+/**
+ * is_reply - XXX
+ * @reply: YYY
+ * @orig:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int is_reply (HEADER *reply, HEADER *orig)
 {
   return mutt_find_list (orig->env->references, reply->env->message_id) ||
          mutt_find_list (orig->env->in_reply_to, reply->env->message_id);
 }
 
+/**
+ * has_recips - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int has_recips (ADDRESS *a)
 {
   int c = 0;
@@ -1236,6 +1549,14 @@ static int has_recips (ADDRESS *a)
   return c;
 }
 
+/**
+ * mutt_search_attach_keyword - XXX
+ * @filename: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int
 mutt_search_attach_keyword (char *filename)
 {
@@ -1264,6 +1585,18 @@ mutt_search_attach_keyword (char *filename)
   return found;
 }
 
+/**
+ * ci_send_message - XXX
+ * @flags:    YYY
+ * @msg:      YYY
+ * @tempfile: YYY
+ * @ctx:      YYY
+ * @cur:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Returns 0 if the message was successfully sent
  *        -1 if the message was aborted or an error occurred

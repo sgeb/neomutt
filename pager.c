@@ -144,6 +144,16 @@ static struct resize {
 
 #define NumSigLines 4
 
+/**
+ * check_sig - XXX
+ * @s:    YYY
+ * @info: YYY
+ * @n:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int check_sig (const char *s, struct line_t *info, int n)
 {
   int count = 0;
@@ -175,6 +185,17 @@ static int check_sig (const char *s, struct line_t *info, int n)
   return (0);
 }
 
+/**
+ * resolve_color - XXX
+ * @lineInfo: YYY
+ * @n:        YYY
+ * @cnt:      YYY
+ * @flags:    YYY
+ * @special:  YYY
+ * @a:        YYY
+ *
+ * DESCRIPTION
+ */
 static void
 resolve_color (struct line_t *lineInfo, int n, int cnt, int flags, int special,
     ansi_attr *a)
@@ -309,6 +330,14 @@ resolve_color (struct line_t *lineInfo, int n, int cnt, int flags, int special,
   }
 }
 
+/**
+ * append_line - XXX
+ * @lineInfo: YYY
+ * @n:        YYY
+ * @cnt:      YYY
+ *
+ * DESCRIPTION
+ */
 static void
 append_line (struct line_t *lineInfo, int n, int cnt)
 {
@@ -327,6 +356,13 @@ append_line (struct line_t *lineInfo, int n, int cnt)
     cnt + (lineInfo[n].syntax)[0].last : cnt;
 }
 
+/**
+ * new_class_color - XXX
+ * @class:   YYY
+ * @q_level: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 new_class_color (struct q_class_t *class, int *q_level)
 {
@@ -334,6 +370,15 @@ new_class_color (struct q_class_t *class, int *q_level)
   class->color = ColorQuote[class->index % ColorQuoteUsed];
 }
 
+/**
+ * shift_class_colors - XXX
+ * @QuoteList: YYY
+ * @new_class: YYY
+ * @index:     YYY
+ * @q_level:   YYY
+ *
+ * DESCRIPTION
+ */
 static void
 shift_class_colors (struct q_class_t *QuoteList, struct q_class_t *new_class,
 		      int index, int *q_level)
@@ -372,6 +417,12 @@ shift_class_colors (struct q_class_t *QuoteList, struct q_class_t *new_class,
   (*q_level)++;
 }
 
+/**
+ * cleanup_quote - XXX
+ * @QuoteList: YYY
+ *
+ * DESCRIPTION
+ */
 static void
 cleanup_quote (struct q_class_t **QuoteList)
 {
@@ -391,6 +442,18 @@ cleanup_quote (struct q_class_t **QuoteList)
   return;
 }
 
+/**
+ * classify_quote - XXX
+ * @QuoteList:    YYY
+ * @qptr:         YYY
+ * @length:       YYY
+ * @force_redraw: YYY
+ * @q_level:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct q_class_t*
+ */
 static struct q_class_t *
 classify_quote (struct q_class_t **QuoteList, const char *qptr,
 		int length, int *force_redraw, int *q_level)
@@ -707,6 +770,20 @@ static int brailleCol = -1;
 
 static int check_attachment_marker (char *);
 
+/**
+ * resolve_types - XXX
+ * @buf:          YYY
+ * @raw:          YYY
+ * @lineInfo:     YYY
+ * @n:            YYY
+ * @last:         YYY
+ * @QuoteList:    YYY
+ * @q_level:      YYY
+ * @force_redraw: YYY
+ * @q_classify:   YYY
+ *
+ * DESCRIPTION
+ */
 static void
 resolve_types (char *buf, char *raw, struct line_t *lineInfo, int n, int last,
 		struct q_class_t **QuoteList, int *q_level, int *force_redraw,
@@ -966,6 +1043,14 @@ resolve_types (char *buf, char *raw, struct line_t *lineInfo, int n, int last,
   }
 }
 
+/**
+ * is_ansi - XXX
+ * @buf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int is_ansi (unsigned char *buf)
 {
   while (*buf && (isdigit(*buf) || *buf == ';'))
@@ -973,6 +1058,14 @@ static int is_ansi (unsigned char *buf)
   return (*buf == 'm');
 }
 
+/**
+ * check_attachment_marker - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int check_attachment_marker (char *p)
 {
   char *q = AttachmentMarker;
@@ -982,6 +1075,16 @@ static int check_attachment_marker (char *p)
   return (int) (*p - *q);
 }
 
+/**
+ * grok_ansi - XXX
+ * @buf: YYY
+ * @pos: YYY
+ * @a:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int grok_ansi(unsigned char *buf, int pos, ansi_attr *a)
 {
   int x = pos;
@@ -1066,6 +1169,15 @@ static int grok_ansi(unsigned char *buf, int pos, ansi_attr *a)
   return pos;
 }
 
+/**
+ * trim_incomplete_mbyte - XXX
+ * @buf: YYY
+ * @len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* trim tail of buf so that it contains complete multibyte characters */
 static int
 trim_incomplete_mbyte(unsigned char *buf, size_t len)
@@ -1091,6 +1203,20 @@ trim_incomplete_mbyte(unsigned char *buf, size_t len)
   return len;
 }
 
+/**
+ * fill_buffer - XXX
+ * @f:         YYY
+ * @last_pos:  YYY
+ * @offset:    YYY
+ * @buf:       YYY
+ * @fmt:       YYY
+ * @blen:      YYY
+ * @buf_ready: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 fill_buffer (FILE *f, LOFF_T *last_pos, LOFF_T offset, unsigned char **buf,
 	     unsigned char **fmt, size_t *blen, int *buf_ready)
@@ -1161,6 +1287,24 @@ fill_buffer (FILE *f, LOFF_T *last_pos, LOFF_T offset, unsigned char **buf,
 #endif
 
 
+/**
+ * format_line - XXX
+ * @lineInfo:     YYY
+ * @n:            YYY
+ * @buf:          YYY
+ * @flags:        YYY
+ * @pa:           YYY
+ * @cnt:          YYY
+ * @pspace:       YYY
+ * @pvch:         YYY
+ * @pcol:         YYY
+ * @pspecial:     YYY
+ * @pager_window: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int format_line (struct line_t **lineInfo, int n, unsigned char *buf,
 			int flags, ansi_attr *pa, int cnt,
 			int *pspace, int *pvch, int *pcol, int *pspecial,
@@ -1361,6 +1505,25 @@ static int format_line (struct line_t **lineInfo, int n, unsigned char *buf,
  *	>0	normal exit, line was displayed
  */
 
+/**
+ * display_line - XXX
+ * @f:            YYY
+ * @last_pos:     YYY
+ * @lineInfo:     YYY
+ * @n:            YYY
+ * @last:         YYY
+ * @max:          YYY
+ * @flags:        YYY
+ * @QuoteList:    YYY
+ * @q_level:      YYY
+ * @force_redraw: YYY
+ * @SearchRE:     YYY
+ * @pager_window: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 display_line (FILE *f, LOFF_T *last_pos, struct line_t **lineInfo, int n, 
 	      int *last, int *max, int flags, struct q_class_t **QuoteList,
@@ -1604,6 +1767,17 @@ out:
   return rc;
 }
 
+/**
+ * upNLines - XXX
+ * @nlines: YYY
+ * @info:   YYY
+ * @cur:    YYY
+ * @hiding: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 upNLines (int nlines, struct line_t *info, int cur, int hiding)
 {
@@ -1641,6 +1815,11 @@ static struct mapping_t PagerNewsHelpExtra[] = {
 };
 #endif
 
+/**
+ * mutt_clear_pager_position - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_clear_pager_position (void)
 {
   TopLine = 0;
@@ -1648,6 +1827,17 @@ void mutt_clear_pager_position (void)
 }
 
 
+/**
+ * mutt_pager - XXX
+ * @banner: YYY
+ * @fname:  YYY
+ * @flags:  YYY
+ * @extra:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* This pager is actually not so simple as it once was.  It now operates in
    two modes: one for viewing messages and the other for viewing help.  These
    can be distinguished by whether or not ``hdr'' is NULL.  The ``hdr'' arg

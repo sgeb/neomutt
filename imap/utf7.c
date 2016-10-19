@@ -43,6 +43,17 @@ static const char B64Chars[64] = {
   '8', '9', '+', ','
 };
 
+/**
+ * utf7_to_utf8 - XXX
+ * @u7:    YYY
+ * @u7len: YYY
+ * @u8:    YYY
+ * @u8len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /*
  * Convert the data (u7,u7len) from RFC 2060's UTF-7 to UTF-8.
  * The result is null-terminated and returned, and also stored
@@ -139,6 +150,17 @@ static char *utf7_to_utf8 (const char *u7, size_t u7len, char **u8,
   return 0;
 }
 
+/**
+ * utf8_to_utf7 - XXX
+ * @u8:    YYY
+ * @u8len: YYY
+ * @u7:    YYY
+ * @u7len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /*
  * Convert the data (u8,u8len) from UTF-8 to RFC 2060's UTF-7.
  * The result is null-terminated and returned, and also stored
@@ -252,6 +274,13 @@ static char *utf8_to_utf7 (const char *u8, size_t u8len, char **u7,
   return 0;
 }
 
+/**
+ * imap_utf_encode - XXX
+ * @idata: YYY
+ * @s:     YYY
+ *
+ * DESCRIPTION
+ */
 void imap_utf_encode (IMAP_DATA *idata, char **s)
 {
   if (Charset)
@@ -269,6 +298,13 @@ void imap_utf_encode (IMAP_DATA *idata, char **s)
   }
 }
 
+/**
+ * imap_utf_decode - XXX
+ * @idata: YYY
+ * @s:     YYY
+ *
+ * DESCRIPTION
+ */
 void imap_utf_decode (IMAP_DATA *idata, char **s)
 {
   char *t;

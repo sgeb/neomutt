@@ -47,6 +47,15 @@ static sort_t *AuxSort = NULL;
 if (!code) \
   code = (*((HEADER **)a))->index - (*((HEADER **)b))->index;
 
+/**
+ * compare_score - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_score (const void *a, const void *b)
 {
   HEADER **pa = (HEADER **) a;
@@ -56,6 +65,15 @@ static int compare_score (const void *a, const void *b)
   return (SORTCODE (result));
 }
 
+/**
+ * compare_size - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_size (const void *a, const void *b)
 {
   HEADER **pa = (HEADER **) a;
@@ -65,6 +83,15 @@ static int compare_size (const void *a, const void *b)
   return (SORTCODE (result));
 }
 
+/**
+ * compare_date_sent - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_date_sent (const void *a, const void *b)
 {
   HEADER **pa = (HEADER **) a;
@@ -74,6 +101,15 @@ static int compare_date_sent (const void *a, const void *b)
   return (SORTCODE (result));
 }
 
+/**
+ * compare_subject - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_subject (const void *a, const void *b)
 {
   HEADER **pa = (HEADER **) a;
@@ -95,6 +131,14 @@ static int compare_subject (const void *a, const void *b)
   return (SORTCODE (rc));
 }
 
+/**
+ * mutt_get_name - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 const char *mutt_get_name (ADDRESS *a)
 {
   ADDRESS *ali;
@@ -112,6 +156,15 @@ const char *mutt_get_name (ADDRESS *a)
   return ("");
 }
 
+/**
+ * compare_to - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_to (const void *a, const void *b)
 {
   HEADER **ppa = (HEADER **) a;
@@ -127,6 +180,15 @@ static int compare_to (const void *a, const void *b)
   return (SORTCODE (result));
 }
 
+/**
+ * compare_from - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_from (const void *a, const void *b)
 {
   HEADER **ppa = (HEADER **) a;
@@ -142,6 +204,15 @@ static int compare_from (const void *a, const void *b)
   return (SORTCODE (result));
 }
 
+/**
+ * compare_date_received - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_date_received (const void *a, const void *b)
 {
   HEADER **pa = (HEADER **) a;
@@ -151,6 +222,15 @@ static int compare_date_received (const void *a, const void *b)
   return (SORTCODE (result));
 }
 
+/**
+ * compare_order - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_order (const void *a, const void *b)
 {
   HEADER **ha = (HEADER **) a;
@@ -171,6 +251,15 @@ static int compare_order (const void *a, const void *b)
   return (SORTCODE ((*ha)->index - (*hb)->index));
 }
 
+/**
+ * compare_spam - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int compare_spam (const void *a, const void *b)
 {
   HEADER **ppa = (HEADER **) a;
@@ -226,6 +315,15 @@ static int compare_spam (const void *a, const void *b)
   return (SORTCODE(result));
 }
 
+/**
+ * compare_label - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int compare_label (const void *a, const void *b)
 {
   HEADER **ppa = (HEADER **) a;
@@ -266,6 +364,14 @@ int compare_label (const void *a, const void *b)
   return (SORTCODE(result));
 }
 
+/**
+ * mutt_get_sort_func - XXX
+ * @method: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: sort_t*
+ */
 sort_t *mutt_get_sort_func (int method)
 {
   switch (method & SORT_MASK)
@@ -296,6 +402,13 @@ sort_t *mutt_get_sort_func (int method)
   /* not reached */
 }
 
+/**
+ * mutt_sort_headers - XXX
+ * @ctx:  YYY
+ * @init: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_sort_headers (CONTEXT *ctx, int init)
 {
   int i;

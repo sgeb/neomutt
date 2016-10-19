@@ -243,6 +243,15 @@ static void *root;
 #  define tsearch __tsearch
 # endif
 
+/**
+ * transcmp - XXX
+ * @p1: YYY
+ * @p2: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* Function to compare two entries in the table of known translations.  */
 static int transcmp PARAMS ((const void *p1, const void *p2));
 static int
@@ -674,6 +683,17 @@ DCIGETTEXT (domainname, msgid1, msgid2, plural, n, category)
 }
 
 
+/**
+ * _nl_find_msg - XXX
+ * @domain_file:   YYY
+ * @domainbinding: YYY
+ * @msgid:         YYY
+ * @lengthp:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *
 internal_function
 _nl_find_msg (domain_file, domainbinding, msgid, lengthp)
@@ -964,6 +984,17 @@ _nl_find_msg (domain_file, domainbinding, msgid, lengthp)
 }
 
 
+/**
+ * plural_lookup - XXX
+ * @domain:          YYY
+ * @n:               YYY
+ * @translation:     YYY
+ * @translation_len: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* Look up a plural variant.  */
 static char *
 internal_function
@@ -1005,6 +1036,15 @@ plural_lookup (domain, n, translation, translation_len)
 }
 
 
+/**
+ * plural_eval - XXX
+ * @pexp: YYY
+ * @n:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned long int
+ */
 /* Function to evaluate the plural expression and return an index value.  */
 static unsigned long int
 internal_function
@@ -1086,6 +1126,14 @@ plural_eval (pexp, n)
 }
 
 
+/**
+ * category_to_name - XXX
+ * @category: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Return string representation of locale CATEGORY.  */
 static const char *
 internal_function
@@ -1146,6 +1194,15 @@ category_to_name (category)
   return retval;
 }
 
+/**
+ * guess_category_value - XXX
+ * @category:     YYY
+ * @categoryname: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* Guess value of current locale from value of the environment variables.  */
 static const char *
 internal_function

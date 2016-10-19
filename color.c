@@ -130,6 +130,13 @@ static const struct mapping_t Fields[] =
 
 #define COLOR_QUOTE_INIT	8
 
+/**
+ * mutt_new_color_line - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: COLOR_LINE*
+ */
 static COLOR_LINE *mutt_new_color_line (void)
 {
   COLOR_LINE *p = safe_calloc (1, sizeof (COLOR_LINE));
@@ -139,6 +146,13 @@ static COLOR_LINE *mutt_new_color_line (void)
   return (p);
 }
 
+/**
+ * mutt_free_color_line - XXX
+ * @l:           YYY
+ * @free_colors: YYY
+ *
+ * DESCRIPTION
+ */
 static void mutt_free_color_line(COLOR_LINE **l, 
 				 int free_colors)
 {
@@ -164,6 +178,11 @@ static void mutt_free_color_line(COLOR_LINE **l,
   FREE (l);		/* __FREE_CHECKED__ */
 }
 
+/**
+ * ci_start_color - XXX
+ *
+ * DESCRIPTION
+ */
 void ci_start_color (void)
 {
   memset (ColorDefs, A_NORMAL, sizeof (int) * MT_COLOR_MAX);
@@ -230,6 +249,15 @@ static char *get_color_name (char *dest, size_t destlen, int val)
 }
 #endif
 
+/**
+ * mutt_alloc_color - XXX
+ * @fg: YYY
+ * @bg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_alloc_color (int fg, int bg)
 {
   COLOR_LIST *p = ColorList;
@@ -295,6 +323,13 @@ int mutt_alloc_color (int fg, int bg)
   return (COLOR_PAIR (p->index));
 }
 
+/**
+ * mutt_free_color - XXX
+ * @fg: YYY
+ * @bg: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_free_color (int fg, int bg)
 {
   COLOR_LIST *p, *q;
@@ -339,6 +374,18 @@ void mutt_free_color (int fg, int bg)
 
 #ifdef HAVE_COLOR
 
+/**
+ * parse_color_name - XXX
+ * @s:     YYY
+ * @col:   YYY
+ * @attr:  YYY
+ * @is_fg: YYY
+ * @err:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 parse_color_name (const char *s, int *col, int *attr, int is_fg, BUFFER *err)
 {
@@ -404,6 +451,17 @@ _mutt_parse_uncolor (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err,
 
 #ifdef HAVE_COLOR
 
+/**
+ * mutt_parse_uncolor - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_uncolor (BUFFER *buf, BUFFER *s, unsigned long data,
 			BUFFER *err)
 {
@@ -412,12 +470,33 @@ int mutt_parse_uncolor (BUFFER *buf, BUFFER *s, unsigned long data,
 
 #endif
 
+/**
+ * mutt_parse_unmono - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_unmono (BUFFER *buf, BUFFER *s, unsigned long data,
 		       BUFFER *err)
 {
   return _mutt_parse_uncolor(buf, s, data, err, 0);
 }
 
+/**
+ * mutt_do_uncolor - XXX
+ * @buf:           YYY
+ * @s:             YYY
+ * @ColorList:     YYY
+ * @do_cache:      YYY
+ * @parse_uncolor: YYY
+ *
+ * DESCRIPTION
+ */
 /**
  * mutt_do_uncolor - XXX
  */
@@ -472,6 +551,18 @@ mutt_do_uncolor (BUFFER *buf, BUFFER *s, COLOR_LINE **ColorList,
   } while (MoreArgs (s));
 }
 
+/**
+ * _mutt_parse_uncolor - XXX
+ * @buf:           YYY
+ * @s:             YYY
+ * @data:          YYY
+ * @err:           YYY
+ * @parse_uncolor: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _mutt_parse_uncolor (BUFFER *buf, BUFFER *s, unsigned long data,
 				BUFFER *err, short parse_uncolor)
 {
@@ -561,6 +652,22 @@ static int _mutt_parse_uncolor (BUFFER *buf, BUFFER *s, unsigned long data,
 }
 
 
+/**
+ * add_pattern - XXX
+ * @top:       YYY
+ * @s:         YYY
+ * @sensitive: YYY
+ * @fg:        YYY
+ * @bg:        YYY
+ * @attr:      YYY
+ * @err:       YYY
+ * @is_index:  YYY
+ * @match:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int 
 add_pattern (COLOR_LINE **top, const char *s, int sensitive,
 	     int fg, int bg, int attr, BUFFER *err,
@@ -651,6 +758,18 @@ add_pattern (COLOR_LINE **top, const char *s, int sensitive,
   return 0;
 }
 
+/**
+ * parse_object - XXX
+ * @buf: YYY
+ * @s:   YYY
+ * @o:   YYY
+ * @ql:  YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 parse_object(BUFFER *buf, BUFFER *s, int *o, int *ql, BUFFER *err)
 {
@@ -693,6 +812,19 @@ typedef int (*parser_callback_t)(BUFFER *, BUFFER *, int *, int *, int *, BUFFER
 
 #ifdef HAVE_COLOR
 
+/**
+ * parse_color_pair - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @fg:   YYY
+ * @bg:   YYY
+ * @attr: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 parse_color_pair(BUFFER *buf, BUFFER *s, int *fg, int *bg, int *attr, BUFFER *err)
 {
@@ -723,6 +855,19 @@ parse_color_pair(BUFFER *buf, BUFFER *s, int *fg, int *bg, int *attr, BUFFER *er
 
 #endif
 
+/**
+ * parse_attr_spec - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @fg:   YYY
+ * @bg:   YYY
+ * @attr: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int
 parse_attr_spec(BUFFER *buf, BUFFER *s, int *fg, int *bg, int *attr, BUFFER *err)
 {
@@ -759,6 +904,16 @@ parse_attr_spec(BUFFER *buf, BUFFER *s, int *fg, int *bg, int *attr, BUFFER *err
   return 0;
 }
 
+/**
+ * fgbgattr_to_color - XXX
+ * @fg:   YYY
+ * @bg:   YYY
+ * @attr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int fgbgattr_to_color(int fg, int bg, int attr)
 {
 #ifdef HAVE_COLOR
@@ -773,6 +928,18 @@ static int fgbgattr_to_color(int fg, int bg, int attr)
  * 	  mono  <object> <attr> [ <regexp> ]
  */
 
+/**
+ * _mutt_parse_color - XXX
+ * @buf:      YYY
+ * @s:        YYY
+ * @err:      YYY
+ * @callback: YYY
+ * @dry_run:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int 
 _mutt_parse_color (BUFFER *buf, BUFFER *s, BUFFER *err, 
 		   parser_callback_t callback, short dry_run)
@@ -929,6 +1096,17 @@ _mutt_parse_color (BUFFER *buf, BUFFER *s, BUFFER *err,
 
 #ifdef HAVE_COLOR
 
+/**
+ * mutt_parse_color - XXX
+ * @buff: YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_color(BUFFER *buff, BUFFER *s, unsigned long data, BUFFER *err)
 {
   int dry_run = 0;
@@ -941,6 +1119,17 @@ int mutt_parse_color(BUFFER *buff, BUFFER *s, unsigned long data, BUFFER *err)
 
 #endif
 
+/**
+ * mutt_parse_mono - XXX
+ * @buff: YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_mono(BUFFER *buff, BUFFER *s, unsigned long data, BUFFER *err)
 {
   int dry_run = 0;

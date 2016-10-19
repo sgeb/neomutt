@@ -25,6 +25,14 @@
 #include <ctype.h>
 #include <string.h>
 
+/**
+ * next_word - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *next_word (const char *s)
 {
   while (*s && !ISSPACE (*s))
@@ -33,6 +41,14 @@ static const char *next_word (const char *s)
   return s;
 }
 
+/**
+ * mutt_check_month - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_check_month (const char *s)
 {
   int i;
@@ -43,6 +59,14 @@ int mutt_check_month (const char *s)
   return (-1); /* error */
 }
 
+/**
+ * is_day_name - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int is_day_name (const char *s)
 {
   int i;
@@ -61,6 +85,17 @@ static int is_day_name (const char *s)
  * From [ <return-path> ] <weekday> <month> <day> <time> [ <timezone> ] <year>
  */
 
+/**
+ * is_from - XXX
+ * @s:       YYY
+ * @path:    YYY
+ * @pathlen: YYY
+ * @tp:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int is_from (const char *s, char *path, size_t pathlen, time_t *tp)
 {
   struct tm tm;

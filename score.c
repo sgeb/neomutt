@@ -36,6 +36,12 @@ typedef struct score_t
 
 static SCORE *Score = NULL;
 
+/**
+ * mutt_check_rescore - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_check_rescore (CONTEXT *ctx)
 {
   int i;
@@ -63,6 +69,17 @@ void mutt_check_rescore (CONTEXT *ctx)
   unset_option (OPTNEEDRESCORE);
 }
 
+/**
+ * mutt_parse_score - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_score (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   SCORE *ptr, *last;
@@ -126,6 +143,14 @@ int mutt_parse_score (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
   return 0;
 }
 
+/**
+ * mutt_score_message - XXX
+ * @ctx:     YYY
+ * @hdr:     YYY
+ * @upd_ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_score_message (CONTEXT *ctx, HEADER *hdr, int upd_ctx)
 {
   SCORE *tmp;
@@ -154,6 +179,17 @@ void mutt_score_message (CONTEXT *ctx, HEADER *hdr, int upd_ctx)
     _mutt_set_flag (ctx, hdr, MUTT_FLAG, 1, upd_ctx);
 }
 
+/**
+ * mutt_parse_unscore - XXX
+ * @buf:  YYY
+ * @s:    YYY
+ * @data: YYY
+ * @err:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_parse_unscore (BUFFER *buf, BUFFER *s, unsigned long data, BUFFER *err)
 {
   SCORE *tmp, *last = NULL;

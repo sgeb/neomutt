@@ -122,6 +122,12 @@ struct nm_ctxdata {
 static HEADER *get_mutt_header(CONTEXT *ctx, notmuch_message_t *msg);
 static notmuch_message_t *get_nm_message(notmuch_database_t *db, HEADER *hdr);
 
+/**
+ * url_free_tags - XXX
+ * @tags: YYY
+ *
+ * DESCRIPTION
+ */
 static void url_free_tags(struct uri_tag *tags)
 {
 	while (tags) {
@@ -133,6 +139,16 @@ static void url_free_tags(struct uri_tag *tags)
 	}
 }
 
+/**
+ * url_parse_query - XXX
+ * @url:      YYY
+ * @filename: YYY
+ * @tags:     YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int url_parse_query(char *url, char **filename, struct uri_tag **tags)
 {
 	char *p = strstr(url, "://");	/* remote unsupported */
@@ -204,6 +220,12 @@ err:
 	return -1;
 }
 
+/**
+ * free_tag_list - XXX
+ * @tag_list: YYY
+ *
+ * DESCRIPTION
+ */
 static void free_tag_list(struct nm_hdrtag **tag_list)
 {
 	struct nm_hdrtag *tmp;
@@ -219,6 +241,12 @@ static void free_tag_list(struct nm_hdrtag **tag_list)
 	*tag_list = 0;
 }
 
+/**
+ * free_hdrdata - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ */
 static void free_hdrdata(struct nm_hdrdata *data)
 {
 	if (!data)
@@ -234,6 +262,12 @@ static void free_hdrdata(struct nm_hdrdata *data)
 	FREE(&data);
 }
 
+/**
+ * free_ctxdata - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ */
 static void free_ctxdata(struct nm_ctxdata *data)
 {
 	if (!data)
@@ -255,6 +289,14 @@ static void free_ctxdata(struct nm_ctxdata *data)
 	FREE(&data);
 }
 
+/**
+ * new_ctxdata - XXX
+ * @uri: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct nm_ctxdata*
+ */
 static struct nm_ctxdata *new_ctxdata(char *uri)
 {
 	struct nm_ctxdata *data;
@@ -278,6 +320,14 @@ static struct nm_ctxdata *new_ctxdata(char *uri)
 	return data;
 }
 
+/**
+ * deinit_context - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int deinit_context(CONTEXT *ctx)
 {
 	int i;
@@ -299,6 +349,14 @@ static int deinit_context(CONTEXT *ctx)
 	return 0;
 }
 
+/**
+ * init_context - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int init_context(CONTEXT *ctx)
 {
 	if (!ctx || ctx->magic != MUTT_NOTMUCH)
@@ -314,22 +372,55 @@ static int init_context(CONTEXT *ctx)
 	return 0;
 }
 
+/**
+ * nm_header_get_folder - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *nm_header_get_folder(HEADER *h)
 {
 	return h && h->data ? ((struct nm_hdrdata *) h->data)->folder : NULL;
 }
 
+/**
+ * nm_header_get_tags - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* returns all unhidden tags */
 char *nm_header_get_tags(HEADER *h)
 {
 	return h && h->data ? ((struct nm_hdrdata *) h->data)->tags : NULL;
 }
 
+/**
+ * nm_header_get_tags_transformed - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *nm_header_get_tags_transformed(HEADER *h)
 {
 	return h && h->data ? ((struct nm_hdrdata *) h->data)->tags_transformed : NULL;
 }
 
+/**
+ * nm_header_get_tag_transformed - XXX
+ * @tag: YYY
+ * @h:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *nm_header_get_tag_transformed(char *tag, HEADER *h)
 {
 	struct nm_hdrtag *tmp;
@@ -348,11 +439,27 @@ char *nm_header_get_tag_transformed(char *tag, HEADER *h)
 	return NULL;
 }
 
+/**
+ * nm_header_get_magic - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_header_get_magic(HEADER *h)
 {
 	return h && h->data ? ((struct nm_hdrdata *) h->data)->magic : 0;
 }
 
+/**
+ * nm_header_get_id - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /*
  * Returns notmuch message Id.
  */
@@ -362,6 +469,16 @@ static char *nm_header_get_id(HEADER *h)
 }
 
 
+/**
+ * nm_header_get_fullpath - XXX
+ * @h:     YYY
+ * @buf:   YYY
+ * @bufsz: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *nm_header_get_fullpath(HEADER *h, char *buf, size_t bufsz)
 {
 	snprintf(buf, bufsz, "%s/%s", nm_header_get_folder(h), h->path);
@@ -370,6 +487,14 @@ char *nm_header_get_fullpath(HEADER *h, char *buf, size_t bufsz)
 }
 
 
+/**
+ * get_ctxdata - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: struct nm_ctxdata*
+ */
 static struct nm_ctxdata *get_ctxdata(CONTEXT *ctx)
 {
 	if (ctx && ctx->magic == MUTT_NOTMUCH)
@@ -378,6 +503,14 @@ static struct nm_ctxdata *get_ctxdata(CONTEXT *ctx)
 	return NULL;
 }
 
+/**
+ * string_to_guery_type - XXX
+ * @str: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int string_to_guery_type(const char *str)
 {
 	if (!str)
@@ -394,6 +527,14 @@ static int string_to_guery_type(const char *str)
 	return NM_QUERY_TYPE_MESGS;
 }
 
+/**
+ * get_query_string - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *get_query_string(struct nm_ctxdata *data)
 {
 	struct uri_tag *item;
@@ -426,16 +567,40 @@ static char *get_query_string(struct nm_ctxdata *data)
 	return data->db_query;
 }
 
+/**
+ * get_limit - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int get_limit(struct nm_ctxdata *data)
 {
 	return data ? data->db_limit : 0;
 }
 
+/**
+ * get_query_type - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int get_query_type(struct nm_ctxdata *data)
 {
 	return (data && data->query_type) ? data->query_type : string_to_guery_type(NULL);
 }
 
+/**
+ * get_db_filename - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *get_db_filename(struct nm_ctxdata *data)
 {
 	char *db_filename;
@@ -455,6 +620,16 @@ static const char *get_db_filename(struct nm_ctxdata *data)
 	return db_filename;
 }
 
+/**
+ * do_database_open - XXX
+ * @filename: YYY
+ * @writable: YYY
+ * @verbose:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: notmuch_database_t*
+ */
 static notmuch_database_t *do_database_open(const char *filename,
 					    int writable, int verbose)
 {
@@ -495,6 +670,15 @@ static notmuch_database_t *do_database_open(const char *filename,
 	return db;
 }
 
+/**
+ * get_db - XXX
+ * @data:     YYY
+ * @writable: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: notmuch_database_t*
+ */
 static notmuch_database_t *get_db(struct nm_ctxdata *data, int writable)
 {
 	if (!data)
@@ -508,6 +692,14 @@ static notmuch_database_t *get_db(struct nm_ctxdata *data, int writable)
 	return data->db;
 }
 
+/**
+ * release_db - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int release_db(struct nm_ctxdata *data)
 {
 	if (data && data->db) {
@@ -525,6 +717,14 @@ static int release_db(struct nm_ctxdata *data)
 	return -1;
 }
 
+/**
+ * db_trans_begin - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* returns:	< 0 = error
  *		  1 = new transaction started
  *		  0 = already within transaction
@@ -545,6 +745,14 @@ static int db_trans_begin(struct nm_ctxdata *data)
 	return 0;
 }
 
+/**
+ * db_trans_end - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int db_trans_end(struct nm_ctxdata *data)
 {
 	if (!data || !data->db)
@@ -560,6 +768,13 @@ static int db_trans_end(struct nm_ctxdata *data)
 	return 0;
 }
 
+/**
+ * nm_longrun_init - XXX
+ * @ctx:      YYY
+ * @writable: YYY
+ *
+ * DESCRIPTION
+ */
 void nm_longrun_init(CONTEXT *ctx, int writable)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -570,6 +785,12 @@ void nm_longrun_init(CONTEXT *ctx, int writable)
 	}
 }
 
+/**
+ * nm_longrun_done - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void nm_longrun_done(CONTEXT *ctx)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -578,11 +799,25 @@ void nm_longrun_done(CONTEXT *ctx)
 		dprint(2, (debugfile, "nm: long run deinitialized\n"));
 }
 
+/**
+ * is_longrun - XXX
+ * @data: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int is_longrun(struct nm_ctxdata *data)
 {
 	return data && data->longrun;
 }
 
+/**
+ * nm_debug_check - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 void nm_debug_check(CONTEXT *ctx)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -596,6 +831,15 @@ void nm_debug_check(CONTEXT *ctx)
 	}
 }
 
+/**
+ * get_database_mtime - XXX
+ * @data:  YYY
+ * @mtime: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int get_database_mtime(struct nm_ctxdata *data, time_t *mtime)
 {
 	char path[_POSIX_PATH_MAX];
@@ -616,6 +860,12 @@ static int get_database_mtime(struct nm_ctxdata *data, time_t *mtime)
 	return 0;
 }
 
+/**
+ * apply_exclude_tags - XXX
+ * @query: YYY
+ *
+ * DESCRIPTION
+ */
 static void apply_exclude_tags(notmuch_query_t *query)
 {
 	char *buf, *p, *end = NULL, *tag = NULL;
@@ -647,6 +897,15 @@ static void apply_exclude_tags(notmuch_query_t *query)
 	FREE(&buf);
 }
 
+/**
+ * get_query - XXX
+ * @data:     YYY
+ * @writable: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: notmuch_query_t*
+ */
 static notmuch_query_t *get_query(struct nm_ctxdata *data, int writable)
 {
 	notmuch_database_t *db = NULL;
@@ -676,6 +935,14 @@ err:
 	return NULL;
 }
 
+/**
+ * append_str_item - XXX
+ * @str:  YYY
+ * @item: YYY
+ * @sep:  YYY
+ *
+ * DESCRIPTION
+ */
 static void append_str_item(char **str, const char *item, int sep)
 {
 	char *p;
@@ -689,6 +956,15 @@ static void append_str_item(char **str, const char *item, int sep)
 	memcpy(p, item, sz + 1);
 }
 
+/**
+ * update_header_tags - XXX
+ * @h:   YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int update_header_tags(HEADER *h, notmuch_message_t *msg)
 {
 	struct nm_hdrdata *data = h->data;
@@ -764,6 +1040,15 @@ static int update_header_tags(HEADER *h, notmuch_message_t *msg)
 	return 0;
 }
 
+/**
+ * update_message_path - XXX
+ * @h:    YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * set/update HEADER->path and HEADER->data->path
  */
@@ -800,6 +1085,14 @@ static int update_message_path(HEADER *h, const char *path)
 	return 1;
 }
 
+/**
+ * get_folder_from_path - XXX
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *get_folder_from_path(const char *path)
 {
 	char *p = strrchr(path, '/');
@@ -818,6 +1111,12 @@ static char *get_folder_from_path(const char *path)
 	return NULL;
 }
 
+/**
+ * deinit_header - XXX
+ * @h: YYY
+ *
+ * DESCRIPTION
+ */
 static void deinit_header(HEADER *h)
 {
 	if (h) {
@@ -826,6 +1125,14 @@ static void deinit_header(HEADER *h)
 	}
 }
 
+/**
+ * nm2mutt_message_id - XXX
+ * @id: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 /* converts notmuch message Id to mutt message <Id> */
 static char *nm2mutt_message_id(const char *id)
 {
@@ -841,6 +1148,16 @@ static char *nm2mutt_message_id(const char *id)
 	return mid;
 }
 
+/**
+ * init_header - XXX
+ * @h:    YYY
+ * @path: YYY
+ * @msg:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int init_header(HEADER *h, const char *path, notmuch_message_t *msg)
 {
 	const char *id;
@@ -901,6 +1218,14 @@ static void debug_print_tags(notmuch_message_t *msg)
 }
 ***/
 
+/**
+ * get_message_last_filename - XXX
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *get_message_last_filename(notmuch_message_t *msg)
 {
 	notmuch_filenames_t *ls;
@@ -916,6 +1241,12 @@ static const char *get_message_last_filename(notmuch_message_t *msg)
 	return name;
 }
 
+/**
+ * nm_progress_reset - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ */
 static void nm_progress_reset(CONTEXT *ctx)
 {
 	struct nm_ctxdata *data;
@@ -932,6 +1263,13 @@ static void nm_progress_reset(CONTEXT *ctx)
 	data->progress_ready = 0;
 }
 
+/**
+ * nm_progress_update - XXX
+ * @ctx: YYY
+ * @q:   YYY
+ *
+ * DESCRIPTION
+ */
 static void nm_progress_update(CONTEXT *ctx, notmuch_query_t *q)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -961,6 +1299,15 @@ static void nm_progress_update(CONTEXT *ctx, notmuch_query_t *q)
 					      - data->oldmsgcount, -1);
 }
 
+/**
+ * append_message - XXX
+ * @ctx:   YYY
+ * @q:     YYY
+ * @msg:   YYY
+ * @dedup: YYY
+ *
+ * DESCRIPTION
+ */
 static void append_message(CONTEXT *ctx,
 			   notmuch_query_t *q,
 			   notmuch_message_t *msg,
@@ -1043,6 +1390,15 @@ done:
 	FREE(&newpath);
 }
 
+/**
+ * append_replies - XXX
+ * @ctx:   YYY
+ * @q:     YYY
+ * @top:   YYY
+ * @dedup: YYY
+ *
+ * DESCRIPTION
+ */
 /*
  * add all the replies to a given messages into the display.
  * Careful, this calls itself recursively to make sure we get
@@ -1067,6 +1423,15 @@ static void append_replies(CONTEXT *ctx,
 	}
 }
 
+/**
+ * append_thread - XXX
+ * @ctx:    YYY
+ * @q:      YYY
+ * @thread: YYY
+ * @dedup:  YYY
+ *
+ * DESCRIPTION
+ */
 /*
  * add each top level reply in the thread, and then add each
  * reply to the top level replies
@@ -1089,6 +1454,14 @@ static void append_thread(CONTEXT *ctx,
 	}
 }
 
+/**
+ * read_mesgs_query - XXX
+ * @ctx:   YYY
+ * @q:     YYY
+ * @dedup: YYY
+ *
+ * DESCRIPTION
+ */
 static void read_mesgs_query(CONTEXT *ctx, notmuch_query_t *q, int dedup)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -1117,6 +1490,15 @@ static void read_mesgs_query(CONTEXT *ctx, notmuch_query_t *q, int dedup)
 	}
 }
 
+/**
+ * read_threads_query - XXX
+ * @ctx:   YYY
+ * @q:     YYY
+ * @dedup: YYY
+ * @limit: YYY
+ *
+ * DESCRIPTION
+ */
 static void read_threads_query(CONTEXT *ctx, notmuch_query_t *q, int dedup, int limit)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -1142,6 +1524,14 @@ static void read_threads_query(CONTEXT *ctx, notmuch_query_t *q, int dedup, int 
 	}
 }
 
+/**
+ * nm_read_query - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_read_query(CONTEXT *ctx)
 {
 	notmuch_query_t *q;
@@ -1188,6 +1578,15 @@ int nm_read_query(CONTEXT *ctx)
 	return rc;
 }
 
+/**
+ * nm_read_entire_thread - XXX
+ * @ctx: YYY
+ * @h:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_read_entire_thread(CONTEXT *ctx, HEADER *h)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -1241,6 +1640,16 @@ done:
 	return rc;
 }
 
+/**
+ * nm_uri_from_query - XXX
+ * @ctx:   YYY
+ * @buf:   YYY
+ * @bufsz: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *nm_uri_from_query(CONTEXT *ctx, char *buf, size_t bufsz)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -1263,6 +1672,15 @@ char *nm_uri_from_query(CONTEXT *ctx, char *buf, size_t bufsz)
 	return buf;
 }
 
+/**
+ * get_nm_message - XXX
+ * @db:  YYY
+ * @hdr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: notmuch_message_t*
+ */
 /*
  * returns message from notmuch database
  */
@@ -1279,6 +1697,15 @@ static notmuch_message_t *get_nm_message(notmuch_database_t *db, HEADER *hdr)
 	return msg;
 }
 
+/**
+ * update_tags - XXX
+ * @msg:  YYY
+ * @tags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int update_tags(notmuch_message_t *msg, const char *tags)
 {
 	char *tag = NULL, *end = NULL, *p;
@@ -1320,6 +1747,16 @@ static int update_tags(notmuch_message_t *msg, const char *tags)
 	return 0;
 }
 
+/**
+ * update_header_flags - XXX
+ * @ctx:  YYY
+ * @hdr:  YYY
+ * @tags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /* TODO: extract parsing of string to separate function, join
  * update_header_tags and update_header_flags, which are given an array of
  * tags. */
@@ -1371,6 +1808,16 @@ static int update_header_flags(CONTEXT *ctx, HEADER *hdr, const char *tags)
 	return 0;
 }
 
+/**
+ * nm_modify_message_tags - XXX
+ * @ctx: YYY
+ * @hdr: YYY
+ * @buf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_modify_message_tags(CONTEXT *ctx, HEADER *hdr, char *buf)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -1402,6 +1849,17 @@ done:
 	return rc;
 }
 
+/**
+ * rename_maildir_filename - XXX
+ * @old:     YYY
+ * @newpath: YYY
+ * @newsz:   YYY
+ * @h:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int rename_maildir_filename(const char *old, char *newpath, size_t newsz, HEADER *h)
 {
 	char filename[_POSIX_PATH_MAX];
@@ -1446,6 +1904,15 @@ static int rename_maildir_filename(const char *old, char *newpath, size_t newsz,
 	return 0;
 }
 
+/**
+ * remove_filename - XXX
+ * @data: YYY
+ * @path: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int remove_filename(struct nm_ctxdata *data, const char *path)
 {
 	notmuch_status_t st;
@@ -1500,6 +1967,17 @@ static int remove_filename(struct nm_ctxdata *data, const char *path)
 	return 0;
 }
 
+/**
+ * rename_filename - XXX
+ * @data: YYY
+ * @old:  YYY
+ * @new:  YYY
+ * @h:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int rename_filename(struct nm_ctxdata *data,
 			const char *old, const char *new, HEADER *h)
 {
@@ -1582,6 +2060,17 @@ done:
 	return rc;
 }
 
+/**
+ * nm_update_filename - XXX
+ * @ctx: YYY
+ * @old: YYY
+ * @new: YYY
+ * @h:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_update_filename(CONTEXT *ctx, const char *old, const char *new, HEADER *h)
 {
 	char buf[PATH_MAX];
@@ -1604,6 +2093,15 @@ int nm_update_filename(CONTEXT *ctx, const char *old, const char *new, HEADER *h
 	return rc;
 }
 
+/**
+ * nm_sync - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_sync(CONTEXT *ctx, int *index_hint)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -1680,6 +2178,15 @@ int nm_sync(CONTEXT *ctx, int *index_hint)
 	return rc;
 }
 
+/**
+ * count_query - XXX
+ * @db:   YYY
+ * @qstr: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: unsigned
+ */
 static unsigned count_query(notmuch_database_t *db, const char *qstr)
 {
 	unsigned res = 0;
@@ -1699,6 +2206,16 @@ static unsigned count_query(notmuch_database_t *db, const char *qstr)
 	return res;
 }
 
+/**
+ * nm_nonctx_get_count - XXX
+ * @path: YYY
+ * @all:  YYY
+ * @new:  YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_nonctx_get_count(char *path, int *all, int *new)
 {
 	struct uri_tag *query_items = NULL, *item;
@@ -1774,6 +2291,14 @@ done:
 	return rc;
 }
 
+/**
+ * nm_get_description - XXX
+ * @ctx: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *nm_get_description(CONTEXT *ctx)
 {
 	BUFFY *p;
@@ -1785,6 +2310,16 @@ char *nm_get_description(CONTEXT *ctx)
 	return NULL;
 }
 
+/**
+ * nm_description_to_path - XXX
+ * @desc:  YYY
+ * @buf:   YYY
+ * @bufsz: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_description_to_path(const char *desc, char *buf, size_t bufsz)
 {
 	BUFFY *p;
@@ -1802,6 +2337,15 @@ int nm_description_to_path(const char *desc, char *buf, size_t bufsz)
 	return -1;
 }
 
+/**
+ * get_mutt_header - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: HEADER*
+ */
 /*
  * returns header from mutt context
  */
@@ -1835,6 +2379,15 @@ static HEADER *get_mutt_header(CONTEXT *ctx, notmuch_message_t *msg)
 	return h;
 }
 
+/**
+ * nm_check_database - XXX
+ * @ctx:        YYY
+ * @index_hint: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int nm_check_database(CONTEXT *ctx, int *index_hint)
 {
 	struct nm_ctxdata *data = get_ctxdata(ctx);
@@ -1945,6 +2498,16 @@ done:
 	       new_flags ? MUTT_FLAGS : 0;
 }
 
+/**
+ * nm_record_message - XXX
+ * @ctx:  YYY
+ * @path: YYY
+ * @h:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int nm_record_message(CONTEXT *ctx, char *path, HEADER *h)
 {
 	notmuch_database_t *db;
@@ -1991,6 +2554,16 @@ done:
 	return rc;
 }
 
+/**
+ * nm_get_all_tags - XXX
+ * @ctx:       YYY
+ * @tag_list:  YYY
+ * @tag_count: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 /*
  * Fill a list with all notmuch tags.
  *
@@ -2034,6 +2607,16 @@ done:
 	return rc;
 }
 
+/**
+ * nm_open_message - XXX
+ * @ctx:   YYY
+ * @msg:   YYY
+ * @msgno: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int nm_open_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
 {
 	if (!ctx || !msg)
@@ -2053,6 +2636,15 @@ static int nm_open_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
 	return 0;
 }
 
+/**
+ * nm_close_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int nm_close_message (CONTEXT *ctx, MESSAGE *msg)
 {
 	if (!msg)
@@ -2061,6 +2653,15 @@ static int nm_close_message (CONTEXT *ctx, MESSAGE *msg)
 	return 0;
 }
 
+/**
+ * nm_commit_message - XXX
+ * @ctx: YYY
+ * @msg: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int nm_commit_message (CONTEXT *ctx, MESSAGE *msg)
 {
 	mutt_perror _("Can't write to virtual folder.");

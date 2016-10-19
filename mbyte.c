@@ -43,6 +43,12 @@ static iconv_t charset_to_utf8 = (iconv_t)(-1);
 static iconv_t charset_from_utf8 = (iconv_t)(-1);
 #endif
 
+/**
+ * mutt_set_charset - XXX
+ * @charset: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_set_charset (char *charset)
 {
   char buffer[STRING];
@@ -520,11 +526,26 @@ size_t utf8rtowc (wchar_t *pwc, const char *s, size_t n, mbstate_t *_ps)
 
 #endif /* !HAVE_WC_FUNCS */
 
+/**
+ * replacement_char - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: wchar_t
+ */
 wchar_t replacement_char (void)
 {
   return Charset_is_utf8 ? 0xfffd : '?';
 }
 
+/**
+ * is_display_corrupting_utf8 - XXX
+ * @wc: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int is_display_corrupting_utf8 (wchar_t wc)
 {
   if (wc == (wchar_t)0x200f ||   /* bidi markers: #3827 */
@@ -538,6 +559,14 @@ int is_display_corrupting_utf8 (wchar_t wc)
     return 0;
 }
 
+/**
+ * mutt_filter_unprintable - XXX
+ * @s: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_filter_unprintable (char **s)
 {
   BUFFER *b = NULL;

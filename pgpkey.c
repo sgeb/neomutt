@@ -54,6 +54,14 @@ static struct pgp_cache *id_defaults = NULL;
 
 static const char trust_flags[] = "?- +";
 
+/**
+ * pgp_key_abilities - XXX
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *pgp_key_abilities (int flags)
 {
   static char buff[3];
@@ -77,6 +85,14 @@ static char *pgp_key_abilities (int flags)
   return buff;
 }
 
+/**
+ * pgp_flags - XXX
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char
+ */
 static char pgp_flags (int flags)
 {
   if (flags & KEYFLAG_REVOKED)
@@ -91,6 +107,14 @@ static char pgp_flags (int flags)
     return ' ';
 }
 
+/**
+ * pgp_principal_key - XXX
+ * @key: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 static pgp_key_t pgp_principal_key (pgp_key_t key)
 {
   if (key->flags & KEYFLAG_SUBKEY && key->parent)
@@ -119,6 +143,24 @@ typedef struct pgp_entry
   pgp_uid_t *uid;
 } pgp_entry_t;
 
+/**
+ * pgp_entry_fmt - XXX
+ * @dest:       YYY
+ * @destlen:    YYY
+ * @col:        YYY
+ * @cols:       YYY
+ * @op:         YYY
+ * @src:        YYY
+ * @prefix:     YYY
+ * @ifstring:   YYY
+ * @elsestring: YYY
+ * @data:       YYY
+ * @flags:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 static const char *pgp_entry_fmt (char *dest,
 				  size_t destlen,
 				  size_t col,
@@ -284,6 +326,15 @@ static const char *pgp_entry_fmt (char *dest,
   return (src);
 }
 
+/**
+ * pgp_entry - XXX
+ * @s:    YYY
+ * @l:    YYY
+ * @menu: YYY
+ * @num:  YYY
+ *
+ * DESCRIPTION
+ */
 static void pgp_entry (char *s, size_t l, MUTTMENU * menu, int num)
 {
   pgp_uid_t **KeyTable = (pgp_uid_t **) menu->data;
@@ -296,6 +347,15 @@ static void pgp_entry (char *s, size_t l, MUTTMENU * menu, int num)
 		     (unsigned long) &entry, MUTT_FORMAT_ARROWCURSOR);
 }
 
+/**
+ * _pgp_compare_address - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _pgp_compare_address (const void *a, const void *b)
 {
   int r;
@@ -310,6 +370,15 @@ static int _pgp_compare_address (const void *a, const void *b)
 			     pgp_fpr_or_lkeyid ((*t)->parent)) > 0);
 }
 
+/**
+ * pgp_compare_address - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_compare_address (const void *a, const void *b)
 {
   return ((PgpSortKeys & SORT_REVERSE) ? !_pgp_compare_address (a, b)
@@ -318,6 +387,15 @@ static int pgp_compare_address (const void *a, const void *b)
 
 
 
+/**
+ * _pgp_compare_keyid - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _pgp_compare_keyid (const void *a, const void *b)
 {
   int r;
@@ -332,12 +410,30 @@ static int _pgp_compare_keyid (const void *a, const void *b)
     return (mutt_strcasecmp ((*s)->addr, (*t)->addr)) > 0;
 }
 
+/**
+ * pgp_compare_keyid - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_compare_keyid (const void *a, const void *b)
 {
   return ((PgpSortKeys & SORT_REVERSE) ? !_pgp_compare_keyid (a, b)
 				       : _pgp_compare_keyid (a, b));
 }
 
+/**
+ * _pgp_compare_date - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _pgp_compare_date (const void *a, const void *b)
 {
   int r;
@@ -349,12 +445,30 @@ static int _pgp_compare_date (const void *a, const void *b)
   return (mutt_strcasecmp ((*s)->addr, (*t)->addr)) > 0;
 }
 
+/**
+ * pgp_compare_date - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_compare_date (const void *a, const void *b)
 {
   return ((PgpSortKeys & SORT_REVERSE) ? !_pgp_compare_date (a, b)
 				       : _pgp_compare_date (a, b));
 }
 
+/**
+ * _pgp_compare_trust - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int _pgp_compare_trust (const void *a, const void *b)
 {
   int r;
@@ -377,12 +491,29 @@ static int _pgp_compare_trust (const void *a, const void *b)
 			   pgp_fpr_or_lkeyid ((*t)->parent))) > 0;
 }
 
+/**
+ * pgp_compare_trust - XXX
+ * @a: YYY
+ * @b: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_compare_trust (const void *a, const void *b)
 {
   return ((PgpSortKeys & SORT_REVERSE) ? !_pgp_compare_trust (a, b)
 				       : _pgp_compare_trust (a, b));
 }
 
+/**
+ * pgp_key_is_valid - XXX
+ * @k: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_key_is_valid (pgp_key_t k)
 {
   pgp_key_t pk = pgp_principal_key (k);
@@ -394,6 +525,14 @@ static int pgp_key_is_valid (pgp_key_t k)
   return 1;
 }
 
+/**
+ * pgp_id_is_strong - XXX
+ * @uid: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_id_is_strong (pgp_uid_t *uid)
 {
   if ((uid->trust & 3) < 3)
@@ -402,6 +541,14 @@ static int pgp_id_is_strong (pgp_uid_t *uid)
   return 1;
 }
 
+/**
+ * pgp_id_is_valid - XXX
+ * @uid: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_id_is_valid (pgp_uid_t *uid)
 {
   if (!pgp_key_is_valid (uid->parent))
@@ -419,6 +566,16 @@ static int pgp_id_is_valid (pgp_uid_t *uid)
 
 #define PGP_KV_MATCH (PGP_KV_ADDR|PGP_KV_STRING)
 
+/**
+ * pgp_id_matches_addr - XXX
+ * @addr:   YYY
+ * @u_addr: YYY
+ * @uid:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int pgp_id_matches_addr (ADDRESS *addr, ADDRESS *u_addr, pgp_uid_t *uid)
 {
   int rv = 0;
@@ -440,6 +597,16 @@ static int pgp_id_matches_addr (ADDRESS *addr, ADDRESS *u_addr, pgp_uid_t *uid)
   return rv;
 }
 
+/**
+ * pgp_select_key - XXX
+ * @keys: YYY
+ * @p:    YYY
+ * @s:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 static pgp_key_t pgp_select_key (pgp_key_t keys,
                                  ADDRESS * p, const char *s)
 {
@@ -658,6 +825,17 @@ static pgp_key_t pgp_select_key (pgp_key_t keys,
   return (kp);
 }
 
+/**
+ * pgp_ask_for_key - XXX
+ * @tag:       YYY
+ * @whatfor:   YYY
+ * @abilities: YYY
+ * @keyring:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 pgp_key_t pgp_ask_for_key (char *tag, char *whatfor,
                            short abilities, pgp_ring_t keyring)
 {
@@ -710,6 +888,14 @@ pgp_key_t pgp_ask_for_key (char *tag, char *whatfor,
 
 /* generate a public key attachment */
 
+/**
+ * pgp_make_key_attachment - XXX
+ * @tempf: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: BODY*
+ */
 BODY *pgp_make_key_attachment (char *tempf)
 {
   BODY *att;
@@ -785,6 +971,15 @@ BODY *pgp_make_key_attachment (char *tempf)
   return att;
 }
 
+/**
+ * pgp_add_string_to_hints - XXX
+ * @hints: YYY
+ * @str:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: LIST*
+ */
 static LIST *pgp_add_string_to_hints (LIST *hints, const char *str)
 {
   char *scratch;
@@ -804,6 +999,14 @@ static LIST *pgp_add_string_to_hints (LIST *hints, const char *str)
   return hints;
 }
 
+/**
+ * pgp_get_lastp - XXX
+ * @p: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t*
+ */
 static pgp_key_t *pgp_get_lastp (pgp_key_t p)
 {
   for (; p; p = p->next)
@@ -813,6 +1016,17 @@ static pgp_key_t *pgp_get_lastp (pgp_key_t p)
   return NULL;
 }
 
+/**
+ * pgp_getkeybyaddr - XXX
+ * @a:           YYY
+ * @abilities:   YYY
+ * @keyring:     YYY
+ * @oppenc_mode: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 pgp_key_t pgp_getkeybyaddr (ADDRESS * a, short abilities, pgp_ring_t keyring,
                             int oppenc_mode)
 {
@@ -947,6 +1161,16 @@ pgp_key_t pgp_getkeybyaddr (ADDRESS * a, short abilities, pgp_ring_t keyring,
   return NULL;
 }
 
+/**
+ * pgp_getkeybystr - XXX
+ * @p:         YYY
+ * @abilities: YYY
+ * @keyring:   YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: pgp_key_t
+ */
 pgp_key_t pgp_getkeybystr (char *p, short abilities, pgp_ring_t keyring)
 {
   LIST *hints = NULL;

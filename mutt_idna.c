@@ -24,6 +24,14 @@
 #include "charset.h"
 #include "mutt_idna.h"
 
+/**
+ * check_idn - XXX
+ * @domain: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 #ifdef HAVE_LIBIDN
 static int check_idn (char *domain)
 {
@@ -43,6 +51,16 @@ static int check_idn (char *domain)
 }
 #endif /* HAVE_LIBIDN */
 
+/**
+ * mbox_to_udomain - XXX
+ * @mbx:    YYY
+ * @user:   YYY
+ * @domain: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int mbox_to_udomain (const char *mbx, char **user, char **domain)
 {
   static char *buff = NULL;
@@ -59,16 +77,39 @@ static int mbox_to_udomain (const char *mbx, char **user, char **domain)
   return 0;
 }
 
+/**
+ * addr_is_local - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int addr_is_local (ADDRESS *a)
 {
   return (a->intl_checked && !a->is_intl);
 }
 
+/**
+ * addr_is_intl - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 static int addr_is_intl (ADDRESS *a)
 {
   return (a->intl_checked && a->is_intl);
 }
 
+/**
+ * set_local_mailbox - XXX
+ * @a:             YYY
+ * @local_mailbox: YYY
+ *
+ * DESCRIPTION
+ */
 static void set_local_mailbox (ADDRESS *a, char *local_mailbox)
 {
   FREE (&a->mailbox);
@@ -77,6 +118,13 @@ static void set_local_mailbox (ADDRESS *a, char *local_mailbox)
   a->is_intl = 0;
 }
 
+/**
+ * set_intl_mailbox - XXX
+ * @a:            YYY
+ * @intl_mailbox: YYY
+ *
+ * DESCRIPTION
+ */
 static void set_intl_mailbox (ADDRESS *a, char *intl_mailbox)
 {
   FREE (&a->mailbox);
@@ -85,6 +133,16 @@ static void set_intl_mailbox (ADDRESS *a, char *intl_mailbox)
   a->is_intl = 1;
 }
 
+/**
+ * intl_to_local - XXX
+ * @orig_user:   YYY
+ * @orig_domain: YYY
+ * @flags:       YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *intl_to_local (char *orig_user, char *orig_domain, int flags)
 {
   char *local_user = NULL, *local_domain = NULL, *mailbox = NULL;
@@ -187,6 +245,15 @@ cleanup:
   return mailbox;
 }
 
+/**
+ * local_to_intl - XXX
+ * @user:   YYY
+ * @domain: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 static char *local_to_intl (char *user, char *domain)
 {
   char *intl_user = NULL, *intl_domain = NULL;
@@ -225,6 +292,15 @@ cleanup:
 
 /* higher level functions */
 
+/**
+ * mutt_addrlist_to_intl - XXX
+ * @a:   YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_addrlist_to_intl (ADDRESS *a, char **err)
 {
   char *user = NULL, *domain = NULL;
@@ -257,6 +333,14 @@ int mutt_addrlist_to_intl (ADDRESS *a, char **err)
   return rv;
 }
 
+/**
+ * mutt_addrlist_to_local - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_addrlist_to_local (ADDRESS *a)
 {
   char *user = NULL, *domain = NULL;
@@ -278,6 +362,14 @@ int mutt_addrlist_to_local (ADDRESS *a)
   return 0;
 }
 
+/**
+ * mutt_addr_for_display - XXX
+ * @a: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: const char*
+ */
 /* convert just for displaying purposes */
 const char *mutt_addr_for_display (ADDRESS *a)
 {
@@ -304,6 +396,12 @@ const char *mutt_addr_for_display (ADDRESS *a)
 
 /* Convert an ENVELOPE structure */
 
+/**
+ * mutt_env_to_local - XXX
+ * @e: YYY
+ *
+ * DESCRIPTION
+ */
 void mutt_env_to_local (ENVELOPE *e)
 {
   mutt_addrlist_to_local (e->return_path);
@@ -326,6 +424,16 @@ void mutt_env_to_local (ENVELOPE *e)
      if (tag) *tag = #a; e = 1; err = NULL; \
   }
 
+/**
+ * mutt_env_to_intl - XXX
+ * @env: YYY
+ * @tag: YYY
+ * @err: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_env_to_intl (ENVELOPE *env, char **tag, char **err)
 {
   int e = 0;

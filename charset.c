@@ -217,6 +217,11 @@ PreferredMIMENames[] =
 # include <langinfo.h>
 
 
+/**
+ * mutt_set_langinfo_charset - XXX
+ *
+ * DESCRIPTION
+ */
 void mutt_set_langinfo_charset (void)
 {
   char buff[LONG_STRING];
@@ -239,6 +244,14 @@ void mutt_set_langinfo_charset (void)
 
 #endif
 
+/**
+ * mutt_canonical_charset - XXX
+ * @dest: YYY
+ * @dlen: YYY
+ * @name: YYY
+ *
+ * DESCRIPTION
+ */
 /* this first ties off any charset extension such as //TRANSLIT,
    canonicalizes the charset and re-adds the extension */
 void mutt_canonical_charset (char *dest, size_t dlen, const char *name)
@@ -291,6 +304,15 @@ out:
   }
 }
 
+/**
+ * mutt_chscmp - XXX
+ * @s:   YYY
+ * @chs: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_chscmp (const char *s, const char *chs)
 {
   char buffer[STRING];
@@ -311,6 +333,13 @@ int mutt_chscmp (const char *s, const char *chs)
 			     a > b ? chs : buffer, MIN(a,b));
 }
 
+/**
+ * mutt_get_default_charset - XXX
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *mutt_get_default_charset ()
 {
   static char fcharset[SHORT_STRING];
@@ -360,6 +389,16 @@ int iconv_close (iconv_t cd)
  * MUTT_ICONV_HOOK_FROM acts on charset-hooks, not at all on iconv-hooks.
  */
 
+/**
+ * mutt_iconv_open - XXX
+ * @tocode:   YYY
+ * @fromcode: YYY
+ * @flags:    YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: iconv_t
+ */
 iconv_t mutt_iconv_open (const char *tocode, const char *fromcode, int flags)
 {
   char tocode1[SHORT_STRING];
@@ -399,6 +438,20 @@ iconv_t mutt_iconv_open (const char *tocode, const char *fromcode, int flags)
  * if you're supplying an outrepl, the target charset should be.
  */
 
+/**
+ * mutt_iconv - XXX
+ * @cd:           YYY
+ * @inbuf:        YYY
+ * @inbytesleft:  YYY
+ * @outbuf:       YYY
+ * @outbytesleft: YYY
+ * @inrepls:      YYY
+ * @outrepl:      YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: size_t
+ */
 size_t mutt_iconv (iconv_t cd, ICONV_CONST char **inbuf, size_t *inbytesleft,
 		   char **outbuf, size_t *outbytesleft,
 		   ICONV_CONST char **inrepls, const char *outrepl)
@@ -472,6 +525,17 @@ size_t mutt_iconv (iconv_t cd, ICONV_CONST char **inbuf, size_t *inbytesleft,
  * for its meaning and usage policy.
  */
 
+/**
+ * mutt_convert_string - XXX
+ * @ps:    YYY
+ * @from:  YYY
+ * @to:    YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_convert_string (char **ps, const char *from, const char *to, int flags)
 {
   iconv_t cd;
@@ -542,6 +606,17 @@ struct fgetconv_not
   iconv_t cd;
 };
 
+/**
+ * fgetconv_open - XXX
+ * @file:  YYY
+ * @from:  YYY
+ * @to:    YYY
+ * @flags: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: FGETCONV*
+ */
 /*
  * Parameter flags is given as-is to mutt_iconv_open(). See there
  * for its meaning and usage policy.
@@ -570,6 +645,16 @@ FGETCONV *fgetconv_open (FILE *file, const char *from, const char *to, int flags
   return (FGETCONV *)fc;
 }
 
+/**
+ * fgetconvs - XXX
+ * @buf: YYY
+ * @l:   YYY
+ * @_fc: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: char*
+ */
 char *fgetconvs (char *buf, size_t l, FGETCONV *_fc)
 {
   int c;
@@ -591,6 +676,14 @@ char *fgetconvs (char *buf, size_t l, FGETCONV *_fc)
     return NULL;
 }
 
+/**
+ * fgetconv - XXX
+ * @_fc: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int fgetconv (FGETCONV *_fc)
 {
   struct fgetconv_s *fc = (struct fgetconv_s *)_fc;
@@ -644,6 +737,12 @@ int fgetconv (FGETCONV *_fc)
   return EOF;
 }
 
+/**
+ * fgetconv_close - XXX
+ * @_fc: YYY
+ *
+ * DESCRIPTION
+ */
 void fgetconv_close (FGETCONV **_fc)
 {
   struct fgetconv_s *fc = (struct fgetconv_s *) *_fc;
@@ -653,6 +752,15 @@ void fgetconv_close (FGETCONV **_fc)
   FREE (_fc);		/* __FREE_CHECKED__ */
 }
 
+/**
+ * mutt_check_charset - XXX
+ * @s:      YYY
+ * @strict: YYY
+ *
+ * DESCRIPTION
+ *
+ * Returns: int
+ */
 int mutt_check_charset (const char *s, int strict)
 {
   int i;
