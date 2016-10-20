@@ -512,10 +512,11 @@ int mutt_parse_virtual_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, B
     (*tmp)->size = 0;
     (*tmp)->desc = desc;
   }
+  mutt_sb_draw();
   return 0;
 }
 
-int mutt_parse_virtual_unmailboxes (BUFFER *path, BUFFER *s, unsigned long data, BUFFER *err)
+int mutt_parse_unvirtual_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, BUFFER *err)
 {
   BUFFY **tmp,*tmp1;
 
@@ -553,6 +554,7 @@ int mutt_parse_virtual_unmailboxes (BUFFER *path, BUFFER *s, unsigned long data,
     }
   }
 
+  mutt_sb_draw();
   return 0;
 }
 #endif
