@@ -2917,15 +2917,6 @@ static int parse_source (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *err
   return (source_rc (path, err));
 }
 
-/* line		command to execute
-
-   token	scratch buffer to be used by parser.  caller should free
-   		token->data when finished.  the reason for this variable is
-		to avoid having to allocate and deallocate a lot of memory
-		if we are parsing many lines.  the caller can pass in the
-		memory to use, which avoids having to create new space for
-		every call to this function.
-
 /**
  * mutt_parse_rc_line - XXX
  * @line:  YYY
@@ -2936,6 +2927,15 @@ static int parse_source (BUFFER *tmp, BUFFER *s, unsigned long data, BUFFER *err
  *
  * Returns: int
  */
+/* line		command to execute
+
+   token	scratch buffer to be used by parser.  caller should free
+   		token->data when finished.  the reason for this variable is
+		to avoid having to allocate and deallocate a lot of memory
+		if we are parsing many lines.  the caller can pass in the
+		memory to use, which avoids having to create new space for
+		every call to this function.
+
    err		where to write error messages */
 int mutt_parse_rc_line (/* const */ char *line, BUFFER *token, BUFFER *err)
 {

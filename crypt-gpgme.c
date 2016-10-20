@@ -1705,11 +1705,6 @@ static void print_smime_keyinfo (const char* msg, gpgme_signature_t sig,
   state_puts ("\n", s);
 }
 
-/* Show information about one signature.  This function is called with
-   the context CTX of a successful verification operation and the
-   enumerator IDX which should start at 0 and increment for each
-   call/signature. 
-
 /**
  * show_one_sig_status - XXX
  * @ctx: YYY
@@ -1720,6 +1715,11 @@ static void print_smime_keyinfo (const char* msg, gpgme_signature_t sig,
  *
  * Returns: int
  */
+/* Show information about one signature.  This function is called with
+   the context CTX of a successful verification operation and the
+   enumerator IDX which should start at 0 and increment for each
+   call/signature. 
+
    Return values are: 0 for normal procession, 1 for a bad signature,
    2 for a signature with a warning or -1 for no more signature.  */
 static int show_one_sig_status (gpgme_ctx_t ctx, int idx, STATE *s)
