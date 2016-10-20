@@ -48,7 +48,7 @@
 #include <errno.h>
 
 /**
- * nntp_data_find - XXX
+ * nntp_data_find - QWQ
  * @nserv: YYY
  * @group: YYY
  *
@@ -88,7 +88,7 @@ static NNTP_DATA *nntp_data_find (NNTP_SERVER *nserv, const char *group)
 }
 
 /**
- * nntp_acache_free - XXX
+ * nntp_acache_free - QWQ
  * @nntp_data: YYY
  *
  * DESCRIPTION
@@ -109,7 +109,7 @@ void nntp_acache_free (NNTP_DATA *nntp_data)
 }
 
 /**
- * nntp_data_free - XXX
+ * nntp_data_free - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -129,7 +129,7 @@ void nntp_data_free (void *data)
 }
 
 /**
- * nntp_newsrc_close - XXX
+ * nntp_newsrc_close - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -146,7 +146,7 @@ void nntp_newsrc_close (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_newsrc_parse - XXX
+ * nntp_newsrc_parse - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -290,7 +290,7 @@ int nntp_newsrc_parse (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_newsrc_gen_entries - XXX
+ * nntp_newsrc_gen_entries - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -379,7 +379,7 @@ void nntp_newsrc_gen_entries (CONTEXT *ctx)
 }
 
 /**
- * update_file - XXX
+ * update_file - QWQ
  * @filename: YYY
  * @buf:      YYY
  *
@@ -435,7 +435,7 @@ static int update_file (char *filename, char *buf)
 }
 
 /**
- * nntp_newsrc_update - XXX
+ * nntp_newsrc_update - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -520,7 +520,7 @@ int nntp_newsrc_update (NNTP_SERVER *nserv)
 }
 
 /**
- * cache_expand - XXX
+ * cache_expand - QWQ
  * @dst:    YYY
  * @dstlen: YYY
  * @acct:   YYY
@@ -556,7 +556,7 @@ static void cache_expand (char *dst, size_t dstlen, ACCOUNT *acct, char *src)
 }
 
 /**
- * nntp_expand_path - XXX
+ * nntp_expand_path - QWQ
  * @line: YYY
  * @len:  YYY
  * @acct: YYY
@@ -575,7 +575,7 @@ void nntp_expand_path (char *line, size_t len, ACCOUNT *acct)
 }
 
 /**
- * nntp_add_group - XXX
+ * nntp_add_group - QWQ
  * @line: YYY
  * @data: YYY
  *
@@ -617,7 +617,7 @@ int nntp_add_group (char *line, void *data)
 }
 
 /**
- * active_get_cache - XXX
+ * active_get_cache - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -656,7 +656,7 @@ static int active_get_cache (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_active_save_cache - XXX
+ * nntp_active_save_cache - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -708,7 +708,7 @@ int nntp_active_save_cache (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_hcache_namer - XXX
+ * nntp_hcache_namer - QWQ
  * @path:    YYY
  * @dest:    YYY
  * @destlen: YYY
@@ -725,7 +725,7 @@ static int nntp_hcache_namer (const char *path, char *dest, size_t destlen)
 }
 
 /**
- * nntp_hcache_open - XXX
+ * nntp_hcache_open - QWQ
  * @nntp_data: YYY
  *
  * DESCRIPTION
@@ -751,7 +751,7 @@ header_cache_t *nntp_hcache_open (NNTP_DATA *nntp_data)
 }
 
 /**
- * nntp_hcache_update - XXX
+ * nntp_hcache_update - QWQ
  * @nntp_data: YYY
  * @hc:        YYY
  *
@@ -809,7 +809,7 @@ void nntp_hcache_update (NNTP_DATA *nntp_data, header_cache_t *hc)
 #endif
 
 /**
- * nntp_bcache_delete - XXX
+ * nntp_bcache_delete - QWQ
  * @id:     YYY
  * @bcache: YYY
  * @data:   YYY
@@ -836,7 +836,7 @@ static int nntp_bcache_delete (const char *id, body_cache_t *bcache, void *data)
 }
 
 /**
- * nntp_bcache_update - XXX
+ * nntp_bcache_update - QWQ
  * @nntp_data: YYY
  *
  * DESCRIPTION
@@ -848,7 +848,7 @@ void nntp_bcache_update (NNTP_DATA *nntp_data)
 }
 
 /**
- * nntp_delete_group_cache - XXX
+ * nntp_delete_group_cache - QWQ
  * @nntp_data: YYY
  *
  * DESCRIPTION
@@ -881,7 +881,7 @@ void nntp_delete_group_cache (NNTP_DATA *nntp_data)
 }
 
 /**
- * nntp_clear_cache - XXX
+ * nntp_clear_cache - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -956,7 +956,7 @@ void nntp_clear_cache (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_format_str - XXX
+ * nntp_format_str - QWQ
  * @dest:       YYY
  * @destlen:    YYY
  * @col:        YYY
@@ -1036,7 +1036,7 @@ nntp_format_str (char *dest, size_t destlen, size_t col, int cols, char op, cons
 }
 
 /**
- * nntp_select_server - XXX
+ * nntp_select_server - QWQ
  * @server:     YYY
  * @leave_lock: YYY
  *
@@ -1259,7 +1259,7 @@ NNTP_SERVER *nntp_select_server (char *server, int leave_lock)
 }
 
 /**
- * nntp_article_status - XXX
+ * nntp_article_status - QWQ
  * @ctx:   YYY
  * @hdr:   YYY
  * @group: YYY
@@ -1304,7 +1304,7 @@ void nntp_article_status (CONTEXT *ctx, HEADER *hdr, char *group, anum_t anum)
 }
 
 /**
- * nntp_group_unread_stat - XXX
+ * nntp_group_unread_stat - QWQ
  * @nntp_data: YYY
  *
  * DESCRIPTION
@@ -1335,7 +1335,7 @@ void nntp_group_unread_stat (NNTP_DATA *nntp_data)
 }
 
 /**
- * mutt_newsgroup_subscribe - XXX
+ * mutt_newsgroup_subscribe - QWQ
  * @nserv: YYY
  * @group: YYY
  *
@@ -1364,7 +1364,7 @@ NNTP_DATA *mutt_newsgroup_subscribe (NNTP_SERVER *nserv, char *group)
 }
 
 /**
- * mutt_newsgroup_unsubscribe - XXX
+ * mutt_newsgroup_unsubscribe - QWQ
  * @nserv: YYY
  * @group: YYY
  *
@@ -1394,7 +1394,7 @@ NNTP_DATA *mutt_newsgroup_unsubscribe (NNTP_SERVER *nserv, char *group)
 }
 
 /**
- * mutt_newsgroup_catchup - XXX
+ * mutt_newsgroup_catchup - QWQ
  * @nserv: YYY
  * @group: YYY
  *
@@ -1433,7 +1433,7 @@ NNTP_DATA *mutt_newsgroup_catchup (NNTP_SERVER *nserv, char *group)
 }
 
 /**
- * mutt_newsgroup_uncatchup - XXX
+ * mutt_newsgroup_uncatchup - QWQ
  * @nserv: YYY
  * @group: YYY
  *
@@ -1474,7 +1474,7 @@ NNTP_DATA *mutt_newsgroup_uncatchup (NNTP_SERVER *nserv, char *group)
 }
 
 /**
- * nntp_buffy - XXX
+ * nntp_buffy - QWQ
  * @buf: YYY
  * @len: YYY
  *

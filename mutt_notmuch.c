@@ -123,7 +123,7 @@ static HEADER *get_mutt_header(CONTEXT *ctx, notmuch_message_t *msg);
 static notmuch_message_t *get_nm_message(notmuch_database_t *db, HEADER *hdr);
 
 /**
- * url_free_tags - XXX
+ * url_free_tags - QWQ
  * @tags: YYY
  *
  * DESCRIPTION
@@ -140,7 +140,7 @@ static void url_free_tags(struct uri_tag *tags)
 }
 
 /**
- * url_parse_query - XXX
+ * url_parse_query - QWQ
  * @url:      YYY
  * @filename: YYY
  * @tags:     YYY
@@ -221,7 +221,7 @@ err:
 }
 
 /**
- * free_tag_list - XXX
+ * free_tag_list - QWQ
  * @tag_list: YYY
  *
  * DESCRIPTION
@@ -242,7 +242,7 @@ static void free_tag_list(struct nm_hdrtag **tag_list)
 }
 
 /**
- * free_hdrdata - XXX
+ * free_hdrdata - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -263,7 +263,7 @@ static void free_hdrdata(struct nm_hdrdata *data)
 }
 
 /**
- * free_ctxdata - XXX
+ * free_ctxdata - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -290,7 +290,7 @@ static void free_ctxdata(struct nm_ctxdata *data)
 }
 
 /**
- * new_ctxdata - XXX
+ * new_ctxdata - QWQ
  * @uri: YYY
  *
  * DESCRIPTION
@@ -321,7 +321,7 @@ static struct nm_ctxdata *new_ctxdata(char *uri)
 }
 
 /**
- * deinit_context - XXX
+ * deinit_context - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -350,7 +350,7 @@ static int deinit_context(CONTEXT *ctx)
 }
 
 /**
- * init_context - XXX
+ * init_context - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -373,7 +373,7 @@ static int init_context(CONTEXT *ctx)
 }
 
 /**
- * nm_header_get_folder - XXX
+ * nm_header_get_folder - QWQ
  * @h: YYY
  *
  * DESCRIPTION
@@ -386,7 +386,7 @@ char *nm_header_get_folder(HEADER *h)
 }
 
 /**
- * nm_header_get_tags - XXX
+ * nm_header_get_tags - QWQ
  * @h: YYY
  *
  * DESCRIPTION
@@ -400,7 +400,7 @@ char *nm_header_get_tags(HEADER *h)
 }
 
 /**
- * nm_header_get_tags_transformed - XXX
+ * nm_header_get_tags_transformed - QWQ
  * @h: YYY
  *
  * DESCRIPTION
@@ -413,7 +413,7 @@ char *nm_header_get_tags_transformed(HEADER *h)
 }
 
 /**
- * nm_header_get_tag_transformed - XXX
+ * nm_header_get_tag_transformed - QWQ
  * @tag: YYY
  * @h:   YYY
  *
@@ -440,7 +440,7 @@ char *nm_header_get_tag_transformed(char *tag, HEADER *h)
 }
 
 /**
- * nm_header_get_magic - XXX
+ * nm_header_get_magic - QWQ
  * @h: YYY
  *
  * DESCRIPTION
@@ -453,7 +453,7 @@ int nm_header_get_magic(HEADER *h)
 }
 
 /**
- * nm_header_get_id - XXX
+ * nm_header_get_id - QWQ
  * @h: YYY
  *
  * DESCRIPTION
@@ -470,7 +470,7 @@ static char *nm_header_get_id(HEADER *h)
 
 
 /**
- * nm_header_get_fullpath - XXX
+ * nm_header_get_fullpath - QWQ
  * @h:     YYY
  * @buf:   YYY
  * @bufsz: YYY
@@ -488,7 +488,7 @@ char *nm_header_get_fullpath(HEADER *h, char *buf, size_t bufsz)
 
 
 /**
- * get_ctxdata - XXX
+ * get_ctxdata - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -504,7 +504,7 @@ static struct nm_ctxdata *get_ctxdata(CONTEXT *ctx)
 }
 
 /**
- * string_to_guery_type - XXX
+ * string_to_guery_type - QWQ
  * @str: YYY
  *
  * DESCRIPTION
@@ -528,7 +528,7 @@ static int string_to_guery_type(const char *str)
 }
 
 /**
- * get_query_string - XXX
+ * get_query_string - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -568,7 +568,7 @@ static char *get_query_string(struct nm_ctxdata *data)
 }
 
 /**
- * get_limit - XXX
+ * get_limit - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -581,7 +581,7 @@ static int get_limit(struct nm_ctxdata *data)
 }
 
 /**
- * get_query_type - XXX
+ * get_query_type - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -594,7 +594,7 @@ static int get_query_type(struct nm_ctxdata *data)
 }
 
 /**
- * get_db_filename - XXX
+ * get_db_filename - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -621,7 +621,7 @@ static const char *get_db_filename(struct nm_ctxdata *data)
 }
 
 /**
- * do_database_open - XXX
+ * do_database_open - QWQ
  * @filename: YYY
  * @writable: YYY
  * @verbose:  YYY
@@ -671,7 +671,7 @@ static notmuch_database_t *do_database_open(const char *filename,
 }
 
 /**
- * get_db - XXX
+ * get_db - QWQ
  * @data:     YYY
  * @writable: YYY
  *
@@ -693,7 +693,7 @@ static notmuch_database_t *get_db(struct nm_ctxdata *data, int writable)
 }
 
 /**
- * release_db - XXX
+ * release_db - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -718,7 +718,7 @@ static int release_db(struct nm_ctxdata *data)
 }
 
 /**
- * db_trans_begin - XXX
+ * db_trans_begin - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -746,7 +746,7 @@ static int db_trans_begin(struct nm_ctxdata *data)
 }
 
 /**
- * db_trans_end - XXX
+ * db_trans_end - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -769,7 +769,7 @@ static int db_trans_end(struct nm_ctxdata *data)
 }
 
 /**
- * nm_longrun_init - XXX
+ * nm_longrun_init - QWQ
  * @ctx:      YYY
  * @writable: YYY
  *
@@ -786,7 +786,7 @@ void nm_longrun_init(CONTEXT *ctx, int writable)
 }
 
 /**
- * nm_longrun_done - XXX
+ * nm_longrun_done - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -800,7 +800,7 @@ void nm_longrun_done(CONTEXT *ctx)
 }
 
 /**
- * is_longrun - XXX
+ * is_longrun - QWQ
  * @data: YYY
  *
  * DESCRIPTION
@@ -813,7 +813,7 @@ static int is_longrun(struct nm_ctxdata *data)
 }
 
 /**
- * nm_debug_check - XXX
+ * nm_debug_check - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -832,7 +832,7 @@ void nm_debug_check(CONTEXT *ctx)
 }
 
 /**
- * get_database_mtime - XXX
+ * get_database_mtime - QWQ
  * @data:  YYY
  * @mtime: YYY
  *
@@ -861,7 +861,7 @@ static int get_database_mtime(struct nm_ctxdata *data, time_t *mtime)
 }
 
 /**
- * apply_exclude_tags - XXX
+ * apply_exclude_tags - QWQ
  * @query: YYY
  *
  * DESCRIPTION
@@ -898,7 +898,7 @@ static void apply_exclude_tags(notmuch_query_t *query)
 }
 
 /**
- * get_query - XXX
+ * get_query - QWQ
  * @data:     YYY
  * @writable: YYY
  *
@@ -936,7 +936,7 @@ err:
 }
 
 /**
- * append_str_item - XXX
+ * append_str_item - QWQ
  * @str:  YYY
  * @item: YYY
  * @sep:  YYY
@@ -957,7 +957,7 @@ static void append_str_item(char **str, const char *item, int sep)
 }
 
 /**
- * update_header_tags - XXX
+ * update_header_tags - QWQ
  * @h:   YYY
  * @msg: YYY
  *
@@ -1041,7 +1041,7 @@ static int update_header_tags(HEADER *h, notmuch_message_t *msg)
 }
 
 /**
- * update_message_path - XXX
+ * update_message_path - QWQ
  * @h:    YYY
  * @path: YYY
  *
@@ -1086,7 +1086,7 @@ static int update_message_path(HEADER *h, const char *path)
 }
 
 /**
- * get_folder_from_path - XXX
+ * get_folder_from_path - QWQ
  * @path: YYY
  *
  * DESCRIPTION
@@ -1112,7 +1112,7 @@ static char *get_folder_from_path(const char *path)
 }
 
 /**
- * deinit_header - XXX
+ * deinit_header - QWQ
  * @h: YYY
  *
  * DESCRIPTION
@@ -1126,7 +1126,7 @@ static void deinit_header(HEADER *h)
 }
 
 /**
- * nm2mutt_message_id - XXX
+ * nm2mutt_message_id - QWQ
  * @id: YYY
  *
  * DESCRIPTION
@@ -1149,7 +1149,7 @@ static char *nm2mutt_message_id(const char *id)
 }
 
 /**
- * init_header - XXX
+ * init_header - QWQ
  * @h:    YYY
  * @path: YYY
  * @msg:  YYY
@@ -1219,7 +1219,7 @@ static void debug_print_tags(notmuch_message_t *msg)
 ***/
 
 /**
- * get_message_last_filename - XXX
+ * get_message_last_filename - QWQ
  * @msg: YYY
  *
  * DESCRIPTION
@@ -1242,7 +1242,7 @@ static const char *get_message_last_filename(notmuch_message_t *msg)
 }
 
 /**
- * nm_progress_reset - XXX
+ * nm_progress_reset - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -1264,7 +1264,7 @@ static void nm_progress_reset(CONTEXT *ctx)
 }
 
 /**
- * nm_progress_update - XXX
+ * nm_progress_update - QWQ
  * @ctx: YYY
  * @q:   YYY
  *
@@ -1300,7 +1300,7 @@ static void nm_progress_update(CONTEXT *ctx, notmuch_query_t *q)
 }
 
 /**
- * append_message - XXX
+ * append_message - QWQ
  * @ctx:   YYY
  * @q:     YYY
  * @msg:   YYY
@@ -1391,7 +1391,7 @@ done:
 }
 
 /**
- * append_replies - XXX
+ * append_replies - QWQ
  * @ctx:   YYY
  * @q:     YYY
  * @top:   YYY
@@ -1424,7 +1424,7 @@ static void append_replies(CONTEXT *ctx,
 }
 
 /**
- * append_thread - XXX
+ * append_thread - QWQ
  * @ctx:    YYY
  * @q:      YYY
  * @thread: YYY
@@ -1455,7 +1455,7 @@ static void append_thread(CONTEXT *ctx,
 }
 
 /**
- * read_mesgs_query - XXX
+ * read_mesgs_query - QWQ
  * @ctx:   YYY
  * @q:     YYY
  * @dedup: YYY
@@ -1491,7 +1491,7 @@ static void read_mesgs_query(CONTEXT *ctx, notmuch_query_t *q, int dedup)
 }
 
 /**
- * read_threads_query - XXX
+ * read_threads_query - QWQ
  * @ctx:   YYY
  * @q:     YYY
  * @dedup: YYY
@@ -1525,7 +1525,7 @@ static void read_threads_query(CONTEXT *ctx, notmuch_query_t *q, int dedup, int 
 }
 
 /**
- * nm_read_query - XXX
+ * nm_read_query - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -1579,7 +1579,7 @@ int nm_read_query(CONTEXT *ctx)
 }
 
 /**
- * nm_read_entire_thread - XXX
+ * nm_read_entire_thread - QWQ
  * @ctx: YYY
  * @h:   YYY
  *
@@ -1641,7 +1641,7 @@ done:
 }
 
 /**
- * nm_uri_from_query - XXX
+ * nm_uri_from_query - QWQ
  * @ctx:   YYY
  * @buf:   YYY
  * @bufsz: YYY
@@ -1673,7 +1673,7 @@ char *nm_uri_from_query(CONTEXT *ctx, char *buf, size_t bufsz)
 }
 
 /**
- * get_nm_message - XXX
+ * get_nm_message - QWQ
  * @db:  YYY
  * @hdr: YYY
  *
@@ -1698,7 +1698,7 @@ static notmuch_message_t *get_nm_message(notmuch_database_t *db, HEADER *hdr)
 }
 
 /**
- * update_tags - XXX
+ * update_tags - QWQ
  * @msg:  YYY
  * @tags: YYY
  *
@@ -1748,7 +1748,7 @@ static int update_tags(notmuch_message_t *msg, const char *tags)
 }
 
 /**
- * update_header_flags - XXX
+ * update_header_flags - QWQ
  * @ctx:  YYY
  * @hdr:  YYY
  * @tags: YYY
@@ -1809,7 +1809,7 @@ static int update_header_flags(CONTEXT *ctx, HEADER *hdr, const char *tags)
 }
 
 /**
- * nm_modify_message_tags - XXX
+ * nm_modify_message_tags - QWQ
  * @ctx: YYY
  * @hdr: YYY
  * @buf: YYY
@@ -1850,7 +1850,7 @@ done:
 }
 
 /**
- * rename_maildir_filename - XXX
+ * rename_maildir_filename - QWQ
  * @old:     YYY
  * @newpath: YYY
  * @newsz:   YYY
@@ -1905,7 +1905,7 @@ static int rename_maildir_filename(const char *old, char *newpath, size_t newsz,
 }
 
 /**
- * remove_filename - XXX
+ * remove_filename - QWQ
  * @data: YYY
  * @path: YYY
  *
@@ -1968,7 +1968,7 @@ static int remove_filename(struct nm_ctxdata *data, const char *path)
 }
 
 /**
- * rename_filename - XXX
+ * rename_filename - QWQ
  * @data: YYY
  * @old:  YYY
  * @new:  YYY
@@ -2061,7 +2061,7 @@ done:
 }
 
 /**
- * nm_update_filename - XXX
+ * nm_update_filename - QWQ
  * @ctx: YYY
  * @old: YYY
  * @new: YYY
@@ -2094,7 +2094,7 @@ int nm_update_filename(CONTEXT *ctx, const char *old, const char *new, HEADER *h
 }
 
 /**
- * nm_sync - XXX
+ * nm_sync - QWQ
  * @ctx:        YYY
  * @index_hint: YYY
  *
@@ -2179,7 +2179,7 @@ int nm_sync(CONTEXT *ctx, int *index_hint)
 }
 
 /**
- * count_query - XXX
+ * count_query - QWQ
  * @db:   YYY
  * @qstr: YYY
  *
@@ -2207,7 +2207,7 @@ static unsigned count_query(notmuch_database_t *db, const char *qstr)
 }
 
 /**
- * nm_nonctx_get_count - XXX
+ * nm_nonctx_get_count - QWQ
  * @path: YYY
  * @all:  YYY
  * @new:  YYY
@@ -2292,7 +2292,7 @@ done:
 }
 
 /**
- * nm_get_description - XXX
+ * nm_get_description - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -2311,7 +2311,7 @@ char *nm_get_description(CONTEXT *ctx)
 }
 
 /**
- * nm_description_to_path - XXX
+ * nm_description_to_path - QWQ
  * @desc:  YYY
  * @buf:   YYY
  * @bufsz: YYY
@@ -2338,7 +2338,7 @@ int nm_description_to_path(const char *desc, char *buf, size_t bufsz)
 }
 
 /**
- * get_mutt_header - XXX
+ * get_mutt_header - QWQ
  * @ctx: YYY
  * @msg: YYY
  *
@@ -2380,7 +2380,7 @@ static HEADER *get_mutt_header(CONTEXT *ctx, notmuch_message_t *msg)
 }
 
 /**
- * nm_check_database - XXX
+ * nm_check_database - QWQ
  * @ctx:        YYY
  * @index_hint: YYY
  *
@@ -2499,7 +2499,7 @@ done:
 }
 
 /**
- * nm_record_message - XXX
+ * nm_record_message - QWQ
  * @ctx:  YYY
  * @path: YYY
  * @h:    YYY
@@ -2555,7 +2555,7 @@ done:
 }
 
 /**
- * nm_get_all_tags - XXX
+ * nm_get_all_tags - QWQ
  * @ctx:       YYY
  * @tag_list:  YYY
  * @tag_count: YYY
@@ -2608,7 +2608,7 @@ done:
 }
 
 /**
- * nm_open_message - XXX
+ * nm_open_message - QWQ
  * @ctx:   YYY
  * @msg:   YYY
  * @msgno: YYY
@@ -2637,7 +2637,7 @@ static int nm_open_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
 }
 
 /**
- * nm_close_message - XXX
+ * nm_close_message - QWQ
  * @ctx: YYY
  * @msg: YYY
  *
@@ -2654,7 +2654,7 @@ static int nm_close_message (CONTEXT *ctx, MESSAGE *msg)
 }
 
 /**
- * nm_commit_message - XXX
+ * nm_commit_message - QWQ
  * @ctx: YYY
  * @msg: YYY
  *

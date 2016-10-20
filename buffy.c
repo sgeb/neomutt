@@ -569,7 +569,7 @@ static int buffy_mbox_check (BUFFY* mailbox, struct stat *sb, int check_stats)
 }
 
 /**
- * mutt_parse_virtual_mailboxes - XXX
+ * mutt_parse_virtual_mailboxes - QWQ
  * @path: YYY
  * @s:    YYY
  * @data: YYY
@@ -628,7 +628,7 @@ int mutt_parse_virtual_mailboxes (BUFFER *path, BUFFER *s, unsigned long data, B
 #endif
 
 /**
- * buffy_check - XXX
+ * buffy_check - QWQ
  * @tmp:         YYY
  * @contex_sb:   YYY
  * @check_stats: YYY
@@ -955,7 +955,7 @@ void mutt_buffy (char *s, size_t slen)
 }
 
 /**
- * mutt_buffy_vfolder - XXX
+ * mutt_buffy_vfolder - QWQ
  * @s:    YYY
  * @slen: YYY
  *

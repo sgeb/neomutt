@@ -498,7 +498,7 @@ int mutt_parse_unmono (BUFFER *buf, BUFFER *s, unsigned long data,
  * DESCRIPTION
  */
 /**
- * mutt_do_uncolor - XXX
+ * mutt_do_uncolor - QWQ
  */
 static void
 mutt_do_uncolor (BUFFER *buf, BUFFER *s, COLOR_LINE **ColorList,

@@ -689,7 +689,7 @@ void mutt_account_hook (const char* url)
 #endif
 
 /**
- * mutt_timeout_hook - XXX
+ * mutt_timeout_hook - QWQ
  *
  * DESCRIPTION
  */

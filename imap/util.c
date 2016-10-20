@@ -82,7 +82,7 @@ int imap_expand_path (char* path, size_t len)
 }
 
 /**
- * imap_get_parent - XXX
+ * imap_get_parent - QWQ
  * @output: YYY
  * @mbox:   YYY
  * @olen:   YYY
@@ -135,7 +135,7 @@ void imap_get_parent (char *output, const char *mbox, size_t olen, char delim)
 }
 
 /**
- * imap_get_parent_path - XXX
+ * imap_get_parent_path - QWQ
  * @output: YYY
  * @path:   YYY
  * @olen:   YYY
@@ -176,7 +176,7 @@ void imap_get_parent_path (char *output, const char *path, size_t olen)
 }
 
 /**
- * imap_clean_path - XXX
+ * imap_clean_path - QWQ
  * @path: YYY
  * @plen: YYY
  *

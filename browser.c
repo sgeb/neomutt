@@ -127,7 +127,7 @@ static int browser_compare_subject (const void *a, const void *b)
 }
 
 /**
- * browser_compare_desc - XXX
+ * browser_compare_desc - QWQ
  * @a: YYY
  * @b: YYY
  *
@@ -184,7 +184,7 @@ static int browser_compare_size (const void *a, const void *b)
 }
 
 /**
- * browser_compare_count - XXX
+ * browser_compare_count - QWQ
  * @a: YYY
  * @b: YYY
  *
@@ -209,7 +209,7 @@ static int browser_compare_count (const void *a, const void *b)
 }
 
 /**
- * browser_compare_count_new - XXX
+ * browser_compare_count_new - QWQ
  * @a: YYY
  * @b: YYY
  *
@@ -234,7 +234,7 @@ static int browser_compare_count_new (const void *a, const void *b)
 }
 
 /**
- * browser_compare - XXX
+ * browser_compare - QWQ
  * @a: YYY
  * @b: YYY
  *
@@ -553,7 +553,7 @@ folder_format_str (char *dest, size_t destlen, size_t col, int cols, char op, co
 }
 
 /**
- * newsgroup_format_str - XXX
+ * newsgroup_format_str - QWQ
  * @dest:       YYY
  * @destlen:    YYY
  * @col:        YYY
@@ -868,7 +868,7 @@ static int examine_directory (MUTTMENU *menu, struct browser_state *state,
 }
 
 /**
- * examine_vfolders - XXX
+ * examine_vfolders - QWQ
  * @menu:  YYY
  * @state: YYY
  *
@@ -1029,7 +1029,7 @@ static int select_file_search (MUTTMENU *menu, regex_t *re, int n)
 }
 
 /**
- * select_vfolder_search - XXX
+ * select_vfolder_search - QWQ
  * @menu: YYY
  * @re:   YYY
  * @n:    YYY
@@ -1072,7 +1072,7 @@ static void folder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
 }
 
 /**
- * vfolder_entry - XXX
+ * vfolder_entry - QWQ
  * @s:    YYY
  * @slen: YYY
  * @menu: YYY
@@ -1094,7 +1094,7 @@ static void vfolder_entry (char *s, size_t slen, MUTTMENU *menu, int num)
 #endif
 
 /**
- * mutt_browser_highlight_default - XXX
+ * mutt_browser_highlight_default - QWQ
  * @state: YYY
  * @menu:  YYY
  *
@@ -1245,7 +1245,7 @@ static int file_tag (MUTTMENU *menu, int n, int m)
 }
 
 /**
- * mutt_browser_select_dir - XXX
+ * mutt_browser_select_dir - QWQ
  * @f: YYY
  *
  * DESCRIPTION

@@ -62,7 +62,7 @@
 #endif
 
 /**
- * nntp_connect_error - XXX
+ * nntp_connect_error - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -78,7 +78,7 @@ static int nntp_connect_error (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_capabilities - XXX
+ * nntp_capabilities - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -195,7 +195,7 @@ char *OverviewFmt =
 	"\0";
 
 /**
- * nntp_attempt_features - XXX
+ * nntp_attempt_features - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -329,7 +329,7 @@ static int nntp_attempt_features (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_auth - XXX
+ * nntp_auth - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -633,7 +633,7 @@ static int nntp_auth (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_open_connection - XXX
+ * nntp_open_connection - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -791,7 +791,7 @@ int nntp_open_connection (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_query - XXX
+ * nntp_query - QWQ
  * @nntp_data: YYY
  * @line:      YYY
  * @linelen:   YYY
@@ -861,7 +861,7 @@ static int nntp_query (NNTP_DATA *nntp_data, char *line, size_t linelen)
 }
 
 /**
- * nntp_fetch_lines - XXX
+ * nntp_fetch_lines - QWQ
  * @nntp_data: YYY
  * @query:     YYY
  * @qlen:      YYY
@@ -957,7 +957,7 @@ static int nntp_fetch_lines (NNTP_DATA *nntp_data, char *query, size_t qlen,
 }
 
 /**
- * fetch_description - XXX
+ * fetch_description - QWQ
  * @line: YYY
  * @data: YYY
  *
@@ -994,7 +994,7 @@ static int fetch_description (char *line, void *data)
 }
 
 /**
- * get_description - XXX
+ * get_description - QWQ
  * @nntp_data: YYY
  * @wildmat:   YYY
  * @msg:       YYY
@@ -1035,7 +1035,7 @@ static int get_description (NNTP_DATA *nntp_data, char *wildmat, char *msg)
 }
 
 /**
- * nntp_parse_xref - XXX
+ * nntp_parse_xref - QWQ
  * @ctx: YYY
  * @hdr: YYY
  *
@@ -1078,7 +1078,7 @@ static void nntp_parse_xref (CONTEXT *ctx, HEADER *hdr)
 }
 
 /**
- * fetch_tempfile - XXX
+ * fetch_tempfile - QWQ
  * @line: YYY
  * @data: YYY
  *
@@ -1112,7 +1112,7 @@ typedef struct
 } FETCH_CTX;
 
 /**
- * fetch_numbers - XXX
+ * fetch_numbers - QWQ
  * @line: YYY
  * @data: YYY
  *
@@ -1137,7 +1137,7 @@ static int fetch_numbers (char *line, void *data)
 }
 
 /**
- * parse_overview_line - XXX
+ * parse_overview_line - QWQ
  * @line: YYY
  * @data: YYY
  *
@@ -1301,7 +1301,7 @@ static int parse_overview_line (char *line, void *data)
 }
 
 /**
- * nntp_fetch_headers - XXX
+ * nntp_fetch_headers - QWQ
  * @ctx:     YYY
  * @hc:      YYY
  * @first:   YYY
@@ -1555,7 +1555,7 @@ static int nntp_fetch_headers (CONTEXT *ctx, void *hc,
 }
 
 /**
- * nntp_open_mailbox - XXX
+ * nntp_open_mailbox - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -1665,8 +1665,6 @@ int nntp_open_mailbox (CONTEXT *ctx)
 
   time (&nserv->check_time);
   ctx->data = nntp_data;
-  // QWQ
-  // ctx->mx_close = nntp_fastclose_mailbox;
   if (!nntp_data->bcache && (nntp_data->newsrc_ent ||
       nntp_data->subscribed || option (OPTSAVEUNSUB)))
     nntp_data->bcache = mutt_bcache_open (&nserv->conn->account,
@@ -1703,7 +1701,7 @@ int nntp_open_mailbox (CONTEXT *ctx)
 }
 
 /**
- * nntp_fetch_message - XXX
+ * nntp_fetch_message - QWQ
  * @ctx:   YYY
  * @msg:   YYY
  * @msgno: YYY
@@ -1836,7 +1834,7 @@ int nntp_fetch_message (CONTEXT *ctx, MESSAGE *msg, int msgno)
 }
 
 /**
- * nntp_close_message - XXX
+ * nntp_close_message - QWQ
  * @ctx: YYY
  * @msg: YYY
  *
@@ -1851,7 +1849,7 @@ static int nntp_close_message (CONTEXT *ctx, MESSAGE *msg)
 }
 
 /**
- * nntp_post - XXX
+ * nntp_post - QWQ
  * @msg: YYY
  *
  * DESCRIPTION
@@ -1926,7 +1924,7 @@ int nntp_post (const char *msg) {
 }
 
 /**
- * nntp_sync_mailbox - XXX
+ * nntp_sync_mailbox - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -1993,7 +1991,7 @@ int nntp_sync_mailbox (CONTEXT *ctx)
 }
 
 /**
- * nntp_fastclose_mailbox - XXX
+ * nntp_fastclose_mailbox - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -2019,7 +2017,7 @@ int nntp_fastclose_mailbox (CONTEXT *ctx)
 }
 
 /**
- * nntp_date - XXX
+ * nntp_date - QWQ
  * @nserv: YYY
  * @now:   YYY
  *
@@ -2060,7 +2058,7 @@ int nntp_date (NNTP_SERVER *nserv, time_t *now)
 }
 
 /**
- * nntp_active_fetch - XXX
+ * nntp_active_fetch - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -2118,7 +2116,7 @@ int nntp_active_fetch (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_group_poll - XXX
+ * nntp_group_poll - QWQ
  * @nntp_data:   YYY
  * @update_stat: YYY
  *
@@ -2169,7 +2167,7 @@ static int nntp_group_poll (NNTP_DATA *nntp_data, int update_stat)
 }
 
 /**
- * nntp_check_mailbox - XXX
+ * nntp_check_mailbox - QWQ
  * @ctx:        YYY
  * @index_hint: YYY
  *
@@ -2400,7 +2398,7 @@ int nntp_check_mailbox (CONTEXT *ctx, int *index_hint)
 }
 
 /**
- * nntp_check_new_groups - XXX
+ * nntp_check_new_groups - QWQ
  * @nserv: YYY
  *
  * DESCRIPTION
@@ -2511,7 +2509,7 @@ int nntp_check_new_groups (NNTP_SERVER *nserv)
 }
 
 /**
- * nntp_check_msgid - XXX
+ * nntp_check_msgid - QWQ
  * @ctx:   YYY
  * @msgid: YYY
  *
@@ -2599,7 +2597,7 @@ typedef struct
 } CHILD_CTX;
 
 /**
- * fetch_children - XXX
+ * fetch_children - QWQ
  * @line: YYY
  * @data: YYY
  *
@@ -2629,7 +2627,7 @@ static int fetch_children (char *line, void *data)
 }
 
 /**
- * nntp_check_children - XXX
+ * nntp_check_children - QWQ
  * @ctx:   YYY
  * @msgid: YYY
  *

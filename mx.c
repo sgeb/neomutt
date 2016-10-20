@@ -447,7 +447,7 @@ int mx_is_pop (const char *p)
 #endif
 
 /**
- * mx_is_nntp - XXX
+ * mx_is_nntp - QWQ
  * @p: YYY
  *
  * DESCRIPTION
@@ -473,7 +473,7 @@ int mx_is_nntp (const char *p)
 #ifdef USE_NOTMUCH
 
 /**
- * mx_is_notmuch - XXX
+ * mx_is_notmuch - QWQ
  * @p: YYY
  *
  * DESCRIPTION

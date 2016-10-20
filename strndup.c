@@ -9,7 +9,7 @@
 #include "mutt.h"
 
 /**
- * strndup - XXX
+ * strndup - QWQ
  * @s: YYY
  * @n: YYY
  *

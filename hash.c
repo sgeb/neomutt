@@ -100,7 +100,7 @@ HASH *hash_create (int nelem, int lower)
 }
 
 /**
- * hash_resize - XXX
+ * hash_resize - QWQ
  * @ptr:   YYY
  * @nelem: YYY
  * @lower: YYY
@@ -212,7 +212,7 @@ void *hash_find_hash (const HASH * table, int hash, const char *key)
 }
 
 /**
- * hash_set_data - XXX
+ * hash_set_data - QWQ
  * @table: YYY
  * @key:   YYY
  * @data:  YYY
@@ -302,7 +302,7 @@ void hash_destroy (HASH **ptr, void (*destroy) (void *))
 }
 
 /**
- * hash_walk - XXX
+ * hash_walk - QWQ
  * @table: YYY
  * @state: YYY
  *

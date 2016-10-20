@@ -1035,7 +1035,7 @@ void mutt_merge_envelopes(ENVELOPE* base, ENVELOPE** extra)
 static FILE *frandom;
 
 /**
- * mutt_randbuf - XXX
+ * mutt_randbuf - QWQ
  * @out: YYY
  * @len: YYY
  *
@@ -1074,7 +1074,7 @@ void mutt_randbuf(void *out, size_t len)
 static const unsigned char base32[] = "abcdefghijklmnopqrstuvwxyz234567";
 
 /**
- * mutt_rand_base32 - XXX
+ * mutt_rand_base32 - QWQ
  * @out: YYY
  * @len: YYY
  *
@@ -1091,7 +1091,7 @@ void mutt_rand_base32(void *out, size_t len)
 }
 
 /**
- * mutt_rand32 - XXX
+ * mutt_rand32 - QWQ
  *
  * DESCRIPTION
  *
@@ -1106,7 +1106,7 @@ uint32_t mutt_rand32(void)
 }
 
 /**
- * mutt_rand64 - XXX
+ * mutt_rand64 - QWQ
  *
  * DESCRIPTION
  *
@@ -2702,7 +2702,7 @@ void mutt_encode_path (char *dest, size_t dlen, const char *src)
 }
 
 /**
- * mutt_set_xdg_path - XXX
+ * mutt_set_xdg_path - QWQ
  * @type:    YYY
  * @buf:     YYY
  * @bufsize: YYY
@@ -2740,7 +2740,7 @@ int mutt_set_xdg_path(const XDGType type, char *buf, size_t bufsize)
 }
 
 /**
- * mutt_get_parent_path - XXX
+ * mutt_get_parent_path - QWQ
  * @output: YYY
  * @path:   YYY
  * @olen:   YYY

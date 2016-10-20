@@ -52,7 +52,7 @@ typedef struct
 
 
 /**
- * lock_mailbox - XXX
+ * lock_mailbox - QWQ
  * @ctx:  YYY
  * @fp:   YYY
  * @excl: YYY
@@ -97,7 +97,7 @@ lock_mailbox (CONTEXT *ctx, FILE *fp, int excl)
 }
 
 /**
- * unlock_mailbox - XXX
+ * unlock_mailbox - QWQ
  * @ctx: YYY
  * @fp:  YYY
  *
@@ -126,7 +126,7 @@ unlock_mailbox (CONTEXT *ctx, FILE *fp)
 }
 
 /**
- * setup_paths - XXX
+ * setup_paths - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -158,7 +158,7 @@ setup_paths (CONTEXT *ctx)
 }
 
 /**
- * restore_path - XXX
+ * restore_path - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -189,7 +189,7 @@ restore_path (CONTEXT *ctx)
 }
 
 /**
- * get_size - XXX
+ * get_size - QWQ
  * @path: YYY
  *
  * DESCRIPTION
@@ -218,7 +218,7 @@ get_size (const char *path)
 }
 
 /**
- * store_size - XXX
+ * store_size - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -243,7 +243,7 @@ store_size (const CONTEXT *ctx)
 }
 
 /**
- * find_hook - XXX
+ * find_hook - QWQ
  * @type: YYY
  * @path: YYY
  *
@@ -283,7 +283,7 @@ find_hook (int type, const char *path)
 }
 
 /**
- * set_compress_info - XXX
+ * set_compress_info - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -373,7 +373,7 @@ cb_format_str (char *dest, size_t destlen, size_t col, int cols, char op, const 
 }
 
 /**
- * expand_command_str - XXX
+ * expand_command_str - QWQ
  * @ctx:    YYY
  * @cmd:    YYY
  * @buf:    YYY
@@ -407,7 +407,7 @@ expand_command_str (const CONTEXT *ctx, const char *cmd, char *buf, int buflen)
 }
 
 /**
- * execute_command - XXX
+ * execute_command - QWQ
  * @ctx:         YYY
  * @command:     YYY
  * @create_file: YYY
@@ -484,7 +484,7 @@ execute_command (CONTEXT *ctx, const char *command, int create_file, const char 
 }
 
 /**
- * open_read - XXX
+ * open_read - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -556,7 +556,7 @@ or_fail:
 struct mx_ops mx_comp_ops;
 
 /**
- * open_mailbox - XXX
+ * open_mailbox - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -594,7 +594,7 @@ open_mailbox (CONTEXT *ctx)
 }
 
 /**
- * open_append_mailbox - XXX
+ * open_append_mailbox - QWQ
  * @ctx:   YYY
  * @flags: YYY
  *
@@ -685,7 +685,7 @@ oa_fail:
 }
 
 /**
- * close_mailbox - XXX
+ * close_mailbox - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -763,7 +763,7 @@ close_mailbox (CONTEXT *ctx)
 }
 
 /**
- * check_mailbox - XXX
+ * check_mailbox - QWQ
  * @ctx:        YYY
  * @index_hint: YYY
  *
@@ -822,7 +822,7 @@ check_mailbox (CONTEXT *ctx, int *index_hint)
 
 
 /**
- * open_message - XXX
+ * open_message - QWQ
  * @ctx:   YYY
  * @msg:   YYY
  * @msgno: YYY
@@ -853,7 +853,7 @@ open_message (CONTEXT *ctx,  MESSAGE *msg, int msgno)
 }
 
 /**
- * close_message - XXX
+ * close_message - QWQ
  * @ctx: YYY
  * @msg: YYY
  *
@@ -883,7 +883,7 @@ close_message (CONTEXT *ctx, MESSAGE *msg)
 }
 
 /**
- * commit_message - XXX
+ * commit_message - QWQ
  * @ctx: YYY
  * @msg: YYY
  *
@@ -913,7 +913,7 @@ commit_message (CONTEXT *ctx, MESSAGE *msg)
 }
 
 /**
- * open_new_message - XXX
+ * open_new_message - QWQ
  * @msg: YYY
  * @ctx: YYY
  * @hdr: YYY
@@ -945,7 +945,7 @@ open_new_message (MESSAGE *msg, CONTEXT *ctx, HEADER *hdr)
 
 
 /**
- * comp_can_append - XXX
+ * comp_can_append - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -986,7 +986,7 @@ comp_can_append (CONTEXT *ctx)
 }
 
 /**
- * comp_can_read - XXX
+ * comp_can_read - QWQ
  * @path: YYY
  *
  * DESCRIPTION
@@ -1018,7 +1018,7 @@ comp_can_read (const char *path)
 }
 
 /**
- * comp_sync - XXX
+ * comp_sync - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -1062,7 +1062,7 @@ comp_sync (CONTEXT *ctx)
 }
 
 /**
- * comp_valid_command - XXX
+ * comp_valid_command - QWQ
  * @cmd: YYY
  *
  * DESCRIPTION

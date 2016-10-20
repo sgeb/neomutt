@@ -893,7 +893,7 @@ static void maildir_update_mtime (CONTEXT * ctx)
 }
 
 /**
- * maildir_parse_stream - XXX
+ * maildir_parse_stream - QWQ
  * @magic:  YYY
  * @f:      YYY
  * @fname:  YYY
@@ -2385,7 +2385,7 @@ static int maildir_sync_message (CONTEXT * ctx, int msgno)
 }
 
 /**
- * mh_sync_mailbox_message - XXX
+ * mh_sync_mailbox_message - QWQ
  * @ctx:   YYY
  * @msgno: YYY
  * @hc:    YYY

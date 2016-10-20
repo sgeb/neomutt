@@ -166,7 +166,7 @@ static int first_mailing_list (char *buf, size_t buflen, ADDRESS *a)
  * Returns: size_t
  */
 /**
- * add_index_color - XXX
+ * add_index_color - QWQ
  *
  * Takes the color to embed, the buffer to manipulate and the buffer length as
  * arguments.

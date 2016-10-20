@@ -589,7 +589,7 @@ static void resort_index (MUTTMENU *menu)
 }
 
 /**
- * mutt_draw_statusline - XXX
+ * mutt_draw_statusline - QWQ
  * @cols:   YYY
  * @buf:    YYY
  * @buflen: YYY
@@ -731,7 +731,7 @@ dsl_finish:
 }
 
 /**
- * main_change_folder - XXX
+ * main_change_folder - QWQ
  * @menu:       YYY
  * @op:         YYY
  * @buf:        YYY

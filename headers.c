@@ -231,7 +231,7 @@ void mutt_edit_headers (const char *editor,
 }
 
 /**
- * label_add - XXX
+ * label_add - QWQ
  * @label: YYY
  *
  * DESCRIPTION
@@ -269,7 +269,7 @@ static LIST *label_add (const char *label)
 }
 
 /**
- * label_delete - XXX
+ * label_delete - QWQ
  * @label: YYY
  *
  * DESCRIPTION
@@ -304,7 +304,7 @@ static void label_delete (const char *label)
 }
 
 /**
- * mutt_label_ref_dec - XXX
+ * mutt_label_ref_dec - QWQ
  * @env: YYY
  *
  * DESCRIPTION
@@ -341,7 +341,7 @@ void mutt_label_ref_dec(ENVELOPE *env)
 }
 
 /**
- * mutt_label_ref_inc - XXX
+ * mutt_label_ref_inc - QWQ
  * @env: YYY
  *
  * DESCRIPTION
@@ -379,7 +379,7 @@ void mutt_label_ref_inc(ENVELOPE *env)
 }
 
 /**
- * label_message - XXX
+ * label_message - QWQ
  * @hdr: YYY
  * @new: YYY
  *
@@ -434,7 +434,7 @@ static int label_message(HEADER *hdr, char *new)
 }
 
 /**
- * mutt_label_message - XXX
+ * mutt_label_message - QWQ
  * @hdr: YYY
  *
  * DESCRIPTION
@@ -493,7 +493,7 @@ int mutt_label_message(HEADER *hdr)
 }
 
 /**
- * mutt_scan_labels - XXX
+ * mutt_scan_labels - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -513,7 +513,7 @@ void mutt_scan_labels(CONTEXT *ctx)
 
 
 /**
- * mutt_labels - XXX
+ * mutt_labels - QWQ
  * @dst: YYY
  * @sz:  YYY
  * @env: YYY

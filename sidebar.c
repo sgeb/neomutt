@@ -64,7 +64,7 @@ enum {
 static int sidebar_source = SB_SRC_NONE;
 
 /**
- * get_incoming - XXX
+ * get_incoming - QWQ
  *
  * DESCRIPTION
  *
@@ -239,7 +239,7 @@ static const char *cb_format_str(char *dest, size_t destlen, size_t col, int col
 }
 
 /**
- * make_sidebar_entry - XXX
+ * make_sidebar_entry - QWQ
  * @buf:    YYY
  * @buflen: YYY
  * @width:  YYY
@@ -289,7 +289,7 @@ static void make_sidebar_entry (char *buf, unsigned int buflen, int width, char 
 }
 
 /**
- * cb_qsort_sbe - XXX
+ * cb_qsort_sbe - QWQ
  * @a: YYY
  * @b: YYY
  *
@@ -347,7 +347,7 @@ static int cb_qsort_sbe (const void *a, const void *b)
 }
 
 /**
- * update_entries_visibility - XXX
+ * update_entries_visibility - QWQ
  *
  * DESCRIPTION
  */
@@ -394,7 +394,7 @@ static void update_entries_visibility (void)
 }
 
 /**
- * unsort_entries - XXX
+ * unsort_entries - QWQ
  *
  * DESCRIPTION
  */
@@ -428,7 +428,7 @@ static void unsort_entries (void)
 }
 
 /**
- * sort_entries - XXX
+ * sort_entries - QWQ
  *
  * DESCRIPTION
  */
@@ -457,7 +457,7 @@ static void sort_entries (void)
 }
 
 /**
- * prepare_sidebar - XXX
+ * prepare_sidebar - QWQ
  * @page_size: YYY
  *
  * DESCRIPTION
@@ -552,7 +552,7 @@ static int prepare_sidebar (int page_size)
 }
 
 /**
- * draw_divider - XXX
+ * draw_divider - QWQ
  * @num_rows: YYY
  * @num_cols: YYY
  *
@@ -606,7 +606,7 @@ static int draw_divider (int num_rows, int num_cols)
 }
 
 /**
- * fill_empty_space - XXX
+ * fill_empty_space - QWQ
  * @first_row: YYY
  * @num_rows:  YYY
  * @div_width: YYY
@@ -643,7 +643,7 @@ static void fill_empty_space (int first_row, int num_rows, int div_width, int nu
 }
 
 /**
- * draw_sidebar - XXX
+ * draw_sidebar - QWQ
  * @num_rows:  YYY
  * @num_cols:  YYY
  * @div_width: YYY
@@ -806,7 +806,7 @@ static void draw_sidebar (int num_rows, int num_cols, int div_width)
 
 
 /**
- * mutt_sb_draw - XXX
+ * mutt_sb_draw - QWQ
  *
  * DESCRIPTION
  */
@@ -855,7 +855,7 @@ void mutt_sb_draw (void)
 }
 
 /**
- * select_next - XXX
+ * select_next - QWQ
  *
  * DESCRIPTION
  *
@@ -887,7 +887,7 @@ static int select_next (void)
 }
 
 /**
- * select_next_new - XXX
+ * select_next_new - QWQ
  *
  * DESCRIPTION
  *
@@ -929,7 +929,7 @@ static int select_next_new (void)
 }
 
 /**
- * select_prev - XXX
+ * select_prev - QWQ
  *
  * DESCRIPTION
  *
@@ -961,7 +961,7 @@ static int select_prev (void)
 }
 
 /**
- * select_prev_new - XXX
+ * select_prev_new - QWQ
  *
  * DESCRIPTION
  *
@@ -1003,7 +1003,7 @@ static int select_prev_new (void)
 }
 
 /**
- * select_page_down - XXX
+ * select_page_down - QWQ
  *
  * DESCRIPTION
  *
@@ -1033,7 +1033,7 @@ static int select_page_down (void)
 }
 
 /**
- * select_page_up - XXX
+ * select_page_up - QWQ
  *
  * DESCRIPTION
  *
@@ -1063,7 +1063,7 @@ static int select_page_up (void)
 }
 
 /**
- * mutt_sb_change_mailbox - XXX
+ * mutt_sb_change_mailbox - QWQ
  * @op: YYY
  *
  * DESCRIPTION
@@ -1124,7 +1124,7 @@ void mutt_sb_change_mailbox (int op)
 }
 
 /**
- * mutt_sb_set_buffystats - XXX
+ * mutt_sb_set_buffystats - QWQ
  * @ctx: YYY
  *
  * DESCRIPTION
@@ -1157,7 +1157,7 @@ void mutt_sb_set_buffystats (const CONTEXT *ctx)
 }
 
 /**
- * mutt_sb_get_highlight - XXX
+ * mutt_sb_get_highlight - QWQ
  *
  * DESCRIPTION
  *
@@ -1183,7 +1183,7 @@ const char *mutt_sb_get_highlight (void)
 }
 
 /**
- * mutt_sb_set_open_buffy - XXX
+ * mutt_sb_set_open_buffy - QWQ
  *
  * DESCRIPTION
  */
@@ -1214,7 +1214,7 @@ void mutt_sb_set_open_buffy (void)
 }
 
 /**
- * mutt_sb_notify_mailbox - XXX
+ * mutt_sb_notify_mailbox - QWQ
  * @b:       YYY
  * @created: YYY
  *
@@ -1291,7 +1291,7 @@ void mutt_sb_notify_mailbox (BUFFY *b, int created)
 }
 
 /**
- * mutt_sb_toggle_virtual - XXX
+ * mutt_sb_toggle_virtual - QWQ
  *
  * DESCRIPTION
  */

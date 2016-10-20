@@ -1616,7 +1616,7 @@ void mutt_check_simple (char *s, size_t len, const char *simple)
 }
 
 /**
- * top_of_thread - XXX
+ * top_of_thread - QWQ
  * @h: YYY
  *
  * DESCRIPTION
@@ -1648,7 +1648,7 @@ top_of_thread (HEADER *h)
 }
 
 /**
- * mutt_limit_current_thread - XXX
+ * mutt_limit_current_thread - QWQ
  * @h: YYY
  *
  * DESCRIPTION

@@ -3223,7 +3223,7 @@ static void set_noconv_flags (BODY *b, short flag)
 }
 
 /**
- * mutt_write_multiple_fcc - XXX
+ * mutt_write_multiple_fcc - QWQ
  * @path:      YYY
  * @hdr:       YYY
  * @msgid:     YYY

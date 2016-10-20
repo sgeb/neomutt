@@ -329,7 +329,7 @@ static struct compile_options comp_opts[] =
 };
 
 /**
- * print_compile_options - XXX
+ * print_compile_options - QWQ
  *
  * DESCRIPTION
  */
@@ -399,7 +399,7 @@ rstrip_in_place (char *s)
 }
 
 /**
- * print_version - XXX
+ * print_version - QWQ
  *
  * DESCRIPTION
  */
@@ -494,7 +494,7 @@ print_version (void)
 }
 
 /**
- * print_copyright - XXX
+ * print_copyright - QWQ
  *
  * DESCRIPTION
  */
@@ -515,7 +515,7 @@ print_copyright (void)
 }
 
 /**
- * feature_enabled - XXX
+ * feature_enabled - QWQ
  * @name: YYY
  *
  * DESCRIPTION

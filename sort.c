@@ -316,7 +316,7 @@ static int compare_spam (const void *a, const void *b)
 }
 
 /**
- * compare_label - XXX
+ * compare_label - QWQ
  * @a: YYY
  * @b: YYY
  *

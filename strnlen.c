@@ -9,7 +9,7 @@
 #include "mutt.h"
 
 /**
- * strnlen - XXX
+ * strnlen - QWQ
  * @s:      YYY
  * @maxlen: YYY
  *
