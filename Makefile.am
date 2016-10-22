@@ -3,7 +3,7 @@
 include $(top_srcdir)/flymake.am
 
 AUTOMAKE_OPTIONS = 1.6 foreign
-EXTRA_PROGRAMS = mutt_dotlock pgpring pgpewrap mutt_md5
+EXTRA_PROGRAMS = mutt_dotlock pgpring pgpewrap mutt_md5 mutt_launch
 
 if BUILD_IMAP
 IMAP_SUBDIR = imap
@@ -99,6 +99,8 @@ mutt_dotlock_DEPENDENCIES = $(LIBOBJS)
 pgpring_SOURCES = pgppubring.c pgplib.c lib.c extlib.c sha1.c md5.c pgppacket.c ascii.c
 pgpring_LDADD = $(LIBOBJS) $(INTLLIBS)
 pgpring_DEPENDENCIES = $(LIBOBJS) $(INTLDEPS)
+
+mutt_launch_SOURCES = mutt_launch.c
 
 mutt_md5_SOURCES = md5.c
 mutt_md5_CFLAGS = -DMD5UTIL
