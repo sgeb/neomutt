@@ -696,6 +696,13 @@ void mutt_delete_parameter (const char *attribute, PARAMETER **p)
 }
 
 /* returns 1 if Mutt can't display this type of data, 0 otherwise */
+/** Determine whether mutt can display this type of data.
+ * @param m the attachment body to be displayed.
+ *
+ * @returns
+ * - 0 if mutt can display this data
+ * - 1 otherwise
+ */
 int mutt_needs_mailcap (BODY *m)
 {
   switch (m->type)
@@ -707,9 +714,9 @@ int mutt_needs_mailcap (BODY *m)
 
     case TYPEAPPLICATION:
       if((WithCrypto & APPLICATION_PGP) && mutt_is_application_pgp(m))
-	return 0;
+        return 0;
       if((WithCrypto & APPLICATION_SMIME) && mutt_is_application_smime(m))
-	return 0;
+        return 0;
       break;
 
     case TYPEMULTIPART:

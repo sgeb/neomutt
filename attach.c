@@ -328,9 +328,28 @@ void mutt_check_lookup_list (BODY *b, char *type, int len)
   }
 }
 
-/* returns -1 on error, 0 or the return code from mutt_do_pager() on success */
+
+/**
+ * mutt_view_attachment - display a message attachment.
+ * @param fp:     Source file stream. Can be NULL.
+ * @param a:      The message body containing the attachment.
+ * @param flag:   Option flag for mutt_view_attachment. One of MUTT_MAILCAP, MUTT_REGULAR, or MUTT_AS_TEXT
+ * @param hdr:    Message header for the current message. Can be NULL.
+ * @param idx:    YYY
+ * @param idxlen: YYY
+
+ * Display a message attachment using the viewer program configured in mailcap.
+ * Viewer processes are opened and waited on synchronously so viewing an
+ * attachment this way will block the main mutt process until the viewer process
+ * exits.
+ *
+ * @returns
+ *  - 0 if the viewer is run and exited succesfully
+ *  - -1 on error
+ *  - The return value of mutt_do_pager() when it is used
+ */
 int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
-			  ATTACHPTR **idx, short idxlen)
+    ATTACHPTR **idx, short idxlen)
 {
   char tempfile[_POSIX_PATH_MAX] = "";
   char pagerfile[_POSIX_PATH_MAX] = "";
@@ -345,15 +364,15 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
   rfc1524_entry *entry = NULL;
   int rc = -1;
   int unlink_tempfile = 0;
-  
+
   is_message = mutt_is_message_type(a->type, a->subtype);
   if (WithCrypto && is_message && a->hdr && (a->hdr->security & ENCRYPT) &&
       !crypt_valid_passphrase(a->hdr->security))
     return (rc);
   use_mailcap = (flag == MUTT_MAILCAP ||
-		(flag == MUTT_REGULAR && mutt_needs_mailcap (a)));
+      (flag == MUTT_REGULAR && mutt_needs_mailcap (a)));
   snprintf (type, sizeof (type), "%s/%s", TYPE (a), a->subtype);
-  
+
   if (use_mailcap)
   {
     entry = rfc1524_new_entry (); 
@@ -361,17 +380,17 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
     {
       if (flag == MUTT_REGULAR)
       {
-	/* fallback to view as text */
-	rfc1524_free_entry (&entry);
-	mutt_error _("No matching mailcap entry found.  Viewing as text.");
-	flag = MUTT_AS_TEXT;
-	use_mailcap = 0;
+        /* fallback to view as text */
+        rfc1524_free_entry (&entry);
+        mutt_error _("No matching mailcap entry found.  Viewing as text.");
+        flag = MUTT_AS_TEXT;
+        use_mailcap = 0;
       }
       else
-	goto return_error;
+        goto return_error;
     }
   }
-  
+
   if (use_mailcap)
   {
     if (!entry->command)
@@ -380,7 +399,7 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
       goto return_error;
     }
     strfcpy (command, entry->command, sizeof (command));
-    
+
     if (fp)
     {
       fname = safe_strdup (a->filename);
@@ -390,38 +409,38 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
       fname = a->filename;
 
     if (rfc1524_expand_filename (entry->nametemplate, fname,
-				 tempfile, sizeof (tempfile)))
+          tempfile, sizeof (tempfile)))
     {
       if (fp == NULL && mutt_strcmp(tempfile, a->filename))
       {
-	/* send case: the file is already there */
-	if (safe_symlink (a->filename, tempfile) == -1)
-	{
-	  if (mutt_yesorno (_("Can't match nametemplate, continue?"), MUTT_YES) == MUTT_YES)
-	    strfcpy (tempfile, a->filename, sizeof (tempfile));
-	  else
-	    goto return_error;
-	}
-	else
-	  unlink_tempfile = 1;
+        /* send case: the file is already there */
+        if (safe_symlink (a->filename, tempfile) == -1)
+        {
+          if (mutt_yesorno (_("Can't match nametemplate, continue?"), MUTT_YES) == MUTT_YES)
+            strfcpy (tempfile, a->filename, sizeof (tempfile));
+          else
+            goto return_error;
+        }
+        else
+          unlink_tempfile = 1;
       }
     }
     else if (fp == NULL) /* send case */
       strfcpy (tempfile, a->filename, sizeof (tempfile));
-    
+
     if (fp)
     {
       /* recv case: we need to save the attachment to a file */
       FREE (&fname);
       if (mutt_save_attachment (fp, a, tempfile, 0, NULL) == -1)
-	goto return_error;
+        goto return_error;
     }
 
     use_pipe = rfc1524_expand_command (a, tempfile, type,
-				       command, sizeof (command));
+        command, sizeof (command));
     use_pager = entry->copiousoutput;
   }
-  
+
   if (use_pager)
   {
     if (fp && !use_mailcap && a->filename)
@@ -433,12 +452,12 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
     else
       mutt_mktemp (pagerfile, sizeof (pagerfile));
   }
-    
+
   if (use_mailcap)
   {
     pid_t thepid = 0;
     int tempfd = -1, pagerfd = -1;
-    
+
     if (!use_pager)
       mutt_endwin (NULL);
 
@@ -446,56 +465,56 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
     {
       if (use_pager && ((pagerfd = safe_open (pagerfile, O_CREAT | O_EXCL | O_WRONLY)) == -1))
       {
-	mutt_perror ("open");
-	goto return_error;
+        mutt_perror ("open");
+        goto return_error;
       }
       if (use_pipe && ((tempfd = open (tempfile, 0)) == -1))
       {
-	if(pagerfd != -1)
-	  close(pagerfd);
-	mutt_perror ("open");
-	goto return_error;
+        if(pagerfd != -1)
+          close(pagerfd);
+        mutt_perror ("open");
+        goto return_error;
       }
 
       if ((thepid = mutt_create_filter_fd (command, NULL, NULL, NULL,
-					   use_pipe ? tempfd : -1, use_pager ? pagerfd : -1, -1)) == -1)
+              use_pipe ? tempfd : -1, use_pager ? pagerfd : -1, -1)) == -1)
       {
-	if(pagerfd != -1)
-	  close(pagerfd);
-	
-	if(tempfd != -1)
-	  close(tempfd);
+        if(pagerfd != -1)
+          close(pagerfd);
 
-	mutt_error _("Cannot create filter");
-	goto return_error;
+        if(tempfd != -1)
+          close(tempfd);
+
+        mutt_error _("Cannot create filter");
+        goto return_error;
       }
 
       if (use_pager)
       {
-	if (a->description)
-	  snprintf (descrip, sizeof (descrip),
-		    _("---Command: %-20.20s Description: %s"),
-		    command, a->description);
-	else
-	  snprintf (descrip, sizeof (descrip),
-		    _("---Command: %-30.30s Attachment: %s"), command, type);
+        if (a->description)
+          snprintf (descrip, sizeof (descrip),
+              _("---Command: %-20.20s Description: %s"),
+              command, a->description);
+        else
+          snprintf (descrip, sizeof (descrip),
+              _("---Command: %-30.30s Attachment: %s"), command, type);
       }
 
       if ((mutt_wait_filter (thepid) || (entry->needsterminal &&
-	  option (OPTWAITKEY))) && !use_pager)
-	mutt_any_key_to_continue (NULL);
+              option (OPTWAITKEY))) && !use_pager)
+        mutt_any_key_to_continue (NULL);
 
       if (tempfd != -1)
-	close (tempfd);
+        close (tempfd);
       if (pagerfd != -1)
-	close (pagerfd);
+        close (pagerfd);
     }
     else
     {
       /* interactive command */
       if (mutt_system (command) ||
-	  (entry->needsterminal && option (OPTWAITKEY)))
-	mutt_any_key_to_continue (NULL);
+          (entry->needsterminal && option (OPTWAITKEY)))
+        mutt_any_key_to_continue (NULL);
     }
   }
   else
@@ -507,66 +526,66 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
       /* just let me see the raw data */
       if (fp)
       {
-	/* Viewing from a received message.
-	 *
-	 * Don't use mutt_save_attachment() because we want to perform charset
-	 * conversion since this will be displayed by the internal pager.
-	 */
-	STATE decode_state;
+        /* Viewing from a received message.
+         *
+         * Don't use mutt_save_attachment() because we want to perform charset
+         * conversion since this will be displayed by the internal pager.
+         */
+        STATE decode_state;
 
-	memset(&decode_state, 0, sizeof(decode_state));
-	decode_state.fpout = safe_fopen(pagerfile, "w");
-	if (!decode_state.fpout)
-	{
-	  dprint(1, (debugfile, "mutt_view_attachment:%d safe_fopen(%s) errno=%d %s\n", __LINE__, pagerfile, errno, strerror(errno)));
-	  mutt_perror(pagerfile);
-	  mutt_sleep(1);
-	  goto return_error;
-	}
-	decode_state.fpin = fp;
-	decode_state.flags = MUTT_CHARCONV;
-	mutt_decode_attachment(a, &decode_state);
-	if (fclose(decode_state.fpout) == EOF)
-	  dprint(1, (debugfile, "mutt_view_attachment:%d fclose errno=%d %s\n", __LINE__, pagerfile, errno, strerror(errno)));
+        memset(&decode_state, 0, sizeof(decode_state));
+        decode_state.fpout = safe_fopen(pagerfile, "w");
+        if (!decode_state.fpout)
+        {
+          dprint(1, (debugfile, "mutt_view_attachment:%d safe_fopen(%s) errno=%d %s\n", __LINE__, pagerfile, errno, strerror(errno)));
+          mutt_perror(pagerfile);
+          mutt_sleep(1);
+          goto return_error;
+        }
+        decode_state.fpin = fp;
+        decode_state.flags = MUTT_CHARCONV;
+        mutt_decode_attachment(a, &decode_state);
+        if (fclose(decode_state.fpout) == EOF)
+          dprint(1, (debugfile, "mutt_view_attachment:%d fclose errno=%d %s\n", __LINE__, pagerfile, errno, strerror(errno)));
       }
       else
       {
-	/* in compose mode, just copy the file.  we can't use
-	 * mutt_decode_attachment() since it assumes the content-encoding has
-	 * already been applied
-	 */
-	if (mutt_save_attachment(fp, a, pagerfile, 0, NULL))
-	  goto return_error;
+        /* in compose mode, just copy the file.  we can't use
+         * mutt_decode_attachment() since it assumes the content-encoding has
+         * already been applied
+         */
+        if (mutt_save_attachment(fp, a, pagerfile, 0, NULL))
+          goto return_error;
       }
     }
     else
     {
       /* Use built-in handler */
       set_option (OPTVIEWATTACH); /* disable the "use 'v' to view this part"
-				   * message in case of error */
+                                   * message in case of error */
       if (mutt_decode_save_attachment (fp, a, pagerfile, MUTT_DISPLAY, 0))
       {
-	unset_option (OPTVIEWATTACH);
-	goto return_error;
+        unset_option (OPTVIEWATTACH);
+        goto return_error;
       }
       unset_option (OPTVIEWATTACH);
     }
-    
+
     if (a->description)
       strfcpy (descrip, a->description, sizeof (descrip));
     else if (a->filename)
       snprintf (descrip, sizeof (descrip), _("---Attachment: %s: %s"),
-	  a->filename, type);
+          a->filename, type);
     else
       snprintf (descrip, sizeof (descrip), _("---Attachment: %s"), type);
   }
-  
+
   /* We only reach this point if there have been no errors */
 
   if (use_pager)
   {
     pager_t info;
-    
+
     memset (&info, 0, sizeof (info));
     info.fp = fp;
     info.bdy = a;
@@ -576,14 +595,14 @@ int mutt_view_attachment (FILE *fp, BODY *a, int flag, HEADER *hdr,
     info.hdr = hdr;
 
     rc = mutt_do_pager (descrip, pagerfile,
-			MUTT_PAGER_ATTACHMENT | (is_message ? MUTT_PAGER_MESSAGE : 0), &info);
+        MUTT_PAGER_ATTACHMENT | (is_message ? MUTT_PAGER_MESSAGE : 0), &info);
     *pagerfile = '\0';
   }
   else
     rc = 0;
 
-  return_error:
-  
+return_error:
+
   if (entry)
     rfc1524_free_entry (&entry);
   if (fp && tempfile[0])
