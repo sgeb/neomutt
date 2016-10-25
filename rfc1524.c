@@ -62,9 +62,9 @@ int rfc1524_expand_command (BODY *a, char *filename, char *_type,
   int needspipe = TRUE;
   char buf[LONG_STRING];
   char type[LONG_STRING];
-  
+
   strfcpy (type, _type, sizeof (type));
-  
+
   if (option (OPTMAILCAPSANITIZE))
     mutt_sanitize_filename (type, 0);
 
@@ -80,31 +80,31 @@ int rfc1524_expand_command (BODY *a, char *filename, char *_type,
       x++;
       if (command[x] == '{') 
       {
-	char param[STRING];
-	char pvalue[STRING];
-	char *_pvalue;
-	int z = 0;
+        char param[STRING];
+        char pvalue[STRING];
+        char *_pvalue;
+        int z = 0;
 
-	x++;
-	while (command[x] && command[x] != '}' && z < sizeof (param) - 1)
-	  param[z++] = command[x++];
-	param[z] = '\0';
-	
-	_pvalue = mutt_get_parameter (param, a->parameter);
-	strfcpy (pvalue, NONULL(_pvalue), sizeof (pvalue));
-	if (option (OPTMAILCAPSANITIZE))
-	  mutt_sanitize_filename (pvalue, 0);
-	
-	y += mutt_quote_filename (buf + y, sizeof (buf) - y, pvalue);
+        x++;
+        while (command[x] && command[x] != '}' && z < sizeof (param) - 1)
+          param[z++] = command[x++];
+        param[z] = '\0';
+
+        _pvalue = mutt_get_parameter (param, a->parameter);
+        strfcpy (pvalue, NONULL(_pvalue), sizeof (pvalue));
+        if (option (OPTMAILCAPSANITIZE))
+          mutt_sanitize_filename (pvalue, 0);
+
+        y += mutt_quote_filename (buf + y, sizeof (buf) - y, pvalue);
       }
       else if (command[x] == 's' && filename != NULL)
       {
-	y += mutt_quote_filename (buf + y, sizeof (buf) - y, filename);
-	needspipe = FALSE;
+        y += mutt_quote_filename (buf + y, sizeof (buf) - y, filename);
+        needspipe = FALSE;
       }
       else if (command[x] == 't')
       {
-	y += mutt_quote_filename (buf + y, sizeof (buf) - y, type);
+        y += mutt_quote_filename (buf + y, sizeof (buf) - y, type);
       }
       x++;
     }
@@ -353,11 +353,19 @@ static int rfc1524_mailcap_parse (BODY *a,
   return found;
 }
 
+/** Allocate memory for a new rfc1524 entry
+ *
+ * @returns a pointer to an un-initialized rfc1524_entry
+ */
 rfc1524_entry *rfc1524_new_entry(void)
 {
   return (rfc1524_entry *)safe_calloc(1, sizeof(rfc1524_entry));
 }
 
+/** Deallocate an rfc1524_entry.
+ *
+ * @param entry the rfc1524_entry to deallocate.
+ */
 void rfc1524_free_entry(rfc1524_entry **entry)
 {
   rfc1524_entry *p = *entry;
@@ -382,7 +390,7 @@ void rfc1524_free_entry(rfc1524_entry **entry)
  * rfc1524_mailcap_lookup attempts to find the given type in the
  * list of mailcap files.
  * @returns
- * - 1 on success and stores entry information in *entry if it is not NULL.
+ * - 1 on success. If *entry is not NULL it poplates it with the mailcap entry.
  * - 0 if no matching entry is found.
  */
 int rfc1524_mailcap_lookup (BODY *a, char *type, rfc1524_entry *entry, int opt)
@@ -436,12 +444,12 @@ int rfc1524_mailcap_lookup (BODY *a, char *type, rfc1524_entry *entry, int opt)
 
 /* This routine will create a _temporary_ filename matching the
  * name template given if this needs to be done.
- * 
+ *
  * Please note that only the last path element of the
  * template and/or the old file name will be used for the
- * comparison and the temporary file name.
- * 
- * Returns 0 if oldfile is fine as is.
+ * comparison and the temporary file name
+ *
+ * Returns 0 if oldfile is fine as is
  * Returns 1 if newfile specified
  */
 
@@ -452,28 +460,47 @@ static void strnfcpy(char *d, char *s, size_t siz, size_t len)
   strfcpy(d, s, len);
 }
 
+/** Expand a new filename from a template or existing filename.
+ *
+ * @param nametemplate the filename template
+ * @param oldfile
+ * @param newfile the string to copy the new filename into
+ * @param nflen the maximum length of the new filename
+ *
+ * If there is no nametemplate, the stripped oldfile name is used as the template for newfile.
+ *
+ * If there is no oldfile, the stripped nametemplate name is used as the template for newfile.
+ *
+ * If both a nametemplate and oldfile are specified, the template is checked for a "%s". If none is found, the
+ * nametemplate is used as the template for newfile.
+ * The first path component of the nametemplate and oldfile are ignored.
+ *
+ * @returns
+ * - 0 if the left and right components of the oldfile and newfile match.
+ * - 1 otherwise.
+ */
 int rfc1524_expand_filename (char *nametemplate,
-			     char *oldfile, 
-			     char *newfile,
-			     size_t nflen)
+    char *oldfile,
+    char *newfile,
+    size_t nflen)
 {
   int i, j, k, ps;
   char *s;
   short lmatch = 0, rmatch = 0; 
   char left[_POSIX_PATH_MAX];
   char right[_POSIX_PATH_MAX];
-  
+
   newfile[0] = 0;
 
   /* first, ignore leading path components.
-   */
-  
+  */
+
   if (nametemplate && (s = strrchr (nametemplate, '/')))
     nametemplate = s + 1;
 
   if (oldfile && (s = strrchr (oldfile, '/')))
     oldfile = s + 1;
-    
+
   if (!nametemplate)
   {
     if (oldfile)
@@ -489,27 +516,27 @@ int rfc1524_expand_filename (char *nametemplate,
     /* first, compare everything left from the "%s" 
      * (if there is one).
      */
-    
+
     lmatch = 1; ps = 0;
     for(i = 0; nametemplate[i]; i++)
     {
       if(nametemplate[i] == '%' && nametemplate[i+1] == 's')
       { 
-	ps = 1;
-	break;
+        ps = 1;
+        break;
       }
 
       /* note that the following will _not_ read beyond oldfile's end. */
 
       if(lmatch && nametemplate[i] != oldfile[i])
-	lmatch = 0;
+        lmatch = 0;
     }
 
     if(ps)
     {
-      
+
       /* If we had a "%s", check the rest. */
-      
+
       /* now, for the right part: compare everything right from 
        * the "%s" to the final part of oldfile.
        * 
@@ -522,31 +549,31 @@ int rfc1524_expand_filename (char *nametemplate,
        *   must not be counted again.  That's done by the
        *   condition (j >= (lmatch ? i : 0)).
        */
-      
+
       rmatch = 1;
 
       for(j = mutt_strlen(oldfile) - 1, k = mutt_strlen(nametemplate) - 1 ;
-	  j >= (lmatch ? i : 0) && k >= i + 2;
-	  j--, k--)
+          j >= (lmatch ? i : 0) && k >= i + 2;
+          j--, k--)
       {
-	if(nametemplate[k] != oldfile[j])
-	{
-	  rmatch = 0;
-	  break;
-	}
+        if(nametemplate[k] != oldfile[j])
+        {
+          rmatch = 0;
+          break;
+        }
       }
-      
+
       /* Now, check if we had a full match. */
-      
+
       if(k >= i + 2)
-	rmatch = 0;
-      
+        rmatch = 0;
+
       if(lmatch) *left = 0;
       else strnfcpy(left, nametemplate, sizeof(left), i);
-      
+
       if(rmatch) *right = 0;
       else strfcpy(right, nametemplate + i + 2, sizeof(right));
-      
+
       snprintf(newfile, nflen, "%s%s%s", left, oldfile, right);
     }
     else
@@ -555,14 +582,13 @@ int rfc1524_expand_filename (char *nametemplate,
       strfcpy(newfile, nametemplate, nflen);
     }
   }
-  
+
   mutt_adv_mktemp(newfile, nflen);
 
   if(rmatch && lmatch)
     return 0;
   else 
     return 1;
-  
 }
 
 /* If rfc1524_expand_command() is used on a recv'd message, then
