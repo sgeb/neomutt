@@ -1094,7 +1094,7 @@ int mutt_atol (const char *str, long *dst)
 int mutt_is_inbox (const char *path)
 {
   size_t plen = mutt_strlen (path);
-  return ((plen >= 5) && (mutt_strcasecmp (path + plen - 5, "inbox") == 0));
+  return ((plen >= 6) && (mutt_strcasecmp (path + plen - 6, "/inbox") == 0));
 }
 
 int mutt_same_path (const char *a, const char *b)
@@ -1113,5 +1113,15 @@ int mutt_same_path (const char *a, const char *b)
   /* Compare the paths */
   size_t a_len = a_end - a;
   return ((a_len == (b_end - b)) && (mutt_strncasecmp (a, b, a_len) == 0));
+}
+
+char * strfcpy (char *dest, const char *src, size_t dlen)
+{
+  char *dest0 = dest;
+  while ((--dlen > 0) && (*src != '\0'))
+    *dest++ = *src++;
+
+  *dest = '\0';
+  return dest0;
 }
 
