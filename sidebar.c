@@ -519,39 +519,41 @@ static int prepare_sidebar (int page_size)
  */
 static int draw_divider (int num_rows, int num_cols)
 {
-  /* Calculate the width of the delimiter in screen cells */
-  int delim_len = mutt_strwidth (SidebarDividerChar);
-  int altchar = 0;
+  int i, delim_len, altchar = 2;
 
-  if (delim_len < 1)
-    return delim_len;
+  /* Calculate the width of the delimiter in screen cells */
+  if ((delim_len = mutt_strwidth (SidebarDividerChar)) < 0)
+    return delim_len; /* Error: bad character */
+  else if (delim_len)
+    altchar = 0;
+
+  if (option (OPTASCIICHARS))
+    if (!delim_len)
+      altchar = 1;
+    else
+      for (i = 0; i < delim_len && altchar != 2; i++)
+        if (SidebarDividerChar[i] & ~0x7F)
+          altchar = 2; /* $sdc is utf */
+
+  if (!delim_len)
+    delim_len = 1;
 
   if (delim_len > num_cols)
     return 0;
 
-  int i;
-  if (option (OPTASCIICHARS))
-    for (i = 0; i < delim_len && altchar == 0; i++)
-      if (SidebarDividerChar[i] & ~0x7F) /* isascii() */
-        altchar = delim_len = 1; /* $sdc is ascii */
-
   SETCOLOR(MT_COLOR_DIVIDER);
 
-  int col;
-  if (option (OPTSIDEBARONRIGHT)) {
-    col = 0;
-  } else {
-    col = SidebarWidth - delim_len;
-  }
+  int col = option (OPTSIDEBARONRIGHT) ? 0 : SidebarWidth - delim_len;
 
   for (i = 0; i < num_rows; i++)
   {
     mutt_window_move (MuttSidebarWindow, i, col);
 
-    if (altchar)
-      addch ('|');
-    else
-      addstr (NONULL(SidebarDividerChar));
+    switch (altchar) {
+      case 0: addstr (NONULL(SidebarDividerChar)); break;
+      case 1: addch ('|'); break;       /* ascii */
+      case 2: addch (ACS_VLINE); break; /* utf */
+    }
   }
 
   return delim_len;
