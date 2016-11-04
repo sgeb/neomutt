@@ -869,6 +869,13 @@ resolve_types (char *buf, char *raw, struct line_t *lineInfo, int n, int last,
 	  {
 	    if (!found)
 	    {
+              /* Abort if we fill up chunks.
+               * Yes, this really happened. See #3888 */
+              if (lineInfo[n].chunks == SHRT_MAX)
+              {
+                null_rx = 0;
+                break;
+              }
 	      if (++(lineInfo[n].chunks) > 1)
 		safe_realloc (&(lineInfo[n].syntax), 
 			      (lineInfo[n].chunks) * sizeof (struct syntax_t));
@@ -2029,6 +2036,7 @@ mutt_pager (const char *banner, const char *fname, int flags, pager_t *extra)
           FREE (&Context);
           redraw = REDRAW_FULL;
           ch = -1;
+	  break;
         }
       }
       else if ((check == MUTT_NEW_MAIL) || (check == MUTT_REOPENED) || (check == MUTT_FLAGS))

@@ -497,7 +497,7 @@ static void resort_index (MUTTMENU *menu)
   }
 
   if ((Sort & SORT_MASK) == SORT_THREADS && menu->current < 0)
-    menu->current = mutt_parent_message (Context, current);
+    menu->current = mutt_parent_message (Context, current, 0);
 
   if (menu->current < 0)
     menu->current = ci_first_message ();
@@ -1938,7 +1938,8 @@ int mutt_index_menu (void)
 
 	menu->menu = MENU_PAGER;
  	menu->oldcurrent = menu->current;
-	update_index (menu, Context, MUTT_NEW_MAIL, Context->msgcount, index_hint);
+	if (Context)
+	  update_index (menu, Context, MUTT_NEW_MAIL, Context->msgcount, index_hint);
 
 	continue;
 
@@ -2414,12 +2415,14 @@ int mutt_index_menu (void)
 	  menu->redraw = REDRAW_MOTION;
 	break;
 
+      case OP_MAIN_ROOT_MESSAGE:
       case OP_MAIN_PARENT_MESSAGE:
 
 	CHECK_MSGCOUNT;
         CHECK_VISIBLE;
 
-	if ((menu->current = mutt_parent_message (Context, CURHDR)) < 0)
+	if ((menu->current = mutt_parent_message (Context, CURHDR,
+                                                  op == OP_MAIN_ROOT_MESSAGE)) < 0)
 	{
 	  menu->current = menu->oldcurrent;
 	}
