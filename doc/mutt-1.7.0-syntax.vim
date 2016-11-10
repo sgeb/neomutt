@@ -361,7 +361,7 @@ syn keyword muttrcVarStr	contained skipwhite
 			\ config_charset content_type default_hook display_filter dotlock_program
 			\ dsn_notify dsn_return editor entropy_file envelope_from_address escape folder
 			\ forw_format forward_format from gecos_mask hdr_format header_cache
-			\ header_cache_compress header_cache_pagesize history_file hostname
+			\ header_cache_backend header_cache_compress header_cache_pagesize history_file hostname
 			\ imap_authenticators imap_delim_chars imap_headers imap_idle imap_login
 			\ imap_pass imap_user indent_str indent_string ispell locale mailcap_path mask
 			\ mbox mbox_type message_cachedir mh_seq_flagged mh_seq_replied mh_seq_unseen

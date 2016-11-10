@@ -37,7 +37,8 @@
 #define DT_RX		7 /* regular expressions */
 #define DT_MAGIC	8 /* mailbox type */
 #define DT_SYN		9 /* synonym for another variable */
-#define DT_ADDR	       10 /* e-mail address */
+#define DT_ADDR		10 /* e-mail address */
+#define DT_HCACHE	11 /* header cache backend */
 
 #define DTYPE(x) ((x) & DT_MASK)
 
@@ -126,7 +127,7 @@ struct option_t MuttVars[] = {
   ** .pp
   ** \fBNote:\fP Mutt will not automatically source this file; you must
   ** explicitly use the ``$source'' command for it to be executed in case
-  ** this option points to a dedicated alias file.
+  * this option points to a dedicated alias file.
   ** .pp
   ** The default for this option is the currently used muttrc file, or
   ** ``~/.muttrc'' if no user muttrc was found.
@@ -1052,6 +1053,14 @@ struct option_t MuttVars[] = {
   ** database file per folder, if pointing to a file that file will
   ** be a single global header cache. By default it is \fIunset\fP so no header
   ** caching will be used.
+  ** .pp
+  ** Header caching can greatly improve speed when opening POP, IMAP
+  ** MH or Maildir folders, see ``$caching'' for details.
+  */
+  { "header_cache_backend", DT_HCACHE, R_NONE, UL &HeaderCacheBackend, UL 0 },
+  /*
+  ** .pp
+  ** This variable specifies the header cache backend.
   ** .pp
   ** Header caching can greatly improve speed when opening POP, IMAP
   ** MH or Maildir folders, see ``$caching'' for details.
