@@ -33,6 +33,10 @@
 #include "sidebar.h"
 #endif
 
+#ifdef USE_COMPRESSED
+#include "compress.h"
+#endif
+
 #ifdef USE_IMAP
 #include "imap.h"
 #endif
@@ -60,7 +64,7 @@
 #include <ctype.h>
 #include <utime.h>
 
-static struct mx_ops* mx_get_ops (int magic)
+struct mx_ops* mx_get_ops (int magic)
 {
   switch (magic)
   {
@@ -79,6 +83,10 @@ static struct mx_ops* mx_get_ops (int magic)
 #ifdef USE_POP
     case MUTT_POP:
       return &mx_pop_ops;
+#endif
+#ifdef USE_COMPRESSED
+    case MUTT_COMPRESSED:
+      return &mx_comp_ops;
 #endif
     default:
       return NULL;
@@ -441,6 +449,12 @@ int mx_get_magic (const char *path)
     return (-1);
   }
 
+#ifdef USE_COMPRESSED
+  /* If there are no other matches, see if there are any
+   * compress hooks that match */
+  if ((magic == 0) && mutt_comp_can_read (path))
+    return MUTT_COMPRESSED;
+#endif
   return (magic);
 }
 
@@ -494,7 +508,12 @@ static int mx_open_mailbox_append (CONTEXT *ctx, int flags)
     {
       if (errno == ENOENT)
       {
-        ctx->magic = DefaultMagic;
+#ifdef USE_COMPRESSED
+        if (mutt_comp_can_append (ctx))
+          ctx->magic = MUTT_COMPRESSED;
+        else
+#endif
+          ctx->magic = DefaultMagic;
         flags |= MUTT_APPENDNEW;
       }
       else
@@ -638,6 +657,10 @@ void mx_fastclose_mailbox (CONTEXT *ctx)
   if (ctx->mx_ops)
     ctx->mx_ops->close (ctx);
 
+#ifdef USE_COMPRESSED
+  mutt_free_compress_info (ctx);
+#endif /* USE_COMPRESSED */
+
   if (ctx->subj_hash)
     hash_destroy (&ctx->subj_hash, NULL);
   if (ctx->id_hash)
@@ -659,48 +682,13 @@ void mx_fastclose_mailbox (CONTEXT *ctx)
 /* save changes to disk */
 static int sync_mailbox (CONTEXT *ctx, int *index_hint)
 {
-  BUFFY *tmp = NULL;
-  int rc = -1;
+  if (!ctx->mx_ops || !ctx->mx_ops->sync)
+    return -1;
 
   if (!ctx->quiet)
     mutt_message (_("Writing %s..."), ctx->path);
 
-  switch (ctx->magic)
-  {
-    case MUTT_MBOX:
-    case MUTT_MMDF:
-      rc = mbox_sync_mailbox (ctx, index_hint);
-      if (option(OPTCHECKMBOXSIZE))
-	tmp = mutt_find_mailbox (ctx->path);
-      break;
-      
-    case MUTT_MH:
-    case MUTT_MAILDIR:
-      rc = mh_sync_mailbox (ctx, index_hint);
-      break;
-      
-#ifdef USE_IMAP
-    case MUTT_IMAP:
-      /* extra argument means EXPUNGE */
-      rc = imap_sync_mailbox (ctx, 1, index_hint);
-      break;
-#endif /* USE_IMAP */
-
-#ifdef USE_POP
-    case MUTT_POP:
-      rc = pop_sync_mailbox (ctx, index_hint);
-      break;
-#endif /* USE_POP */
-  }
-
-#if 0
-  if (!ctx->quiet && !ctx->shutup && rc == -1)
-    mutt_error ( _("Could not synchronize mailbox %s!"), ctx->path);
-#endif
-  
-  if (tmp && tmp->new == 0)
-    mutt_update_mailbox (tmp);
-  return rc;
+  return ctx->mx_ops->sync (ctx, index_hint);
 }
 
 /* move deleted mails to the trash folder */
