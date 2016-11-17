@@ -527,23 +527,18 @@ msgid "Messages could not be printed"
 msgstr "Nachrichten konnten nicht gedruckt werden"
 
 #: commands.c:547
-#, fuzzy
 msgid "Rev-Sort Date/Frm/Recv/Subj/tO/Thread/Unsort/siZe/sCore/sPam/Label?: "
 msgstr ""
-"Umgekehrt (D)at/(A)bs/Ei(n)g/(B)etr/(E)mpf/(F)aden/(u)nsrt/(G)röße/Be(w)/"
-"S(p)am?: "
+"Umgekehrt Datum/Abs/eiNg/Betr/Empf/Faden/Unsort/Größe/beWert/sPam/Label: "
 
 #: commands.c:548
-#, fuzzy
 msgid "Sort Date/Frm/Recv/Subj/tO/Thread/Unsort/siZe/sCore/sPam/Label?: "
 msgstr ""
-"Sortieren (D)at/(A)bs/Ei(n)g/(B)etr/(E)mpf/(F)aden/(u)nsrt/(G)röße/Be(w)ert/"
-"S(p)am?: "
+"Sortieren Datum/Abs/eiNg/Betr/Empf/Faden/Unsort/Größe/beWert/sPam/Label?: "
 
 #: commands.c:549
-#, fuzzy
 msgid "dfrsotuzcpl"
-msgstr "danbefugwp"
+msgstr "danbefugwpl"
 
 #: commands.c:610
 msgid "Shell command: "
