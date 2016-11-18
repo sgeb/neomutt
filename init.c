@@ -2851,8 +2851,8 @@ static void start_debug (void)
   if ((debugfile = safe_fopen(buf, "w")) != NULL)
   {
     setbuf (debugfile, NULL); /* don't buffer the debugging output! */
-    dprint(1,(debugfile,"Mutt/" MUTT_VERSION " (%s) debugging at level %d\n",
-	      ReleaseDate, debuglevel));
+    dprint(1,(debugfile,"Mutt/%s (%s) debugging at level %d\n",
+	      MUTT_VERSION, ReleaseDate, debuglevel));
   }
 }
 #endif
@@ -3198,11 +3198,11 @@ void mutt_init (int skip_sys_rc, LIST *commands)
      requested not to via "-n".  */
   if (!skip_sys_rc)
   {
-    snprintf (buffer, sizeof(buffer), "%s/Muttrc-" MUTT_VERSION, SYSCONFDIR);
+    snprintf (buffer, sizeof(buffer), "%s/Muttrc-%s", SYSCONFDIR, MUTT_VERSION);
     if (access (buffer, F_OK) == -1)
       snprintf (buffer, sizeof(buffer), "%s/Muttrc", SYSCONFDIR);
     if (access (buffer, F_OK) == -1)
-      snprintf (buffer, sizeof (buffer), "%s/Muttrc-" MUTT_VERSION, PKGDATADIR);
+      snprintf (buffer, sizeof (buffer), "%s/Muttrc-%s", PKGDATADIR, MUTT_VERSION);
     if (access (buffer, F_OK) == -1)
       snprintf (buffer, sizeof (buffer), "%s/Muttrc", PKGDATADIR);
     if (access (buffer, F_OK) != -1)
