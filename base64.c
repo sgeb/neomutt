@@ -49,9 +49,10 @@
 #define BAD     -1
 
 /* raw bytes to null-terminated base 64 string */
-void mutt_to_base64 (unsigned char *out, const unsigned char *in, size_t len,
-		     size_t olen)
+size_t mutt_to_base64 (char *out, const char *cin, size_t len, size_t olen)
 {
+  unsigned char *begin = (unsigned char *)out;
+  const unsigned char *in = (const unsigned char *)cin;
   while (len >= 3 && olen > 10)
   {
     *out++ = B64Chars[in[0] >> 2];
@@ -77,6 +78,7 @@ void mutt_to_base64 (unsigned char *out, const unsigned char *in, size_t len,
     *out++ = '=';
   }
   *out = '\0';
+  return out - (char *)begin;
 }
 
 /* Convert '\0'-terminated base 64 string to raw bytes.
